@@ -1,11 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameManager.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/floor.js">
     <Files>
-      <File FileName="Assets/Scripts/GameManager.js" Line="46" Column="60" />
+      <File FileName="Assets/Scripts/GameManager.js" Line="49" Column="51" />
       <File FileName="Assets/Scripts/player.js" Line="1" Column="1" />
       <File FileName="Assets/Scripts/playerModel.js" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/floor.js" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/floor.js" Line="5" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

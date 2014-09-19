@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\GameManager.js" />
      <Compile Include="Assets\Scripts\floor.js" />
+     <Compile Include="Assets\Scripts\floorModel.js" />
      <Compile Include="Assets\Scripts\player.js" />
      <Compile Include="Assets\Scripts\playerModel.js" />
   </ItemGroup>

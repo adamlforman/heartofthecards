@@ -39,11 +39,16 @@ function createFloor() {
 	floorFolder.transform.parent = environmentFolder.transform; //sets the eviornment to be the parent of the floor
 	floors = new Array(); //initializes the floors array
 	
-	var floorObject = new GameObject();
-	var floorScript = floorObject.AddComponent(floor);
+	var floorObject = new GameObject(); //empty game object or hold the floor
+	var floorScript = floorObject.AddComponent(floor); //add the floor behavior script
 	
-	
-	//Finish creating floorObject, floorScript, and floorModel
+	floorScript.transform.parent = floorFolder.transform; //set the parent of the floor to be the floor folder
+	floorScript.transform.position = Vector3(0, -2, 0); //set floors position
+	floorScript.init(); //initialize the floorScript
+	floorScript.name = "Floor"; //Name floor
+	floorScript.transform.localScale.x = 10; //set localscale, THIS NEEDS TO BE BELOW INIT
+	floors.Add(floorScript); //add the floor to the floorScript
+
 	
 	
 
@@ -57,6 +62,9 @@ function createPlayer() {
 
 	var playerObject = new GameObject(); //Empty game obejct to hold the player
 	var playerScript = playerObject.AddComponent(player); //add player behavior script
+	
+	var rigidPlayer = playerObject.AddComponent(Rigidbody); //Add a 3d rigid body (in a 2d world mwahaha)
+	rigidPlayer.useGravity = true; //Use built in gravity for now
 	
 	playerScript.transform.parent = playerFolder.transform; //set the parent of the player to be the player folder
 	playerScript.transform.position = Vector3(0, 0, 0); //set player position
