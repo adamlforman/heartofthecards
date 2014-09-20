@@ -47,5 +47,6 @@
 -i:UnityEditor
 'Assets/Scripts/GameManager.js'
 'Assets/Scripts/floor.js'
+'Assets/Scripts/floorModel.js'
 'Assets/Scripts/player.js'
 'Assets/Scripts/playerModel.js'

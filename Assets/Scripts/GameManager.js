@@ -62,13 +62,14 @@ function createPlayer() {
 
 	var playerObject = new GameObject(); //Empty game obejct to hold the player
 	var playerScript = playerObject.AddComponent(player); //add player behavior script
+	var playerCollider : BoxCollider = playerObject.AddComponent(BoxCollider);
 	
-	var rigidPlayer = playerObject.AddComponent(Rigidbody); //Add a 3d rigid body (in a 2d world mwahaha)
-	rigidPlayer.useGravity = true; //Use built in gravity for now
+	//var rigidPlayer = playerObject.AddComponent(Rigidbody); //Add a 3d rigid body (in a 2d world mwahaha)
+	//rigidPlayer.useGravity = true; //Use built in gravity for now
 	
 	playerScript.transform.parent = playerFolder.transform; //set the parent of the player to be the player folder
 	playerScript.transform.position = Vector3(0, 0, 0); //set player position
-	playerScript.init(); //Initialize playerscript
+	playerScript.init(playerCollider.size, playerCollider.center); //Initialize playerscript
 	playerScript.name = "Player"; //Name player
 	players.Add(playerScript); //adds the player to the players array
 }

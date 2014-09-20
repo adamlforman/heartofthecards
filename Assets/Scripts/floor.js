@@ -7,6 +7,7 @@ function init() {
 	modelObject.SetActive(false); //Set model to not be active
 	model = modelObject.AddComponent(floorModel); //Add script for appearance to model
 	model.init(this); //initialize this script
+	modelObject.layer = LayerMask.NameToLayer("Collisions");
 	modelObject.SetActive(true); //set model to be active
 }
 //on update
