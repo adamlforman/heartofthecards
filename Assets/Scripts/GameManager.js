@@ -9,9 +9,13 @@ var players : Array; // Array of all players (probably just 1)
 var floorFolder : GameObject; //Holds the floor
 var floors : Array; //Holds the different floor objects (could be a couple if i implement jumping)
 
+private var gameCamera cam;
+
+
 //On game start
 function Start () {
 	populateWorld(); //Call the populateWorld function
+	cam = GetComponent(GameCamera);
 }
 
 //every update
@@ -72,4 +76,5 @@ function createPlayer() {
 	playerScript.init(playerCollider.size, playerCollider.center); //Initialize playerscript
 	playerScript.name = "Player"; //Name player
 	players.Add(playerScript); //adds the player to the players array
+	cam.setTarget(playerScript);
 }

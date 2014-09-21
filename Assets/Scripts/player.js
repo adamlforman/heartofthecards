@@ -7,6 +7,7 @@ var jumpHeight = 8;
 
 public var collisionMask : LayerMask;
 public var grounded : boolean;
+public var movementStopped : boolean;
 
 private var currentSpeed : float;
 private var targetSpeed : float;
@@ -35,6 +36,12 @@ function init(s : Vector3, c : Vector3) {
 }
 //on update
 function Update () {
+
+	if (movementStopped == true) {
+		targetSpeed = 0;
+		currentSpeed = 0;
+	}
+
 	targetSpeed = Input.GetAxisRaw("Horizontal") * speed;
 	currentSpeed = incrementTowards(currentSpeed, targetSpeed, acceleration);
 	
@@ -95,7 +102,7 @@ private function move(amountToMoveTemp : Vector2) {
 		}
 	}
 	//OMFG JAVASCRIPT'S SCOPING IS STUPID
-
+	movementStopped = false;
 	for (var j : int = 0; j < 3; j++) {
 		var direction2 : float = Mathf.Sign(deltaX);
 		var x2 : float = position.x + center.x + size.x/2 * direction2;
@@ -111,6 +118,7 @@ private function move(amountToMoveTemp : Vector2) {
 			else {
 				deltaX = 0;
 			}
+			movementStopped = true;
 			break;
 		}
 	}
