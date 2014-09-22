@@ -1,12 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/player.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Scripts\spellModel.js">
     <Files>
-      <File FileName="Assets/Scripts/GameManager.js" Line="49" Column="88" />
-      <File FileName="Assets/Scripts/player.js" Line="103" Column="31" />
-      <File FileName="Assets/Scripts/playerModel.js" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/floor.js" Line="10" Column="58" />
-      <File FileName="Assets/Scripts/floorModel.js" Line="12" Column="36" />
+      <File FileName="..\..\Marble Mayhem\Assets\Resources\Scripts\MyGameManager.js" Line="263" Column="1" />
+      <File FileName="Assets\Resources\Scripts\temporary.js" Line="6" Column="4" />
+      <File FileName="Assets\Resources\Scripts\spellModel.js" Line="27" Column="30" />
+      <File FileName="Assets\Resources\Scripts\spell.js" Line="1" Column="1" />
+      <File FileName="Assets\Resources\Scripts\ConnorGameManager.js" Line="24" Column="23" />
+      <File FileName="..\..\GemTrain\Assets\Resources\Scripts\Temporary.js" Line="17" Column="20" />
+      <File FileName="Assets\Resources\Scripts\translucent.js" Line="17" Column="50" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
