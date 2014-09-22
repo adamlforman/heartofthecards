@@ -1,4 +1,4 @@
-﻿#pragma strict
+﻿/*#pragma strict
 
 var environmentFolder : GameObject; //Holds all environment objects
 
@@ -77,4 +77,4 @@ function createPlayer() {
 	playerScript.name = "Player"; //Name player
 	players.Add(playerScript); //adds the player to the players array
 	cam.setTarget(playerScript);
-}
+}*/
