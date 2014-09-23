@@ -46,11 +46,15 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Resources\Scripts\AdamGameManager.js" />
      <Compile Include="Assets\Resources\Scripts\ConnorGameManager.js" />
-     <Compile Include="Assets\Resources\Scripts\GameManager.js" />
+     <Compile Include="Assets\Resources\Scripts\GabeGameManager.js" />
+     <Compile Include="Assets\Resources\Scripts\charModel2D.js" />
+     <Compile Include="Assets\Resources\Scripts\enemy2D.js" />
      <Compile Include="Assets\Resources\Scripts\floor.js" />
      <Compile Include="Assets\Resources\Scripts\floorModel.js" />
      <Compile Include="Assets\Resources\Scripts\player.js" />
+     <Compile Include="Assets\Resources\Scripts\player2D.js" />
      <Compile Include="Assets\Resources\Scripts\playerModel.js" />
      <Compile Include="Assets\Resources\Scripts\spell.js" />
      <Compile Include="Assets\Resources\Scripts\spellModel.js" />
