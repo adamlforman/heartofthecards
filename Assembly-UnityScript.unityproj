@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\GameCamera.js" />
      <Compile Include="Assets\Scripts\GameManager.js" />
      <Compile Include="Assets\Scripts\floor.js" />
      <Compile Include="Assets\Scripts\floorModel.js" />

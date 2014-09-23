@@ -9,13 +9,12 @@ var players : Array; // Array of all players (probably just 1)
 var floorFolder : GameObject; //Holds the floor
 var floors : Array; //Holds the different floor objects (could be a couple if i implement jumping)
 
-private var gameCamera cam;
-
+private var cam : GameCamera;
 
 //On game start
 function Start () {
 	populateWorld(); //Call the populateWorld function
-	cam = GetComponent(GameCamera);
+	
 }
 
 //every update
@@ -33,11 +32,14 @@ function populateWorld() {
 function createEnvironment() {
 	environmentFolder = new GameObject(); //initializes the environment folder
 	environmentFolder.name = "Environment"; //names the folder
-	createFloor(); //Calls the createFloor function
+	
+	for (var i : int; i < 50; i=i+4) {
+		createFloor(i); //Calls the createFloor function
+	}
 }
 
 //creates the floor
-function createFloor() {
+function createFloor(x : int) {
 	floorFolder = new GameObject(); //Initialize the floorFolder
 	floorFolder.name = "Floors"; //names the folder
 	floorFolder.transform.parent = environmentFolder.transform; //sets the eviornment to be the parent of the floor
@@ -47,10 +49,10 @@ function createFloor() {
 	var floorScript = floorObject.AddComponent(floor); //add the floor behavior script
 	
 	floorScript.transform.parent = floorFolder.transform; //set the parent of the floor to be the floor folder
-	floorScript.transform.position = Vector3(0, -2, 0); //set floors position
+	floorScript.transform.position = Vector3(x, -2, 0); //set floors position
 	floorScript.init(); //initialize the floorScript
 	floorScript.name = "Floor"; //Name floor
-	floorScript.transform.localScale.x = 10; //set localscale, THIS NEEDS TO BE BELOW INIT
+	floorScript.transform.localScale.x = 2; //set localscale, THIS NEEDS TO BE BELOW INIT
 	floors.Add(floorScript); //add the floor to the floorScript
 
 	
@@ -76,5 +78,8 @@ function createPlayer() {
 	playerScript.init(playerCollider.size, playerCollider.center); //Initialize playerscript
 	playerScript.name = "Player"; //Name player
 	players.Add(playerScript); //adds the player to the players array
-	cam.setTarget(playerScript);
+	var testCam = GameObject.Find("Main Camera");
+	cam = testCam.GetComponent("GameCamera");
+	cam.setTarget(playerScript.transform);
+
 }

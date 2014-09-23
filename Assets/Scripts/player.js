@@ -21,6 +21,9 @@ private var ray : Ray;
 private var hit : RaycastHit; 
 
 
+
+
+
 //Initialize the playerScript
 function init(s : Vector3, c : Vector3) {
 	var modelObject = GameObject.CreatePrimitive(PrimitiveType.Cube); //Create cube model
@@ -32,7 +35,6 @@ function init(s : Vector3, c : Vector3) {
 	size = s;
 	center = c;
 	collisionMask = 1 << 8;
-	print(collisionMask.value);
 }
 //on update
 function Update () {
@@ -56,13 +58,12 @@ function Update () {
 	
 	amountToMove.x = currentSpeed;
 	amountToMove.y = amountToMove.y - (gravity * Time.deltaTime);
-	print(amountToMove);
 	move(amountToMove * Time.deltaTime);
 }
 
 private function incrementTowards(currentSpeedTemp : float, targetSpeedTemp : float, accelerationTemp : float) {
 	if (currentSpeedTemp == targetSpeedTemp) {
-		return currentSpeed;
+		return currentSpeedTemp;
 	}
 	else {
 		var direction : float = Mathf.Sign(targetSpeedTemp - currentSpeedTemp);

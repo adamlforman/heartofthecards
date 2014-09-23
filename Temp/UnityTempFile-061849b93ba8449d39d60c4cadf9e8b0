@@ -45,6 +45,7 @@
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll'
 -i:UnityEditor
+'Assets/Scripts/GameCamera.js'
 'Assets/Scripts/GameManager.js'
 'Assets/Scripts/floor.js'
 'Assets/Scripts/floorModel.js'

@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{53C75BF0-BF63-D1F3-343A-51554D8C10D6}</ProjectGuid>
+	<ProjectGuid>{38DCBD31-84E2-9031-3910-0AF1FEE0ACB6}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-UnityScript</AssemblyName>
+	<AssemblyName>Assembly-Boo</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
 	<BaseDirectory>Assets</BaseDirectory>
@@ -46,12 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\GameCamera.js" />
-     <Compile Include="Assets\Scripts\GameManager.js" />
-     <Compile Include="Assets\Scripts\floor.js" />
-     <Compile Include="Assets\Scripts\floorModel.js" />
-     <Compile Include="Assets\Scripts\player.js" />
-     <Compile Include="Assets\Scripts\playerModel.js" />
+     <Compile Include="Assets\Scripts\NewBehaviourScript.boo" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
