@@ -1,13 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameCamera.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Resources/Scripts/GameManager.js">
     <Files>
-      <File FileName="Assets/Scripts/GameManager.js" Line="36" Column="31" />
-      <File FileName="Assets/Scripts/player.js" Line="29" Column="40" />
-      <File FileName="Assets/Scripts/GameCamera.js" Line="19" Column="70" />
-      <File FileName="Assets/Scripts/floor.js" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/floorModel.js" Line="13" Column="97" />
-      <File FileName="Assets/Scripts/playerModel.js" Line="1" Column="1" />
+      <File FileName="Assets/Resources/Scripts/GameManager.js" Line="82" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
