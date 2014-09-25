@@ -2,6 +2,7 @@
 
 var ground : GameObject;	// The ground's model. Background only.
 var player : player2D;
+var score : float;
 
 var enemyTimer : float;
 
@@ -10,6 +11,7 @@ function Start () {
 	buildWorld();
 	player = buildPlayer("Player");
 	addEnemy(5,5);
+	score = 0;
 }
 
 function Update () {
@@ -96,9 +98,9 @@ function vectorFromAngle(angle : float) {
 	return Vector2(Mathf.Cos(angleRadians),Mathf.Sin(angleRadians));
 }
 
-function spellEffects(x : float, y : float, slow : boolean, snare : boolean, damage : int) {
-	for (var other : Collider in Physics.OverlapSphere(Vector3(x,y,-1),0.5)) {
-		Debug.Log(other);
+function spellEffects(x : float, y : float, damage : float) {
+	for (var other : Collider in Physics.OverlapSphere(Vector3(x,y,-1),0.7)) {
+		//Debug.Log(other);
 		var otherOb : enemy2D;
 		if (other.gameObject.GetComponent("enemy2D"))
 			otherOb = other.gameObject.GetComponent("enemy2D");
@@ -110,14 +112,6 @@ function spellEffects(x : float, y : float, slow : boolean, snare : boolean, dam
 		if (otherOb) {
 			if (!otherOb.immune) {
 				otherOb.health -= damage;
-				if (slow) {
-					otherOb.slow = true;
-					otherOb.slowTimer = 5;
-				}
-				if (snare) {
-					otherOb.snare = true;
-					otherOb.snareTimer = 3;
-				}
 			}
 			otherOb.immune = true;
 			otherOb.immuneTimer = 0.1;
@@ -137,7 +131,7 @@ function spawnFire(x : float, y : float){
 														// We can now refer to the object via this script.
 	var temp : temporary = spellObject.AddComponent("temporary");
 	temp.life = 1;
-	var spellType = 1;
+	var spellType = "FIRE";
 	//spellScript.transform.parent = this.transform;	// Set the spell's parent object to be the gameManager?
 	spellScript.transform.position = Vector3(x,y,-1);	// Position the spell at x,y.
 	
@@ -146,7 +140,7 @@ function spawnFire(x : float, y : float){
 	
 	spellScript.name = "FIRE";				// Give the spell object a name in the Hierarchy pane.
 	
-	spellEffects(x,y,false,false,10);
+	spellEffects(x,y,10);
 
 }
 
@@ -156,7 +150,7 @@ function spawnIce(x : float, y : float){
 														// We can now refer to the object via this script.
 	var temp : temporary = spellObject.AddComponent("temporary");
 	temp.life = 1;
-	var spellType = 2;
+	var spellType = "ICE";
 	//spellScript.transform.parent = this.transform;	// Set the spell's parent object to be the gameManager?
 	spellScript.transform.position = Vector3(x,y,-1);	// Position the spell at x,y.
 	
@@ -165,7 +159,7 @@ function spawnIce(x : float, y : float){
 	
 	spellScript.name = "ICE";				// Give the spell object a name in the Hierarchy pane.
 
-	spellEffects(x,y,true,false,5);
+	spellEffects(x,y,5);
 }
 
 function spawnWeb(x : float, y : float){
@@ -173,8 +167,8 @@ function spawnWeb(x : float, y : float){
 	var spellScript : spell = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
 	var temp : temporary = spellObject.AddComponent("temporary");
-	temp.life = 1;
-	var spellType = 3;
+	temp.life = 3;
+	var spellType = "WEB";
 	//spellScript.transform.parent = this.transform;	// Set the spell's parent object to be the gameManager?
 	spellScript.transform.position = Vector3(x,y,-1);	// Position the spell at x,y.
 	
@@ -183,7 +177,7 @@ function spawnWeb(x : float, y : float){
 	
 	spellScript.name = "WEB";				// Give the spell object a name in the Hierarchy pane.
 	
-	spellEffects(x,y,false,true,5);
+	spellEffects(x,y,0);
 }
 
 function spawnSlash(x : float, y : float){
@@ -192,7 +186,7 @@ function spawnSlash(x : float, y : float){
 														// We can now refer to the object via this script.
 	var temp : temporary = spellObject.AddComponent("temporary");
 	temp.life = 1;
-	var spellType = 4;
+	var spellType = "SLASH";
 	//spellScript.transform.parent = this.transform;	// Set the spell's parent object to be the gameManager?
 	spellScript.transform.position = Vector3(x,y,-1);	// Position the spell at x,y.
 	
@@ -201,7 +195,7 @@ function spawnSlash(x : float, y : float){
 	
 	spellScript.name = "SLASH";				// Give the spell object a name in the Hierarchy pane.
 	
-	spellEffects(x,y,false,false,10);
+	spellEffects(x,y,10);
 }
 function surround (fnct : function(float, float)){
 	fnct(player.transform.localPosition.x+1, player.transform.localPosition.y+1);

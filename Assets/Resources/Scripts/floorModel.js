@@ -9,8 +9,7 @@ transform.localPosition = Vector3(0,0,0); //setting positiion
 
 name = "Floor Model"; //naming the model
 
-
-renderer.material.color = Color(Random.Range(0.0,1.0),Random.Range(0.0,1.0),Random.Range(0.0,1.0)); //setting the color of the model
+renderer.material.color = Color(0,1,0); //setting the color of the model
 }
 
 //on update

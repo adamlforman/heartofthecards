@@ -44,14 +44,16 @@ function FixedUpdate ()
 {
 	processStatusEffects();
     // Cache the inputs.
-
-	if (Vector3.Distance(transform.position,manager.player.transform.position) > 1) {
-		transform.position = Vector3.MoveTowards(transform.position, manager.player.transform.position, speed * Time.deltaTime);
-	}
-	else {
-		if (attackTimer <= 0) {
-			manager.player.health -= 10;
-			attackTimer = 3;
+	
+	if (manager.player) {
+		if (Vector3.Distance(transform.position,manager.player.transform.position) > 1) {
+			transform.position = Vector3.MoveTowards(transform.position, manager.player.transform.position, speed * Time.deltaTime);
+		}
+		else {
+			if (attackTimer <= 0) {
+				manager.player.takeDamage(10);
+				attackTimer = 3;
+			}
 		}
 	}
 }
@@ -81,6 +83,7 @@ function processStatusEffects() {
 }
 
 function die() {
+	manager.score += 1;
 	GameObject.Destroy(model.gameObject);
 	GameObject.Destroy(gameObject);
 }
