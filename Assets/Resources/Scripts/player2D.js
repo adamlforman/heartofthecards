@@ -54,21 +54,7 @@ function init(manager : AdamGameManager, owner : GameObject, nameIn : String, te
 }
 
 function Update() {
-	if (health <= 0)
-		die();
-		
-	immuneTimer -= Time.deltaTime;
-	if (immuneTimer <= 0 && immune)
-		immune = false;
 	
-	armorTimer -= Time.deltaTime;
-	if (armorTimer <= 0 && armor != 0)
-		armor = 0;
-		
-	if (armor)
-			model.renderer.material.color = Color(0.6, 0.5, 0.4);
-	else
-		model.renderer.material.color = Color(1,1,1);
 		
 	if (spell1 == "Cooldown") {
 		spell1Timer -= Time.deltaTime;
@@ -96,7 +82,7 @@ function Update() {
 function drawSpell() {
 	var spells : String[] = ["FIRE","ICE","WEB","ARMOR"];
 	var newSpell : String = spells[Random.value * spells.length];
-	if (spell1 == "ARMOR" || spell2 == "ARMOR" || spell3 == "ARMOR")
+	if (spell1 == "ARMOR" || spell2 == "ARMOR" || spell3 == "ARMOR")	// Baseline kludge so you don't have multiple armor
 		newSpell = spells[Random.value*spells.length - 1];
 	
 	return newSpell;
@@ -169,7 +155,6 @@ function Facing (horizontal : float, vertical : float) {
 }
 
 function Move(vertical : float, strafe : float) {
-	var moveVector : Vector2 = vectorFromAngle(getFacing());
 	transform.Translate(speed * strafe * Time.deltaTime, speed * vertical * Time.deltaTime,0,Space.World);
 }
 
@@ -213,14 +198,29 @@ function OnGUI() {
 	var customButton: GUIStyle = new GUIStyle("button");
 	customButton.fontSize = 36;
 	
-	GUI.Button(Rect(65,130,100,100),Resources.Load("Textures/"+spell1));
-	GUI.Button(Rect(120,10,100,100),Resources.Load("Textures/"+spell2));
-	GUI.Button(Rect(10,10,100,100),Resources.Load("Textures/"+spell3));
+	GUI.Button(Rect(65,130,100,100),Resources.Load("Textures/"+spell1,Texture2D));
+	GUI.Button(Rect(120,10,100,100),Resources.Load("Textures/"+spell2,Texture2D));
+	GUI.Button(Rect(10,10,100,100),Resources.Load("Textures/"+spell3,Texture2D));
 	GUI.Button(Rect(230,10,150,50),health+"hp",customButton);
 }
 
 function processStatusEffects() {
 	speed = baseSpeed;
+	if (health <= 0)
+		die();
+		
+	immuneTimer -= Time.deltaTime;
+	if (immuneTimer <= 0 && immune)
+		immune = false;
+	
+	armorTimer -= Time.deltaTime;
+	if (armorTimer <= 0 && armor != 0)
+		armor = 0;
+		
+	if (armor)
+			model.renderer.material.color = Color(0.6, 0.5, 0.4);
+	else
+		model.renderer.material.color = Color(1,1,1);
 }
 
 function takeDamage(damage : float) {
