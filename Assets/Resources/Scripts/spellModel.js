@@ -1,8 +1,8 @@
 ﻿var spellType : String;
-var owner : spell;
+var owner : GameObject;
 var textureName : String;
 
-function init(o : spell, t : String) {
+function init(o : GameObject, t : String) {
 	owner = o;										// Set up a pointer to the spell object containing this model.
 	spellType = t;									// Record the spell type.
 	

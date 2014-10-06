@@ -158,11 +158,13 @@ function processStatusEffects() {
 }
 
 function warriorAttack() {
-	target.takeDamage(10);
+	target.takeDamage(7);
+	attackTimer = 3;
 }
 
 function archerAttack() {
 	spellbook.arrow(transform.position.x, transform.position.y, transform.eulerAngles);
+	attackTimer = 3;
 }
 
 function die() {

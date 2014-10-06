@@ -27,20 +27,43 @@ public var immuneTimer : float;
 public var armor : float;
 public var armorTimer : float;
 
-function init(manager : GameObject, owner : GameObject, nameIn : String, texture : String, x : float, y : float) {
+//Gabriel
+private var size : Vector3;
+private var center : Vector3;
+private var skin : float = .005f;
+private var ray : Ray;
+private var hit : RaycastHit; 
+public var collisionMask : LayerMask;
+public var grounded : boolean;
+public var movementStopped : boolean;
+private var acceleration : float = 30;
+private var targetSpeedx : float;
+private var targetSpeedy : float;
+private var amountToMove : Vector2;
+private var currentSpeedx : float;
+private var currentSpeedy : float;
+//Gabriel
+
+//Made init pass in size and center of the box collider -G
+function init(manager : GameObject, owner : GameObject, s : Vector3, c : Vector3, nameIn : String, texture : String, x : float, y : float) {
 	//Debug.Log("Begin Character init: "+nameIn);
 	this.manager = manager;
 	if (manager.GetComponent("spellbook"))
 		this.spellbook = manager.GetComponent("spellbook");
 	this.owner = owner;
 	owner.name = nameIn;
-	
-	var modelObject = new GameObject.CreatePrimitive(PrimitiveType.Quad);
+	//Gabriel
+	collisionMask = 1 << 8;
+	size = s;
+	center = c;
+	//Gabriel
+	var modelObject = new GameObject.CreatePrimitive(PrimitiveType.Cube); //Switched to cube -G
 	modelObject.name = owner.name + " Model";
+	Destroy(modelObject.collider); //Destroyed collider because not needed -G
 	
 	model = modelObject.AddComponent(charModel2D);
 	model.transform.parent = owner.transform;
-	model.transform.position.z -= 2;
+	//model.transform.position.z -= 2;
 	model.init(owner,texture);
 	
 	// HERE BE INITIALIZATIONS BEWARE
@@ -104,7 +127,7 @@ function FixedUpdate ()
     var cast2 : float = Input.GetAxis("Fire2");
     var cast3 : float = Input.GetAxis("Fire3");
     
-    MovementManagement(h, v, lh, lv);
+   // MovementManagement(h, v, lh, lv); No more of this
     
     if (cast1 > 0 && spell1 != "Cooldown") {
     	castSpell(spell1);
@@ -118,10 +141,35 @@ function FixedUpdate ()
     	castSpell(spell3);
     	spell3 = "Cooldown";
     	}
+    	
+    targetSpeedx = Input.GetAxisRaw("Horizontal") * speed;
+	currentSpeedx = incrementTowards(currentSpeedx, targetSpeedx, acceleration);
+	targetSpeedy = Input.GetAxisRaw("Vertical") * speed;
+	currentSpeedy = incrementTowards(currentSpeedy, targetSpeedy, acceleration);
+	
+	
+	
+	amountToMove.x = currentSpeedx;
+	amountToMove.y = currentSpeedy;
+	Move(amountToMove * Time.deltaTime);
 }
 
-
-function MovementManagement (horizontal : float, vertical : float, lh : float, lv : float) {
+private function incrementTowards(currentSpeedTemp : float, targetSpeedTemp : float, accelerationTemp : float) {
+	if (currentSpeedTemp == targetSpeedTemp) {
+		return currentSpeedTemp;
+	}
+	else {
+		var direction : float = Mathf.Sign(targetSpeedTemp - currentSpeedTemp);
+		currentSpeedTemp = currentSpeedTemp + accelerationTemp * Time.deltaTime * direction;
+		if (direction == Mathf.Sign(targetSpeedTemp - currentSpeedTemp)) {
+			return currentSpeedTemp;
+		}
+		else {
+			return targetSpeedTemp;
+		}
+	}
+}
+/*function MovementManagement (horizontal : float, vertical : float, lh : float, lv : float) {
 
     
     // If there is some axis input...
@@ -132,7 +180,7 @@ function MovementManagement (horizontal : float, vertical : float, lh : float, l
     {
         Move(vertical, horizontal);
     }
-}
+}*/
 
 function Facing (horizontal : float, vertical : float) {
 	
@@ -157,8 +205,55 @@ function Facing (horizontal : float, vertical : float) {
     */
 }
 
-function Move(vertical : float, strafe : float) {
-	transform.Translate(speed * strafe * Time.deltaTime, speed * vertical * Time.deltaTime,0,Space.World);
+
+function Move(amountToMove : Vector2) {
+	var deltaY : float = amountToMove.y;
+	var deltaX : float = amountToMove.x;
+	var position : Vector2 = transform.position;
+	for (var i : int = 0; i < 3; i++) {
+		var direction : float = Mathf.Sign(deltaY);
+		var x : float = (position.x + center.x - size.x/2) + size.x/2 * i;
+		var y : float = position.y + center.y + size.y/2 * direction;
+		ray = new Ray(new Vector2(x, y),  new Vector2(0, direction));
+		Debug.DrawRay(ray.origin, ray.direction);
+		if (Physics.Raycast(ray, hit, Mathf.Abs(deltaY) + skin, collisionMask)) {
+			var distance : float = Vector3.Distance (ray.origin, hit.point);
+			
+			if (distance > skin) {
+				deltaY = distance * direction - skin * direction;
+			}
+			else {
+				deltaY = 0;
+			}
+			//movementStopped = true;
+			break;
+		}
+	}
+	//OMFG JAVASCRIPT'S SCOPING IS FUCKING STUPID
+	for (var j : int = 0; j < 3; j++) {
+		var direction2 : float = Mathf.Sign(deltaX);
+		var x2 : float = position.x + center.x + size.x/2 * direction2;
+		var y2 : float = (position.y + center.y - size.y/2) + size.y/2 * j;
+		ray = new Ray(new Vector2(x2, y2),  new Vector2(direction2, 0));
+		Debug.DrawRay(ray.origin, ray.direction);
+		if (Physics.Raycast(ray, hit, Mathf.Abs(deltaX) + skin, collisionMask)) {
+			var distance2 : float = Vector3.Distance (ray.origin, hit.point);
+			
+			if (distance2 > skin) {
+				deltaX = distance2 * direction2 - skin * direction2;
+			}
+			else {
+				deltaX = 0;
+			}
+			//movementStopped = true;
+			break;
+		}
+	}
+	//if (movementStopped == false) {
+		var finalTransform : Vector2 = Vector2(deltaX, deltaY);
+		transform.Translate(finalTransform);
+	//}
+	//movementStopped = false;
 }
 
 function getFacing() {
