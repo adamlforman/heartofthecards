@@ -1,114 +1,55 @@
-﻿var ground : GameObject;	// The ground's model. Background only.
-var player : player2D;
-var score : float;
-
-var enemyTimer : float;
+﻿#pragma strict
 
 function Start () {
-	Time.timeScale = 0;
-	buildWorld();
-	player = buildPlayer("Player");
-	addEnemy(5,5);
-	score = 0;
+
 }
 
 function Update () {
-	if (!player) {
-		Time.timeScale = 0;
-	}
-	enemyTimer -= Time.deltaTime;		// Randomly and periodically spawn an enemy
-	if (enemyTimer <= 0) {
-		enemyTimer = 4;
-		addEnemy(Random.value*16-8, Random.value*10-5);
-	}
+
 }
 
-function OnGUI() {
-	if (Time.timeScale == 0) {
-		var text : String;
-		if (player)
-			text = "START";
-		else
-			text = "GAME OVER";
-		if (GUI.Button(Rect(550,10,150,50),text)) {
-			Time.timeScale = 1;
-			if (!player)
-				Application.LoadLevel("enemyTest");
-		}
-	}
-}
-function buildWorld() {
-	buildGround();
+function fireblast(x : float,y : float, angle : Vector3) {
+	surround(spawnFire, x, y, angle);
 }
 
-function buildGround() {
-	ground = new GameObject.CreatePrimitive(PrimitiveType.Plane);
-	ground.transform.eulerAngles.x = 270;
-	ground.transform.eulerAngles.y = 0;
-	ground.transform.eulerAngles.z = 0;
-	ground.transform.localScale.x = 1.5;
-	ground.transform.localPosition.z = 1;
-	ground.name = "Ground";
-	ground.renderer.material.mainTexture = Resources.Load("Textures/Ground",Texture2D);
-	ground.renderer.material.color = Color(1,1,1);												// Set the color (easy way to tint things).
-	ground.renderer.material.shader = Shader.Find ("Transparent/Diffuse");						// Tell the renderer that our textures have transparency.
+function iceBreath(x : float,y : float, angle : Vector3) {
+	cone(spawnIce,x,y,angle);
 }
 
-function buildPlayer(name : String) {
-	var playerObject = new GameObject();
-	var newPlayer = playerObject.AddComponent(player2D);
-	playerObject.AddComponent(CircleCollider2D);
-
-	newPlayer.init(gameObject,playerObject,name, "marble",0,0);
-
-	moveCharacter(newPlayer,0,0);
-	
-	return newPlayer;
+function webTrap(x : float,y : float, angle : Vector3) {
+	surround(spawnWeb,x,y,angle);
 }
 
-function addEnemy(x: float, y: float) {
-	var enemyObject = new GameObject();
-	var newEnemy = enemyObject.AddComponent(enemy2D);
-	enemyObject.AddComponent(BoxCollider2D);
-	enemyObject.GetComponent(BoxCollider2D).isTrigger = true;
-
-	newEnemy.init(gameObject,enemyObject,player,"Enemy", "FACE",x,y);
-
-	moveCharacter(newEnemy,x,y);
-	
-	return newEnemy;
+function dart(x : float,y : float, angle : Vector3) {
+	shot(spawnDart,x,y,angle);
 }
 
-function moveCharacter(character : player2D, x : float, y: float) {
-	if (character.transform) {
-		character.transform.position.x = x;
-		character.transform.position.y = y;
-		character.transform.position.z = -1;
-	}
+function arcaneCataclysm(x : float,y : float, angle : Vector3) {
+	beam(spawnArcane,x,y,angle);
+}
+//--------------------------------
+//		Buff / debuff spells
+//------------------------------
+
+
+function armor(character : player2D) {
+	character.armor = 0.9;
+	character.armorTimer = 5;
 }
 
-function moveCharacter(character : enemy2D, x : float, y : float) {
-	if (character.transform) {
-		character.transform.position.x = x;
-		character.transform.position.y = y;
-	}
-}
+//-----------------------------------------------------------------
+//			Evaluate spells
+//-----------------------------------------------------------------
 
-function vectorFromAngle(angle : float) {
-	var angleRadians : float = (angle/360)*2*3.14159;
-	//Debug.Log(angle);
-	return Vector2(Mathf.Cos(angleRadians),Mathf.Sin(angleRadians));
-}
-/*
 function spellEffects(x : float, y : float, damage : float) {
 	for (var other : Collider in Physics.OverlapSphere(Vector3(x,y,-1),0.7)) {
 		//Debug.Log(other);
 		var otherOb : enemy2D;
-		if (other.gameObject.GetComponent(enemy2D))
+		if (other.gameObject.GetComponent("enemy2D"))
 			otherOb = other.gameObject.GetComponent(enemy2D);
-		if (other.gameObject.GetComponent(charModel2D)) {
+		if (other.gameObject.GetComponent("charModel2D")) {
 			var dick : charModel2D = other.gameObject.GetComponent(charModel2D);
-			if (dick.owner.GetComponent(enemy2D))
+			if (dick.owner.GetComponent("enemy2D"))
 				otherOb = dick.owner.GetComponent(enemy2D);
 		}
 		if (otherOb) {
@@ -122,11 +63,10 @@ function spellEffects(x : float, y : float, damage : float) {
 
 }
 
-// ----------------------------------------------------------
-//	HERE FOLLOW SPELLS
-//	----------------------------------------------------------
-	
-	
+//-----------------------------------------------------------------
+//			Spawn spell objects
+//-----------------------------------------------------------------
+
 function spawnFire(x : float, y : float, owner : GameObject){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
 	var spellScript : spell = spellObject.AddComponent(spell);		// Add the spell.js script to the object.
@@ -166,9 +106,9 @@ function spawnIce(x : float, y : float, owner : GameObject){
 
 function spawnArcane(x : float, y : float, owner : GameObject){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
+	var spellScript : spell = spellObject.AddComponent(spell);		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
-	var temp : temporary = spellObject.AddComponent("temporary");
+	var temp : temporary = spellObject.AddComponent(temporary);
 	temp.life = 0.5;
 	var spellType = "DEMACIA";
 	spellScript.transform.parent = owner.transform;	// Set the spell's parent object to be the gameManager?
@@ -220,9 +160,9 @@ function spawnSlash(x : float, y : float, owner : GameObject){
 
 function spawnArrow(x : float, y : float, owner : GameObject){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
+	var spellScript : spell = spellObject.AddComponent(spell);		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
-	var temp : temporary = spellObject.AddComponent("temporary");
+	var temp : temporary = spellObject.AddComponent(temporary);
 	temp.life = 10;
 	var spellType = "ARROW";
 	spellScript.transform.parent = owner.transform;	// Set the spell's parent object to be the gameManager?
@@ -238,9 +178,9 @@ function spawnArrow(x : float, y : float, owner : GameObject){
 
 function spawnDart(x : float, y : float, owner : GameObject){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
+	var spellScript : spell = spellObject.AddComponent(spell);		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
-	var temp : temporary = spellObject.AddComponent("temporary");
+	var temp : temporary = spellObject.AddComponent(temporary);
 	temp.life = 10;
 	var spellType = "DART";
 	spellScript.transform.parent = owner.transform;	// Set the spell's parent object to be the gameManager?
@@ -253,6 +193,12 @@ function spawnDart(x : float, y : float, owner : GameObject){
 	
 	spellEffects(x,y,10);
 }
+
+
+//----------------------------------------------------------
+//		Spell Patterns
+//-----------------------------------------------------------
+
 
 function surround (fnct : function(float, float, GameObject), x : float, y : float, angle : Vector3){
 	var dummy = new GameObject();
@@ -332,5 +278,3 @@ function shot (fnct : function(float, float, GameObject), x : float, y : float, 
 	fnct(x, y, dummy);
 	dummy.transform.eulerAngles = angle;
 }
-*/
-

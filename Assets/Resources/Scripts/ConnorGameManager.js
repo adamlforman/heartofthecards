@@ -1,6 +1,6 @@
-﻿
+﻿/*
 
-var spellType : int;
+var spellType : String;
 var player : GameObject;
 var armorTimer : float;
 var longSwordTimer : float;
@@ -35,7 +35,7 @@ function spawnFire(x : float, y : float){
 														// We can now refer to the object via this script.
 	spellObject.AddComponent("temporary");
 	spellObject.GetComponent("temporary").life = 1;
-	spellType = 1;
+	spellType = "FIRE";
 	//spellScript.transform.parent = this.transform;	// Set the spell's parent object to be the gameManager?
 	spellScript.transform.position = Vector3(x,y,-1);	// Position the spell at x,y.
 	
@@ -51,7 +51,7 @@ function spawnIce(x : float, y : float){
 														// We can now refer to the object via this script.
 	spellObject.AddComponent("temporary");
 	spellObject.GetComponent("temporary").life = 1;
-	spellType = 2;
+	spellType = "ICE";
 	//spellScript.transform.parent = this.transform;	// Set the spell's parent object to be the gameManager?
 	spellScript.transform.position = Vector3(x,y,-1);	// Position the spell at x,y.
 	
@@ -67,24 +67,24 @@ function spawnWeb(x : float, y : float){
 														// We can now refer to the object via this script.
 	spellObject.AddComponent("temporary");
 	spellObject.GetComponent("temporary").life = 5;
-	spellType = 3;
+	spellType = "WEB";
 	//spellScript.transform.parent = this.transform;	// Set the spell's parent object to be the gameManager?
 	spellScript.transform.position = Vector3(x,y,-1);	// Position the spell at x,y.
 	
 	spellScript.init(spellType);							// Initialize the spell script.
 	
 	
-	spellScript.name = "ICE";				// Give the spell object a name in the Hierarchy pane.
+	spellScript.name = "WEB";				// Give the spell object a name in the Hierarchy pane.
 }
 
-function spawnSlash(x : float, y : float){
+function spawnSlash(x : float, y : float, owner : GameObject){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
 	var spellScript = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
 	spellObject.AddComponent("temporary");
 	spellObject.GetComponent("temporary").life = 1;
-	spellType = 4;
-	//spellScript.transform.parent = this.transform;	// Set the spell's parent object to be the gameManager?
+	spellType = "SLASH";
+	spellScript.transform.parent = owner.transform;	// Set the spell's parent object to be the gameManager?
 	spellScript.transform.position = Vector3(x,y,-1);	// Position the spell at x,y.
 	
 	spellScript.init(spellType);							// Initialize the spell script.
@@ -97,7 +97,7 @@ function spawnFace(x : float, y : float){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
 	var spellScript = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
-	spellType = 0;
+	spellType = "FACE";
 	//spellScript.transform.parent = this.transform;	// Set the spell's parent object to be the gameManager?
 	spellScript.transform.position = Vector3(x,y,-1);	// Position the spell at x,y.
 	
@@ -143,15 +143,17 @@ function OnGUI () {
 	}
 }
 
-function surround (fnct : function(float, float)){
-	fnct(player.transform.position.x+1, player.transform.position.y+1);
-	fnct(player.transform.position.x+1, player.transform.position.y);
-	fnct(player.transform.position.x+1, player.transform.position.y-1);
-	fnct(player.transform.position.x, player.transform.position.y+1);
-	fnct(player.transform.position.x, player.transform.position.y-1);
-	fnct(player.transform.position.x-1, player.transform.position.y+1);
-	fnct(player.transform.position.x-1, player.transform.position.y);
-	fnct(player.transform.position.x-1, player.transform.position.y-1);
+function surround (fnct : function(float, float, GameObject), x : float, y : float, angle : Quaternion){
+	var spellParent = new GameObject();
+	fnct(player.transform.position.x+1, player.transform.position.y+1, spellParent);
+	fnct(player.transform.position.x+1, player.transform.position.y, spellParent);
+	fnct(player.transform.position.x+1, player.transform.position.y-1, spellParent);
+	fnct(player.transform.position.x, player.transform.position.y+1, spellParent);
+	fnct(player.transform.position.x, player.transform.position.y-1, spellParent);
+	fnct(player.transform.position.x-1, player.transform.position.y+1, spellParent);
+	fnct(player.transform.position.x-1, player.transform.position.y, spellParent);
+	fnct(player.transform.position.x-1, player.transform.position.y-1, spellParent);
+	
 }
 
 function cone (fnct : function(float, float)){
@@ -171,6 +173,11 @@ function front (fnct : function(float,float)){
 	fnct(player.transform.position.x, player.transform.position.y+1);
 	fnct(player.transform.position.x-1, player.transform.position.y+1);
 }
+
+function beam (fnct : function(float, float)){
+	
+}
+*/
 
 
 
