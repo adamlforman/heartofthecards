@@ -10,6 +10,8 @@ var model : charModel2D;
 var manager : GameObject;
 var target : player2D;
 
+var healthBar : healthBar;
+
 var health : int;
 
 var immune : boolean;
@@ -85,6 +87,14 @@ function init(manager : GameObject, owner : GameObject, target : player2D, nameI
 	model.transform.parent = owner.transform;
 	model.transform.position.z -= 2;
 	model.init(owner,texture);
+	
+	var healthBarObject = new GameObject();
+	healthBarObject.name = owner.name + " Health Bar";
+	
+	healthBar = healthBarObject.AddComponent("healthBar");
+	healthBar.transform.parent = owner.transform;
+	healthBar.transform.position.z -= 3;
+	healthBar.init(this,transform,health,0);
 	
 	immune = false;
 	immuneTimer = 0;

@@ -27,6 +27,8 @@ public var immuneTimer : float;
 public var armor : float;
 public var armorTimer : float;
 
+var deck : String[];
+
 //Gabriel
 private var size : Vector3;
 private var center : Vector3;
