@@ -1,5 +1,4 @@
-﻿#pragma strict
-
+﻿/*
 var ground : GameObject;	// The ground's model. Background only.
 var player : player2D;
 var score : float;
