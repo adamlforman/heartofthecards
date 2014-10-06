@@ -137,7 +137,7 @@ function spawnRock(x : float, y : float){
 	//terrainObject.GetComponent("temporary").life = 1;
 	terrainType = "ROCK";
 	//terrainScript.transform.parent = this.transform;	// Set the terrain's parent object to be the gameManager?
-	terrainScript.transform.position = Vector3(x,y,-1);	// Position the terrain at x,y.
+	terrainScript.transform.position = Vector3(x,y,0);	// Position the terrain at x,y.
 	
 	terrainScript.init(terrainType);							// Initialize the terrain script.
 	
@@ -184,7 +184,7 @@ function addEnemy(x: float, y: float) {
 	var newEnemy = enemyObject.AddComponent(enemy2D);
 	enemyObject.AddComponent(BoxCollider);
 	enemyObject.GetComponent(BoxCollider).isTrigger = true;
-	newEnemy.init(gameObject,enemyObject,player,"Enemy Warrior", "warrior",x,y);
+	newEnemy.init(gameObject,enemyObject,player,"Enemy Archer", "archer",x,y);
 	moveCharacter(newEnemy,x,y);
 	
 	return newEnemy;
@@ -193,9 +193,11 @@ function addEnemy(x: float, y: float) {
 function buildPlayer(name : String) {
 	var playerObject = new GameObject();
 	var newPlayer = playerObject.AddComponent(player2D);
-	playerObject.AddComponent(BoxCollider);
+	var playerCollider = playerObject.AddComponent(BoxCollider);
 
-	newPlayer.init(gameObject,playerObject,name, "FACE",3,3);
+
+	newPlayer.init(gameObject,playerObject,playerCollider.size,playerCollider.center, name, "FACE",3,3);
+
 	moveCharacter(newPlayer,3,3);
 	return newPlayer;
 }

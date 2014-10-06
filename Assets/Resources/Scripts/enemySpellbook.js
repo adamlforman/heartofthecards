@@ -73,7 +73,7 @@ function spellEffects(x : float, y : float, damage : float) {
 
 function spawnFire(x : float, y : float, owner : GameObject){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent(spell);		// Add the spell.js script to the object.
+	var spellScript : enemySpell = spellObject.AddComponent(enemySpell);		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
 	var temp : temporary = spellObject.AddComponent(temporary);
 	temp.life = 1;
@@ -92,7 +92,7 @@ function spawnFire(x : float, y : float, owner : GameObject){
 
 function spawnIce(x : float, y : float, owner : GameObject){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent(spell);		// Add the spell.js script to the object.
+	var spellScript : enemySpell = spellObject.AddComponent(enemySpell);		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
 	var temp : temporary = spellObject.AddComponent(temporary);
 	temp.life = 1;
@@ -110,7 +110,7 @@ function spawnIce(x : float, y : float, owner : GameObject){
 
 function spawnArcane(x : float, y : float, owner : GameObject){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent(spell);		// Add the spell.js script to the object.
+	var spellScript : enemySpell = spellObject.AddComponent(enemySpell);		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
 	var temp : temporary = spellObject.AddComponent(temporary);
 	temp.life = 0.5;
@@ -128,7 +128,7 @@ function spawnArcane(x : float, y : float, owner : GameObject){
 
 function spawnWeb(x : float, y : float, owner : GameObject){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent(spell);		// Add the spell.js script to the object.
+	var spellScript : enemySpell = spellObject.AddComponent(enemySpell);		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
 	var temp : temporary = spellObject.AddComponent(temporary);
 	temp.life = 3;
@@ -146,7 +146,7 @@ function spawnWeb(x : float, y : float, owner : GameObject){
 
 function spawnSlash(x : float, y : float, owner : GameObject){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent(spell);		// Add the spell.js script to the object.
+	var spellScript : enemySpell = spellObject.AddComponent(enemySpell);		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
 	var temp : temporary = spellObject.AddComponent(temporary);
 	temp.life = 1;
@@ -164,7 +164,7 @@ function spawnSlash(x : float, y : float, owner : GameObject){
 
 function spawnArrow(x : float, y : float, owner : GameObject){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent(spell);		// Add the spell.js script to the object.
+	var spellScript : enemySpell = spellObject.AddComponent(enemySpell);		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
 	var temp : temporary = spellObject.AddComponent(temporary);
 	temp.life = 10;
@@ -177,12 +177,12 @@ function spawnArrow(x : float, y : float, owner : GameObject){
 	
 	spellScript.name = "ARROW";				// Give the spell object a name in the Hierarchy pane.
 	
-	spellEffects(x,y,10);
+	spellEffects(x,y,0);	// Damage is dealt in enemySpell update function
 }
 
 function spawnDart(x : float, y : float, owner : GameObject){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent(spell);		// Add the spell.js script to the object.
+	var spellScript : enemySpell = spellObject.AddComponent(enemySpell);		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
 	var temp : temporary = spellObject.AddComponent(temporary);
 	temp.life = 10;

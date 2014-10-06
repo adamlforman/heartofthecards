@@ -1,4 +1,6 @@
-﻿var ground : GameObject;	// The ground's model. Background only.
+/*
+var ground : GameObject;	// The ground's model. Background only.
+
 var player : player2D;
 var score : float;
 
