@@ -84,16 +84,9 @@ function Update() {
 }
 
 function drawSpell() {
-<<<<<<< HEAD
 	var spells : String[] = ["FIRE","ICE","DART","ARMOR", "WEB", "DEMACIA"];
 	var newSpell : String = spells[5];					//TEST SPELL LINE
 //	var newSpell : String = spells[Random.Range(0,spells.length)];
-=======
-	var spells : String[] = ["FIRE","ICE","WEB","ARMOR"];
-	var newSpell : String = spells[Random.value * spells.length];
-	if (spell1 == "ARMOR" || spell2 == "ARMOR" || spell3 == "ARMOR")	// Baseline kludge so you don't have multiple armor
-		newSpell = spells[Random.value*spells.length - 1];
->>>>>>> origin/Adam
 	
 	return newSpell;
 }
