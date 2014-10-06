@@ -1,11 +1,12 @@
 ﻿var spellType : String;
+var model : spellModel;
 
 var snare : boolean;
 var slow : boolean;
 var move : boolean;
 var poison : boolean;
 var damage : float;
-var movespeed : int = 10;
+var movespeed : int = 3;
 function init(spellType : String) {
 	this.spellType = spellType;
 	var modelObject = GameObject.CreatePrimitive(PrimitiveType.Quad);	// Create a quad object for holding the tile texture.
@@ -44,34 +45,51 @@ function init(spellType : String) {
 }
 
 function Update() {
+
 	if (snare || slow || poison || move) {
 		for (var other : Collider in Physics.OverlapSphere(Vector3(transform.position.x,transform.position.y,-1),0.7)) {
 			var otherOb : player2D;
-		if (other.gameObject.GetComponent("player2D"))
-			otherOb = other.gameObject.GetComponent("player2D");
-		if (other.gameObject.GetComponent("charModel2D")) {
-			var dick : charModel2D = other.gameObject.GetComponent("charModel2D");
-			if (dick.owner.GetComponent("player2D"))
-				otherOb = dick.owner.GetComponent("player2D");
+			if (other.gameObject.GetComponent("player2D"))
+				otherOb = other.gameObject.GetComponent("player2D");
+			if (other.gameObject.GetComponent("charModel2D")) {
+				var dick : charModel2D = other.gameObject.GetComponent("charModel2D");
+				if (dick.owner.GetComponent("player2D"))
+					otherOb = dick.owner.GetComponent("player2D");
 			}
-			if (otherOb) {
-				if (!otherOb.snare && snare) {
-					otherOb.snare = true;
-					otherOb.snareTimer = gameObject.GetComponent("temporary").life;
+				if (otherOb) {
+					otherOb.takeDamage(damage);
+					
+					if (!otherOb.snare && snare) {
+						otherOb.snare = true;
+						otherOb.snareTimer = gameObject.GetComponent("temporary").life;
+					}
+					if (!otherOb.slow && slow) {
+						otherOb.slow = true;
+						otherOb.slowTimer = 5;
+					}
+					if (poison) {
+						otherOb.poisonCount = 5;
+					}
+					if (move) {
+						GameObject.Destroy(gameObject);
+					}
 				}
-				if (!otherOb.slow && slow) {
-					otherOb.slow = true;
-					otherOb.slowTimer = 5;
-				}
-				if (poison) {
-					otherOb.poisonCount = 5;
-				}
-				if (move) {
+			}
+		for (var other : Collider in Physics.OverlapSphere(Vector3(transform.position.x,transform.position.y,0),0.4)) {
+			//Debug.Log(other);
+			var wall : terrain;
+			if (other.gameObject.GetComponent("terrain"))
+				wall = other.gameObject.GetComponent("terrain");
+			if (other.gameObject.GetComponent("terrainModel"))
+				wall = other.gameObject.GetComponent("terrainModel").owner;
+			if (wall)
+				if (wall.terrainType == "ROCK") {
+					GameObject.Destroy(model.gameObject);
 					GameObject.Destroy(gameObject);
 				}
-			}
 		}
 	}
+	
 	if (move){
 		//print(transform.position.z);
 		transform.Translate(Vector3.up * movespeed * Time.deltaTime);

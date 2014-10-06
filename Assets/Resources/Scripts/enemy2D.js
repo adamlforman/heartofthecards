@@ -100,6 +100,10 @@ function FixedUpdate ()
 	if (target) {
 		var playerDistance : float = Vector3.Distance(transform.position,target.transform.position);
 		var spawnDistance : float = Vector3.Distance(transform.position,spawnPoint);
+		var dir : Vector3;
+		
+		
+		
 		if (spawnDistance >= leashRange) {
 			evadeToSpawn = true;
 		}
@@ -108,21 +112,37 @@ function FixedUpdate ()
 				evadeToSpawn = false;
 			}
 			else {
-				transform.position = Vector3.MoveTowards(transform.position, spawnPoint, 3 * speed * Time.deltaTime);	
+				dir = Vector3.MoveTowards(transform.position, spawnPoint, 3 * speed * Time.deltaTime);
+				transform.position = dir;
+				facing((spawnPoint.x - transform.position.x), (spawnPoint.y - transform.position.y));
+				//transform.rotation = Quaternion.LookRotation(dir,Vector3.forward);	
 			}
 		}
 		else {
 			if ( playerDistance > attackRange && playerDistance < aggroRange) {
-				transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+				 dir = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+				transform.position = dir;
+				facing((target.transform.position.x - transform.position.x),(target.transform.position.y - transform.position.y));
+				//transform.rotation = Quaternion.LookRotation(dir,Vector3.forward);
 			}
 			else if (playerDistance <= attackRange) {
+				facing((target.transform.position.x - transform.position.x),(target.transform.position.y - transform.position.y));
 				if (attackTimer <= 0) {
 					attack();
 				}
 			}
-			else if (playerDistance >= aggroRange && Vector3.Distance(transform.position,spawnPoint) > 0.01)
-				transform.position = Vector3.MoveTowards(transform.position, spawnPoint, speed * Time.deltaTime);
+			else if (playerDistance >= aggroRange && Vector3.Distance(transform.position,spawnPoint) > 0.01) {
+				 dir = Vector3.MoveTowards(transform.position, spawnPoint, speed * Time.deltaTime);
+				transform.position = dir;
+				facing((spawnPoint.x - transform.position.x), (spawnPoint.y - transform.position.y));
+				//transform.rotation = Quaternion.LookRotation(dir,Vector3.forward);
+			}
 		}
+	}
+	else {
+		dir = Vector3.MoveTowards(transform.position, spawnPoint, speed * Time.deltaTime);
+		transform.position = dir;
+		facing((spawnPoint.x - transform.position.x), (spawnPoint.y - transform.position.y));
 	}
 }
 
@@ -157,6 +177,30 @@ function processStatusEffects() {
 	}
 }
 
+function facing (horizontal : float, vertical : float) {
+	
+	vertical = -vertical;
+	   // Create a new vector of the horizontal and vertical inputs.
+    var targetDirection : Vector2 = new Vector2(horizontal, vertical);
+    
+    // TURN
+    var newAngle : float = angleFromVector(targetDirection);
+    //Debug.Log(horizontal+", " +vertical);
+	//Debug.Log(newAngle);
+    transform.eulerAngles.z = newAngle;
+	
+	/* OLD ROTATE FUNCTION
+	//Debug.Log("Rotating "+ horizontal + " h, " + vertical + " v.");
+	
+	//Calculate a new rotation
+    var newTurn : float = transform.eulerAngles.z - (horizontal)*turnSmoothing;
+    //Debug.Log(newTurn);
+
+    // Change the players rotation to this new rotation.
+    transform.eulerAngles.z = (newTurn);
+    */
+}
+
 function warriorAttack() {
 	target.takeDamage(7);
 	attackTimer = 3;
@@ -165,6 +209,16 @@ function warriorAttack() {
 function archerAttack() {
 	spellbook.arrow(transform.position.x, transform.position.y, transform.eulerAngles);
 	attackTimer = 3;
+}
+
+function angleFromVector(vector : Vector2) {
+	var angleRadians : float = Vector2.Angle(vector,Vector2(0,1));
+	if (vector.x >= 0)
+		angleRadians += 180;
+	else
+		angleRadians = 180 - angleRadians;
+	return angleRadians;
+	//return 360*angleRadians/(2*3.14159);
 }
 
 function die() {
