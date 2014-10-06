@@ -27,7 +27,8 @@ public var immuneTimer : float;
 public var armor : float;
 public var armorTimer : float;
 
-var deck : String[];
+var deck : Array;
+var library : Array;
 
 //Gabriel
 private var size : Vector3;
@@ -69,6 +70,11 @@ function init(manager : GameObject, owner : GameObject, s : Vector3, c : Vector3
 	model.init(owner,texture);
 	
 	// HERE BE INITIALIZATIONS BEWARE
+	deck = ["FIRE","FIRE","FIRE","FIRE","ARMOR","ARMOR","ARMOR","ARMOR","ICE","ICE","ICE","ICE","DEMACIA","WEB","WEB","WEB","DART","DART","DART","DART"];
+	library = deck;
+	
+	shuffle(deck);
+	
 	spell1 = drawSpell();
 	spell2 = drawSpell();
 	spell3 = drawSpell();
@@ -85,21 +91,21 @@ function init(manager : GameObject, owner : GameObject, s : Vector3, c : Vector3
 function Update() {
 	
 		
-	if (spell1 == "Cooldown") {
+	if (spell1 == "Cooldown" || spell1 ==  "SLASH" || spell1 ==  "SHOOT") {
 		spell1Timer -= Time.deltaTime;
 		if (spell1Timer <= 0) {
 			spell1Timer = cooldown;
 			spell1 = drawSpell();
 		}
 	}
-	if (spell2 == "Cooldown") {
+	if (spell2 == "Cooldown" || spell2 ==  "SLASH" || spell2 ==  "SHOOT") {
 		spell2Timer -= Time.deltaTime;
 		if (spell2Timer <= 0) {
 			spell2Timer = cooldown;
 			spell2 = drawSpell();
 		}
 	}
-	if (spell3 == "Cooldown") {
+	if (spell3 == "Cooldown" || spell3 ==  "SLASH" || spell3 ==  "SHOOT") {
 		spell3Timer -= Time.deltaTime;
 		if (spell3Timer <= 0) {
 			spell3Timer = cooldown;
@@ -108,20 +114,34 @@ function Update() {
 	}
 }
 
+function shuffle(list : Array){ //v1.0
+   	for(var i = list.length - 1; i >= 1; i--) {
+    	 var j = Mathf.Floor(Random.value*i+1);
+    	 var temp = list[i];
+    	 list[i] = list[j];
+    	 list[j] = temp;
+   	}
+    return list;
+}
+
 function drawSpell() {
-	var spells : String[] = ["FIRE","ICE","DART","ARMOR", "WEB", "DEMACIA"];
-	var newSpell : String = spells[5];					//TEST SPELL LINE
-//	var newSpell : String = spells[Random.Range(0,spells.length)];
-	
-	return newSpell;
+	var newCard;
+	if (deck.length > 1) {
+		newCard =  deck.Pop();
+	}
+	else {
+		newCard = deck.Pop();
+		deck = shuffle(library);
+	}
+	return newCard;
 }
 
 function FixedUpdate ()
 {
 	processStatusEffects();
     // Cache the inputs.
-    var h : float = Input.GetAxis("Horizontal");
-    var v : float = Input.GetAxis("Vertical");
+    //var h : float = Input.GetAxis("Horizontal");
+    //var v : float = Input.GetAxis("Vertical");
     var lh : float = Input.GetAxis("LookHorizontal");
     var lv : float = Input.GetAxis("LookVertical");
     
@@ -132,22 +152,23 @@ function FixedUpdate ()
    // MovementManagement(h, v, lh, lv); No more of this
     
     if (cast1 > 0 && spell1 != "Cooldown") {
-    	castSpell(spell1);
-    	spell1 = "Cooldown";
+    	spell1 = castSpell(spell1);
     	}
     if (cast2 > 0 && spell2 != "Cooldown") {
-    	castSpell(spell2);
-    	spell2 = "Cooldown";
+    	spell2 = castSpell(spell2);
     	}
     if (cast3 > 0 && spell3 != "Cooldown") {
-    	castSpell(spell3);
-    	spell3 = "Cooldown";
+    	spell3 = castSpell(spell3);
     	}
     	
     targetSpeedx = Input.GetAxisRaw("Horizontal") * speed;
 	currentSpeedx = incrementTowards(currentSpeedx, targetSpeedx, acceleration);
 	targetSpeedy = Input.GetAxisRaw("Vertical") * speed;
 	currentSpeedy = incrementTowards(currentSpeedy, targetSpeedy, acceleration);
+	
+    if (lh != 0f || lv != 0f) {
+    	Facing (lh, lv);
+    }
 	
 	
 	
@@ -253,7 +274,7 @@ function Move(amountToMove : Vector2) {
 	}
 	//if (movementStopped == false) {
 		var finalTransform : Vector2 = Vector2(deltaX, deltaY);
-		transform.Translate(finalTransform);
+		transform.Translate(finalTransform,Space.World);
 	//}
 	//movementStopped = false;
 }
@@ -279,6 +300,7 @@ function angleFromVector(vector : Vector2) {
 }
 
 function castSpell(spell : String) {
+	var returnValue = "Cooldown";
 	if (spell != "Cooldown") {
 		if (spell == "FIRE")
 			spellbook.fireblast(transform.position.x, transform.position.y, transform.eulerAngles);
@@ -297,7 +319,10 @@ function castSpell(spell : String) {
 		if(spell == "DEMACIA"){
 			spellbook.arcaneCataclysm(transform.position.x, transform.position.y, transform.eulerAngles);
 		}
+		 if (spell == "LONGSWORD")		// FOR EXAMPLE
+			returnValue = "SLASH";
 	}
+	return returnValue;
 }
 
 

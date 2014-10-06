@@ -1,4 +1,5 @@
 ﻿var spellType : String;
+var model : spellModel;
 
 var snare : boolean;
 var slow : boolean;
@@ -71,6 +72,19 @@ function Update() {
 					GameObject.Destroy(gameObject);
 				}
 			}
+		}
+		for (var other : Collider in Physics.OverlapSphere(Vector3(transform.position.x,transform.position.y,0),0.4)) {
+			//Debug.Log(other);
+			var wall : terrain;
+			if (other.gameObject.GetComponent("terrain"))
+				wall = other.gameObject.GetComponent("terrain");
+			if (other.gameObject.GetComponent("terrainModel"))
+				wall = other.gameObject.GetComponent("terrainModel").owner;
+			if (wall)
+				if (wall.terrainType == "ROCK") {
+					GameObject.Destroy(model.gameObject);
+					GameObject.Destroy(gameObject);
+				}
 		}
 	}
 	if (move){

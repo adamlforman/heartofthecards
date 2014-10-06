@@ -54,7 +54,7 @@ function spellEffects(x : float, y : float, damage : float) {
 		}
 		if (otherOb) {
 			if (!otherOb.immune) {
-				otherOb.health -= damage;
+				otherOb.takeDamage(damage);
 			}
 			otherOb.immune = true;
 			otherOb.immuneTimer = 0.1;

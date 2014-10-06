@@ -211,6 +211,15 @@ function facing (horizontal : float, vertical : float) {
     */
 }
 
+function takeDamage(damage : float) {
+	damage = damage - damage*armor;
+	if (!immune) {
+		health -= damage;
+		immune = true;
+		immuneTimer = 0.5;
+	}
+}
+
 function warriorAttack() {
 	target.takeDamage(7);
 	attackTimer = 3;
