@@ -14,9 +14,6 @@ var slowTimer : float;
 var snare : boolean;
 var snareTimer : float;
 
-var poisonCount : int;
-var poisonTimer : float;
-
 var attackTimer : float;
 
 public var turnSmoothing : float = 4f;     // A smoothing value for turning the player.
@@ -69,14 +66,7 @@ function processStatusEffects() {
 		immune = false;
 	if (attackTimer > 0)
 		attackTimer -= Time.deltaTime;
-	
-	if(poisonTimer>0)
-		poisonTimer-= Time.deltaTime;	
-	if(poisonCount>0 && poisonTimer<=0){					//Takes damage if poisoned
-		health-=4;
-		poisonCount--;
-		poisonTimer = 1;
-	}
+		
 	speed = baseSpeed;
 	if (slow) {
 		speed = baseSpeed *0.5;

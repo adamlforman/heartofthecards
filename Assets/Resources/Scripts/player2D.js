@@ -94,9 +94,10 @@ function Update() {
 }
 
 function drawSpell() {
-	var spells : String[] = ["FIRE","ICE","DART","ARMOR", "WEB", "DEMACIA"];
-	var newSpell : String = spells[5];					//TEST SPELL LINE
-//	var newSpell : String = spells[Random.Range(0,spells.length)];
+	var spells : String[] = ["FIRE","ICE","WEB","ARMOR"];
+	var newSpell : String = spells[Random.value * spells.length];
+	if (spell1 == "ARMOR" || spell2 == "ARMOR" || spell3 == "ARMOR")
+		newSpell = spells[Random.value*spells.length - 1];
 	
 	return newSpell;
 }
@@ -195,20 +196,14 @@ function angleFromVector(vector : Vector2) {
 function castSpell(spell : String) {
 	if (spell != "Cooldown") {
 		if (spell == "FIRE")
-			manager.surround(manager.spawnFire, transform.position.x, transform.position.y, transform.eulerAngles);
+			manager.surround(manager.spawnFire);
 		if (spell == "ICE")
-			manager.cone(manager.spawnIce, transform.position.x, transform.position.y, transform.eulerAngles);
+			manager.cone(manager.spawnIce);
 		if (spell == "WEB")
-			manager.surround(manager.spawnWeb, transform.position.x, transform.position.y, transform.eulerAngles);
+			manager.surround(manager.spawnWeb);
 		if (spell == "ARMOR") {
 			armor = 0.9;
 			armorTimer = 5;
-		}
-		if(spell == "DART"){
-			manager.shot(manager.spawnDart, transform.position.x, transform.position.y, transform.eulerAngles);
-		}
-		if(spell == "DEMACIA"){
-			manager.beam(manager.spawnArcane, transform.position.x, transform.position.y, transform.eulerAngles);
 		}
 	}
 }

@@ -125,14 +125,14 @@ function spellEffects(x : float, y : float, damage : float) {
 	----------------------------------------------------------*/
 	
 	
-function spawnFire(x : float, y : float, owner : GameObject){
+function spawnFire(x : float, y : float){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
 	var spellScript : spell = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
 	var temp : temporary = spellObject.AddComponent("temporary");
 	temp.life = 1;
 	var spellType = "FIRE";
-	spellScript.transform.parent = owner.transform;	// Set the spell's parent object to be the gameManager?
+	//spellScript.transform.parent = this.transform;	// Set the spell's parent object to be the gameManager?
 	spellScript.transform.position = Vector3(x,y,-1);	// Position the spell at x,y.
 	
 	spellScript.init(spellType);							// Initialize the spell script.
@@ -144,14 +144,14 @@ function spawnFire(x : float, y : float, owner : GameObject){
 
 }
 
-function spawnIce(x : float, y : float, owner : GameObject){
+function spawnIce(x : float, y : float){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
 	var spellScript : spell = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
 	var temp : temporary = spellObject.AddComponent("temporary");
 	temp.life = 1;
 	var spellType = "ICE";
-	spellScript.transform.parent = owner.transform;	// Set the spell's parent object to be the gameManager?
+	//spellScript.transform.parent = this.transform;	// Set the spell's parent object to be the gameManager?
 	spellScript.transform.position = Vector3(x,y,-1);	// Position the spell at x,y.
 	
 	spellScript.init(spellType);							// Initialize the spell script.
@@ -162,32 +162,14 @@ function spawnIce(x : float, y : float, owner : GameObject){
 	spellEffects(x,y,5);
 }
 
-function spawnArcane(x : float, y : float, owner : GameObject){
-	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
-														// We can now refer to the object via this script.
-	var temp : temporary = spellObject.AddComponent("temporary");
-	temp.life = 0.5;
-	var spellType = "DEMACIA";
-	spellScript.transform.parent = owner.transform;	// Set the spell's parent object to be the gameManager?
-	spellScript.transform.position = Vector3(x,y,-1);	// Position the spell at x,y.
-	
-	spellScript.init(spellType);							// Initialize the spell script.
-	
-	
-	spellScript.name = "DEMACIA";				// Give the spell object a name in the Hierarchy pane.
-
-	spellEffects(x,y,20);
-}
-
-function spawnWeb(x : float, y : float, owner : GameObject){
+function spawnWeb(x : float, y : float){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
 	var spellScript : spell = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
 	var temp : temporary = spellObject.AddComponent("temporary");
 	temp.life = 3;
 	var spellType = "WEB";
-	spellScript.transform.parent = owner.transform;	// Set the spell's parent object to be the gameManager?
+	//spellScript.transform.parent = this.transform;	// Set the spell's parent object to be the gameManager?
 	spellScript.transform.position = Vector3(x,y,-1);	// Position the spell at x,y.
 	
 	spellScript.init(spellType);							// Initialize the spell script.
@@ -198,14 +180,14 @@ function spawnWeb(x : float, y : float, owner : GameObject){
 	spellEffects(x,y,0);
 }
 
-function spawnSlash(x : float, y : float, owner : GameObject){
+function spawnSlash(x : float, y : float){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
 	var spellScript : spell = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
 	var temp : temporary = spellObject.AddComponent("temporary");
 	temp.life = 1;
 	var spellType = "SLASH";
-	spellScript.transform.parent = owner.transform;	// Set the spell's parent object to be the gameManager?
+	//spellScript.transform.parent = this.transform;	// Set the spell's parent object to be the gameManager?
 	spellScript.transform.position = Vector3(x,y,-1);	// Position the spell at x,y.
 	
 	spellScript.init(spellType);							// Initialize the spell script.
@@ -215,120 +197,87 @@ function spawnSlash(x : float, y : float, owner : GameObject){
 	
 	spellEffects(x,y,10);
 }
-
-function spawnArrow(x : float, y : float, owner : GameObject){
-	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
-														// We can now refer to the object via this script.
-	var temp : temporary = spellObject.AddComponent("temporary");
-	temp.life = 10;
-	var spellType = "ARROW";
-	spellScript.transform.parent = owner.transform;	// Set the spell's parent object to be the gameManager?
-	spellScript.transform.position = Vector3(x,y,-1);	// Position the spell at x,y.
-	
-	spellScript.init(spellType);							// Initialize the spell script.
-	
-	
-	spellScript.name = "ARROW";				// Give the spell object a name in the Hierarchy pane.
-	
-	spellEffects(x,y,10);
+function surround (fnct : function(float, float)){
+	fnct(player.transform.localPosition.x+1, player.transform.localPosition.y+1);
+	fnct(player.transform.localPosition.x+1, player.transform.localPosition.y);
+	fnct(player.transform.localPosition.x+1, player.transform.localPosition.y-1);
+	fnct(player.transform.localPosition.x, player.transform.localPosition.y+1);
+	fnct(player.transform.localPosition.x, player.transform.localPosition.y-1);
+	fnct(player.transform.localPosition.x-1, player.transform.localPosition.y+1);
+	fnct(player.transform.localPosition.x-1, player.transform.localPosition.y);
+	fnct(player.transform.localPosition.x-1, player.transform.localPosition.y-1);
 }
 
-function spawnDart(x : float, y : float, owner : GameObject){
-	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
-														// We can now refer to the object via this script.
-	var temp : temporary = spellObject.AddComponent("temporary");
-	temp.life = 10;
-	var spellType = "DART";
-	spellScript.transform.parent = owner.transform;	// Set the spell's parent object to be the gameManager?
-	spellScript.transform.position = Vector3(x,y,-1);	// Position the spell at x,y.
-	
-	spellScript.init(spellType);							// Initialize the spell script.
-	
-	
-	spellScript.name = "DART";				// Give the spell object a name in the Hierarchy pane.
-	
-	spellEffects(x,y,10);
-}
-
-function surround (fnct : function(float, float, GameObject), x : float, y : float, angle : Vector3){
-	var dummy = new GameObject();
-	var temp : temporary = dummy.AddComponent(temporary);
-	temp.life = 5;
-	dummy.transform.position = Vector3(x,y,-1);
-	fnct(x+1, y+1, dummy);
-	fnct(x+1, y, dummy);
-	fnct(x+1, y-1, dummy);
-	fnct(x, y+1, dummy);
-	fnct(x, y-1, dummy);
-	fnct(x-1, y+1, dummy);
-	fnct(x-1, y, dummy);
-	fnct(x-1, y-1, dummy);
-	dummy.transform.eulerAngles = angle;
-}
-
-function cone (fnct : function(float, float, GameObject), x : float, y : float, angle : Vector3){
-	var dummy = new GameObject();
-	var temp : temporary = dummy.AddComponent(temporary);
-	temp.life = 5;
-	dummy.transform.position = Vector3(x,y,-1);
-	fnct(x, y+1, dummy);
-	fnct(x-1, y+2, dummy);
-	fnct(x-1, y+3, dummy);
-	fnct(x+1, y+2, dummy);
-	fnct(x+1, y+3, dummy);
-	fnct(x, y+2, dummy);
-	fnct(x-2, y+3, dummy);
-	fnct(x+2, y+3, dummy);
-	fnct(x, y+3, dummy);
-	dummy.transform.eulerAngles = angle;
-}
-
-function front (fnct : function(float, float, GameObject), x : float, y : float, angle : Vector3){
-	var dummy = new GameObject();
-	var temp : temporary = dummy.AddComponent(temporary);
-	temp.life = 5;
-	dummy.transform.position = Vector3(x,y,-1);
-	fnct(x, y+1, dummy);
-	fnct(x-1, y+1, dummy);
-	fnct(x+1, y+1, dummy);
-	dummy.transform.eulerAngles = angle;
-}
-
-function beam (fnct : function(float, float, GameObject), x : float, y : float, angle : Vector3){
-	var dummy = new GameObject();
-	var temp : temporary = dummy.AddComponent(temporary);
-	temp.life = 5;
-	dummy.transform.position = Vector3(x,y,-1);
-	for(var i = -1;i<2;i++){
-		for(var j = 1; j<10; j++){
-			fnct(x+i, y+j, dummy);
-		}
+function cone (fnct : function(float, float)){
+	var angle = player.transform.eulerAngles.z;
+	if (angle < 45 || angle >= 315) {
+		fnct(player.transform.localPosition.x, player.transform.localPosition.y+1);
+		fnct(player.transform.localPosition.x+1, player.transform.localPosition.y+2);
+		fnct(player.transform.localPosition.x, player.transform.localPosition.y+2);
+		fnct(player.transform.localPosition.x-1, player.transform.localPosition.y+2);
+		fnct(player.transform.localPosition.x+2, player.transform.localPosition.y+3);
+		fnct(player.transform.localPosition.x+1, player.transform.localPosition.y+3);
+		fnct(player.transform.localPosition.x, player.transform.localPosition.y+3);
+		fnct(player.transform.localPosition.x-1, player.transform.localPosition.y+3);
+		fnct(player.transform.localPosition.x-2, player.transform.localPosition.y+3);
 	}
-	dummy.transform.eulerAngles = angle;
-}
-
-function bomb (fnct : function(float, float, GameObject), x : float, y : float, angle : Vector3){
-	var dummy = new GameObject();
-	var temp : temporary = dummy.AddComponent(temporary);
-	temp.life = 5;
-	dummy.transform.position = Vector3(x,y,-1);
-	for(var i = -2;i<3;i++){
-		for(var j = 1; j<6; j++){
-			fnct(x+i, y+j, dummy);
-		}
+	if (angle < 135 && angle >= 45) {
+		fnct(player.transform.localPosition.x-1, player.transform.localPosition.y);
+		fnct(player.transform.localPosition.x-2, player.transform.localPosition.y-1);
+		fnct(player.transform.localPosition.x-2, player.transform.localPosition.y);
+		fnct(player.transform.localPosition.x-2, player.transform.localPosition.y+1);
+		fnct(player.transform.localPosition.x-3, player.transform.localPosition.y+2);
+		fnct(player.transform.localPosition.x-3, player.transform.localPosition.y+1);
+		fnct(player.transform.localPosition.x-3, player.transform.localPosition.y);
+		fnct(player.transform.localPosition.x-3, player.transform.localPosition.y-1);
+		fnct(player.transform.localPosition.x-3, player.transform.localPosition.y-2);
 	}
-	dummy.transform.eulerAngles = angle;
+	if (angle < 225 && angle >= 135) {
+		fnct(player.transform.localPosition.x, player.transform.localPosition.y-1);
+		fnct(player.transform.localPosition.x+1, player.transform.localPosition.y-2);
+		fnct(player.transform.localPosition.x, player.transform.localPosition.y-2);
+		fnct(player.transform.localPosition.x-1, player.transform.localPosition.y-2);
+		fnct(player.transform.localPosition.x+2, player.transform.localPosition.y-3);
+		fnct(player.transform.localPosition.x+1, player.transform.localPosition.y-3);
+		fnct(player.transform.localPosition.x, player.transform.localPosition.y-3);
+		fnct(player.transform.localPosition.x-1, player.transform.localPosition.y-3);
+		fnct(player.transform.localPosition.x-2, player.transform.localPosition.y-3);
+	}
+	if (angle < 315 && angle >= 225) {
+		fnct(player.transform.localPosition.x+1, player.transform.localPosition.y);
+		fnct(player.transform.localPosition.x+2, player.transform.localPosition.y-1);
+		fnct(player.transform.localPosition.x+2, player.transform.localPosition.y);
+		fnct(player.transform.localPosition.x+2, player.transform.localPosition.y+1);
+		fnct(player.transform.localPosition.x+3, player.transform.localPosition.y+2);
+		fnct(player.transform.localPosition.x+3, player.transform.localPosition.y+1);
+		fnct(player.transform.localPosition.x+3, player.transform.localPosition.y);
+		fnct(player.transform.localPosition.x+3, player.transform.localPosition.y-1);
+		fnct(player.transform.localPosition.x+3, player.transform.localPosition.y-2);
+	}
 }
 
-function shot (fnct : function(float, float, GameObject), x : float, y : float, angle : Vector3){
-	var dummy = new GameObject();
-	var temp : temporary = dummy.AddComponent(temporary);
-	temp.life = 5;
-	dummy.transform.position = Vector3(x,y,-1);
-	fnct(x, y, dummy);
-	dummy.transform.eulerAngles = angle;
+function front (fnct : function(float,float)){
+	var angle = player.transform.eulerAngles.z;
+	if (angle < 45 || angle >= 315) {
+	fnct(player.transform.localPosition.x+1, player.transform.localPosition.y+1);
+	fnct(player.transform.localPosition.x, player.transform.localPosition.y+1);
+	fnct(player.transform.localPosition.x-1, player.transform.position.y+1);
+	}
+	if (angle < 135 && angle >= 45) {
+	fnct(player.transform.localPosition.x-1, player.transform.localPosition.y-1);
+	fnct(player.transform.localPosition.x-1, player.transform.localPosition.y);
+	fnct(player.transform.localPosition.x-1, player.transform.position.y+1);
+	}
+	if (angle < 225 && angle >= 135) {
+	fnct(player.transform.localPosition.x+1, player.transform.localPosition.y-1);
+	fnct(player.transform.localPosition.x, player.transform.localPosition.y-1);
+	fnct(player.transform.localPosition.x-1, player.transform.position.y-1);
+	}
+	if (angle < 315 && angle >= 225) {
+	fnct(player.transform.localPosition.x+1, player.transform.localPosition.y-1);
+	fnct(player.transform.localPosition.x+1, player.transform.localPosition.y);
+	fnct(player.transform.localPosition.x+1, player.transform.position.y+1);
+	}
 }
 
 

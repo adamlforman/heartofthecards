@@ -18,5 +18,5 @@ function init(o : spell, t : String) {
 }
 
 function Update () {
-	
+
 }
