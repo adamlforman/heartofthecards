@@ -16,7 +16,7 @@ function Update () {
 	if (!player) {
 		Time.timeScale = 0;
 	}
-	enemyTimer -= Time.deltaTime;
+	enemyTimer -= Time.deltaTime;		// Randomly and periodically spawn an enemy
 	if (enemyTimer <= 0) {
 		enemyTimer = 4;
 		addEnemy(Random.value*16-8, Random.value*10-5);
@@ -58,7 +58,7 @@ function buildPlayer(name : String) {
 	var playerObject = new GameObject();
 	var newPlayer = playerObject.AddComponent(player2D);
 	playerObject.AddComponent(CircleCollider2D);
-	newPlayer.init(this,playerObject,name, "marble");
+	newPlayer.init(this,playerObject,name, "marble");		// init(manager,owner,name,texture)
 	moveCharacter(newPlayer,0,0);
 	
 	return newPlayer;
@@ -69,7 +69,7 @@ function addEnemy(x: float, y: float) {
 	var newEnemy = enemyObject.AddComponent(enemy2D);
 	enemyObject.AddComponent(BoxCollider2D);
 	enemyObject.GetComponent(BoxCollider2D).isTrigger = true;
-	newEnemy.init(this,enemyObject,"Enemy", "FACE");
+	newEnemy.init(this,enemyObject,"Enemy", "FACE");		// init(manager,owner,name,texture)
 	moveCharacter(newEnemy,x,y);
 	
 	return newEnemy;
