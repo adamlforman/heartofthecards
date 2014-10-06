@@ -2,7 +2,9 @@
 
 var snare : boolean;
 var slow : boolean;
-
+var move : boolean;
+var poison : boolean;
+var movespeed : int = 10;
 function init(spellType : String) {
 	this.spellType = spellType;
 	var modelObject = GameObject.CreatePrimitive(PrimitiveType.Quad);	// Create a quad object for holding the tile texture.
@@ -23,10 +25,20 @@ function init(spellType : String) {
 		slow = true;
 	else
 		slow = false;
+		
+	if (spellType == "ARROW" || spellType == "DART")
+		move = true;
+	else
+		move = false;
+		
+	if(spellType == "DART" || spellType == "GAS")
+		poison = true;
+	else
+		poison = false;
 }
 
 function Update() {
-	if (snare || slow) {
+	if (snare || slow || poison) {
 		for (var other : Collider in Physics.OverlapSphere(Vector3(transform.position.x,transform.position.y,-1),0.7)) {
 			var otherOb : enemy2D;
 		if (other.gameObject.GetComponent("enemy2D"))
@@ -45,8 +57,16 @@ function Update() {
 					otherOb.slow = true;
 					otherOb.slowTimer = 5;
 				}
+				if (poison) {
+					otherOb.poisonCount = 5;
+					Destroy(gameObject);
+				}
 			}
 		}
+	}
+	if (move){
+		//print(transform.position.z);
+		transform.Translate(Vector3.up * movespeed * Time.deltaTime);
 	}
 }
 
