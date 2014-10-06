@@ -119,7 +119,7 @@ function spawnArcane(x : float, y : float, owner : GameObject){
 	
 	spellScript.name = "DEMACIA";				// Give the spell object a name in the Hierarchy pane.
 
-	spellEffects(x,y,20);
+	spellEffects(x,y,999);
 }
 
 function spawnWeb(x : float, y : float, owner : GameObject){

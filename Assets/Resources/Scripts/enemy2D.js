@@ -4,9 +4,12 @@ public var owner : GameObject;
 
 var spawnPoint : Vector3;
 
+var spellbook : enemySpellbook;
+
 var model : charModel2D;
 var manager : GameObject;
 var target : player2D;
+
 var health : int;
 
 var immune : boolean;
@@ -21,18 +24,57 @@ var snareTimer : float;
 var poisonCount : int;
 var poisonTimer : float;
 
+var armor : float;
+var armorTimer : float;
+
+var attack : function();
 var attackTimer : float;
 
-public var turnSmoothing : float = 4f;     // A smoothing value for turning the player.
+var aggroRange : float;
+var leashRange : float;
+var attackRange : float;
+
+var evadeToSpawn : boolean = false;
+
 public var baseSpeed : float = 1.4f;    // The damping for the speed parameter
 public var speed : float;
 
-function init(manager : GameObject, owner : GameObject, target : player2D, nameIn : String, texture : String,x:float,y:float) {
+function init(manager : GameObject, owner : GameObject, target : player2D, nameIn : String, type : String, x:float, y:float) {
 	//Debug.Log("Begin Character init: "+nameIn);
 	this.manager = manager;
 	this.owner = owner;
 	this.target = target;
+	if (manager.GetComponent("enemySpellbook"))
+		this.spellbook = manager.GetComponent("enemySpellbook");
 	owner.name = nameIn;
+	
+	var texture : String;
+	
+	switch(type) {
+		case "warrior":
+			texture = "ENEMY";
+			
+			attack = warriorAttack;
+			baseSpeed = 1f;
+			health = 25;
+			
+			aggroRange = 6;
+			leashRange = 15;
+			attackRange = 1;	
+			break;
+		
+		case "archer":
+			texture = "ARCHER";
+			
+			attack = archerAttack;
+			baseSpeed = 0.8f;
+			health = 15;
+			
+			aggroRange = 8;
+			leashRange = 10;
+			attackRange = 6;
+			break;
+	}
 	
 	spawnPoint = Vector3(x,y,0);
 	
@@ -44,7 +86,6 @@ function init(manager : GameObject, owner : GameObject, target : player2D, nameI
 	model.transform.position.z -= 2;
 	model.init(owner,texture);
 	
-	health = 20;
 	immune = false;
 	immuneTimer = 0;
 	
@@ -57,18 +98,31 @@ function FixedUpdate ()
     // Cache the inputs.
 	
 	if (target) {
-		var distance : float = Vector3.Distance(transform.position,target.transform.position);
-		if ( distance > 1 && distance < 7) {
-			transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+		var playerDistance : float = Vector3.Distance(transform.position,target.transform.position);
+		var spawnDistance : float = Vector3.Distance(transform.position,spawnPoint);
+		if (spawnDistance >= leashRange) {
+			evadeToSpawn = true;
 		}
-		else if (distance <= 1) {
-			if (attackTimer <= 0) {
-				target.takeDamage(10);
-				attackTimer = 3;
+		if (evadeToSpawn) {
+			if (spawnDistance <= 0.01) {
+				evadeToSpawn = false;
+			}
+			else {
+				transform.position = Vector3.MoveTowards(transform.position, spawnPoint, 3 * speed * Time.deltaTime);	
 			}
 		}
-		else if (distance >= 7 && Vector3.Distance(transform.position,spawnPoint) > 0.01)
-			transform.position = Vector3.MoveTowards(transform.position, spawnPoint, speed * Time.deltaTime);
+		else {
+			if ( playerDistance > attackRange && playerDistance < aggroRange) {
+				transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+			}
+			else if (playerDistance <= attackRange) {
+				if (attackTimer <= 0) {
+					attack();
+				}
+			}
+			else if (playerDistance >= aggroRange && Vector3.Distance(transform.position,spawnPoint) > 0.01)
+				transform.position = Vector3.MoveTowards(transform.position, spawnPoint, speed * Time.deltaTime);
+		}
 	}
 }
 
@@ -101,6 +155,14 @@ function processStatusEffects() {
 		if (snareTimer <= 0)
 			snare = false;
 	}
+}
+
+function warriorAttack() {
+	target.takeDamage(10);
+}
+
+function archerAttack() {
+	spellbook.arrow(transform.position.x, transform.position.y, transform.eulerAngles);
 }
 
 function die() {
