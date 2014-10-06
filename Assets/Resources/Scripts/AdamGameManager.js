@@ -60,7 +60,7 @@ function buildPlayer(name : String) {
 	var playerObject = new GameObject();
 	var newPlayer = playerObject.AddComponent(player2D);
 	playerObject.AddComponent(CircleCollider2D);
-	newPlayer.init(this,playerObject,name, "marble");
+	newPlayer.init(gameObject,playerObject,name, "marble",0,0);
 	moveCharacter(newPlayer,0,0);
 	
 	return newPlayer;
@@ -71,7 +71,7 @@ function addEnemy(x: float, y: float) {
 	var newEnemy = enemyObject.AddComponent(enemy2D);
 	enemyObject.AddComponent(BoxCollider2D);
 	enemyObject.GetComponent(BoxCollider2D).isTrigger = true;
-	newEnemy.init(this,enemyObject,"Enemy", "FACE");
+	newEnemy.init(gameObject,enemyObject,player,"Enemy", "FACE",x,y);
 	moveCharacter(newEnemy,x,y);
 	
 	return newEnemy;
@@ -97,7 +97,7 @@ function vectorFromAngle(angle : float) {
 	//Debug.Log(angle);
 	return Vector2(Mathf.Cos(angleRadians),Mathf.Sin(angleRadians));
 }
-
+/*
 function spellEffects(x : float, y : float, damage : float) {
 	for (var other : Collider in Physics.OverlapSphere(Vector3(x,y,-1),0.7)) {
 		//Debug.Log(other);
@@ -120,9 +120,9 @@ function spellEffects(x : float, y : float, damage : float) {
 
 }
 
-/* ----------------------------------------------------------
-	HERE FOLLOW SPELLS
-	----------------------------------------------------------*/
+// ----------------------------------------------------------
+//	HERE FOLLOW SPELLS
+//	----------------------------------------------------------
 	
 	
 function spawnFire(x : float, y : float, owner : GameObject){
@@ -330,5 +330,5 @@ function shot (fnct : function(float, float, GameObject), x : float, y : float, 
 	fnct(x, y, dummy);
 	dummy.transform.eulerAngles = angle;
 }
-
+*/
 

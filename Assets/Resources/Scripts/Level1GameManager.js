@@ -1,12 +1,36 @@
 ﻿
 
 var floor : Array;
-
-
+var spellbook : spellbook;
+var player : player2D;
 
 
 
 function Start () {
+	spellbook = gameObject.AddComponent("spellbook");
+	
+	buildWorld();
+	player = buildPlayer("Player");
+
+	var enemies = floor;
+	var randX : int;
+	var randY : int;
+	for(i = 0; i<50; i++){
+		randX = Random.Range(0,50);
+		randY = Random.Range(0,60);
+		while((enemies[randY][randX]!= "G") || (randX<15 && randY>49)){
+			randX = Random.Range(0,50);
+			randY = Random.Range(0,60);
+		}
+		//print(enemies[randY][randX]);
+		enemies[randY][randX] = "E";
+		addEnemy(randX, enemies.length-randY);
+	}
+	
+}
+
+
+function buildWorld() {
 	var R : String = "R";
 	var G : String = "G";
 	floor = new Array();
@@ -98,22 +122,7 @@ function Start () {
 			}
 		}
 	}
-	var enemies = floor;
-	var randX : int;
-	var randY : int;
-	for(i = 0; i<50; i++){
-		randX = Random.Range(0,50);
-		randY = Random.Range(0,60);
-		while((enemies[randY][randX]!= "G") || (randX<15 && randY>49)){
-			randX = Random.Range(0,50);
-			randY = Random.Range(0,60);
-		}
-		//print(enemies[randY][randX]);
-		enemies[randY][randX] = "E";
-		spawnEnemy(randX, enemies.length-randY);
-	}	
 }
-
 function Update () {
 
 }
@@ -151,6 +160,7 @@ function spawnGround(x : float, y : float){
 	terrainScript.name = "Ground";				// Give the terrain object a name in the Hierarchy pane.
 }
 
+/*
 function spawnEnemy(x : float, y : float){
 	var terrainObject = new GameObject();					// Create a new empty game object that will hold a terrain.
 	var terrainScript = terrainObject.AddComponent("terrain");		// Add the terrain.js script to the object.
@@ -165,4 +175,46 @@ function spawnEnemy(x : float, y : float){
 	
 	
 	terrainScript.name = "ENEMY";				// Give the terrain object a name in the Hierarchy pane.
+}*/
+
+function addEnemy(x: float, y: float) {
+	var enemyObject = new GameObject();
+	var newEnemy = enemyObject.AddComponent(enemy2D);
+	enemyObject.AddComponent(BoxCollider);
+	enemyObject.GetComponent(BoxCollider).isTrigger = true;
+	newEnemy.init(gameObject,enemyObject,player,"Enemy", "FACE",x,y);
+	moveCharacter(newEnemy,x,y);
+	
+	return newEnemy;
+}
+
+function buildPlayer(name : String) {
+	var playerObject = new GameObject();
+	var newPlayer = playerObject.AddComponent(player2D);
+	playerObject.AddComponent(BoxCollider);
+
+	newPlayer.init(gameObject,playerObject,name, "marble",3,3);
+	moveCharacter(newPlayer,3,3);
+	return newPlayer;
+}
+
+function moveCharacter(character : player2D, x : float, y: float) {
+	if (character.transform) {
+		character.transform.position.x = x;
+		character.transform.position.y = y;
+		character.transform.position.z = -1;
+	}
+}
+
+function moveCharacter(character : enemy2D, x : float, y : float) {
+	if (character.transform) {
+		character.transform.position.x = x;
+		character.transform.position.y = y;
+	}
+}
+
+function vectorFromAngle(angle : float) {
+	var angleRadians : float = (angle/360)*2*3.14159;
+	//Debug.Log(angle);
+	return Vector2(Mathf.Cos(angleRadians),Mathf.Sin(angleRadians));
 }

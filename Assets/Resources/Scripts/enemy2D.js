@@ -1,8 +1,12 @@
 ﻿#pragma strict
 
 public var owner : GameObject;
+
+var spawnPoint : Vector3;
+
 var model : charModel2D;
-var manager : AdamGameManager;
+var manager : GameObject;
+var target : player2D;
 var health : int;
 
 var immune : boolean;
@@ -23,17 +27,21 @@ public var turnSmoothing : float = 4f;     // A smoothing value for turning the 
 public var baseSpeed : float = 1.4f;    // The damping for the speed parameter
 public var speed : float;
 
-function init(manager : AdamGameManager, owner : GameObject, nameIn : String, texture : String) {
-	Debug.Log("Begin Character init: "+nameIn);
+function init(manager : GameObject, owner : GameObject, target : player2D, nameIn : String, texture : String,x:float,y:float) {
+	//Debug.Log("Begin Character init: "+nameIn);
 	this.manager = manager;
 	this.owner = owner;
+	this.target = target;
 	owner.name = nameIn;
+	
+	spawnPoint = Vector3(x,y,0);
 	
 	var modelObject = new GameObject.CreatePrimitive(PrimitiveType.Quad);
 	modelObject.name = owner.name + " Model";
 	
 	model = modelObject.AddComponent(charModel2D);
 	model.transform.parent = owner.transform;
+	model.transform.position.z -= 2;
 	model.init(owner,texture);
 	
 	health = 20;
@@ -48,16 +56,19 @@ function FixedUpdate ()
 	processStatusEffects();
     // Cache the inputs.
 	
-	if (manager.player) {
-		if (Vector3.Distance(transform.position,manager.player.transform.position) > 1) {
-			transform.position = Vector3.MoveTowards(transform.position, manager.player.transform.position, speed * Time.deltaTime);
+	if (target) {
+		var distance : float = Vector3.Distance(transform.position,target.transform.position);
+		if ( distance > 1 && distance < 7) {
+			transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
 		}
-		else {
+		else if (distance <= 1) {
 			if (attackTimer <= 0) {
-				manager.player.takeDamage(10);
+				target.takeDamage(10);
 				attackTimer = 3;
 			}
 		}
+		else if (distance >= 7 && Vector3.Distance(transform.position,spawnPoint) > 0.01)
+			transform.position = Vector3.MoveTowards(transform.position, spawnPoint, speed * Time.deltaTime);
 	}
 }
 
@@ -93,7 +104,6 @@ function processStatusEffects() {
 }
 
 function die() {
-	manager.score += 1;
 	GameObject.Destroy(model.gameObject);
 	GameObject.Destroy(gameObject);
 }

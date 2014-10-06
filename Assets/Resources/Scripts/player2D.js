@@ -2,7 +2,8 @@
 
 public var owner : GameObject;
 var model : charModel2D;
-var manager : AdamGameManager;
+var manager : GameObject;
+var spellbook : spellbook;
 
 public var turnSmoothing : float = 8f;     // A smoothing value for turning the player.
 public var baseSpeed : float = 2f;    // The damping for the speed parameter
@@ -26,9 +27,11 @@ public var immuneTimer : float;
 public var armor : float;
 public var armorTimer : float;
 
-function init(manager : AdamGameManager, owner : GameObject, nameIn : String, texture : String) {
-	Debug.Log("Begin Character init: "+nameIn);
+function init(manager : GameObject, owner : GameObject, nameIn : String, texture : String, x : float, y : float) {
+	//Debug.Log("Begin Character init: "+nameIn);
 	this.manager = manager;
+	if (manager.GetComponent("spellbook"))
+		this.spellbook = manager.GetComponent("spellbook");
 	this.owner = owner;
 	owner.name = nameIn;
 	
@@ -37,6 +40,7 @@ function init(manager : AdamGameManager, owner : GameObject, nameIn : String, te
 	
 	model = modelObject.AddComponent(charModel2D);
 	model.transform.parent = owner.transform;
+	model.transform.position.z -= 2;
 	model.init(owner,texture);
 	
 	// HERE BE INITIALIZATIONS BEWARE
@@ -195,20 +199,21 @@ function angleFromVector(vector : Vector2) {
 function castSpell(spell : String) {
 	if (spell != "Cooldown") {
 		if (spell == "FIRE")
-			manager.surround(manager.spawnFire, transform.position.x, transform.position.y, transform.eulerAngles);
+			spellbook.fireblast(transform.position.x, transform.position.y, transform.eulerAngles);
 		if (spell == "ICE")
-			manager.cone(manager.spawnIce, transform.position.x, transform.position.y, transform.eulerAngles);
+			spellbook.iceBreath(transform.position.x, transform.position.y, transform.eulerAngles);
 		if (spell == "WEB")
-			manager.surround(manager.spawnWeb, transform.position.x, transform.position.y, transform.eulerAngles);
+			spellbook.webTrap(transform.position.x, transform.position.y, transform.eulerAngles);
 		if (spell == "ARMOR") {
+			spellbook.armor(this);
 			armor = 0.9;
 			armorTimer = 5;
 		}
 		if(spell == "DART"){
-			manager.shot(manager.spawnDart, transform.position.x, transform.position.y, transform.eulerAngles);
+			spellbook.dart(transform.position.x, transform.position.y, transform.eulerAngles);
 		}
 		if(spell == "DEMACIA"){
-			manager.beam(manager.spawnArcane, transform.position.x, transform.position.y, transform.eulerAngles);
+			spellbook.arcaneCataclysm(transform.position.x, transform.position.y, transform.eulerAngles);
 		}
 	}
 }

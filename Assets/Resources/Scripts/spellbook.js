@@ -106,9 +106,9 @@ function spawnIce(x : float, y : float, owner : GameObject){
 
 function spawnArcane(x : float, y : float, owner : GameObject){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
+	var spellScript : spell = spellObject.AddComponent(spell);		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
-	var temp : temporary = spellObject.AddComponent("temporary");
+	var temp : temporary = spellObject.AddComponent(temporary);
 	temp.life = 0.5;
 	var spellType = "DEMACIA";
 	spellScript.transform.parent = owner.transform;	// Set the spell's parent object to be the gameManager?
@@ -124,9 +124,9 @@ function spawnArcane(x : float, y : float, owner : GameObject){
 
 function spawnWeb(x : float, y : float, owner : GameObject){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
+	var spellScript : spell = spellObject.AddComponent(spell);		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
-	var temp : temporary = spellObject.AddComponent("temporary");
+	var temp : temporary = spellObject.AddComponent(temporary);
 	temp.life = 3;
 	var spellType = "WEB";
 	spellScript.transform.parent = owner.transform;	// Set the spell's parent object to be the gameManager?
@@ -142,9 +142,9 @@ function spawnWeb(x : float, y : float, owner : GameObject){
 
 function spawnSlash(x : float, y : float, owner : GameObject){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
+	var spellScript : spell = spellObject.AddComponent(spell);		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
-	var temp : temporary = spellObject.AddComponent("temporary");
+	var temp : temporary = spellObject.AddComponent(temporary);
 	temp.life = 1;
 	var spellType = "SLASH";
 	spellScript.transform.parent = owner.transform;	// Set the spell's parent object to be the gameManager?
@@ -160,9 +160,9 @@ function spawnSlash(x : float, y : float, owner : GameObject){
 
 function spawnArrow(x : float, y : float, owner : GameObject){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
+	var spellScript : spell = spellObject.AddComponent(spell);		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
-	var temp : temporary = spellObject.AddComponent("temporary");
+	var temp : temporary = spellObject.AddComponent(temporary);
 	temp.life = 10;
 	var spellType = "ARROW";
 	spellScript.transform.parent = owner.transform;	// Set the spell's parent object to be the gameManager?
@@ -178,9 +178,9 @@ function spawnArrow(x : float, y : float, owner : GameObject){
 
 function spawnDart(x : float, y : float, owner : GameObject){
 	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
-	var spellScript : spell = spellObject.AddComponent("spell");		// Add the spell.js script to the object.
+	var spellScript : spell = spellObject.AddComponent(spell);		// Add the spell.js script to the object.
 														// We can now refer to the object via this script.
-	var temp : temporary = spellObject.AddComponent("temporary");
+	var temp : temporary = spellObject.AddComponent(temporary);
 	temp.life = 10;
 	var spellType = "DART";
 	spellScript.transform.parent = owner.transform;	// Set the spell's parent object to be the gameManager?
