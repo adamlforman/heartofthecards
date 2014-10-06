@@ -2,12 +2,14 @@
 
 var floor : Array;
 var spellbook : spellbook;
+var enemySpellbook : enemySpellbook;
 var player : player2D;
 
 
 
 function Start () {
 	spellbook = gameObject.AddComponent("spellbook");
+	enemySpellbook = gameObject.AddComponent("enemySpellbook");
 	
 	buildWorld();
 	player = buildPlayer("Player");
@@ -35,16 +37,16 @@ function buildWorld() {
 	var G : String = "G";
 	floor = new Array();
 	floor.length=60;
-	floor[0] = [R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
-	floor[1] = [R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
-	floor[2] = [R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
-	floor[3] = [R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
-	floor[4] = [R, R, R, R, G, G, G, R, R, R, R, R, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
-	floor[5] = [R, R, R, R, G, G, G, R, R, R, R, R, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
-	floor[6] = [R, R, R, R, G, G, G, R, R, R, R, R, G, G, G, R, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
-	floor[7] = [R, G, G, G, G, G, G, G, G, R, R, R, G, G, G, R, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
-	floor[8] = [R, G, G, G, G, G, G, G, G, R, R, R, G, G, G, R, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
-	floor[9] = [R, G, G, G, G, G, G, G, G, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
+	floor[0] =  [R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
+	floor[1] =  [R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
+	floor[2] =  [R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
+	floor[3] =  [R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
+	floor[4] =  [R, R, R, R, G, G, G, R, R, R, R, R, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
+	floor[5] =  [R, R, R, R, G, G, G, R, R, R, R, R, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
+	floor[6] =  [R, R, R, R, G, G, G, R, R, R, R, R, G, G, G, R, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
+	floor[7] =  [R, G, G, G, G, G, G, G, G, R, R, R, G, G, G, R, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
+	floor[8] =  [R, G, G, G, G, G, G, G, G, R, R, R, G, G, G, R, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
+	floor[9] =  [R, G, G, G, G, G, G, G, G, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
 	floor[10] = [R, G, G, G, G, G, G, G, G, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
 	floor[11] = [R, G, G, G, G, G, G, G, G, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
 	floor[12] = [R, G, G, G, G, G, G, G, G, R, R, R, R, R, R, R, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
@@ -135,7 +137,7 @@ function spawnRock(x : float, y : float){
 	//terrainObject.GetComponent("temporary").life = 1;
 	terrainType = "ROCK";
 	//terrainScript.transform.parent = this.transform;	// Set the terrain's parent object to be the gameManager?
-	terrainScript.transform.position = Vector3(x,y,-1);	// Position the terrain at x,y.
+	terrainScript.transform.position = Vector3(x,y,0);	// Position the terrain at x,y.
 	
 	terrainScript.init(terrainType);							// Initialize the terrain script.
 	
@@ -182,7 +184,7 @@ function addEnemy(x: float, y: float) {
 	var newEnemy = enemyObject.AddComponent(enemy2D);
 	enemyObject.AddComponent(BoxCollider);
 	enemyObject.GetComponent(BoxCollider).isTrigger = true;
-	newEnemy.init(gameObject,enemyObject,player,"Enemy", "FACE",x,y);
+	newEnemy.init(gameObject,enemyObject,player,"Enemy Archer", "archer",x,y);
 	moveCharacter(newEnemy,x,y);
 	
 	return newEnemy;
@@ -191,9 +193,11 @@ function addEnemy(x: float, y: float) {
 function buildPlayer(name : String) {
 	var playerObject = new GameObject();
 	var newPlayer = playerObject.AddComponent(player2D);
-	playerObject.AddComponent(BoxCollider);
+	var playerCollider = playerObject.AddComponent(BoxCollider);
 
-	newPlayer.init(gameObject,playerObject,name, "marble",3,3);
+
+	newPlayer.init(gameObject,playerObject,playerCollider.size,playerCollider.center, name, "FACE",3,3);
+
 	moveCharacter(newPlayer,3,3);
 	return newPlayer;
 }

@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 6e10454e64f36b34aa435085aaa3be3e
+guid: dbaa9251585bf2a48b011843195e6af5
 TextureImporter:
   fileIDToRecycleName:
-    21300000: FACE 1
+    21300000: HpBar
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

@@ -4,9 +4,14 @@ public var owner : GameObject;
 
 var spawnPoint : Vector3;
 
+var spellbook : enemySpellbook;
+
 var model : charModel2D;
 var manager : GameObject;
 var target : player2D;
+
+var healthBar : healthBar;
+
 var health : int;
 
 var immune : boolean;
@@ -21,18 +26,57 @@ var snareTimer : float;
 var poisonCount : int;
 var poisonTimer : float;
 
+var armor : float;
+var armorTimer : float;
+
+var attack : function();
 var attackTimer : float;
 
-public var turnSmoothing : float = 4f;     // A smoothing value for turning the player.
+var aggroRange : float;
+var leashRange : float;
+var attackRange : float;
+
+var evadeToSpawn : boolean = false;
+
 public var baseSpeed : float = 1.4f;    // The damping for the speed parameter
 public var speed : float;
 
-function init(manager : GameObject, owner : GameObject, target : player2D, nameIn : String, texture : String,x:float,y:float) {
+function init(manager : GameObject, owner : GameObject, target : player2D, nameIn : String, type : String, x:float, y:float) {
 	//Debug.Log("Begin Character init: "+nameIn);
 	this.manager = manager;
 	this.owner = owner;
 	this.target = target;
+	if (manager.GetComponent("enemySpellbook"))
+		this.spellbook = manager.GetComponent("enemySpellbook");
 	owner.name = nameIn;
+	
+	var texture : String;
+	
+	switch(type) {
+		case "warrior":
+			texture = "ENEMY";
+			
+			attack = warriorAttack;
+			baseSpeed = 1f;
+			health = 25;
+			
+			aggroRange = 6;
+			leashRange = 15;
+			attackRange = 1;	
+			break;
+		
+		case "archer":
+			texture = "ARCHER";
+			
+			attack = archerAttack;
+			baseSpeed = 0.8f;
+			health = 15;
+			
+			aggroRange = 8;
+			leashRange = 10;
+			attackRange = 6;
+			break;
+	}
 	
 	spawnPoint = Vector3(x,y,0);
 	
@@ -44,7 +88,14 @@ function init(manager : GameObject, owner : GameObject, target : player2D, nameI
 	model.transform.position.z -= 2;
 	model.init(owner,texture);
 	
-	health = 20;
+	var healthBarObject = new GameObject();
+	healthBarObject.name = owner.name + " Health Bar";
+	
+	healthBar = healthBarObject.AddComponent("healthBar");
+	healthBar.transform.parent = owner.transform;
+	healthBar.transform.position.z -= 3;
+	healthBar.init(this,transform,health,0);
+	
 	immune = false;
 	immuneTimer = 0;
 	
@@ -57,18 +108,51 @@ function FixedUpdate ()
     // Cache the inputs.
 	
 	if (target) {
-		var distance : float = Vector3.Distance(transform.position,target.transform.position);
-		if ( distance > 1 && distance < 7) {
-			transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+		var playerDistance : float = Vector3.Distance(transform.position,target.transform.position);
+		var spawnDistance : float = Vector3.Distance(transform.position,spawnPoint);
+		var dir : Vector3;
+		
+		
+		
+		if (spawnDistance >= leashRange) {
+			evadeToSpawn = true;
 		}
-		else if (distance <= 1) {
-			if (attackTimer <= 0) {
-				target.takeDamage(10);
-				attackTimer = 3;
+		if (evadeToSpawn) {
+			if (spawnDistance <= 0.01) {
+				evadeToSpawn = false;
+			}
+			else {
+				dir = Vector3.MoveTowards(transform.position, spawnPoint, 3 * speed * Time.deltaTime);
+				transform.position = dir;
+				facing((spawnPoint.x - transform.position.x), (spawnPoint.y - transform.position.y));
+				//transform.rotation = Quaternion.LookRotation(dir,Vector3.forward);	
 			}
 		}
-		else if (distance >= 7 && Vector3.Distance(transform.position,spawnPoint) > 0.01)
-			transform.position = Vector3.MoveTowards(transform.position, spawnPoint, speed * Time.deltaTime);
+		else {
+			if ( playerDistance > attackRange && playerDistance < aggroRange) {
+				 dir = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+				transform.position = dir;
+				facing((target.transform.position.x - transform.position.x),(target.transform.position.y - transform.position.y));
+				//transform.rotation = Quaternion.LookRotation(dir,Vector3.forward);
+			}
+			else if (playerDistance <= attackRange) {
+				facing((target.transform.position.x - transform.position.x),(target.transform.position.y - transform.position.y));
+				if (attackTimer <= 0) {
+					attack();
+				}
+			}
+			else if (playerDistance >= aggroRange && Vector3.Distance(transform.position,spawnPoint) > 0.01) {
+				 dir = Vector3.MoveTowards(transform.position, spawnPoint, speed * Time.deltaTime);
+				transform.position = dir;
+				facing((spawnPoint.x - transform.position.x), (spawnPoint.y - transform.position.y));
+				//transform.rotation = Quaternion.LookRotation(dir,Vector3.forward);
+			}
+		}
+	}
+	else {
+		dir = Vector3.MoveTowards(transform.position, spawnPoint, speed * Time.deltaTime);
+		transform.position = dir;
+		facing((spawnPoint.x - transform.position.x), (spawnPoint.y - transform.position.y));
 	}
 }
 
@@ -101,6 +185,59 @@ function processStatusEffects() {
 		if (snareTimer <= 0)
 			snare = false;
 	}
+}
+
+function facing (horizontal : float, vertical : float) {
+	
+	vertical = -vertical;
+	   // Create a new vector of the horizontal and vertical inputs.
+    var targetDirection : Vector2 = new Vector2(horizontal, vertical);
+    
+    // TURN
+    var newAngle : float = angleFromVector(targetDirection);
+    //Debug.Log(horizontal+", " +vertical);
+	//Debug.Log(newAngle);
+    transform.eulerAngles.z = newAngle;
+	
+	/* OLD ROTATE FUNCTION
+	//Debug.Log("Rotating "+ horizontal + " h, " + vertical + " v.");
+	
+	//Calculate a new rotation
+    var newTurn : float = transform.eulerAngles.z - (horizontal)*turnSmoothing;
+    //Debug.Log(newTurn);
+
+    // Change the players rotation to this new rotation.
+    transform.eulerAngles.z = (newTurn);
+    */
+}
+
+function takeDamage(damage : float) {
+	damage = damage - damage*armor;
+	if (!immune) {
+		health -= damage;
+		immune = true;
+		immuneTimer = 0.5;
+	}
+}
+
+function warriorAttack() {
+	target.takeDamage(7);
+	attackTimer = 3;
+}
+
+function archerAttack() {
+	spellbook.arrow(transform.position.x, transform.position.y, transform.eulerAngles);
+	attackTimer = 3;
+}
+
+function angleFromVector(vector : Vector2) {
+	var angleRadians : float = Vector2.Angle(vector,Vector2(0,1));
+	if (vector.x >= 0)
+		angleRadians += 180;
+	else
+		angleRadians = 180 - angleRadians;
+	return angleRadians;
+	//return 360*angleRadians/(2*3.14159);
 }
 
 function die() {

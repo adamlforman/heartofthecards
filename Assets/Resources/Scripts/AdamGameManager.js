@@ -1,4 +1,6 @@
-﻿var ground : GameObject;	// The ground's model. Background only.
+/*
+var ground : GameObject;	// The ground's model. Background only.
+
 var player : player2D;
 var score : float;
 
@@ -72,7 +74,7 @@ function addEnemy(x: float, y: float) {
 	enemyObject.AddComponent(BoxCollider2D);
 	enemyObject.GetComponent(BoxCollider2D).isTrigger = true;
 
-	newEnemy.init(gameObject,enemyObject,player,"Enemy", "FACE",x,y);
+	newEnemy.init(gameObject,enemyObject,player,"Enemy Warrior", "warrior",x,y);
 
 	moveCharacter(newEnemy,x,y);
 	
