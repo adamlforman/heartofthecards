@@ -66,8 +66,8 @@ function Update() {
 	var sphereSize : float;
 	if (spellType == "ARROW") {
 		sphereX = 0;
-		sphereY = 0.3;
-		sphereSize = 0.2;
+		sphereY = 0.2;
+		sphereSize = 0.3;
 	}
 	else {
 		sphereX = 0;

@@ -18,6 +18,8 @@ public var spell2Timer : float;
 public var spell3Timer : float;
 
 public var cooldown : float;
+public var GCTimer : float;
+public var globalCooldown : float;
 
 public var health : float;
 
@@ -82,6 +84,7 @@ function init(manager : GameObject, owner : GameObject, s : Vector3, c : Vector3
 	spell3 = drawSpell();
 	
 	cooldown = 5;
+	globalCooldown = 1.1;
 	
 	spell1Timer = cooldown;
 	spell2Timer = cooldown;
@@ -92,6 +95,7 @@ function init(manager : GameObject, owner : GameObject, s : Vector3, c : Vector3
 
 function Update() {
 	
+	GCTimer -= Time.deltaTime;
 		
 	if (spell1 == "Cooldown" || spell1 ==  "SLASH" || spell1 ==  "SHOOT") {
 		spell1Timer -= Time.deltaTime;
@@ -165,16 +169,21 @@ function FixedUpdate ()
     
    // MovementManagement(h, v, lh, lv); No more of this
     
-    if (cast1 > 0 && spell1 != "Cooldown") {
-    	spell1 = castSpell(spell1);
-    	}
-    if (cast2 > 0 && spell2 != "Cooldown") {
-    	spell2 = castSpell(spell2);
-    	}
-    if (cast3 > 0 && spell3 != "Cooldown") {
-    	spell3 = castSpell(spell3);
-    	}
-    	
+    if (GCTimer <= 0) {
+    	if (cast1 > 0 && spell1 != "Cooldown") {
+    		GCTimer = globalCooldown;
+    		spell1 = castSpell(spell1);
+    		}
+    	if (cast2 > 0 && spell2 != "Cooldown") {
+    		GCTimer = globalCooldown;
+    		spell2 = castSpell(spell2);
+    		}
+    	if (cast3 > 0 && spell3 != "Cooldown") {
+    		GCTimer = globalCooldown;
+			spell3 = castSpell(spell3);
+    		}
+    }
+    
     targetSpeedx = Input.GetAxisRaw("Horizontal") * speed;
 	currentSpeedx = incrementTowards(currentSpeedx, targetSpeedx, acceleration);
 	targetSpeedy = Input.GetAxisRaw("Vertical") * speed;
