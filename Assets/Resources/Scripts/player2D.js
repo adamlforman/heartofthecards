@@ -405,6 +405,7 @@ function takeDamage(damage : float) {
 }
 
 function die() {
+	AudioSource.PlayClipAtPoint(Resources.Load("Sounds/death",AudioClip),transform.position,50);
 	GameObject.Destroy(model.gameObject);
 	GameObject.Destroy(gameObject);
 }
