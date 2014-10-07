@@ -71,7 +71,7 @@ function init(manager : GameObject, owner : GameObject, s : Vector3, c : Vector3
 	
 	// HERE BE INITIALIZATIONS BEWARE
 	//deck = ["DEMACIA","DEMACIA","DEMACIA","DEMACIA"];
-	deck = ["FIRE","FIRE","FIRE","FIRE","ARMOR","ARMOR","ARMOR","ARMOR","ICE","ICE","ICE","ICE","DEMACIA","WEB","WEB","WEB","DART","DART","DART","DART", "LONGSWORD", "LONGSWORD", "LONGSWORD"];
+	deck = ["FIRE","FIRE","FIRE","FIRE","ARMOR","ARMOR","ARMOR","ARMOR","ICE","ICE","ICE","ICE","DEMACIA","WEB","WEB","WEB","DART","DART","DART","DART", "LONGSWORD", "LONGSWORD", "LONGSWORD", "BOW", "BOW", "BOW", "GAS", "GAS", "GAS"];
 	library = deck;
 	
 	
@@ -93,21 +93,21 @@ function init(manager : GameObject, owner : GameObject, s : Vector3, c : Vector3
 function Update() {
 	
 		
-	if (spell1 == "Cooldown" || spell1 ==  "SLASH" || spell1 ==  "SHOOT") {
+	if (spell1 == "Cooldown" || spell1 ==  "SLASH" || spell1 ==  "ARROW") {
 		spell1Timer -= Time.deltaTime;
 		if (spell1Timer <= 0) {
 			spell1Timer = cooldown;
 			spell1 = drawSpell();
 		}
 	}
-	if (spell2 == "Cooldown" || spell2 ==  "SLASH" || spell2 ==  "SHOOT") {
+	if (spell2 == "Cooldown" || spell2 ==  "SLASH" || spell2 ==  "ARROW") {
 		spell2Timer -= Time.deltaTime;
 		if (spell2Timer <= 0) {
 			spell2Timer = cooldown;
 			spell2 = drawSpell();
 		}
 	}
-	if (spell3 == "Cooldown" || spell3 ==  "SLASH" || spell3 ==  "SHOOT") {
+	if (spell3 == "Cooldown" || spell3 ==  "SLASH" || spell3 ==  "ARROW") {
 		spell3Timer -= Time.deltaTime;
 		if (spell3Timer <= 0) {
 			spell3Timer = cooldown;
@@ -334,8 +334,22 @@ function castSpell(spell : String) {
 			AudioSource.PlayClipAtPoint(Resources.Load("Sounds/DEMACIA",AudioClip),transform.position);
 			spellbook.arcaneCataclysm(transform.position.x, transform.position.y, transform.eulerAngles);
 		}
-		if (spell == "LONGSWORD")		// FOR EXAMPLE
+		if (spell == "LONGSWORD"){		// FOR EXAMPLE
 			returnValue = "SLASH";
+		}
+		if (spell == "SLASH"){		// FOR EXAMPLE
+			spellbook.slash(transform.position.x, transform.position.y, transform.eulerAngles);
+			returnValue = "SLASH";
+		}
+		if (spell == "BOW")		// FOR EXAMPLE
+			returnValue = "ARROW";
+		if (spell == "ARROW"){		// FOR EXAMPLE
+			spellbook.arrow(transform.position.x, transform.position.y, transform.eulerAngles);
+			returnValue = "ARROW";
+		}	
+		if(spell == "GAS"){
+			spellbook.gas(transform.position.x, transform.position.y, transform.eulerAngles);
+		}
 	}
 	return returnValue;
 }

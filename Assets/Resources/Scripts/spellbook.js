@@ -24,12 +24,20 @@ function dart(x : float,y : float, angle : Vector3) {
 	shot(spawnDart,x,y,angle);
 }
 
+function arrow(x : float,y : float, angle : Vector3) {
+	shot(spawnArrow,x,y,angle);
+}
+
 function slash(x : float,y : float, angle : Vector3) {
 	front(spawnSlash,x,y,angle);
 }
 
 function arcaneCataclysm(x : float,y : float, angle : Vector3) {
 	beam(spawnArcane,x,y,angle);
+}
+
+function gas(x : float,y : float, angle : Vector3) {
+	bomb(spawnGas,x,y,angle);
 }
 
 //--------------------------------
@@ -202,6 +210,25 @@ function spawnDart(x : float, y : float, owner : GameObject){
 	
 	
 	spellScript.name = "DART";				// Give the spell object a name in the Hierarchy pane.
+	
+
+	//spellEffects(x,y,10);
+}
+
+function spawnGas(x : float, y : float, owner : GameObject){
+	var spellObject = new GameObject();					// Create a new empty game object that will hold a spell.
+	var spellScript : playerSpell = spellObject.AddComponent(playerSpell);		// Add the spell.js script to the object.
+														// We can now refer to the object via this script.
+	var temp : temporary = spellObject.AddComponent(temporary);
+	temp.life = 5;
+	var spellType = "GAS";
+	spellScript.transform.parent = owner.transform;	// Set the spell's parent object to be the gameManager?
+	spellScript.transform.position = Vector3(x,y,-1);	// Position the spell at x,y.
+	
+	spellScript.init(spellType);							// Initialize the spell script.
+	
+	
+	spellScript.name = "GAS";				// Give the spell object a name in the Hierarchy pane.
 	
 
 	//spellEffects(x,y,10);
