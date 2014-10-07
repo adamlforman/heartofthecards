@@ -70,8 +70,8 @@ function init(manager : GameObject, owner : GameObject, s : Vector3, c : Vector3
 	model.init(owner,texture);
 	
 	// HERE BE INITIALIZATIONS BEWARE
-	//deck = ["DEMACIA","DEMACIA","DEMACIA","DEMACIA"];
-	deck = ["FIRE","FIRE","FIRE","FIRE","ARMOR","ARMOR","ARMOR","ARMOR","ICE","ICE","ICE","ICE","DEMACIA","WEB","WEB","WEB","DART","DART","DART","DART"];
+	deck = ["DEMACIA","DEMACIA","DEMACIA","DEMACIA"];
+	//deck = ["FIRE","FIRE","FIRE","FIRE","ARMOR","ARMOR","ARMOR","ARMOR","ICE","ICE","ICE","ICE","DEMACIA","WEB","WEB","WEB","DART","DART","DART","DART"];
 	library = deck;
 	
 	
@@ -116,7 +116,7 @@ function Update() {
 	}
 }
 
-function shuffle(list : Array){ //v1.0
+function shuffle(list : String[]){ //v1.0
    	for(var i = list.length - 1; i >= 1; i--) {
     	 var j = Random.Range(0,i);
     	 var temp = list[i];
@@ -331,6 +331,7 @@ function castSpell(spell : String) {
 			spellbook.dart(transform.position.x, transform.position.y, transform.eulerAngles);
 		}
 		if(spell == "DEMACIA"){
+			AudioSource.PlayClipAtPoint(Resources.Load("Sounds/DEMACIA",AudioClip),transform.position);
 			spellbook.arcaneCataclysm(transform.position.x, transform.position.y, transform.eulerAngles);
 		}
 		 if (spell == "LONGSWORD")		// FOR EXAMPLE

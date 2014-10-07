@@ -200,6 +200,7 @@ function buildPlayer(name : String) {
 	var playerObject = new GameObject();
 	var newPlayer = playerObject.AddComponent(player2D);
 	var playerCollider = playerObject.AddComponent(BoxCollider);
+	var playerAudio = playerObject.AddComponent(AudioSource);
 
 
 	newPlayer.init(gameObject,playerObject,playerCollider.size,playerCollider.center, name, "FACE",3,3);

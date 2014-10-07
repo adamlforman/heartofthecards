@@ -74,7 +74,7 @@ function init(manager : GameObject, owner : GameObject, target : player2D, nameI
 			
 			aggroRange = 8;
 			leashRange = 10;
-			attackRange = 6;
+			attackRange = 4;
 			break;
 	}
 	
