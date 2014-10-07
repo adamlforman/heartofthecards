@@ -33,10 +33,21 @@ function Start () {
 	var cam = Camera.mainCamera.GetComponent(GameCamera);
 
 	cam.setTarget(player,0,1,50,60);
-
+	spawnLevelEnd();
 	
 }
-
+function spawnLevelEnd() {
+	var levelEndObject = new GameObject();					// Create a new empty game object that will hold a
+	var levelEndScript = levelEndObject.AddComponent("levelEnd");		// Add the  script to the object.
+														// We can now refer to the object via this script.
+	
+	levelEndScript.transform.position = Vector3(22,48,-1);	// Position the at x,y.
+	
+	levelEndScript.init();							// Initialize the script.
+	
+	
+	levelEndScript.name = "LevelEND";				// Give the object a name in the Hierarchy pane.
+}
 
 function buildWorld() {
 	var R : String = "R";
@@ -144,7 +155,7 @@ function spawnRock(x : float, y : float){
 	terrainType = "ROCK";
 	//terrainScript.transform.parent = this.transform;	// Set the terrain's parent object to be the gameManager?
 	terrainScript.transform.position = Vector3(x,y,0);	// Position the terrain at x,y.
-	
+	//terrainScript.transform.localScale = Vector3(1, 1, 2);
 	terrainScript.init(terrainType);							// Initialize the terrain script.
 	
 	
@@ -161,6 +172,7 @@ function spawnGround(x : float, y : float){
 	terrainType = "Ground" + rand;
 	//terrainScript.transform.parent = this.transform;	// Set the terrain's parent object to be the gameManager?
 	terrainScript.transform.position = Vector3(x,y,0);	// Position the terrain at x,y.
+	
 	
 	terrainScript.init(terrainType);							// Initialize the terrain script.
 	
@@ -190,6 +202,9 @@ function addEnemy(x: float, y: float, name:String, type:String) {
 	var newEnemy = enemyObject.AddComponent(enemy2D);
 	enemyObject.AddComponent(BoxCollider);
 	enemyObject.GetComponent(BoxCollider).isTrigger = true;
+	enemyObject.transform.position = Vector3(enemyObject.transform.position.x, enemyObject.transform.position.y, -1);
+	//var enemyController = enemyObject.AddComponent(CharacterController);
+//	enemyController.height = 1.0;
 	newEnemy.init(gameObject,enemyObject,player,name, type,x,y);
 	moveCharacter(newEnemy,x,y);
 	
@@ -200,6 +215,9 @@ function buildPlayer(name : String) {
 	var playerObject = new GameObject();
 	var newPlayer = playerObject.AddComponent(player2D);
 	var playerCollider = playerObject.AddComponent(BoxCollider);
+	playerCollider.isTrigger = true;
+	var rigidPlayer = playerObject.AddComponent(Rigidbody);
+	rigidPlayer.useGravity = false;
 	var playerAudio = playerObject.AddComponent(AudioSource);
 
 
