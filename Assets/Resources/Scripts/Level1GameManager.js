@@ -190,7 +190,7 @@ function addEnemy(x: float, y: float, name:String, type:String) {
 	var newEnemy = enemyObject.AddComponent(enemy2D);
 	enemyObject.AddComponent(BoxCollider);
 	enemyObject.GetComponent(BoxCollider).isTrigger = true;
-	newEnemy.init(gameObject,enemyObject,player,"Enemy Archer", "archer",x,y);
+	newEnemy.init(gameObject,enemyObject,player,name, type,x,y);
 	moveCharacter(newEnemy,x,y);
 	
 	return newEnemy;
