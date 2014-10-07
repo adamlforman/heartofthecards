@@ -197,15 +197,17 @@ function spawnEnemy(x : float, y : float){
 	terrainScript.name = "ENEMY";				// Give the terrain object a name in the Hierarchy pane.
 }*/
 
-function addEnemy(x: float, y: float, name:String, type:String) {
+function addEnemy(x: float, y: float, name: String, type: String) {
 	var enemyObject = new GameObject();
 	var newEnemy = enemyObject.AddComponent(enemy2D);
 	enemyObject.AddComponent(BoxCollider);
 	enemyObject.GetComponent(BoxCollider).isTrigger = true;
+
 	enemyObject.transform.position = Vector3(enemyObject.transform.position.x, enemyObject.transform.position.y, -1);
 	//var enemyController = enemyObject.AddComponent(CharacterController);
 	//enemyController.height = 1.0;
 	newEnemy.init(gameObject,enemyObject,player,name, type,x,y);
+
 	moveCharacter(newEnemy,x,y);
 	
 	return newEnemy;
@@ -215,6 +217,7 @@ function buildPlayer(name : String) {
 	var playerObject = new GameObject();
 	var newPlayer = playerObject.AddComponent(player2D);
 	var playerCollider = playerObject.AddComponent(BoxCollider);
+
 	playerCollider.isTrigger = true;
 	var rigidPlayer = playerObject.AddComponent(Rigidbody);
 	rigidPlayer.useGravity = false;
