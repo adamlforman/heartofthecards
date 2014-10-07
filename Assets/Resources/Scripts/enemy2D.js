@@ -78,14 +78,16 @@ function init(manager : GameObject, owner : GameObject, target : player2D, nameI
 			break;
 	}
 	
-	spawnPoint = Vector3(x,y,0);
+	spawnPoint = Vector3(x,y,-1);
 	
 	var modelObject = new GameObject.CreatePrimitive(PrimitiveType.Quad);
 	modelObject.name = owner.name + " Model";
-	
+	//Destroy(modelObject.collider);
 	model = modelObject.AddComponent(charModel2D);
+	//var rigidModel = modelObject.AddComponent(Rigidbody);
+	//rigidModel.useGravity = false;
 	model.transform.parent = owner.transform;
-	model.transform.position.z -= 2;
+	model.transform.position.z -=1;
 	model.init(owner,texture);
 	
 	var healthBarObject = new GameObject();
@@ -112,7 +114,7 @@ function FixedUpdate ()
 		var spawnDistance : float = Vector3.Distance(transform.position,spawnPoint);
 		var dir : Vector3;
 		
-		
+		var movement: Vector3;
 		
 		if (spawnDistance >= leashRange) {
 			//evadeToSpawn = true;
@@ -124,13 +126,21 @@ function FixedUpdate ()
 			else {
 				dir = Vector3.MoveTowards(transform.position, spawnPoint, 3 * speed * Time.deltaTime);
 				transform.position = dir;
+				//dir = spawnPoint - transform.position;
+				//movement = dir.normalized * speed * Time.deltaTime;
+				//if (movement.magnitude > dir.magnitude) movement = dir;
+				//GetComponent(CharacterController).Move(movement);
 				facing((spawnPoint.x - transform.position.x), (spawnPoint.y - transform.position.y));
 				//transform.rotation = Quaternion.LookRotation(dir,Vector3.forward);	
 			}
 		}
 		else {
 			if ( playerDistance > attackRange && playerDistance < aggroRange) {
-				 dir = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+				dir = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+				//dir = target.transform.position - transform.position;
+				//movement = dir.normalized * speed * Time.deltaTime;
+				//if (movement.magnitude > dir.magnitude) movement = dir;
+				//GetComponent(CharacterController).Move(movement);
 				transform.position = dir;
 				facing((target.transform.position.x - transform.position.x),(target.transform.position.y - transform.position.y));
 				//transform.rotation = Quaternion.LookRotation(dir,Vector3.forward);
@@ -142,7 +152,11 @@ function FixedUpdate ()
 				}
 			}
 			else if (playerDistance >= aggroRange && Vector3.Distance(transform.position,spawnPoint) > 0.01) {
-				 dir = Vector3.MoveTowards(transform.position, spawnPoint, speed * Time.deltaTime);
+				dir = Vector3.MoveTowards(transform.position, spawnPoint, speed * Time.deltaTime);
+				//dir = spawnPoint - transform.position;
+				//movement = dir.normalized * speed * Time.deltaTime;
+				//if (movement.magnitude > dir.magnitude) movement = dir;
+				//GetComponent(CharacterController).Move(movement);
 				transform.position = dir;
 				facing((spawnPoint.x - transform.position.x), (spawnPoint.y - transform.position.y));
 				//transform.rotation = Quaternion.LookRotation(dir,Vector3.forward);
@@ -151,10 +165,15 @@ function FixedUpdate ()
 	}
 	else {
 		dir = Vector3.MoveTowards(transform.position, spawnPoint, speed * Time.deltaTime);
+		//dir = spawnPoint - transform.position;
+		//movement = dir.normalized * speed * Time.deltaTime;
+		//if (movement.magnitude > dir.magnitude) movement = dir;
+		//GetComponent(CharacterController).Move(movement);
 		transform.position = dir;
 		facing((spawnPoint.x - transform.position.x), (spawnPoint.y - transform.position.y));
 	}
 }
+
 
 function processStatusEffects() {
 	if (health <= 0)

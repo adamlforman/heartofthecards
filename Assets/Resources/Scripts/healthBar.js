@@ -57,7 +57,7 @@ function Update () {
 	
 	curHp = character.health;
 	percentOfHP = curHp/maxHp;
-	hpBarLength = percentOfHP*1000*scale;
+	hpBarLength = percentOfHP*5000*scale;
 
 	//percentOfMana = curMana/maxMana;
 	//manaBarLength = percentOfMana*100;
@@ -72,7 +72,7 @@ function OnGUI () {
 	if (!HpBarTexture)
 		HpBarTexture = Resources.Load("Textures/HpBar",Texture2D);
 	if (curHp > 0 && HpBarTexture) {
-       		GUI.DrawTexture(Rect((location.x*Screen.width - scale*.5*1000), Screen.height - location.y*Screen.height  , hpBarLength, 200*scale), HpBarTexture); 
+       		GUI.DrawTexture(Rect((location.x*Screen.width - scale*.5*5000), Screen.height - location.y*Screen.height  , hpBarLength, 200*scale), HpBarTexture); 
     }
     else
     	Debug.Log("curHP = "+curHp);

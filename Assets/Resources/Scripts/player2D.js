@@ -28,8 +28,8 @@ public var immuneTimer : float;
 public var armor : float;
 public var armorTimer : float;
 
-var deck : String[];
-var library : String[];
+static var deck : String[];
+static var library : String[];
 
 //Gabriel
 private var size : Vector3;
@@ -64,15 +64,18 @@ function init(manager : GameObject, owner : GameObject, s : Vector3, c : Vector3
 	var modelObject = new GameObject.CreatePrimitive(PrimitiveType.Cube); //Switched to cube -G
 	modelObject.name = owner.name + " Model";
 	Destroy(modelObject.collider); //Destroyed collider because not needed -G
-	
+
 	model = modelObject.AddComponent(charModel2D);
 	model.transform.parent = owner.transform;
 	//model.transform.position.z -= 2;
 	model.init(owner,texture);
 	
 	// HERE BE INITIALIZATIONS BEWARE
-	deck = ["LEAP", "LEAP", "LEAP"];
-	//deck = ["FIRE","FIRE","FIRE","FIRE","ARMOR","ARMOR","ARMOR","ARMOR","ICE","ICE","ICE","ICE","DEMACIA","WEB","WEB","WEB","DART","DART","DART","DART", "LONGSWORD", "LONGSWORD", "LONGSWORD", "BOW", "BOW", "BOW", "GAS", "GAS", "GAS", "LEAP", "LEAP", "LEAP"];
+	//deck = ["LEAP", "LEAP", "LEAP"];
+	deck = ["FIRE","FIRE","FIRE", "ARMOR","ARMOR", "ICE","ICE","DEMACIA","WEB","WEB","DART","DART", "LONGSWORD", "LONGSWORD", "BOW", "Bow", "GAS", "GAS", "LEAP", "LEAP"];
+	if (deckBuilderManager.theDeck != null) {
+		deck = deckBuilderManager.theDeck;
+	}
 	library = deck;
 	
 	
@@ -260,7 +263,7 @@ function Move(amountToMove : Vector2) {
 		var x : float = (position.x + center.x - size.x/2) + size.x/2 * i;
 		var y : float = position.y + center.y + size.y/2 * direction;
 		ray = new Ray(new Vector2(x, y),  new Vector2(0, direction));
-		Debug.DrawRay(ray.origin, ray.direction);
+		//Debug.DrawRay(ray.origin, ray.direction);
 		if (Physics.Raycast(ray, hit, Mathf.Abs(deltaY) + skin, collisionMask)) {
 			var distance : float = Vector3.Distance (ray.origin, hit.point);
 			
@@ -360,20 +363,49 @@ function castSpell(spell : String) {
 			spellbook.gas(transform.position.x, transform.position.y, transform.eulerAngles);
 		}
 		if(spell == "LEAP"){
+			var deltaY : float = 3;
+			var travel : float = deltaY;
+			var position : Vector2 = transform.position;
+			for (var i : int = 0; i < 3; i++) {
+				var direction : float = transform.rotation.eulerAngles.z;
+				ray = new Ray(new Vector2(position.x, position.y),  new Vector3(-1*Mathf.Sin(direction*2*3.14159/360), Mathf.Cos(direction*2*3.14159/360),0));
+				//Debug.DrawRay(ray.origin, ray.direction,Color.white,3);
+				//Debug.Log(direction);
+				//Debug.Log(ray.direction);
+				if (Physics.Raycast(ray, hit, Mathf.Abs(deltaY) + size.y/2, collisionMask)) {
+					var distance : float = Vector3.Distance (ray.origin, hit.point);
+					print(distance);
+					print(hit.point);
+					travel = Mathf.Min(travel,distance - size.y/2);
+				}	
+			}
+		if (travel > 0.2)
+			transform.Translate(Vector3(0,travel,0));
+		else
+			returnValue = "LEAP";
+		}
+			
+			/*
 			var increment : float = 0.0;
+<<<<<<< HEAD
 			while(inRock(increment)){					//Becomes false when not in rock.
+=======
+			while(inRock(increment)){					//Becomes true when in rock.
+>>>>>>> origin/master
 				increment = increment + 0.1;
 			}
-			transform.Translate(Vector3(0, 3-increment, 0));
+			print(increment);
+			transform.Translate(Vector3(0, 3-increment, 0));*/
 		}
 
-	}
 	return returnValue;
 }
 
 //HELP ME
 function inRock(increment : float){
-	for (var other : Collider in Physics.OverlapSphere(Vector3(transform.position.x,transform.position.y + 3 - increment,0), 0.5)) {
+	sphereX = (3-increment)*Mathf.Sin(transform.rotation.eulerAngles.z);
+	sphereY = (3-increment)*Mathf.Cos(transform.rotation.eulerAngles.z);
+	for (var other : Collider in Physics.OverlapSphere(Vector3(transform.position.x + sphereX,transform.position.y + sphereY,0), 0.5)) {
 		var wall : terrain;
 		if (other.gameObject.GetComponent("terrain"))
 			wall = other.gameObject.GetComponent("terrain");
@@ -381,7 +413,6 @@ function inRock(increment : float){
 			wall = other.gameObject.GetComponent("terrainModel").owner;
 		if (wall)
 			if (wall.terrainType == "ROCK") {
-				print(increment);
 				return true;
 			}
 	}
@@ -427,6 +458,8 @@ function takeDamage(damage : float) {
 }
 
 function die() {
-	GameObject.Destroy(model.gameObject);
-	GameObject.Destroy(gameObject);
+
+	AudioSource.PlayClipAtPoint(Resources.Load("Sounds/death",AudioClip),transform.position,50);
+	Application.LoadLevel("Level 1");
+
 }
