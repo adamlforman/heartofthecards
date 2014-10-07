@@ -361,7 +361,7 @@ function castSpell(spell : String) {
 		}
 		if(spell == "LEAP"){
 			var increment : float = 0.0;
-			while(inRock(increment)){					//Becomes true when not in rock.
+			while(inRock(increment)){					//Becomes false when not in rock.
 				increment = increment + 0.1;
 			}
 			transform.Translate(Vector3(0, 3-increment, 0));
@@ -373,8 +373,6 @@ function castSpell(spell : String) {
 
 //HELP ME
 function inRock(increment : float){
-	//sphereX = sphereX*Mathf.Cos(transform.rotation.eulerAngles.z) + sphereY*Mathf.Sin(transform.rotation.eulerAngles.z);
-	//sphereY = sphereY*Mathf.Cos(transform.rotation.eulerAngles.z) + sphereX*Mathf.Sin(transform.rotation.eulerAngles.z);
 	for (var other : Collider in Physics.OverlapSphere(Vector3(transform.position.x,transform.position.y + 3 - increment,0), 0.5)) {
 		var wall : terrain;
 		if (other.gameObject.GetComponent("terrain"))
@@ -429,7 +427,6 @@ function takeDamage(damage : float) {
 }
 
 function die() {
-	AudioSource.PlayClipAtPoint(Resources.Load("Sounds/death",AudioClip),transform.position,50);
 	GameObject.Destroy(model.gameObject);
 	GameObject.Destroy(gameObject);
 }
