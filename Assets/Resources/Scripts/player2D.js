@@ -28,8 +28,8 @@ public var immuneTimer : float;
 public var armor : float;
 public var armorTimer : float;
 
-var deck : String[];
-var library : String[];
+static var deck : String[];
+static var library : String[];
 
 //Gabriel
 private var size : Vector3;
@@ -64,15 +64,18 @@ function init(manager : GameObject, owner : GameObject, s : Vector3, c : Vector3
 	var modelObject = new GameObject.CreatePrimitive(PrimitiveType.Cube); //Switched to cube -G
 	modelObject.name = owner.name + " Model";
 	Destroy(modelObject.collider); //Destroyed collider because not needed -G
-	
+
 	model = modelObject.AddComponent(charModel2D);
 	model.transform.parent = owner.transform;
 	//model.transform.position.z -= 2;
 	model.init(owner,texture);
 	
 	// HERE BE INITIALIZATIONS BEWARE
-	deck = ["LEAP", "LEAP", "LEAP"];
-	//deck = ["FIRE","FIRE","FIRE","FIRE","ARMOR","ARMOR","ARMOR","ARMOR","ICE","ICE","ICE","ICE","DEMACIA","WEB","WEB","WEB","DART","DART","DART","DART", "LONGSWORD", "LONGSWORD", "LONGSWORD", "BOW", "BOW", "BOW", "GAS", "GAS", "GAS", "LEAP", "LEAP", "LEAP"];
+	//deck = ["LEAP", "LEAP", "LEAP"];
+	deck = ["FIRE","FIRE","FIRE", "ARMOR","ARMOR", "ICE","ICE","DEMACIA","WEB","WEB","DART","DART", "LONGSWORD", "LONGSWORD", "BOW", "Bow", "GAS", "GAS", "LEAP", "LEAP"];
+	if (deckBuilderManager.theDeck != null) {
+		deck = deckBuilderManager.theDeck;
+	}
 	library = deck;
 	
 	
