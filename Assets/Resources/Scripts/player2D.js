@@ -1,5 +1,4 @@
-﻿#pragma strict
-
+﻿
 public var owner : GameObject;
 var model : charModel2D;
 var manager : GameObject;
@@ -72,8 +71,8 @@ function init(manager : GameObject, owner : GameObject, s : Vector3, c : Vector3
 	model.init(owner,texture);
 	
 	// HERE BE INITIALIZATIONS BEWARE
-	//deck = ["DEMACIA","DEMACIA","DEMACIA","DEMACIA"];
-	deck = ["FIRE","FIRE","FIRE","FIRE","ARMOR","ARMOR","ARMOR","ARMOR","ICE","ICE","ICE","ICE","DEMACIA","WEB","WEB","WEB","DART","DART","DART","DART", "LONGSWORD", "LONGSWORD", "LONGSWORD", "BOW", "BOW", "BOW", "GAS", "GAS", "GAS"];
+	deck = ["LEAP", "LEAP", "LEAP"];
+	//deck = ["FIRE","FIRE","FIRE","FIRE","ARMOR","ARMOR","ARMOR","ARMOR","ICE","ICE","ICE","ICE","DEMACIA","WEB","WEB","WEB","DART","DART","DART","DART", "LONGSWORD", "LONGSWORD", "LONGSWORD", "BOW", "BOW", "BOW", "GAS", "GAS", "GAS", "LEAP", "LEAP", "LEAP"];
 	library = deck;
 	
 	
@@ -360,11 +359,36 @@ function castSpell(spell : String) {
 		if(spell == "GAS"){
 			spellbook.gas(transform.position.x, transform.position.y, transform.eulerAngles);
 		}
+		if(spell == "LEAP"){
+			var increment : float = 0.0;
+			while(inRock(increment)){					//Becomes true when not in rock.
+				increment = increment + 0.1;
+			}
+			transform.Translate(Vector3(0, 3-increment, 0));
+		}
 
 	}
 	return returnValue;
 }
 
+//HELP ME
+function inRock(increment : float){
+	//sphereX = sphereX*Mathf.Cos(transform.rotation.eulerAngles.z) + sphereY*Mathf.Sin(transform.rotation.eulerAngles.z);
+	//sphereY = sphereY*Mathf.Cos(transform.rotation.eulerAngles.z) + sphereX*Mathf.Sin(transform.rotation.eulerAngles.z);
+	for (var other : Collider in Physics.OverlapSphere(Vector3(transform.position.x,transform.position.y + 3 - increment,0), 0.5)) {
+		var wall : terrain;
+		if (other.gameObject.GetComponent("terrain"))
+			wall = other.gameObject.GetComponent("terrain");
+		if (other.gameObject.GetComponent("terrainModel"))
+			wall = other.gameObject.GetComponent("terrainModel").owner;
+		if (wall)
+			if (wall.terrainType == "ROCK") {
+				print(increment);
+				return true;
+			}
+	}
+	return false;
+}
 
 function OnGUI() {
 	var customButton: GUIStyle = new GUIStyle("button");
