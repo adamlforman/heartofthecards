@@ -6,7 +6,7 @@ var manager : GameObject;
 var spellbook : spellbook;
 
 public var turnSmoothing : float = 8f;     // A smoothing value for turning the player.
-public var baseSpeed : float = 2f;    // The damping for the speed parameter
+public var baseSpeed : float = 5f;    // The damping for the speed parameter
 public var speed : float;
 
 public var spell1 : String;
