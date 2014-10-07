@@ -24,6 +24,10 @@ function dart(x : float,y : float, angle : Vector3) {
 	shot(spawnDart,x,y,angle);
 }
 
+function slash(x : float,y : float, angle : Vector3) {
+	front(spawnSlash,x,y,angle);
+}
+
 function arcaneCataclysm(x : float,y : float, angle : Vector3) {
 	beam(spawnArcane,x,y,angle);
 }

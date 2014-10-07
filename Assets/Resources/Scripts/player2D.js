@@ -71,7 +71,7 @@ function init(manager : GameObject, owner : GameObject, s : Vector3, c : Vector3
 	
 	// HERE BE INITIALIZATIONS BEWARE
 	//deck = ["DEMACIA","DEMACIA","DEMACIA","DEMACIA"];
-	deck = ["FIRE","FIRE","FIRE","FIRE","ARMOR","ARMOR","ARMOR","ARMOR","ICE","ICE","ICE","ICE","DEMACIA","WEB","WEB","WEB","DART","DART","DART","DART"];
+	deck = ["FIRE","FIRE","FIRE","FIRE","ARMOR","ARMOR","ARMOR","ARMOR","ICE","ICE","ICE","ICE","DEMACIA","WEB","WEB","WEB","DART","DART","DART","DART", "LONGSWORD", "LONGSWORD", "LONGSWORD"];
 	library = deck;
 	
 	
@@ -334,7 +334,7 @@ function castSpell(spell : String) {
 			AudioSource.PlayClipAtPoint(Resources.Load("Sounds/DEMACIA",AudioClip),transform.position);
 			spellbook.arcaneCataclysm(transform.position.x, transform.position.y, transform.eulerAngles);
 		}
-		 if (spell == "LONGSWORD")		// FOR EXAMPLE
+		if (spell == "LONGSWORD")		// FOR EXAMPLE
 			returnValue = "SLASH";
 	}
 	return returnValue;
