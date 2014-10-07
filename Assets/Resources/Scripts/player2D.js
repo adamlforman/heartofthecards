@@ -336,6 +336,8 @@ function castSpell(spell : String) {
 		}
 		if (spell == "LONGSWORD")		// FOR EXAMPLE
 			returnValue = "SLASH";
+		if (spell == "SLASH")
+			returnValue = "SLASH";
 	}
 	return returnValue;
 }
