@@ -70,8 +70,8 @@ function init(manager : GameObject, owner : GameObject, s : Vector3, c : Vector3
 	model.init(owner,texture);
 	
 	// HERE BE INITIALIZATIONS BEWARE
-	deck = ["DEMACIA","DEMACIA","DEMACIA","DEMACIA"];
-	//deck = ["FIRE","FIRE","FIRE","FIRE","ARMOR","ARMOR","ARMOR","ARMOR","ICE","ICE","ICE","ICE","DEMACIA","WEB","WEB","WEB","DART","DART","DART","DART"];
+	//deck = ["DEMACIA","DEMACIA","DEMACIA","DEMACIA"];
+	deck = ["FIRE","FIRE","FIRE","FIRE","ARMOR","ARMOR","ARMOR","ARMOR","ICE","ICE","ICE","ICE","DEMACIA","WEB","WEB","WEB","DART","DART","DART","DART"];
 	library = deck;
 	
 	
