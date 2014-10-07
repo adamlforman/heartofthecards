@@ -1,4 +1,4 @@
-﻿
+
 
 var floor : Array;
 var spellbook : spellbook;
@@ -28,6 +28,9 @@ function Start () {
 		enemies[randY][randX] = "E";
 		addEnemy(randX, enemies.length-randY);
 	}
+	
+	var cam = Camera.mainCamera.GetComponent(GameCamera);
+	cam.setTarget(player);
 	
 }
 
