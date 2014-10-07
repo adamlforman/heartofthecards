@@ -42,6 +42,7 @@ function armor(character : player2D) {
 //-----------------------------------------------------------------
 
 function spellEffects(x : float, y : float, damage : float) {
+	Debug.Log(x + ", " + y);
 	for (var other : Collider in Physics.OverlapSphere(Vector3(x,y,-1),0.7)) {
 		//Debug.Log(other);
 		var otherOb : enemy2D;
@@ -82,7 +83,8 @@ function spawnFire(x : float, y : float, owner : GameObject){
 	
 	spellScript.name = "FIRE";				// Give the spell object a name in the Hierarchy pane.
 	
-	spellEffects(x,y,10);
+	
+	//spellEffects(x,y,10);
 
 }
 
@@ -100,8 +102,9 @@ function spawnIce(x : float, y : float, owner : GameObject){
 	
 	
 	spellScript.name = "ICE";				// Give the spell object a name in the Hierarchy pane.
+	
 
-	spellEffects(x,y,5);
+	//spellEffects(x,y,5);
 }
 
 function spawnArcane(x : float, y : float, owner : GameObject){
@@ -119,7 +122,8 @@ function spawnArcane(x : float, y : float, owner : GameObject){
 	
 	spellScript.name = "DEMACIA";				// Give the spell object a name in the Hierarchy pane.
 
-	spellEffects(x,y,5);
+
+	//spellEffects(x,y,20);
 }
 
 function spawnWeb(x : float, y : float, owner : GameObject){
@@ -137,7 +141,8 @@ function spawnWeb(x : float, y : float, owner : GameObject){
 	
 	spellScript.name = "WEB";				// Give the spell object a name in the Hierarchy pane.
 	
-	spellEffects(x,y,0);
+
+	//spellEffects(x,y,0);
 }
 
 function spawnSlash(x : float, y : float, owner : GameObject){
@@ -155,7 +160,8 @@ function spawnSlash(x : float, y : float, owner : GameObject){
 	
 	spellScript.name = "SLASH";				// Give the spell object a name in the Hierarchy pane.
 	
-	spellEffects(x,y,10);
+
+	//spellEffects(x,y,10);
 }
 
 function spawnArrow(x : float, y : float, owner : GameObject){
@@ -173,7 +179,8 @@ function spawnArrow(x : float, y : float, owner : GameObject){
 	
 	spellScript.name = "ARROW";				// Give the spell object a name in the Hierarchy pane.
 	
-	spellEffects(x,y,10);
+
+	//spellEffects(x,y,10);
 }
 
 function spawnDart(x : float, y : float, owner : GameObject){
@@ -191,7 +198,8 @@ function spawnDart(x : float, y : float, owner : GameObject){
 	
 	spellScript.name = "DART";				// Give the spell object a name in the Hierarchy pane.
 	
-	spellEffects(x,y,10);
+
+	//spellEffects(x,y,10);
 }
 
 

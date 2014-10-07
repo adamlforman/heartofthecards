@@ -18,18 +18,34 @@ function init(spellType : String) {
 	
 	modelObject.SetActive(true);										// Turn on the object (the Update function will start being called).
 	
-	if (spellType == "ARROW")
-		damage = 10;
-	else
-		damage = 0;
+	if (spellType == "SLASH") {
+		damage = 8;
+	}
 	
-	if (spellType == "WEB")
+	if (spellType == "FIRE") {
+		damage = 10;
+	}
+	
+	if (spellType == "DEMACIA") {
+		damage = 999;
+	}
+	
+	if (spellType == "ARROW") {
+		damage = 10;
+	}
+
+	
+	if (spellType == "WEB") {
 		snare = true;
+		damage = 0;
+	}
 	else
 		snare = false;
 		
-	if (spellType == "ICE")
+	if (spellType == "ICE") {
 		slow = true;
+		damage = 5;
+	}
 	else
 		slow = false;
 		
@@ -45,7 +61,6 @@ function init(spellType : String) {
 }
 
 function Update() {
-	if (snare || slow || poison || move) {
 		for (var other : Collider in Physics.OverlapSphere(Vector3(transform.position.x,transform.position.y,-1),0.7)) {
 			var otherOb : enemy2D;
 		if (other.gameObject.GetComponent("enemy2D"))
@@ -73,6 +88,7 @@ function Update() {
 				}
 			}
 		}
+	if (move){
 		for (var other : Collider in Physics.OverlapSphere(Vector3(transform.position.x,transform.position.y,0),0.4)) {
 			//Debug.Log(other);
 			var wall : terrain;
@@ -86,8 +102,6 @@ function Update() {
 					GameObject.Destroy(gameObject);
 				}
 		}
-	}
-	if (move){
 		//print(transform.position.z);
 		transform.Translate(Vector3.up * movespeed * Time.deltaTime);
 	}

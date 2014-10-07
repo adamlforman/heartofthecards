@@ -115,7 +115,7 @@ function FixedUpdate ()
 		
 		
 		if (spawnDistance >= leashRange) {
-			evadeToSpawn = true;
+			//evadeToSpawn = true;
 		}
 		if (evadeToSpawn) {
 			if (spawnDistance <= 0.01) {
@@ -216,7 +216,7 @@ function takeDamage(damage : float) {
 	if (!immune) {
 		health -= damage;
 		immune = true;
-		immuneTimer = 0.5;
+		immuneTimer = 1;
 	}
 }
 
