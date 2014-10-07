@@ -47,8 +47,23 @@ function init(spellType : String) {
 
 function Update() {
 
+	var sphereX : float;
+	var sphereY : float;
+	var sphereSize : float;
+	if (spellType == "ARROW") {
+		sphereX = 0;
+		sphereY = 0.3;
+		sphereSize = 0.2;
+	}
+	else {
+		sphereX = 0;
+		sphereY = 0;
+		sphereSize = 0.7;
+	}
+	sphereX = sphereX*Mathf.Cos(transform.rotation.eulerAngles.z) + sphereY*Mathf.Sin(transform.rotation.eulerAngles.z);
+	sphereY = sphereY*Mathf.Cos(transform.rotation.eulerAngles.z) + sphereX*Mathf.Sin(transform.rotation.eulerAngles.z);
 	if (snare || slow || poison || move) {
-		for (var other : Collider in Physics.OverlapSphere(Vector3(transform.position.x,transform.position.y,-1),0.7)) {
+		for (var other : Collider in Physics.OverlapSphere(Vector3(transform.position.x + sphereX,transform.position.y + sphereY,-1),sphereSize)) {
 			var otherOb : player2D;
 			if (other.gameObject.GetComponent("player2D"))
 				otherOb = other.gameObject.GetComponent("player2D");

@@ -61,7 +61,22 @@ function init(spellType : String) {
 }
 
 function Update() {
-		for (var other : Collider in Physics.OverlapSphere(Vector3(transform.position.x,transform.position.y,-1),0.7)) {
+	var sphereX : float;
+	var sphereY : float;
+	var sphereSize : float;
+	if (spellType == "ARROW") {
+		sphereX = 0;
+		sphereY = 0.2;
+		sphereSize = 0.3;
+	}
+	else {
+		sphereX = 0;
+		sphereY = 0;
+		sphereSize = 0.7;
+	}
+	sphereX = sphereX*Mathf.Cos(transform.rotation.eulerAngles.z) + sphereY*Mathf.Sin(transform.rotation.eulerAngles.z);
+	sphereY = sphereY*Mathf.Cos(transform.rotation.eulerAngles.z) + sphereX*Mathf.Sin(transform.rotation.eulerAngles.z);
+		for (var other : Collider in Physics.OverlapSphere(Vector3(transform.position.x + sphereX,transform.position.y + sphereY,-1),sphereSize)) {
 			var otherOb : enemy2D;
 		if (other.gameObject.GetComponent("enemy2D"))
 			otherOb = other.gameObject.GetComponent("enemy2D");
