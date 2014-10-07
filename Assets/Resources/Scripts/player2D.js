@@ -27,8 +27,8 @@ public var immuneTimer : float;
 public var armor : float;
 public var armorTimer : float;
 
-var deck : Array;
-var library : Array;
+var deck : String[];
+var library : String[];
 
 //Gabriel
 private var size : Vector3;
@@ -70,8 +70,10 @@ function init(manager : GameObject, owner : GameObject, s : Vector3, c : Vector3
 	model.init(owner,texture);
 	
 	// HERE BE INITIALIZATIONS BEWARE
-	deck = ["FIRE","FIRE","FIRE","FIRE","ARMOR","ARMOR","ARMOR","ARMOR","ICE","ICE","ICE","ICE","DEMACIA","WEB","WEB","WEB","DART","DART","DART","DART"];
+	deck = ["DEMACIA","DEMACIA","DEMACIA","DEMACIA"];
+	//deck = ["FIRE","FIRE","FIRE","FIRE","ARMOR","ARMOR","ARMOR","ARMOR","ICE","ICE","ICE","ICE","DEMACIA","WEB","WEB","WEB","DART","DART","DART","DART"];
 	library = deck;
+	
 	
 	shuffle(deck);
 	
@@ -116,7 +118,7 @@ function Update() {
 
 function shuffle(list : Array){ //v1.0
    	for(var i = list.length - 1; i >= 1; i--) {
-    	 var j = Mathf.Floor(Random.value*i+1);
+    	 var j = Random.Range(0,i);
     	 var temp = list[i];
     	 list[i] = list[j];
     	 list[j] = temp;
@@ -127,13 +129,25 @@ function shuffle(list : Array){ //v1.0
 function drawSpell() {
 	var newCard;
 	if (deck.length > 1) {
-		newCard =  deck.Pop();
+		newCard = deck[deck.length-1];
+		deck = pop(deck);
 	}
 	else {
-		newCard = deck.Pop();
+		newCard = deck[deck.length-1];
+		deck = pop(deck);
+		
 		deck = shuffle(library);
 	}
+	//Debug.Log(deck.length);
 	return newCard;
+}
+
+function pop(list : String[]) {
+	var newList : String[] = new String[list.length - 1];
+	for (var i = 0; i < list.length-1; i++) {
+		newList[i] = list[i];
+	}
+	return newList;
 }
 
 function FixedUpdate ()
