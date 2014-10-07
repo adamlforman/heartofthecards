@@ -72,7 +72,7 @@ function init(manager : GameObject, owner : GameObject, s : Vector3, c : Vector3
 	
 	// HERE BE INITIALIZATIONS BEWARE
 	//deck = ["LEAP", "LEAP", "LEAP"];
-	deck = ["FIRE","FIRE","FIRE", "ARMOR","ARMOR", "ICE","ICE","DEMACIA","WEB","WEB","DART","DART", "LONGSWORD", "LONGSWORD", "BOW", "Bow", "GAS", "GAS", "LEAP", "LEAP"];
+	deck = ["FIRE","FIRE","FIRE", "ARMOR","ARMOR", "ICE","ICE","DEMACIA","WEB","WEB","DART","DART", "LONGSWORD", "LONGSWORD", "BOW", "BOW", "GAS", "GAS", "LEAP", "LEAP"];
 	if (deckBuilderManager.theDeck != null) {
 		deck = deckBuilderManager.theDeck;
 	}

@@ -72,7 +72,7 @@ function init(manager : GameObject, owner : GameObject, target : player2D, nameI
 			baseSpeed = 0.8f;
 			health = 15;
 			
-			aggroRange = 8;
+			aggroRange = 6;
 			leashRange = 10;
 			attackRange = 4;
 			break;

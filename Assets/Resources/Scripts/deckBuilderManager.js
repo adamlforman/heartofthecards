@@ -44,7 +44,7 @@ function Start () {
 	leapCount = 0;
 
 
-	theDeck = ["FIRE","FIRE","FIRE", "ARMOR","ARMOR", "ICE","ICE","DEMACIA","WEB","WEB","DART","DART", "LONGSWORD", "LONGSWORD", "BOW", "Bow", "GAS", "GAS", "LEAP", "LEAP"];
+	theDeck = ["FIRE","FIRE","FIRE", "ARMOR","ARMOR", "ICE","ICE","DEMACIA","WEB","WEB","DART","DART", "LONGSWORD", "LONGSWORD", "BOW", "BOW", "GAS", "GAS", "LEAP", "LEAP"];
 	if (player2D.deck != null) {
 		theDeck = player2D.library;
 	}
