@@ -18,8 +18,9 @@ function init(spellType : String) {
 	
 	modelObject.SetActive(true);										// Turn on the object (the Update function will start being called).
 	
-	if (spellType == "ARROW")
+	if (spellType == "ARROW") {
 		damage = 10;
+	}
 	else
 		damage = 0;
 	

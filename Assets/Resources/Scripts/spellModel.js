@@ -9,6 +9,9 @@ function init(o : GameObject, t : String) {
 	transform.parent = owner.transform;				// Set the model's parent to the spell (this object).
 	transform.localPosition = Vector3(0,0,0);		// Center the model on the parent.
 	transform.localScale = Vector3(1,1,1);
+	if (spellType == "ARROW") {
+		transform.localScale = Vector3(0.3,1,1);
+	}
 	name = "spell Model";								// Name the object.
 	
 	textureName = "Textures/"+spellType;

@@ -27,6 +27,7 @@ function dart(x : float,y : float, angle : Vector3) {
 function arcaneCataclysm(x : float,y : float, angle : Vector3) {
 	beam(spawnArcane,x,y,angle);
 }
+
 //--------------------------------
 //		Buff / debuff spells
 //------------------------------
