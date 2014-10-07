@@ -155,7 +155,7 @@ function spawnRock(x : float, y : float){
 	terrainType = "ROCK";
 	//terrainScript.transform.parent = this.transform;	// Set the terrain's parent object to be the gameManager?
 	terrainScript.transform.position = Vector3(x,y,0);	// Position the terrain at x,y.
-	//terrainScript.transform.localScale = Vector3(1, 1, 2);
+	terrainScript.transform.localScale = Vector3(1, 1, 2);
 	terrainScript.init(terrainType);							// Initialize the terrain script.
 	
 	
@@ -203,8 +203,8 @@ function addEnemy(x: float, y: float, name:String, type:String) {
 	enemyObject.AddComponent(BoxCollider);
 	enemyObject.GetComponent(BoxCollider).isTrigger = true;
 	enemyObject.transform.position = Vector3(enemyObject.transform.position.x, enemyObject.transform.position.y, -1);
-	//var enemyController = enemyObject.AddComponent(CharacterController);
-//	enemyController.height = 1.0;
+	var enemyController = enemyObject.AddComponent(CharacterController);
+	enemyController.height = 1.0;
 	newEnemy.init(gameObject,enemyObject,player,name, type,x,y);
 	moveCharacter(newEnemy,x,y);
 	
