@@ -24,7 +24,10 @@ function Start () {
 		}
 		//print(enemies[randY][randX]);
 		enemies[randY][randX] = "E";
-		addEnemy(randX, enemies.length-randY);
+		if(i<25)
+			addEnemy(randX, enemies.length-randY, "Enemy Archer", "archer");
+		else
+			addEnemy(randX, enemies.length-randY, "Enemy Warrior", "warrior");
 	}
 	
 	var cam = Camera.mainCamera.GetComponent(GameCamera);
@@ -182,7 +185,7 @@ function spawnEnemy(x : float, y : float){
 	terrainScript.name = "ENEMY";				// Give the terrain object a name in the Hierarchy pane.
 }*/
 
-function addEnemy(x: float, y: float) {
+function addEnemy(x: float, y: float, name:String, type:String) {
 	var enemyObject = new GameObject();
 	var newEnemy = enemyObject.AddComponent(enemy2D);
 	enemyObject.AddComponent(BoxCollider);
