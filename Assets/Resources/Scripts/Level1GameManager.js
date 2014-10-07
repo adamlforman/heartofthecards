@@ -1,5 +1,3 @@
-
-
 var floor : Array;
 var spellbook : spellbook;
 var enemySpellbook : enemySpellbook;
@@ -30,7 +28,7 @@ function Start () {
 	}
 	
 	var cam = Camera.mainCamera.GetComponent(GameCamera);
-	cam.setTarget(player);
+	cam.setTarget(player,0,1,50,60);
 	
 }
 
@@ -39,7 +37,7 @@ function buildWorld() {
 	var R : String = "R";
 	var G : String = "G";
 	floor = new Array();
-	floor.length=60;
+	floor.length=60;	// Floor width 50
 	floor[0] =  [R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
 	floor[1] =  [R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
 	floor[2] =  [R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
