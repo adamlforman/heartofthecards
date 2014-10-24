@@ -40,7 +40,7 @@ function spawnWorld() {
 	//Spawn player then set camera
 	spawnPlayer();
 	cam = Camera.main.GetComponent(GameCamera);
-	cam.setTarget(player,0,1,50,60);
+	cam.init(player,0,1,maxX,maxY);
 }
 
 //Spawns an enemy at a specific location given a name and type;

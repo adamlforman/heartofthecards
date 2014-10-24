@@ -1,10 +1,15 @@
 ﻿//Holds characters corresponding to terrain
 var world : Array; //Array to hold the world
-
+var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 //Start building the world
 function init(a : Array) {
 	world = a; //Set the world array to reference the array passed in
+	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
+	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
+	Destroy(exampleQuad); //Destroy the primitive quad
 	buildWorld(); //Builds the world
+	
+	
 }
 //Builds the world
 function buildWorld() {
@@ -95,7 +100,7 @@ function buildRock(x : float, y : float){
 	var terrainScript = terrainObject.AddComponent(TerrainScript);  //Add the terrain script to the object.
 	terrainType = "ROCK"; //Setting the terrain type that will be passed to the terrainScript to ROCK
 	terrainScript.transform.position = Vector3(x,y,0); //Position the terrain at x,y.
-	terrainScript.init(terrainType); //Initialize the terrain script.
+	terrainScript.init(terrainType, exampleMesh); //Initialize the terrain script.
 	terrainScript.name = "ROCK"; //Give the terrain object a name in the Hierarchy pane.
 }
 
@@ -106,7 +111,7 @@ function buildGround(x : float, y : float){
 	var rand = Random.Range(1, 4); //Temp variable to store a random number between 1 and 4 (inclusive)
 	terrainType = "Ground" + rand; //Sets the terrain type that will be passed to the terrainScript to Ground + rand
 	terrainScript.transform.position = Vector3(x,y,0); //Position the terrain at x,y.
-	terrainScript.init(terrainType); //Initialize the terrain script.
+	terrainScript.init(terrainType, exampleMesh); //Initialize the terrain script.
 	terrainScript.name = "Ground"; //Give the terrain object a name in the Hierarchy pane.
 }
 
@@ -116,7 +121,7 @@ function buildLevelEnd() {
 	var levelEndScript = levelEndObject.AddComponent(LevelEndScript); //Adds the  levelEnd script to the object.	
 	//CURRENTLY EXPLICITELY SET PER THE DEFAULT LEVEL, NEED TO PASS IN X AND Y OR SOMETHING?
 	levelEndScript.transform.position = Vector3(22,48,-1);	// Position the at x,y.
-	levelEndScript.init(); //Initialize the script.
+	levelEndScript.init(exampleMesh); //Initialize the script.
 	levelEndScript.name = "LevelEnd";// Give the object a name in the Hierarchy pane.
 }
 
