@@ -1,4 +1,4 @@
-﻿/*//Holds characters corresponding to terrain
+﻿//Holds characters corresponding to terrain
 var world : Array; //Array to hold the world
 
 //Start building the world
@@ -92,7 +92,7 @@ function buildWorld() {
 //Builds a rock object
 function buildRock(x : float, y : float){
 	var terrainObject = new GameObject(); //Create a new empty game object that will hold a terrain.
-	var terrainScript = terrainObject.AddComponent(terrain);  //Add the terrain script to the object.
+	var terrainScript = terrainObject.AddComponent(TerrainScript);  //Add the terrain script to the object.
 	terrainType = "ROCK"; //Setting the terrain type that will be passed to the terrainScript to ROCK
 	terrainScript.transform.position = Vector3(x,y,0); //Position the terrain at x,y.
 	terrainScript.init(terrainType); //Initialize the terrain script.
@@ -102,7 +102,7 @@ function buildRock(x : float, y : float){
 //Builds a ground object
 function buildGround(x : float, y : float){
 	var terrainObject = new GameObject(); //Create a new empty game object that will hold a terrain.
-	var terrainScript = terrainObject.AddComponent(terrain); //Add the terrain script to the object.
+	var terrainScript = terrainObject.AddComponent(TerrainScript); //Add the terrain script to the object.
 	var rand = Random.Range(1, 4); //Temp variable to store a random number between 1 and 4 (inclusive)
 	terrainType = "Ground" + rand; //Sets the terrain type that will be passed to the terrainScript to Ground + rand
 	terrainScript.transform.position = Vector3(x,y,0); //Position the terrain at x,y.
@@ -113,10 +113,10 @@ function buildGround(x : float, y : float){
 //Builds the level end
 function buildLevelEnd() {
 	var levelEndObject = new GameObject(); //Creates a new empty game object that will hold the level end portal
-	var levelEndScript = levelEndObject.AddComponent(levelEndScript); //Adds the  levelEnd script to the object.	
+	var levelEndScript = levelEndObject.AddComponent(LevelEndScript); //Adds the  levelEnd script to the object.	
 	//CURRENTLY EXPLICITELY SET PER THE DEFAULT LEVEL, NEED TO PASS IN X AND Y OR SOMETHING?
 	levelEndScript.transform.position = Vector3(22,48,-1);	// Position the at x,y.
 	levelEndScript.init(); //Initialize the script.
 	levelEndScript.name = "LevelEnd";// Give the object a name in the Hierarchy pane.
 }
-*/
+

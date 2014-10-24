@@ -1,5 +1,5 @@
-﻿/*var world : Array; //Array to hold the world
-var player : player2D; //Player object
+﻿var world : Array; //Array to hold the world
+var player : PlayerScript; //Player object
 var maxX : int; //Max X value of the map
 var maxY : int; //Max Y value of the map
 var cam; //Forgot what type, will fix later
@@ -38,7 +38,7 @@ function spawnWorld() {
 	}
 	
 	//Spawn player then set camera
-	player = spawnPlayer();
+	spawnPlayer();
 	cam = Camera.main.GetComponent(GameCamera);
 	cam.setTarget(player,0,1,50,60);
 }
@@ -46,7 +46,7 @@ function spawnWorld() {
 //Spawns an enemy at a specific location given a name and type;
 function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T THINK WE NEED BOTH NAME AND TYPE, ONE COULD BE THE OTHER
 	var enemyObject = new GameObject(); //Creates a new empty gameObject
-	var enemyScript = enemyObject.AddComponent(enemyScript); //Attaches the enemyScript
+	var enemyScript = enemyObject.AddComponent(EnemyScript); //Attaches the enemyScript
 	enemyObject.transform.position = Vector3(enemyObject.transform.position.x, enemyObject.transform.position.y, -1); //WHY IS THIS NOT USING THE X AND Y PASSED IN
 	enemyScript.init(gameObject,enemyObject,player,name, type,x,y);	//Initializes the enemyScript
 }
@@ -54,10 +54,9 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 //Spawns a player at a specific location
 function spawnPlayer() {
 	var playerObject = new GameObject(); //Creates a new empty gameObject
-	var playerScript = playerObject.AddComponent(playerScript); //Attaches the playerScript
+	var playerScript = playerObject.AddComponent(PlayerScript); //Attaches the playerScript
 	var playerAudio = playerObject.AddComponent(AudioSource); //Attaches an audioSource, WHY?
-	playerScrpt.init(gameObject,playerObject,playerCollider.size,playerCollider.center, "Player", "FACE",3,3); //AGAIN BOTH NAME AND TYPE (JUST RENAME TEXTURE AND USE NAME?)
-
+	playerScript.init(gameObject,playerObject, "Player", "FACE",3,3); //AGAIN BOTH NAME AND TYPE (JUST RENAME TEXTURE AND USE NAME?)
+	player = playerScript;
 }
 
-*/
