@@ -14,8 +14,9 @@ var cam : Camera;
 var player : GameObject;
 
 
-//THIS SHOULD ALL GO IN THE INIT FUNCTION
-function Start () {
+
+
+function init(cam : Camera, player : GameObject){
 	slot1Texture = "Textures/ARROW";		//all textures are ARROW for testing purposes
 	slot2Texture = "Textures/ARROW";		//all textures are ARROW for testing purposes
 	slot3Texture = "Textures/ARROW";		//all textures are ARROW for testing purposes
@@ -67,13 +68,8 @@ function Start () {
 	slot3Glow.transform.localScale = Vector3(1.5, 1.5, 1);												//Scale it up to be bigger than parent
 	slot3Glow.renderer.material.mainTexture = Resources.Load("Textures/WHITE", Texture2D);				// Set the texture.  Must be in Resources folder.
 	slot3Glow.renderer.material.color = Color(1,1,1);													// Set the color to black.
-	slot3Glow.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.	
-
+	slot3Glow.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 }
-
-/*function init(cam : Camera, player : GameObject){
-	
-}*/
 
 function Update () {
 	
