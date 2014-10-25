@@ -49,7 +49,22 @@ function spawnWorld() {
 function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T THINK WE NEED BOTH NAME AND TYPE, ONE COULD BE THE OTHER
 	var enemyObject = new GameObject(); //Creates a new empty gameObject
 	//var enemyScript = enemyObject.AddComponent(EnemyScript); //Attaches the enemyScript
-	enemyObject.transform.position = Vector3(enemyObject.transform.position.x, enemyObject.transform.position.y, -1); //WHY IS THIS NOT USING THE X AND Y PASSED IN
+	enemyObject.transform.position = Vector3(x, y, -1); //WHY IS THIS NOT USING THE X AND Y PASSED IN
+	enemyObject.name = name; //set enemyObject name
+	
+	var enemyModel = new GameObject(); //Create enemyModel
+	var meshFilter = enemyModel.AddComponent(MeshFilter); //Add a meshfilter
+	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+	enemyModel.AddComponent(MeshRenderer); //Add a renderer for textures
+	enemyModel.SetActive(false); //Turn off the object so its script doesn't do anything until we're ready.
+	model = enemyModel.AddComponent(CharModel); //Add a CharModel script to control visuals of the Player.
+	model.name = name + " Model"; //Name the Model
+	model.init(enemyObject, type); //Initialize the model
+	var boxCollider2D = enemyObject.AddComponent(BoxCollider2D);//Add a box collider
+	var rigidModel = enemyObject.AddComponent(Rigidbody2D); 	//Add a rigid body for collisions
+	rigidModel.gravityScale = 0; 								//Turn off gravity
+	rigidModel.fixedAngle = true; 								//Set fixed angle to true
+	enemyModel.SetActive(true);								//Turn on the object.
 	//enemyScript.init(gameObject,enemyObject,player,name, type,x,y);	//Initializes the enemyScript
 }
 
@@ -71,7 +86,8 @@ function spawnPlayer() {
 	meshFilter.mesh = exampleMesh; 								//Give the mesh filter a quadmesh
 	playerModel.AddComponent(MeshRenderer); 					//Add a renderer for textures
 	playerModel.SetActive(false); 								//Turn off the object so its script doesn't do anything until we're ready.
-	model = playerModel.AddComponent(CharModel); 				//Add a PlayerModel script to control visuals of the Player.
+	model = playerModel.AddComponent(CharModel); 				//Add a CharModel script to control visuals of the Player.
+	model.name = "Player Model";								//Name the PlayerModel
 	model.init(playerObject, "FACE"); 							//Initialize the PlayerModel.
 	
 	//add a rigidbody and boxcollider for collisions
