@@ -1,13 +1,13 @@
 ﻿//Holds characters corresponding to terrain
 var world : Array; //Array to hold the world
-var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
+var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
+
 //Start building the world
-function init(a : Array) {
+function init(a : Array, exampleMesh : Mesh) {
 	world = a; //Set the world array to reference the array passed in
-	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
-	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
-	Destroy(exampleQuad); //Destroy the primitive quad
+	this.exampleMesh = exampleMesh;
 	buildWorld(); //Builds the world
+	
 	
 	
 }
@@ -98,7 +98,7 @@ function buildRock(x : float, y : float){
 	var terrainObject = new GameObject(); //Create a new empty game object that will hold a terrain.
 	var terrainScript = terrainObject.AddComponent(TerrainScript);  //Add the terrain script to the object.
 	terrainType = "ROCK"; //Setting the terrain type that will be passed to the terrainScript to ROCK
-	terrainScript.transform.position = Vector3(x,y,0); //Position the terrain at x,y.
+	terrainScript.transform.position = Vector3(x,y,-1); //Position the terrain at x,y.
 	terrainScript.init(terrainType, exampleMesh); //Initialize the terrain script.
 	terrainScript.name = "ROCK"; //Give the terrain object a name in the Hierarchy pane.
 }

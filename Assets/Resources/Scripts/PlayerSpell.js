@@ -20,7 +20,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	var modelObject = GameObject.CreatePrimitive(PrimitiveType.Quad);	// Create a quad object for holding the tile texture.
 	modelObject.SetActive(false);										// Turn off the object so its script doesn't do anything until we're ready.
 	
-	model = modelObject.AddComponent("spellModel");						// Add a spellModel script to control visuals of the spell.
+	model = modelObject.AddComponent(SpellModel);						// Add a spellModel script to control visuals of the spell.
 	model.init(this.gameObject);										// Initialize the spellModel.
 	
 	

@@ -83,7 +83,7 @@ function shot (player : GameObject){
 	var playerSpellScript : PlayerSpell = projectile.AddComponent(PlayerSpell);	//add the playerSpell script
 	var x : float = player.transform.position.x;								//record the players x position
 	var y : float = player.transform.position.y;								//record the players y position
-	projectile.transform.position = Vector2(x,y);								//move the projectile to the player's position
+	projectile.transform.position = Vector3(x,y,-1);							//move the projectile to the player's position
 	projectile.transform.eulerAngles = player.transform.eulerAngles;			//set the projectile's angle to the player's
 	playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, sword, blind, meteor, rapid, homing);	//initialize the playerSpellScript
 	playerSpellScript.name = "Shot";

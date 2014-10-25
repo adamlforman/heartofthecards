@@ -8,7 +8,7 @@ var minY : float = 0;
 var maxX : float = 1000;
 var maxY : float = 1000;
 
-function init(p : PlayerScript, minX, minY, maxX, maxY) {
+function init(p : GameObject, minX : float, minY : float, maxX : float, maxY : float) {
 	target = p.transform;
 	transform.position = Vector3(target.position.x, target.position.y, -14);
 	camera.orthographicSize = 5;
@@ -40,7 +40,7 @@ function Update() {
     }
 }
 
-function setTarget(p : PlayerScript) {
+function setTarget(p : GameObject) {
 	target = p.transform;
 	transform.position = Vector3(target.position.x, target.position.y, -14);
 	camera.orthographicSize = 5;
