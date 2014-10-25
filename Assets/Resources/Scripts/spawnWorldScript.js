@@ -80,6 +80,9 @@ function spawnPlayer() {
 	
 	var playerMoveScript = playerObject.AddComponent(PlayerMove);			//Add the PlayerMove Script
 	var playerSpellbookScript = playerObject.AddComponent(PlayerSpellbook); //Add the PlayerSpellbook script
+	var playerHUDScript = playerObject.AddComponent(PlayerHUD);				//Add the PlayerHUD Script
+	playerHUDScript.init(Camera.main, playerObject);
+	
 	
 	var playerModel = new GameObject(); 						//Create a quad object to hold the tile texture.
 	var meshFilter = playerModel.AddComponent(MeshFilter); 		//Add a mesh filter for textures
@@ -97,6 +100,7 @@ function spawnPlayer() {
 	rigidModel.gravityScale = 0; 								//Turn off gravity
 	rigidModel.fixedAngle = true; 								//Set fixed angle to true
 	playerModel.SetActive(true);								//Turn on the object.
+	
 	player = playerObject;
 }
 

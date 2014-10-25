@@ -33,7 +33,7 @@ var normalSpell : String;
 var specialSpell : String;
 
 
-static var theDeck : Array;
+public static var theDeck : Array;
 
 function Start () {
 	normalSpell = "/4";

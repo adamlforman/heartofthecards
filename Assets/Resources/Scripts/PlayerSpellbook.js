@@ -14,10 +14,40 @@ public var homing : float = 0;			//Amount of time that attacks have "homing" buf
 
 private var cooldown : float = 0;		//Cannot attack if it is above 0
 
+public var deck : String[];					//The player's current deck.
+public static var library : String[];		//The player's full deck list.
+
+public var slot1 : String;
+public var slot2 : String;
+public var slot3 : String;
+
+public static var slot1Timer : float;
+public static var slot2Timer : float;
+public static var slot3Timer : float;
+
+public var spellTimer : float;
+
+public var clockTest : float;
+
 
 
 function Start () {
+	clockTest = 0;
 
+	if(NewDeckManager.theDeck!=null){
+		deck = NewDeckManager.theDeck;
+	}
+	else{
+		deck = ["ICE", "ICE", "ICE", "ICE"];
+	}
+	
+	library = deck;
+	
+	shuffle(deck);
+	
+	slot1 = drawSpell();
+	slot2 = drawSpell();
+	slot3 = drawSpell();
 }
 
 function Update () {
@@ -73,6 +103,35 @@ function Update () {
 		cooldown-=Time.deltaTime;					//decrement cooldown
 	}
 	
+	if(Input.GetKeyDown ("1") && slot1Timer<=0){	//When they press 1...
+		slot1Timer = 5;
+	}
+	if(Input.GetKeyDown ("2") && slot2Timer<=0){						//When they press 2...
+		slot2Timer = 5;
+	}
+	if(Input.GetKeyDown ("3") && slot3Timer<=0){						//When they press 3...
+		slot3Timer = 5;
+	}
+	
+	if(slot1Timer>0){						//COUNT DOWN
+		slot1Timer = slot1Timer - Time.deltaTime;
+		print(slot1Timer);
+	}
+	if(slot2Timer>0){						//COUNT DOWN
+		slot2Timer -= Time.deltaTime;
+		print(slot2Timer);
+	}
+	if(slot3Timer>0){						//COUNT DOWN
+		slot3Timer -= Time.deltaTime;
+		print(slot3Timer);
+	}
+	
+	clockTest += Time.deltaTime;
+	
+	
+}
+
+function FixedUpdate(){
 	
 }
 
@@ -89,7 +148,39 @@ function shot (player : GameObject){
 	playerSpellScript.name = "Shot";
 }
 
+function shuffle(list : String[]){ //v1.0
+   	for(var i = list.length - 1; i >= 1; i--) {
+    	 var j = Random.Range(0,i);
+    	 var temp = list[i];
+    	 list[i] = list[j];
+    	 list[j] = temp;
+   	}
+    return list;
+}
 
+function drawSpell() {
+	var newCard;
+	if (deck.length > 1) {
+		newCard = deck[deck.length-1];
+		deck = pop(deck);
+	}
+	else {
+		newCard = deck[deck.length-1];
+		deck = pop(deck);
+		
+		deck = shuffle(library);
+	}
+	//Debug.Log(deck.length);
+	return newCard;
+}
+
+function pop(list : String[]) {
+	var newList : String[] = new String[list.length - 1];
+	for (var i = 0; i < list.length-1; i++) {
+		newList[i] = list[i];
+	}
+	return newList;
+}
 
 
 
