@@ -76,9 +76,9 @@ function spawnPlayer() {
 	
 	//add a rigidbody and boxcollider for collisions
 	
-	var boxCollider2D = playerModel.AddComponent(BoxCollider2D);//Add a box collider
-	var rigidModel = playerModel.AddComponent(Rigidbody2D); 	//Add a rigid body for collisions
-	rigidModel.isKinematic = true; 								//Set kinematic to true
+	var boxCollider2D = playerObject.AddComponent(BoxCollider2D);//Add a box collider
+	var rigidModel = playerObject.AddComponent(Rigidbody2D); 	//Add a rigid body for collisions
+	rigidModel.gravityScale = 0; 								//Turn off gravity
 	rigidModel.fixedAngle = true; 								//Set fixed angle to true
 	playerModel.SetActive(true);								//Turn on the object.
 	player = playerObject;
