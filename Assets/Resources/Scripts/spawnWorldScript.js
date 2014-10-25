@@ -57,6 +57,6 @@ function spawnPlayer() {
 	var playerScript = playerObject.AddComponent(PlayerScript); //Attaches the playerScript
 	var playerAudio = playerObject.AddComponent(AudioSource); //Attaches an audioSource, WHY?
 	playerScript.init(gameObject,playerObject, "Player", "FACE",3,3); //AGAIN BOTH NAME AND TYPE (JUST RENAME TEXTURE AND USE NAME?)
-	player = playerScript;
+	player = playerScript; //set a reference to the playerScript
 }
 

@@ -1,5 +1,5 @@
 ﻿function init(quadMesh : Mesh) {
-	var modelObject = new GameObject(); //Create a quad object to hold the tile texture.
+	var modelObject = new GameObject(); //Create an empty game object
 	var meshFilter = modelObject.AddComponent(MeshFilter); //Add a mesh filter for textures
 	meshFilter.mesh = quadMesh; //Give the mesh filter a quadmesh
 	modelObject.AddComponent(MeshRenderer); //Add a renderer for textures
@@ -7,10 +7,13 @@
 	
 	var boxCollider2D = modelObject.AddComponent(BoxCollider2D); //Add a box collider	
 	
-	model = modelObject.AddComponent("levelEndModel");					// Add a terrainModel script to control visuals of the terrain.
-	model.init(this);										// Initialize the terrainModel.
+	model = modelObject.AddComponent(LevelEndModel); //Add a model script to control visuals of the portal.
+	model.init(this); //Initialize the portalmodel.
 
-	modelObject.SetActive(true);										// Turn on the object (the Update function will start being called).
-	
+	modelObject.SetActive(true);//Turn on the object (the Update function will start being called).
+}
+
+function update() {
+
 }
 
