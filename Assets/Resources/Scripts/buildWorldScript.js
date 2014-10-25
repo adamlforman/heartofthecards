@@ -124,3 +124,4 @@ function buildLevelEnd() {
 	levelEndScript.name = "LevelEnd";// Give the object a name in the Hierarchy pane.
 }
 
+//COMMENTS ARE FUN!

@@ -32,7 +32,7 @@ function Update() {
 }
 
 
-function setTarget(p : player2D, minX, minY, maxX, maxY) {
+function setTarget(p : GameObject, minX, minY, maxX, maxY) {
 	target = p.transform;
 	transform.position = Vector3(target.position.x, target.position.y, -14);
 	camera.orthographicSize = 5;
@@ -44,7 +44,7 @@ function setTarget(p : player2D, minX, minY, maxX, maxY) {
 }
 
 
-function setTarget(p : player2D) {
+function setTarget(p : GameObject) {
 	target = p.transform;
 	transform.position = Vector3(target.position.x, target.position.y, -14);
 	camera.orthographicSize = 5;

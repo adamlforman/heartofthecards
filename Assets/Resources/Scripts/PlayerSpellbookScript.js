@@ -78,9 +78,9 @@ function Update () {
 
 function shot (player : GameObject){
 	var projectile = new GameObject();											//create a projectile
-	var tempScript : temporary = projectile.AddComponent(temporary);			//make the projectile temporary (add script)
+	var tempScript : Temporary = projectile.AddComponent(Temporary);			//make the projectile temporary (add script)
 	tempScript.life = 5;														//set it's life to 5 seconds
-	var playerSpellScript : playerSpell = projectile.AddComponent(playerSpell);	//add the playerSpell script
+	var playerSpellScript : PlayerSpell = projectile.AddComponent(PlayerSpell);	//add the playerSpell script
 	var x : float = player.transform.position.x;								//record the players x position
 	var y : float = player.transform.position.y;								//record the players y position
 	projectile.transform.position = Vector2(x,y);								//move the projectile to the player's position
