@@ -48,7 +48,7 @@ function spawnWorld() {
 //Spawns an enemy at a specific location given a name and type;
 function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T THINK WE NEED BOTH NAME AND TYPE, ONE COULD BE THE OTHER
 	var enemyObject = new GameObject(); //Creates a new empty gameObject
-	var enemyScript = enemyObject.AddComponent(EnemyScript); //Attaches the enemyScript
+	var enemyStatusScript = enemyObject.AddComponent(EnemyStatus); //Attaches the enemyScript
 	enemyObject.transform.position = Vector3(x, y, -1); //WHY IS THIS NOT USING THE X AND Y PASSED IN
 	enemyObject.name = name; //set enemyObject name
 	
@@ -79,6 +79,7 @@ function spawnPlayer() {
 	//player = playerScript; //set a reference to the playerScript
 	
 	var playerMoveScript = playerObject.AddComponent(PlayerMove);			//Add the PlayerMove Script
+	var playerStatusScript = playerObject.AddComponent(PlayerStatus);		//Add the PlayerStatus Script
 	var playerSpellbookScript = playerObject.AddComponent(PlayerSpellbook); //Add the PlayerSpellbook script
 	playerSpellbookScript.init();
 	var playerHUDScript = playerObject.AddComponent(PlayerHUD);				//Add the PlayerHUD Script

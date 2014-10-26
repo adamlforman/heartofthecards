@@ -1,6 +1,7 @@
 ﻿var damage : float = 10;
 var movespeed : int = 10;
 var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
+var player : GameObject;	//The player
 
 public var ice : boolean = false;				//Does the shot have the "ice" buff
 public var poison : boolean = false;			//Does the shot have the "poison" buff
@@ -17,10 +18,11 @@ public var rapid : boolean = false;				//Does the shot have the "rapid" buff
 public var homing : boolean = false;			//Does the shot have the "homing" buff
 
 
-function init(ice : float, poison : float, fork : float, reflect : float, pierce : float, giant : float, splash : float, leech : float, sword : float, blind : float, meteor : float, rapid : float, homing : float, exampleMesh : Mesh) {
+function init(ice : float, poison : float, fork : float, reflect : float, pierce : float, giant : float, splash : float, leech : float, sword : float, blind : float, meteor : float, rapid : float, homing : float, exampleMesh : Mesh, player : GameObject) {
 	this.exampleMesh = exampleMesh;
 	
 	transform.localScale = Vector3(0.3, 1, 1);
+	this.player = player;
 	
 	var modelObject = new GameObject();									// Create a quad object for holding the tile texture.
 	var meshFilter = modelObject.AddComponent(MeshFilter); 		//Add a mesh filter for textures
@@ -57,7 +59,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	if(reflect > 0){
 		this.reflect=true;			//Set "reflect" boolean to true
 	}
-	
+	//check
 	if(pierce > 0){
 		this.pierce=true;			//Set "pierce" boolean to true
 	}
@@ -137,17 +139,18 @@ function hit(other : GameObject){
 
 //All of the basic attack status buffs
 function applyStatus(target : GameObject){
+	target.GetComponent(EnemyStatus).takeDamage(10);
 	if(ice){
-		target.ice = 5;							//Apply ice if arrow is iced
+		target.GetComponent(EnemyStatus).ice = 5;							//Apply ice if arrow is iced
 	}
 	if(poison){
-		target.poison = 5;						//Apply poison
+		target.GetComponent(EnemyStatus).poison = 5;						//Apply poison
 	}
 	if(blind){
-		target.blind = 5;						//Apply blind
+		target.GetComponent(EnemyStatus).blind = 5;						//Apply blind
 	}
 	if(leech){
-		//heal the player (who currently has no HP stat)
+		player.GetComponent(PlayerStatus).addHealth(5);
 	}
 }
 

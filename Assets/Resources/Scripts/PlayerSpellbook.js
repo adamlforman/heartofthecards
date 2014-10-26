@@ -43,7 +43,7 @@ function init() {
 		deck = NewDeckManager.theDeck;
 	}
 	else{
-		deck = ["FORK", "GIANT", "RAPID", "PIERCE"];
+		deck = ["FORK", "GIANT", "RAPID", "PIERCE", "SPLASH", "LEECH"];
 	}
 	
 	library = deck;
@@ -359,7 +359,7 @@ function spawnShot(player : GameObject, rotate : Vector3){
 	projectile.transform.position = Vector3(x,y,-1);							//move the projectile to the player's position
 	projectile.transform.Translate(Vector3(0, 1, 0));
 	projectile.transform.eulerAngles = player.transform.eulerAngles - rotate;			//set the projectile's angle to the player's
-	playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, sword, blind, meteor, rapid, homing, exampleMesh);	//initialize the playerSpellScript
+	playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, sword, blind, meteor, rapid, homing, exampleMesh, gameObject);	//initialize the playerSpellScript
 	playerSpellScript.name = "Shot";
 	projectile.SetActive(true);
 }
