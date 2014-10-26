@@ -64,7 +64,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	//Check
 	if(giant > 0){
 		this.giant=true;			//Set "giant" boolean to true
-		gameObject.transform.localScale = Vector3(2,2,0);
+		gameObject.transform.localScale = Vector3(0.6,2,0);
 	}
 	//check
 	if(splash > 0){
@@ -103,16 +103,17 @@ function Update() {
 	transform.Translate(Vector2.up * movespeed * Time.deltaTime);
 }
 
-function OnTriggerEnter(other : Collider){
+function hit(other : GameObject){
 	print("WE HAVE ENTERED");
 	var sphereSize : float;	//The size of the sphere if we splash
 	if(giant){				//If giant, then make the splash size twice as big
 		sphereSize = 2;
 	}
 	else{
-		sphereSize = 1;			//Normal splash size
+		sphereSize = 1;		//Normal splash size
 	}
 	if(splash){				//If splash is on
+		print("WE SPLASHED");
 		for (var target : Collider in Physics.OverlapSphere(Vector3(transform.position.x,transform.position.y,-1),sphereSize)){ //Spawn a sphere and apply damage to all the things inside
 			if(target.gameObject.name == "ENEMY") {		//If it's an enemy
 				applyStatus(target.gameObject);					//apply status debuffs to the enemy we hit
@@ -121,11 +122,14 @@ function OnTriggerEnter(other : Collider){
 		Destroy(gameObject);  //Destroy the arrow
 	}
 	//Now if there was no splash
-	if(other.gameObject.name == "ROCK"){
+	if(other.name == "ROCK"){
 				Destroy(gameObject);		//destroy the arrow if it hits a rock
 	}
-	if(other.gameObject.name == "ENEMY"){
-		applyStatus(other.gameObject);					//apply status debuffs to the enemy we hit
+	if(other.name == "Enemy Warrior" || other.name == "Enemy Archer"){
+		applyStatus(other);					//apply status debuffs to the enemy we hit
+		if(!pierce){
+			Destroy(gameObject);
+		}
 	}
 	
 	

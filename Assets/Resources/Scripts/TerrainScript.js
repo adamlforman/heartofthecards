@@ -27,7 +27,7 @@ function Update() {
 function OnTriggerEnter2D(other : Collider2D){
 	print("rock");
 	if(other.gameObject.name == "Shot"){
-		Destroy(other.gameObject);
+		other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
 	}
 }
 
