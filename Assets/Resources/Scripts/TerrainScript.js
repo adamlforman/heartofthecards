@@ -14,14 +14,7 @@ function init(terrainType : String, quadMesh : Mesh) {
 	
 	
 
-	//If it is a rock, add a rigidbody and boxcollider for collisions
-	if (terrainType == "ROCK") {
-		var boxCollider2D = modelObject.AddComponent(BoxCollider2D); //Add a box collider
-		var rigidModel = modelObject.AddComponent(Rigidbody2D); //Add a rigid body for collisions
-		rigidModel.isKinematic = true; //Set kinematic to true
-		rigidModel.fixedAngle = true; //Set fixed angle to true
-		rigidModel.gravityScale = 0; 								//Turn off gravity
-	}
+	
 	modelObject.SetActive(true); //Turn on the object (the Update function will start being called).
 	
 	

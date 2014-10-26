@@ -106,6 +106,14 @@ function buildRock(x : float, y : float){
 	
 	terrainScript.transform.parent = this.rockParent.transform;	//Sets the parent to be rock parent
 	
+	//add a rigidbody and boxcollider for collisions
+	
+	var boxCollider2D = terrainObject.AddComponent(BoxCollider2D); //Add a box collider
+	var rigidModel = terrainObject.AddComponent(Rigidbody2D); //Add a rigid body for collisions
+	rigidModel.isKinematic = true; //Set kinematic to true
+	rigidModel.fixedAngle = true; //Set fixed angle to true
+	rigidModel.gravityScale = 0; 								//Turn off gravity
+	
 	//TESTTEST
 	
 	//var boxCollider2D = terrainObject.AddComponent(BoxCollider2D); //Add a box collider
