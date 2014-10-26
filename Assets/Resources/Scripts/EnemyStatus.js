@@ -1,4 +1,9 @@
-﻿var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
+var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
+public var health : int;
+public var ice : float;
+public var poison : float;
+public var blind : float;
+
 function init (quadMesh : Mesh) {
 	exampleMesh = quadMesh;
 }
@@ -30,4 +35,8 @@ function OnTriggerEnter2D(other : Collider2D){
 		Destroy(damageObject, 1);
 		other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
 	}
+}
+
+function takeDamage(damage : int){
+	health -= damage;
 }
