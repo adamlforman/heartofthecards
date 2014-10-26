@@ -145,6 +145,8 @@ function buildLevelEnd() {
 	var levelEndObject = new GameObject(); //Creates a new empty game object that will hold the level end portal
 	var levelEndScript = levelEndObject.AddComponent(LevelEndScript); //Adds the  levelEnd script to the object.	
 	//CURRENTLY EXPLICITELY SET PER THE DEFAULT LEVEL, NEED TO PASS IN X AND Y OR SOMETHING?
+	var boxCollider2D = levelEndObject.AddComponent(BoxCollider2D); //Add a box collider
+	boxCollider2D.isTrigger = true; //It is a trigger	
 	levelEndScript.transform.position = Vector3(22,48,-1);	// Position the at x,y.
 	levelEndScript.init(exampleMesh); //Initialize the script.
 	levelEndScript.name = "LevelEnd";// Give the object a name in the Hierarchy pane.

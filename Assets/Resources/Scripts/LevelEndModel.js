@@ -1,4 +1,4 @@
-﻿var owner : LevelEndScript;  //IS THIS SCOPE NECESSARY?
+var owner : LevelEndScript;  //IS THIS SCOPE NECESSARY?
 
 function init(o : LevelEndScript) {
 	owner = o; //Set up a pointer to the terrain object containing this model.
@@ -14,9 +14,3 @@ function init(o : LevelEndScript) {
 	renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
 }
 
-//If something enters the levelEnd model
-function OnTriggerEnter(other : Collider) {
-	if (other.name == "Player") { //If it is the player
-		Application.LoadLevel("deckBuilder"); //move to the deckbuilding interface
-	}
-}

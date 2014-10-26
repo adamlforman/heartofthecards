@@ -4,9 +4,7 @@
 	meshFilter.mesh = quadMesh; //Give the mesh filter a quadmesh
 	modelObject.AddComponent(MeshRenderer); //Add a renderer for textures
 	modelObject.SetActive(false); //Turn off the object so its script doesn't do anything until we're ready.
-	
-	var boxCollider2D = modelObject.AddComponent(BoxCollider2D); //Add a box collider	
-	
+		
 	model = modelObject.AddComponent(LevelEndModel); //Add a model script to control visuals of the portal.
 	model.init(this); //Initialize the portalmodel.
 
