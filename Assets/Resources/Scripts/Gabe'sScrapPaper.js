@@ -1,15 +1,16 @@
 /*
-Vector3 dmgTextLocation = Camera.main.WorldToScreenPoint(transform.position);
-dmgTextLocation.x /= Screen.width;
-dmgTextLocation.y /= Screen.height;
+var dmgTextLocation : Vector3 = Camera.main.WorldToScreenPoint(transform.position);
+		dmgTextLocation.x /= Screen.width;
+		dmgTextLocation.y /= Screen.height;
 
-var damageText : GUITEXT;
-var damageObject = new GameObject("DamageText");
-damageObject.transform.position = dmgTextLocation;
-damageText = damageObject.addComponent(GUIText);
-damageText.text = VARIABLE WITH HOW MUCH DAMAGE THE SPELL/THING DOES
-damageText.fontSize = 20;
-Destroy(damageObject, 1);
+		var damageText : GUIText;
+		var damageObject = new GameObject("DamageText");
+		damageObject.transform.position = dmgTextLocation;
+		damageText = damageObject.AddComponent(GUIText);
+		damageText.text = "10";
+		damageText.fontSize = 20;
+		damageText.color = Color(1, 0, 0);
+		Destroy(damageObject, 1);
 
 //How Gabe will make everything collide
 	//Add rigidbody2ds + box collider2ds to eveything

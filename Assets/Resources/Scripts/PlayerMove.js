@@ -1,4 +1,4 @@
-﻿public var speed : float = 2;
+﻿public var speed : float = 10;
 private var currentSpeedx : float;
 private var currentSpeedy : float;
 private var acceleration : float = 1;

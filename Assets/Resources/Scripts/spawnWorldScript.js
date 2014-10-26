@@ -49,6 +49,7 @@ function spawnWorld() {
 function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T THINK WE NEED BOTH NAME AND TYPE, ONE COULD BE THE OTHER
 	var enemyObject = new GameObject(); //Creates a new empty gameObject
 	var enemyScript = enemyObject.AddComponent(EnemyScript); //Attaches the enemyScript
+	enemyScript.init(exampleMesh);
 	enemyObject.transform.position = Vector3(x, y, -1); //WHY IS THIS NOT USING THE X AND Y PASSED IN
 	enemyObject.name = name; //set enemyObject name
 	
