@@ -55,7 +55,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	if(fork > 0){
 		this.fork=true;				//Set "fork" boolean to true
 	}
-	
+	//This is hard
 	if(reflect > 0){
 		this.reflect=true;			//Set "reflect" boolean to true
 	}
@@ -76,7 +76,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	if(leech > 0){
 		this.leech=true;			//Set "leech" boolean to true
 	}
-	
+	//This is hard
 	if(sword > 0){
 		this.sword=true;			//Set "sword" boolean to true
 	}
@@ -92,7 +92,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	if(homing > 0){
 		this.homing=true;			//Set "homing" boolean to true
 	}
-	
+	//This is hard
 	if(meteor > 0){
 		this.meteor=true;			//Set "meteor" boolean to true
 	}
