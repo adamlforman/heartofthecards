@@ -21,3 +21,10 @@ function init(o : TerrainScript, t : String) {
 function Update () {
 
 }
+
+function OnTriggerEnter(other : Collider){
+	print("model");
+	if(other.gameObject.name == "Shot"){
+		Destroy(other.gameObject);
+	}
+}

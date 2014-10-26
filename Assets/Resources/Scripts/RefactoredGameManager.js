@@ -21,7 +21,6 @@ function Start() {
 	spawnWorldScript.init(world, exampleMesh);
 	
 	//Add the spellbooks to the game manager object
-	playerSpellbookScript = gameObject.AddComponent(PlayerSpellbook);
 	enemySpellbookScript = gameObject.AddComponent(EnemySpellbook);
 	
 }

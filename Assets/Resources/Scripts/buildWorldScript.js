@@ -106,6 +106,15 @@ function buildRock(x : float, y : float){
 	
 	terrainScript.transform.parent = this.rockParent.transform;	//Sets the parent to be rock parent
 	
+	//TESTTEST
+	
+	//var boxCollider2D = terrainObject.AddComponent(BoxCollider2D); //Add a box collider
+	//var rigidModel = terrainObject.AddComponent(Rigidbody2D); //Add a rigid body for collisions
+	//rigidModel.isKinematic = false;
+	//rigidModel.gravityScale = 0;
+	
+	//TESTTEST
+	
 	terrainScript.init(terrainType, exampleMesh); //Initialize the terrain script.
 	terrainScript.name = "ROCK"; //Give the terrain object a name in the Hierarchy pane.
 	

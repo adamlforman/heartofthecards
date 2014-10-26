@@ -20,6 +20,7 @@ function init(terrainType : String, quadMesh : Mesh) {
 		var rigidModel = modelObject.AddComponent(Rigidbody2D); //Add a rigid body for collisions
 		rigidModel.isKinematic = true; //Set kinematic to true
 		rigidModel.fixedAngle = true; //Set fixed angle to true
+		rigidModel.gravityScale = 0; 								//Turn off gravity
 	}
 	modelObject.SetActive(true); //Turn on the object (the Update function will start being called).
 	
@@ -28,5 +29,12 @@ function init(terrainType : String, quadMesh : Mesh) {
 
 function Update() {
 	
+}
+
+function OnTriggerEnter(other : Collider){
+	print("rock");
+	if(other.gameObject.name == "Shot"){
+		Destroy(other.gameObject);
+	}
 }
 
