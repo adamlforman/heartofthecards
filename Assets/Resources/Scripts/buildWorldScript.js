@@ -1,14 +1,18 @@
 ﻿//Holds characters corresponding to terrain
 var world : Array; //Array to hold the world
 var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
+public var rockParent : GameObject;		//Parent Object for the rocks
+public var groundParent : GameObject;		//Parent Object for the grounds
 
 //Start building the world
 function init(a : Array, exampleMesh : Mesh) {
 	world = a; //Set the world array to reference the array passed in
 	this.exampleMesh = exampleMesh;
+	
+	rockParent = new GameObject("Rocks");
+	groundParent = new GameObject("Grounds");
+	
 	buildWorld(); //Builds the world
-	
-	
 	
 }
 //Builds the world
@@ -99,8 +103,12 @@ function buildRock(x : float, y : float){
 	var terrainScript = terrainObject.AddComponent(TerrainScript);  //Add the terrain script to the object.
 	terrainType = "ROCK"; //Setting the terrain type that will be passed to the terrainScript to ROCK
 	terrainScript.transform.position = Vector3(x,y,-1); //Position the terrain at x,y.
+	
+	terrainScript.transform.parent = this.rockParent.transform;	//Sets the parent to be rock parent
+	
 	terrainScript.init(terrainType, exampleMesh); //Initialize the terrain script.
 	terrainScript.name = "ROCK"; //Give the terrain object a name in the Hierarchy pane.
+	
 }
 
 //Builds a ground object
@@ -112,6 +120,7 @@ function buildGround(x : float, y : float){
 	terrainScript.transform.position = Vector3(x,y,0); //Position the terrain at x,y.
 	terrainScript.init(terrainType, exampleMesh); //Initialize the terrain script.
 	terrainScript.name = "Ground"; //Give the terrain object a name in the Hierarchy pane.
+	terrainScript.transform.parent = groundParent.transform;
 }
 
 //Builds the level end

@@ -80,6 +80,7 @@ function spawnPlayer() {
 	
 	var playerMoveScript = playerObject.AddComponent(PlayerMove);			//Add the PlayerMove Script
 	var playerSpellbookScript = playerObject.AddComponent(PlayerSpellbook); //Add the PlayerSpellbook script
+	playerSpellbookScript.init();
 	var playerHUDScript = playerObject.AddComponent(PlayerHUD);				//Add the PlayerHUD Script
 	playerHUDScript.init(Camera.main, playerObject);
 	

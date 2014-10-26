@@ -14,26 +14,28 @@ public var homing : float = 0;			//Amount of time that attacks have "homing" buf
 
 private var cooldown : float = 0;		//Cannot attack if it is above 0
 
-public var deck : String[];					//The player's current deck.
-public static var library : String[];		//The player's full deck list.
+public static var deck : String[];				//The player's current deck.
+public static var library : String[];	//The player's full deck list.
 
-public var slot1 : String;
-public var slot2 : String;
-public var slot3 : String;
+public static var slot1 : String;				//The card in slot 1
+public static var slot2 : String;				//The card in slot 2
+public static var slot3 : String;				//The card in slot 3
 
-public static var slot1Timer : float;
-public static var slot2Timer : float;
-public static var slot3Timer : float;
+public static var slot1Timer : float;	//The duration of the card in slot 1
+public static var slot2Timer : float;	//The duration of the card in slot 2
+public static var slot3Timer : float;	//The duration of the card in slot 3
 
-public var spellTimer : float;
+public var drawTimer : float;			//The time until your next draw.
 
 public var clockTest : float;
 
 
 
-function Start () {
+function init() {
 	clockTest = 0;
 
+	drawTimer = 0;
+	
 	if(NewDeckManager.theDeck!=null){
 		deck = NewDeckManager.theDeck;
 	}
@@ -48,6 +50,10 @@ function Start () {
 	slot1 = drawSpell();
 	slot2 = drawSpell();
 	slot3 = drawSpell();
+	
+	slot1Timer = -5;
+	slot2Timer = -5;
+	slot3Timer = -5;
 }
 
 function Update () {
@@ -103,37 +109,84 @@ function Update () {
 		cooldown-=Time.deltaTime;					//decrement cooldown
 	}
 	
-	if(Input.GetKeyDown ("1") && slot1Timer<=0){	//When they press 1...
+	if(Input.GetKeyDown ("1") && slot1Timer==-5){	//When they press 1...
 		slot1Timer = 5;
 	}
-	if(Input.GetKeyDown ("2") && slot2Timer<=0){						//When they press 2...
+	if(Input.GetKeyDown ("2") && slot2Timer==-5){	//When they press 2...
 		slot2Timer = 5;
 	}
-	if(Input.GetKeyDown ("3") && slot3Timer<=0){						//When they press 3...
+	if(Input.GetKeyDown ("3") && slot3Timer==-5){	//When they press 3...
 		slot3Timer = 5;
 	}
 	
 	if(slot1Timer>0){						//COUNT DOWN
-		slot1Timer = slot1Timer - Time.deltaTime;
-		print(slot1Timer);
+		slot1Timer -= Time.deltaTime;
+	}
+	if(slot1Timer<=0 && slot1Timer>-5){						//We are out of duration on slot1
+		slot1 = "BLANK";					//Fill the spell slot with the empty marker.
+		if(drawTimer == 0){
+			drawTimer = 5;
+		}
+		slot1Timer = -10;						//Reset the timer
 	}
 	if(slot2Timer>0){						//COUNT DOWN
 		slot2Timer -= Time.deltaTime;
-		print(slot2Timer);
+	}
+	if(slot2Timer<=0 && slot2Timer>-5){						//We are out of duration on slot2
+		slot2 = "BLANK";					//Fill the spell slot with the empty marker.
+		if(drawTimer == 0){
+			drawTimer = 5;
+		}
+		slot2Timer = -10;						//Reset the timer
 	}
 	if(slot3Timer>0){						//COUNT DOWN
 		slot3Timer -= Time.deltaTime;
-		print(slot3Timer);
+	}
+	if(slot3Timer<=0 && slot3Timer>-5){						//We are out of duration on slot3
+		slot3 = "BLANK";					//Fill the spell slot with the empty marker.
+		if(drawTimer == 0){
+			drawTimer = 5;
+		}
+		slot3Timer = -10;						//Reset the timer
 	}
 	
+	if(drawTimer>0){
+		drawTimer-=Time.deltaTime;			//decrement drawTimer if it is above 0	
+	}
+	if(drawTimer<0){
+		if(slot1=="BLANK"){
+			slot1=drawSpell();
+			slot1Timer = -5;
+			if(slot2=="BLANK" || slot3=="BLANK"){
+				drawTimer=5;
+			}
+			else{
+				drawTimer=0;
+			}
+		}
+		else if(slot2=="BLANK"){
+			slot2=drawSpell();
+			slot2Timer = -5;
+			if(slot3=="BLANK"){
+				drawTimer=5;
+			}
+			else{
+				drawTimer=0;
+			}
+		}
+		else if(slot3=="BLANK"){
+			slot3=drawSpell();
+			slot3Timer = -5;
+			drawTimer=0;
+		}
+	}
+		
 	clockTest += Time.deltaTime;
 	
 	
 }
 
-function FixedUpdate(){
-	
-}
+
 
 function shot (player : GameObject){
 	var projectile = new GameObject();											//create a projectile
