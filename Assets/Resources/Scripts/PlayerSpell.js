@@ -20,6 +20,8 @@ public var homing : boolean = false;			//Does the shot have the "homing" buff
 function init(ice : float, poison : float, fork : float, reflect : float, pierce : float, giant : float, splash : float, leech : float, sword : float, blind : float, meteor : float, rapid : float, homing : float, exampleMesh : Mesh) {
 	this.exampleMesh = exampleMesh;
 	
+	transform.localScale = Vector3(0.3, 1, 1);
+	
 	var modelObject = new GameObject();									// Create a quad object for holding the tile texture.
 	var meshFilter = modelObject.AddComponent(MeshFilter); 		//Add a mesh filter for textures
 	meshFilter.mesh = exampleMesh; 								//Give the mesh filter a quadmesh

@@ -7,7 +7,7 @@ function init(o : GameObject) {
 	transform.parent = owner.transform;				// Set the model's parent to the spell (this object).
 	transform.localPosition = Vector3(0,0,0);		// Center the model on the parent.
 	transform.localRotation = Quaternion.identity;
-	transform.localScale = Vector3(0.3,1,1);		// Scale the object to the parent
+	transform.localScale = Vector3(1,1,1);		// Scale the object to the parent
 	name = "Shot Model";							// Name the object.
 	
 	textureName = "Textures/ARROW";					//Set the name of the texture path
