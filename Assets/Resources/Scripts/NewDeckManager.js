@@ -249,169 +249,169 @@ function OnGUI() {
 	//AutoResize(1024, 768);
 	//GUI.Text(Rect(150,25,200,40),"Build Your theDeck!");
 	
-	if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.8,40,40),"+")) {
+	if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.8,Screen.width/20,Screen.height/20),"+")) {
 		if ((iceCount < 4) && (theDeck.length < 20)) {
 			iceCount++;
 			add("ICE");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/4 +40,Screen.height-Screen.height*0.8,40,40),"-")) {
+	else if (GUI.Button(Rect(Screen.width/4 +Screen.width/20,Screen.height-Screen.height*0.8,Screen.width/20,Screen.height/20),"-")) {
 		if (iceCount > 0) {
 			iceCount--;
 			remove("ICE");
 		}
 	}
 	
-	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.72,40,40),"+")) {
+	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.72,Screen.width/20,Screen.height/20),"+")) {
 		if ((poisonCount < 4) && (theDeck.length < 20)) {
 			poisonCount++;
 			add("POISON");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/4 +40,Screen.height-Screen.height*0.72,40,40),"-")) {
+	else if (GUI.Button(Rect(Screen.width/4 +Screen.width/20,Screen.height-Screen.height*0.72,Screen.width/20,Screen.height/20),"-")) {
 		if (poisonCount > 0) {
 			poisonCount--;
 			remove("POISON");
 		}
 	}
 	
-	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.64,40,40),"+")) {
+	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.64,Screen.width/20,Screen.height/20),"+")) {
 		if ((forkCount < 4) && (theDeck.length < 20)) {
 			forkCount++;
 			add("FORK");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/4 +40,Screen.height-Screen.height*0.64, 40,40),"-")) {
+	else if (GUI.Button(Rect(Screen.width/4 +Screen.width/20,Screen.height-Screen.height*0.64, Screen.width/20,Screen.height/20),"-")) {
 		if (forkCount > 0) {
 			forkCount--;
 			remove("FORK");
 		}
 	}
 	
-	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.56,40,40),"+")) {
+	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.56,Screen.width/20,Screen.height/20),"+")) {
 		if ((reflectCount < 4) && (theDeck.length < 20)) {
 			reflectCount++;
 			add("REFLECT");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/4 +40,Screen.height-Screen.height*0.56,40,40),"-")) {
+	else if (GUI.Button(Rect(Screen.width/4 +Screen.width/20,Screen.height-Screen.height*0.56,Screen.width/20,Screen.height/20),"-")) {
 		if (reflectCount > 0) {
 			reflectCount--;
 			remove("REFLECT");
 		}
 	}
 	
-	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.48,40,40),"+")) {
+	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.48,Screen.width/20,Screen.height/20),"+")) {
 		if ((pierceCount < 4) && (theDeck.length < 20)) {
 			pierceCount++;
 			add("PIERCE");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/4 +40,Screen.height-Screen.height*0.48,40,40),"-")) {
+	else if (GUI.Button(Rect(Screen.width/4 +Screen.width/20,Screen.height-Screen.height*0.48,Screen.width/20,Screen.height/20),"-")) {
 		if (pierceCount > 0) {
 			pierceCount--;
 			remove("PIERCE");
 		}
 	}
 	
-	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.40,40,40),"+")) {
+	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.40,Screen.width/20,Screen.height/20),"+")) {
 		if ((giantCount < 4) && (theDeck.length < 20)) {
 			giantCount++;
 			add("GIANT");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/4 + 40,Screen.height-Screen.height*0.40,40,40),"-")) {
+	else if (GUI.Button(Rect(Screen.width/4 + Screen.width/20,Screen.height-Screen.height*0.40,Screen.width/20,Screen.height/20),"-")) {
 		if (giantCount > 0) {
 			giantCount--;
 			remove("GIANT");
 		}
 	}
 	
-	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.32,40,40),"+")) {
+	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.32,Screen.width/20,Screen.height/20),"+")) {
 		if ((splashCount < 1) && (theDeck.length < 20)) {
 			splashCount++;
 			add("SPLASH");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/4 + 40,Screen.height-Screen.height*0.32,40,40),"-")) {
+	else if (GUI.Button(Rect(Screen.width/4 + Screen.width/20,Screen.height-Screen.height*0.32,Screen.width/20,Screen.height/20),"-")) {
 		if (splashCount > 0) {
 			splashCount--;
 			remove("SPLASH");
 		}
 	}
 	
-	if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.8,40,40),"+")) {
+	if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.8,Screen.width/20,Screen.height/20),"+")) {
 		if ((leechCount < 4) && (theDeck.length < 20)) {
 			leechCount++;
 			add("LEECH");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/1.3 +40,Screen.height-Screen.height*0.8,40,40),"-")) {
+	else if (GUI.Button(Rect(Screen.width/1.3 +Screen.width/20,Screen.height-Screen.height*0.8,Screen.width/20,Screen.height/20),"-")) {
 		if (leechCount > 0) {
 			leechCount--;
 			remove("LEECH");
 		}
 	}
 	
-	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.72,40,40),"+")) {
+	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.72,Screen.width/20,Screen.height/20),"+")) {
 		if ((swordCount < 4) && (theDeck.length < 20)) {
 			swordCount++;
 			add("SWORD");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/1.3 +40,Screen.height-Screen.height*0.72,40,40),"-")) {
+	else if (GUI.Button(Rect(Screen.width/1.3 +Screen.width/20,Screen.height-Screen.height*0.72,Screen.width/20,Screen.height/20),"-")) {
 		if (swordCount > 0) {
 			swordCount--;
 			remove("SWORD");
 		}
 	}
 	
-	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.64,40,40),"+")) {
+	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.64,Screen.width/20,Screen.height/20),"+")) {
 		if ((blindCount < 4) && (theDeck.length < 20)) {
 			blindCount++;
 			add("BLIND");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/1.3 +40,Screen.height-Screen.height*0.64, 40,40),"-")) {
+	else if (GUI.Button(Rect(Screen.width/1.3 +Screen.width/20,Screen.height-Screen.height*0.64, Screen.width/20,Screen.height/20),"-")) {
 		if (blindCount > 0) {
 			blindCount--;
 			remove("BLIND");
 		}
 	}
 	
-	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.56,40,40),"+")) {
+	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.56,Screen.width/20,Screen.height/20),"+")) {
 		if ((rapidCount < 4) && (theDeck.length < 20)) {
 			rapidCount++;
 			add("RAPID");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/1.3 +40,Screen.height-Screen.height*0.56,40,40),"-")) {
+	else if (GUI.Button(Rect(Screen.width/1.3 +Screen.width/20,Screen.height-Screen.height*0.56,Screen.width/20,Screen.height/20),"-")) {
 		if (rapidCount > 0) {
 			rapidCount--;
 			remove("RAPID");
 		}
 	}
 	
-	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.48,40,40),"+")) {
+	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.48,Screen.width/20,Screen.height/20),"+")) {
 		if ((homingCount < 4) && (theDeck.length < 20)) {
 			homingCount++;
 			add("HOMING");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/1.3 +40,Screen.height-Screen.height*0.48,40,40),"-")) {
+	else if (GUI.Button(Rect(Screen.width/1.3 +Screen.width/20,Screen.height-Screen.height*0.48,Screen.width/20,Screen.height/20),"-")) {
 		if (homingCount > 0) {
 			homingCount--;
 			remove("HOMING");
 		}
 	}
 	
-	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.40,40,40),"+")) {
+	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.40,Screen.width/20,Screen.height/20),"+")) {
 		if ((meteorCount < 4) && (theDeck.length < 20)) {
 			meteorCount++;
 			add("METEOR");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/1.3 + 40,Screen.height-Screen.height*0.40,40,40),"-")) {
+	else if (GUI.Button(Rect(Screen.width/1.3 + Screen.width/20,Screen.height-Screen.height*0.40,Screen.width/20,Screen.height/20),"-")) {
 		if (meteorCount > 0) {
 			meteorCount--;
 			remove("METEOR");
