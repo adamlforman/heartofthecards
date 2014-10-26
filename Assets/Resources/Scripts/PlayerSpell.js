@@ -64,7 +64,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 		this.giant=true;			//Set "giant" boolean to true
 		gameObject.transform.localScale = Vector3(2,2,0);
 	}
-	
+	//check
 	if(splash > 0){
 		this.splash=true;			//Set "splash" boolean to true
 	}
@@ -101,26 +101,49 @@ function Update() {
 	transform.Translate(Vector2.up * movespeed * Time.deltaTime);
 }
 
-/*function OnTriggerEnter(other : Collider){
+function OnTriggerEnter(other : Collider){
 	print("WE HAVE ENTERED");
+	var sphereSize : float;	//The size of the sphere if we splash
+	if(giant){				//If giant, then make the splash size twice as big
+		sphereSize = 2;
+	}
+	else{
+		sphereSize = 1;			//Normal splash size
+	}
+	if(splash){				//If splash is on
+		for (var target : Collider in Physics.OverlapSphere(Vector3(transform.position.x,transform.position.y,-1),sphereSize)){ //Spawn a sphere and apply damage to all the things inside
+			if(target.gameObject.name == "ENEMY") {		//If it's an enemy
+				applyStatus(target.gameObject);					//apply status debuffs to the enemy we hit
+			}
+		}
+		Destroy(gameObject);  //Destroy the arrow
+	}
+	//Now if there was no splash
 	if(other.gameObject.name == "ROCK"){
-		Destroy(gameObject);
+				Destroy(gameObject);		//destroy the arrow if it hits a rock
 	}
-	if(other.gameObject.CompareTag("Enemy")) {
-		if(ice){
-			other.ice = 5;
-		}
-		if(poison){
-			other.poison = 5;
-		}
-		if(blind){
-			other.blind = 5;
-		}
-		if(leech){
-			//heal the player (who currently has no HP stat
-		}
+	if(other.gameObject.name == "ENEMY"){
+		applyStatus(other.gameObject);					//apply status debuffs to the enemy we hit
 	}
-}*/
+	
+	
+}
+
+//All of the basic attack status buffs
+function applyStatus(target : GameObject){
+	if(ice){
+		target.ice = 5;							//Apply ice if arrow is iced
+	}
+	if(poison){
+		target.poison = 5;						//Apply poison
+	}
+	if(blind){
+		target.blind = 5;						//Apply blind
+	}
+	if(leech){
+		//heal the player (who currently has no HP stat)
+	}
+}
 
 
 
