@@ -348,8 +348,8 @@ function spawnShot(player : GameObject, rotate : Vector3){
 	boxCollider2D.isTrigger = true;
 	var rigidModel = projectile.AddComponent(Rigidbody2D); 						//Add a rigid body for collisions
 	rigidModel.gravityScale = 0; 												//Turn off gravity
-	//rigidModel.fixedAngle = true; 												//Set fixed angle to true
-	//rigidModel.isKinematic = true;
+	rigidModel.fixedAngle = true; 												//Set fixed angle to true
+	rigidModel.isKinematic = true;
 	
 	var tempScript : Temporary = projectile.AddComponent(Temporary);			//make the projectile temporary (add script)
 	tempScript.life = 5;														//set it's life to 5 seconds
