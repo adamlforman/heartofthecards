@@ -111,91 +111,91 @@ function Start () {
 	titleO.transform.position = Vector3(.35, .95, -1);
 	title = titleO.AddComponent(GUIText); 
 	title.text = "Build Your Deck!";
-	title.fontSize = 30;
+	title.fontSize = Screen.height/19;
 	
 	var reminderO = new GameObject("TitleText");
 	reminderO.transform.position = Vector3(.25, .25, -1);
 	reminder = reminderO.AddComponent(GUIText); 
 	reminder.text = "You have " + theDeck.length + " card out of 20 needed.";
-	reminder.fontSize = 20;
+	reminder.fontSize = Screen.height/28;
 	
 	var iceO = new GameObject("iceText");
 	iceO.transform.position = Vector3(.02, .8, -1);
 	ice = iceO.AddComponent(GUIText); 
 	ice.text = "Ice" + " " + iceCount + normalSpell;
-	ice.fontSize = 24;
+	ice.fontSize = Screen.height/24;
 	
 	var poisonO = new GameObject("poisonText");
 	poisonO.transform.position = Vector3(.02, .72, -1);
 	poison = poisonO.AddComponent(GUIText); 
 	poison.text = "Poison" + " " + poisonCount + normalSpell;
-	poison.fontSize = 24;
+	poison.fontSize = Screen.height/24;
 	
 	var forkO = new GameObject("forkText");
 	forkO.transform.position = Vector3(.02, .64, -1);
 	fork = forkO.AddComponent(GUIText); 
 	fork.text = "FORK" + " " + forkCount + normalSpell;
-	fork.fontSize = 24;
+	fork.fontSize = Screen.height/24;
 	
 	var reflectO = new GameObject("reflectText");
 	reflectO.transform.position = Vector3(.02, .56, -1);
 	reflect = reflectO.AddComponent(GUIText); 
 	reflect.text = "Reflect" + " " + reflectCount + normalSpell;
-	reflect.fontSize = 24;
+	reflect.fontSize = Screen.height/24;
 	
 	var pierceO = new GameObject("pierceText");
 	pierceO.transform.position = Vector3(.02, .48, -1);
 	pierce = pierceO.AddComponent(GUIText); 
 	pierce.text = "Pierce" + " " + pierceCount + normalSpell;
-	pierce.fontSize = 24;
+	pierce.fontSize = Screen.height/24;
 	
 	var giantO = new GameObject("giantText");
 	giantO.transform.position = Vector3(.02, .40, -1);
 	giant = giantO.AddComponent(GUIText); 
 	giant.text = "Giant" + " " + giantCount + normalSpell;
-	giant.fontSize = 24;
+	giant.fontSize = Screen.height/24;
 	
 	var splashO = new GameObject("splashText");
 	splashO.transform.position = Vector3(.02, .32, -1);
 	splash = splashO.AddComponent(GUIText); 
 	splash.text = "Splash"  + " " + splashCount + normalSpell;
-	splash.fontSize = 24;
+	splash.fontSize = Screen.height/24;
 	
 	var leechO = new GameObject("leechText");
 	leechO.transform.position = Vector3(.52, .8, -1);
 	leech = leechO.AddComponent(GUIText); 
 	leech.text = "Leech"  + " " + leechCount + normalSpell;
-	leech.fontSize = 24;
+	leech.fontSize = Screen.height/24;
 	
 	var swordO = new GameObject("swordText");
 	swordO.transform.position = Vector3(.52, .72, -1);
 	sword = swordO.AddComponent(GUIText); 
 	sword.text = "Sword" + " " + swordCount + normalSpell;
-	sword.fontSize = 24;
+	sword.fontSize = Screen.height/24;
 	
 	var blindO = new GameObject("blindText");
 	blindO.transform.position = Vector3(.52, .64, -1);
 	blind = blindO.AddComponent(GUIText); 
 	blind.text = "Blind" + " " + blindCount + normalSpell;
-	blind.fontSize = 24;
+	blind.fontSize = Screen.height/24;
 	
 	var rapidO = new GameObject("rapidText");
 	rapidO.transform.position = Vector3(.52, .56, -1);
 	rapid = rapidO.AddComponent(GUIText); 
 	rapid.text = "Rapid" + " " + rapidCount + normalSpell;
-	rapid.fontSize = 24;
+	rapid.fontSize = Screen.height/24;
 	
 	var homingO = new GameObject("homingText");
 	homingO.transform.position = Vector3(.52, .48, -1);
 	homing = homingO.AddComponent(GUIText); 
 	homing.text = "Homing" + " " + homingCount + normalSpell;
-	homing.fontSize = 24;
+	homing.fontSize = Screen.height/24;
 	
 	var meteorO = new GameObject("meteorText");
 	meteorO.transform.position = Vector3(.52, .40, -1);
 	meteor = meteorO.AddComponent(GUIText); 
 	meteor.text = "Meteor" + " " + meteorCount + normalSpell;
-	meteor.fontSize = 24;
+	meteor.fontSize = Screen.height/24;
 }
 
 function Update () {
@@ -213,6 +213,23 @@ function Update () {
 	homing.text = "Homing" + " " + homingCount + normalSpell;
 	meteor.text = "Meteor" + " " + meteorCount + normalSpell;
 	reminder.text = "You have " + theDeck.length + " card out of 20 needed.";
+	
+	ice.fontSize = Screen.height/24;
+	poison.fontSize = Screen.height/24;
+	fork.fontSize = Screen.height/24;
+	reflect.fontSize = Screen.height/24;
+	pierce.fontSize = Screen.height/24;
+	giant.fontSize = Screen.height/24;
+	splash.fontSize = Screen.height/24;
+	leech.fontSize = Screen.height/24;
+	sword.fontSize = Screen.height/24;
+	blind.fontSize = Screen.height/24;
+	rapid.fontSize = Screen.height/24;
+	homing.fontSize = Screen.height/24;
+	meteor.fontSize = Screen.height/24;
+	title.fontSize = Screen.height/19;
+	reminder.fontSize = Screen.height/28;
+	
 }
 function remove(card : String) {
 	for (var i = 0; i < theDeck.length; i++) {
@@ -328,7 +345,7 @@ function OnGUI() {
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.32,Screen.width/20,Screen.height/20),"+")) {
-		if ((splashCount < 1) && (theDeck.length < 20)) {
+		if ((splashCount < 4) && (theDeck.length < 20)) {
 			splashCount++;
 			add("SPLASH");
 		}
@@ -418,7 +435,7 @@ function OnGUI() {
 		}
 	}
 	
-	else if (GUI.Button(Rect(Screen.width/3,Screen.height/1.2,200,40),"Play Level 1 Again!")) {
+	else if (GUI.Button(Rect(Screen.width/3,Screen.height/1.2,Screen.width*0.25,Screen.height*0.07),"Play Level 1 Again!")) {
 		if (theDeck.length == 20) {
 			Application.LoadLevel("level1refactor");
 		}
