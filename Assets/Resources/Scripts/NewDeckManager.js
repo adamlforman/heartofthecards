@@ -256,12 +256,12 @@ function add(card : String) {
 	
 	
 	backgroundScript.name = "background";	
-}*/
+}
 public static function AutoResize(screenWidth:int, screenHeight:int):void
 {
     var resizeRatio:Vector2 = Vector2(Screen.width / parseFloat(screenWidth), Screen.height / parseFloat(screenHeight));
     GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3(resizeRatio.x, resizeRatio.y, 1.0));
-}
+}*/
 function OnGUI() {
 	var customButton: GUIStyle = new GUIStyle("button");
 	customButton.fontSize = 36;

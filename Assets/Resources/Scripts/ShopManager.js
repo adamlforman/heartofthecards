@@ -56,13 +56,13 @@ function Start () {
 
 
 	
-	
-	/*if (PlayerSpellbook.deck != null) {
+	//I dont know if we need this or not
+	if (PlayerSpellbook.deck != null) {
 		theDeck = PlayerSpellbook.library;
 	}
 	else {
 		theDeck = [];
-	}*/
+	}
 	
 	//Goes through the deck and increments the card count variables
 	for (var i = 0; i < theDeck.length; i++) {
@@ -245,7 +245,7 @@ function remove(card : String) {
 function add(card : String) {
 	theDeck.Push(card);
 }
-function spawnBackground() {
+/*function spawnBackground() {
 	var backgroundObject = new GameObject();					// Create a new empty game object that will hold a
 	var backgroundScript = backgroundObject.AddComponent("background");		// Add the  script to the object.
 														// We can now refer to the object via this script.
@@ -261,7 +261,7 @@ public static function AutoResize(screenWidth:int, screenHeight:int):void
 {
     var resizeRatio:Vector2 = Vector2(Screen.width / parseFloat(screenWidth), Screen.height / parseFloat(screenHeight));
     GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3(resizeRatio.x, resizeRatio.y, 1.0));
-}
+}*/
 function OnGUI() {
 	var customButton: GUIStyle = new GUIStyle("button");
 	customButton.fontSize = 36;

@@ -3,9 +3,14 @@ public var maxHealth : int;		// Player's maximum health
 
 public var HUD : PlayerHUD;		// HUD script
 
+public static var money : int;
+
 function init () {				// Initialization function
 	curHealth = 100;
 	maxHealth = curHealth;
+	if (money != null) {
+		money = 0;
+	}
 }
 
 function Update () {			// If you have 0 or less health you die
@@ -33,6 +38,7 @@ function takeDamage(damage : float){	// Take damage function
 //If something enters the levelEnd model
 function OnTriggerEnter2D(other : Collider2D) {
 	if (other.name == "LevelEnd") { //If it is the door
+		money +=100;
 		Application.LoadLevel("deckBuilder"); //move to the deckbuilding interface
 	}
 	if(other.gameObject.name == "Enemy Shot") {	// If it is an enemy arrow

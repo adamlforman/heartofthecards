@@ -225,6 +225,7 @@ function incrementTimers() {			// All of our various timers (there'll be more)
 }
 
 function die() {						// How to die: a manual
+	PlayerStatus.money +=10;
 	GameObject.Destroy(gameObject);		// Stop existing. the end.
 }
 // -------------------------------
