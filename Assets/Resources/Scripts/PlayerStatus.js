@@ -40,7 +40,7 @@ function OnTriggerEnter2D(other : Collider2D) {
 			other.gameObject.GetComponent(EnemySpell).hit(gameObject);	// Ask it to hit us please
 		}
 		else{
-			other.gameObject.GetComponent(EnemySpell).hit(gameObject);		// WHY DO WE HAVE DUPLICATE CODE
+			other.gameObject.GetComponent(EnemySpell).hit(gameObject);		// WHY DO WE HAVE DUPLICATE CODE?  Question seconded by Connor.  Suspects answer is because Adam blindly copied my code for the player.
 		}
 	}
 
