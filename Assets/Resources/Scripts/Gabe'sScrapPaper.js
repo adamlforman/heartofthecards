@@ -22,3 +22,7 @@ var dmgTextLocation : Vector3 = Camera.main.WorldToScreenPoint(transform.positio
 	//On trigger enter just apply force over time in the opposite direction?
 	
 */
+
+
+//WE SHOULD STOP DESTROYING THE PLAYER OBJECT WHEN IT DIES, this kills the game...
+//Game over screen?  reload level?  we should figure out starting deck?  also discuss boss fight.
