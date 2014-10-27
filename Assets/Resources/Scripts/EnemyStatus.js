@@ -39,4 +39,5 @@ function OnTriggerEnter2D(other : Collider2D){
 
 function takeDamage(damage : int){
 	health -= damage;
+	//IF THE ENENIES DIE, GIVE THE PLAYER SOME $$$$
 }

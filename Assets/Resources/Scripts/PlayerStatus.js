@@ -16,6 +16,7 @@ function addHealth(heal : int){
 //If something enters the levelEnd model
 function OnTriggerEnter2D(other : Collider2D) {
 	if (other.name == "LevelEnd") { //If it is the player
+		//GIVE THE PLAYER SOME $$$$
 		Application.LoadLevel("deckBuilder"); //move to the deckbuilding interface
 	}
 }
