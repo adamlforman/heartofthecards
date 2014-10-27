@@ -47,5 +47,5 @@ function OnTriggerEnter2D(other : Collider2D) {
 }
 
 function die() {						// Death function
-	GameObject.Destroy(gameObject);		// Promptly cease existing
+	Application.LoadLevel("deckBuilder"); //move to the deckbuilding interface
 }
