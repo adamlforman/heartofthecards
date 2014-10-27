@@ -345,7 +345,7 @@ function OnGUI() {
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.32,Screen.width/20,Screen.height/20),"+")) {
-		if ((splashCount < 1) && (theDeck.length < 20)) {
+		if ((splashCount < 4) && (theDeck.length < 20)) {
 			splashCount++;
 			add("SPLASH");
 		}

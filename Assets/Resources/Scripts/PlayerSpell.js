@@ -116,24 +116,21 @@ function hit(other : GameObject){
 	}
 	if(splash){				//If splash is on
 		print("WE SPLASHED");
-		for (var target : Collider in Physics.OverlapSphere(Vector3(transform.position.x,transform.position.y,-1),sphereSize)){ //Spawn a sphere and apply damage to all the things inside
-			if(target.gameObject.name == "ENEMY") {		//If it's an enemy
-				applyStatus(target.gameObject);					//apply status debuffs to the enemy we hit
-			}
-		}
+		splashSpawn(transform.position.x,transform.position.y, sphereSize); //Spawn the explosion
 		Destroy(gameObject);  //Destroy the arrow
 	}
 	//Now if there was no splash
-	if(other.name == "ROCK"){
-				Destroy(gameObject);		//destroy the arrow if it hits a rock
-	}
-	if(other.name == "Enemy Warrior" || other.name == "Enemy Archer"){
-		applyStatus(other);					//apply status debuffs to the enemy we hit
-		if(!pierce){
-			Destroy(gameObject);
+	else{
+		if(other.name == "ROCK"){
+					Destroy(gameObject);		//destroy the arrow if it hits a rock
+		}
+		if(other.name == "Enemy Warrior" || other.name == "Enemy Archer"){
+			applyStatus(other);					//apply status debuffs to the enemy we hit
+			if(!pierce){
+				Destroy(gameObject);
+			}
 		}
 	}
-	
 	
 }
 
@@ -152,6 +149,30 @@ function applyStatus(target : GameObject){
 	if(leech){
 		player.GetComponent(PlayerStatus).addHealth(5);
 	}
+}
+
+function splashSpawn(x :float, y:float, size:int){
+	var explosion = new GameObject();											//create the explosion
+	//var meshFilter = explosion.AddComponent(MeshFilter); 						//Add a mesh filter for textures
+	//meshFilter.mesh = exampleMesh; 												//Give the mesh filter a quadmesh
+	//explosion.AddComponent(MeshRenderer); 										//Add a renderer for textures
+	explosion.SetActive(false); 												//Turn off the object so its script doesn't do anything until we're ready.
+	var boxCollider2D = explosion.AddComponent(BoxCollider2D);					//Add a box collider
+	boxCollider2D.isTrigger = true;
+	var rigidModel = explosion.AddComponent(Rigidbody2D); 						//Add a rigid body for collisions
+	rigidModel.gravityScale = 0; 												//Turn off gravity
+	rigidModel.fixedAngle = true; 												//Set fixed angle to true
+	rigidModel.isKinematic = true;
+	explosion.transform.localScale = Vector3(size*1.5,size*1.5,1);					//set the size
+	var tempScript : Temporary = explosion.AddComponent(Temporary);			//make the explosion temporary (add script)
+	tempScript.life = 1;														//set it's life to 5 seconds
+	var splashScript : Splash = explosion.AddComponent(Splash);	//add the playerSpell script
+	explosion.transform.position = Vector3(x,y,-1);							//move the explosion to the player's position
+	explosion.transform.localPosition = explosion.transform.localPosition + Vector3(0, size/2, 0);
+	splashScript.name = "Explosion";
+	splashScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, sword, blind, meteor, rapid, homing, exampleMesh, gameObject, player);	//initialize the playerSpellScript
+	
+	explosion.SetActive(true);
 }
 
 

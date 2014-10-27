@@ -43,7 +43,7 @@ function init() {
 		deck = NewDeckManager.theDeck;
 	}
 	else{
-		deck = ["FORK", "GIANT", "RAPID", "PIERCE", "SPLASH", "LEECH"];
+		deck = ["SPLASH"];
 	}
 	
 	library = deck;
