@@ -55,7 +55,7 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 	if (type.Equals("archer")) {			// archer
 		attack = archerAttack;
 		speed = 0.8f;
-		curHealth = 15;
+		curHealth = 40;
 		
 		aggroRange = 6;
 		leashRange = 10;
@@ -64,7 +64,7 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 	else if (type.Equals("warrior")) {		// warrior
 		attack = warriorAttack;
 		speed = 1f;
-		curHealth = 25;
+		curHealth = 65;
 		
 		aggroRange = 6;
 		leashRange = 15;
@@ -233,7 +233,7 @@ function die() {						// How to die: a manual
 
 function warriorAttack() {				// The warrior's attack function
 	//Debug.Log("warrior attack");
-	target.GetComponent(PlayerStatus).takeDamage(10);	// damage just happens
+	target.GetComponent(PlayerStatus).takeDamage(5);	// damage just happens
 	attackTimer = 3;									// 3 second recharge seems long, but w/e
 }
 
