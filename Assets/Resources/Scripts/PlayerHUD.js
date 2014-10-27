@@ -10,15 +10,49 @@ var slot1Texture : String;		//The name of the texture for the card in slot 1.
 var slot2Texture : String;		//The name of the texture for the card in slot 2. 
 var slot3Texture : String;		//The name of the texture for the card in slot 3.
 
+var healthbarOb : GameObject;	// The object that is the healthbar
+var healthbarBgOb : GameObject;	// The object that is the healthbar's background
+var healthTextOb : GameObject;	// the object that is the health text
+
 var cam : Camera;
 var player : GameObject;
 
-
+var maxHealth : float;		// So we don't have to look it up on update
+var curHealth : float;
 
 
 function init(cam : Camera, player : GameObject){
 	this.cam = cam;
 	this.player = player;
+	this.maxHealth = player.GetComponent(PlayerStatus).maxHealth;
+	this.curHealth = player.GetComponent(PlayerStatus).curHealth;
+	
+	// Makes the healthbar
+	healthbarOb = GameObject.CreatePrimitive(PrimitiveType.Quad);
+	healthbarOb.transform.parent = cam.transform;
+	healthbarOb.transform.localPosition = Vector3(-cam.orthographicSize, cam.orthographicSize*0.9,10);
+	healthbarOb.transform.localScale = Vector3(4,0.5,1);
+	healthbarOb.renderer.material.color = Color(1,0,0);
+	healthbarOb.name = "Health Bar";
+	
+	// Makes the healthbar's background
+	healthbarBgOb = GameObject.CreatePrimitive(PrimitiveType.Quad);
+	healthbarBgOb.transform.parent = cam.transform;
+	healthbarBgOb.transform.localPosition = Vector3(-cam.orthographicSize, cam.orthographicSize*0.89,10);
+	healthbarBgOb.transform.localScale = Vector3(4.2,0.7,1);
+	healthbarBgOb.renderer.material.color = Color(0,0,0);
+	healthbarBgOb.name = "Health Bar background";
+	
+	healthTextOb = new GameObject();
+	healthTextOb.name = "Player Health Text";
+	healthTextOb.transform.position = Vector2(0.5,0.95);
+	healthTextOb.AddComponent(GUIText);
+	healthTextOb.guiText.anchor = TextAnchor.MiddleCenter;
+	healthTextOb.guiText.fontSize = 24;
+	healthTextOb.guiText.fontStyle = FontStyle.Bold;
+	healthTextOb.guiText.font = Resources.Load("Arial",Font);
+	
+	
 	slot1Texture = "Textures/" + PlayerSpellbook.slot1;		//Copies slot 1 from spellbook.
 	slot2Texture = "Textures/" + PlayerSpellbook.slot2;		//Copies slot 2 from spellbook.
 	slot3Texture = "Textures/" + PlayerSpellbook.slot3;		//Copies slot 3 from spellbook.
@@ -88,10 +122,28 @@ function Update () {
 	
 	
 	
-	slot1Ob.transform.localPosition = Vector3(-cam.orthographicSize*1.2, cam.orthographicSize*0.87, 10);		//Position the model in the top right.
-	slot2Ob.transform.localPosition = Vector3(-cam.orthographicSize*1, cam.orthographicSize*0.87, 10);		// Position the model in the top right.
-	slot3Ob.transform.localPosition = Vector3(-cam.orthographicSize*0.8, cam.orthographicSize*0.87, 10);	// Position the model in the top right.
-
+	slot1Ob.transform.localPosition = Vector3(-cam.orthographicSize*1.2, cam.orthographicSize*0.9, 10);		//Position the model in the top right.
+	slot2Ob.transform.localPosition = Vector3(-cam.orthographicSize*1, cam.orthographicSize*0.9, 10);		// Position the model in the top right.
+	slot3Ob.transform.localPosition = Vector3(-cam.orthographicSize*0.8, cam.orthographicSize*0.9, 10);	// Position the model in the top right.
+	
+	var healthPercent : float;
+	if (maxHealth != 0) {
+		healthPercent = curHealth / maxHealth;
+	}
+	if (healthPercent > 0.5) {
+		healthbarOb.renderer.material.color = Color(0,.8,0);
+	}
+	else if (healthPercent > 0.2) {
+		healthbarOb.renderer.material.color = Color(.8,.8,0);
+	}
+	else {
+		healthbarOb.renderer.material.color = Color(.8,0,0);
+	}
+	healthbarOb.transform.localScale = Vector3(healthPercent*4f, 0.5,1);
+	healthbarOb.transform.localPosition = Vector3(-(1-healthPercent)*cam.orthographicSize*0.4, cam.orthographicSize*0.9, 10);
+	healthbarBgOb.transform.localPosition = Vector3(0, cam.orthographicSize*0.9, 10);
+	
+	healthTextOb.guiText.text = curHealth + " / " + maxHealth;
 	
 	if(PlayerSpellbook.slot1Timer>0){									
 		slot1Glow.renderer.material.color = Color(0.42, 0.79, 0.89);		//Set the border to glow light blue

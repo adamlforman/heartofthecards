@@ -1,5 +1,5 @@
-﻿var damage : float = 10;
-var movespeed : int = 10;
+﻿var damage : float = 7;
+var movespeed : int = 4;
 var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 var enemy : GameObject;	//The enemy
 
@@ -136,7 +136,7 @@ function hit(other : GameObject){
 
 //All of the basic attack status buffs
 function applyStatus(target : GameObject){
-	target.GetComponent(EnemyStatus).takeDamage(10);
+	target.GetComponent(PlayerStatus).takeDamage(10);
 	if(ice){
 		target.GetComponent(PlayerStatus).ice = 5;							//Apply ice if arrow is iced
 	}

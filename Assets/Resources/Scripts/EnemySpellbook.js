@@ -17,6 +17,11 @@ private var cooldown : float = 0;		//Cannot attack if it is above 0
 
 var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 
+function init() {
+	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
+	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
+	Destroy(exampleQuad); //Destroy the primitive quad
+}
 function shot (enemy : GameObject){
 	if(fork>0){
 		spawnShot(enemy, Vector3(0,0,30));
@@ -49,7 +54,7 @@ function spawnShot(enemy : GameObject, rotate : Vector3){
 	projectile.transform.position = Vector3(x,y,-1);							//move the projectile to the enemy's position
 	projectile.transform.Translate(enemy.transform.up);
 	projectile.transform.eulerAngles = enemy.transform.eulerAngles - rotate;			//set the projectile's angle to the enemy's
-	enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, sword, blind, meteor, rapid, homing, exampleMesh, gameObject);	//initialize the enemySpellScript
+	enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, sword, blind, meteor, rapid, homing, exampleMesh, enemy);	//initialize the enemySpellScript
 	enemySpellScript.name = "Enemy Shot";
 	projectile.SetActive(true);
 }

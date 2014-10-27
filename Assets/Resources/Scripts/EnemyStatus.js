@@ -1,5 +1,6 @@
 var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
-public var health : int;	// remaining health
+public var curHealth : float;	// remaining health
+public var maxHealth : float;
 
 public var type : String;
 
@@ -10,6 +11,7 @@ public var blind : float;	// }
 // Static
 var target : GameObject;	// usually the player
 var spellbook : EnemySpellbook; // functions for spells, called from attack functions
+var healthBar : GameObject;
 
 // Moment-to-moment behaviour
 var aggro : boolean;		// currently attempting to chase?
@@ -33,6 +35,12 @@ var attackTimer : float;	// delay between attacks -- set durin attack function
 function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook) {
 	exampleMesh = quadMesh;
 	
+	healthBar = GameObject.CreatePrimitive(PrimitiveType.Quad);
+	healthBar.transform.parent = transform;
+	healthBar.renderer.material.color = Color(0.8,0,0);
+	healthBar.transform.localPosition = Vector2(0,0.7);
+	healthBar.name = "Health Bar";
+	
 	aggro = false;
 	inRange = false;
 	waypoint = transform.position;
@@ -47,22 +55,23 @@ function setValues (type : String) {
 	if (type.Equals("archer")) {
 		attack = archerAttack;
 		speed = 0.8f;
-		health = 15;
+		curHealth = 15;
 		
 		aggroRange = 6;
 		leashRange = 10;
-		attackRange = 4;
+		attackRange = 5;
 	}
 	else if (type.Equals("warrior")) {
 		attack = warriorAttack;
 		speed = 1f;
-		health = 25;
+		curHealth = 25;
 		
 		aggroRange = 6;
 		leashRange = 15;
-		attackRange = 1;
+		attackRange = 1.5;
 	}
 	else Debug.Log("INVALID ENEMY TYPE: '"+ type+"'");
+	maxHealth = curHealth;
 }
 
 function setTarget(newTarget : GameObject) {
@@ -71,11 +80,15 @@ function setTarget(newTarget : GameObject) {
 
 function Update () {
 	incrementTimers();
-	if (health <= 0) {
+	if (curHealth <= 0) {
 		die();
 	}
+	var healthPercent = curHealth / maxHealth;
+	healthBar.transform.localScale = Vector3(healthPercent,0.15,1);
+	healthBar.transform.position = Vector3((1-healthPercent)/2 + transform.position.x,0.7 + transform.position.y,transform.position.z);
+	healthBar.transform.rotation = Quaternion.identity;
 	var distance : float = Vector2.Distance(this.transform.position,target.transform.position);
-	var LoS : boolean = lineOfSight();
+	var LoS : boolean = lineOfSight(target.transform.position);
 	if (!aggro) {
 		if (distance <= aggroRange) {
 			if (LoS) {
@@ -97,20 +110,24 @@ function Update () {
 		else if (!LoS) {
 			waypoint = target.transform.position;
 			aggro = false;
+			wanderTimer = 3;
 		}
 		
 	}
 	
 }
 
-function lineOfSight() {
+function lineOfSight(location : Vector2) {
 	var hit : RaycastHit;
-    if (Physics.Raycast(transform.position, target.transform.position - this.transform.position,hit)) {
-    	if (hit.gameObject.name == "ROCK") {
+    if (Physics.Raycast(transform.position, location - this.transform.position,hit)) {
+    	//if (hit.gameObject.name == "ROCK") {
+    		print(hit.gameObject.name);
              return false;
-        }
+        //}
     }
-    return true;
+    else {
+    	return true;
+    }
 }
 
 function face(location : Vector2) {
@@ -133,15 +150,18 @@ function FixedUpdate() {
 }
 
 function wander() {
-	if (Vector2.Distance(this.transform.position,waypoint) > 0.1) {
+	if (Vector2.Distance(this.transform.position,waypoint) > 0.1 && wanderTimer > -2) {
 		face(waypoint);
 		transform.Translate(Vector2(0,speed*Time.deltaTime));
 	}
 	else if (wanderTimer <= 0) {
-		var randX = Random.Range(-2,2);
-		var randY = Random.Range(-2,2);
+		do {
+			var randX = Random.Range(-2,2);
+			var randY = Random.Range(-2,2);
 		
-		waypoint = Vector2(transform.position.x + randX, transform.position.y + randY);
+			waypoint = Vector2(transform.position.x + randX, transform.position.y + randY);
+		}
+		while (!lineOfSight(waypoint));
 		wanderTimer = 3 + Random.Range(-1,1);
 	}
 	
@@ -172,7 +192,7 @@ function OnTriggerEnter2D(other : Collider2D){
 
 
 function takeDamage(damage : float){
-	health -= damage;
+	curHealth -= damage;
 	//IF THE ENENIES DIE, GIVE THE PLAYER SOME $$$$
 
 }
@@ -180,7 +200,8 @@ function takeDamage(damage : float){
 function damageText(other : Collider2D){
 	var damageObject = new GameObject("DamageText");
 	damageObject.transform.parent = this.transform;
-	damageObject.transform.localPosition = Vector3(.5, -.25, -2);
+	//damageObject.transform.localPosition = Vector3(.5, -.25, -2);
+	damageObject.transform.localPosition = Vector3(0,0,-2);
 	damageObject.transform.localScale = Vector3(1,1,1); //NOT SURE IF THIS IS NECESSARY
 	var meshFilter = damageObject.AddComponent(MeshFilter); //Add a mesh filter for textures
 	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh

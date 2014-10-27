@@ -1,22 +1,34 @@
-public var health : int;
-function Start () {
-	health = 100;
+public var curHealth : int;
+public var maxHealth : int;
+
+public var HUD : PlayerHUD;
+
+function init () {
+	curHealth = 100;
+	maxHealth = curHealth;
 }
 
 function Update () {
-
+	if (curHealth <= 0) {
+		die();
+	}
 }
 
 function addHealth(heal : int){
-	health += heal;
-	if(health>100){
-		health = 100;
+	curHealth += heal;
+	if(curHealth>maxHealth){
+		curHealth = maxHealth;
+	}
+	if (HUD) {
+		HUD.curHealth = curHealth;
 	}
 }
 
 function takeDamage(damage : float){
-	health -= damage;
-
+	curHealth -= damage;
+	if (HUD) {
+		HUD.curHealth = curHealth;
+	}
 }
 //If something enters the levelEnd model
 function OnTriggerEnter2D(other : Collider2D) {
@@ -24,4 +36,17 @@ function OnTriggerEnter2D(other : Collider2D) {
 		//GIVE THE PLAYER SOME $$$$
 		Application.LoadLevel("deckBuilder"); //move to the deckbuilding interface
 	}
+	if(other.gameObject.name == "Enemy Shot") {
+		if(!other.gameObject.GetComponent(EnemySpell).splash){
+			other.gameObject.GetComponent(EnemySpell).hit(gameObject);
+		}
+		else{
+			other.gameObject.GetComponent(EnemySpell).hit(gameObject);		//If we splash, dont make damage text yet.
+		}
+	}
+
+}
+
+function die() {
+	GameObject.Destroy(gameObject);
 }

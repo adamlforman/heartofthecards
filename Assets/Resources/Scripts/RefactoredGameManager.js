@@ -22,6 +22,7 @@ function Start() {
 	enemySpellbookScript = gameObject.AddComponent(EnemySpellbook);
 	
 	// inits the scripts
+	enemySpellbookScript.init();
 	buildWorldScript.init(world, exampleMesh);
 	spawnWorldScript.init(world, exampleMesh,enemySpellbookScript);
 }
