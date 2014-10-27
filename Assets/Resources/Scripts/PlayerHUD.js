@@ -29,28 +29,24 @@ function init(cam : Camera, player : GameObject){
 	
 	// Makes the healthbar
 	healthbarOb = GameObject.CreatePrimitive(PrimitiveType.Quad);
-	healthbarOb.transform.parent = cam.transform;
-	healthbarOb.transform.localPosition = Vector3(-cam.orthographicSize, cam.orthographicSize*0.9,10);
-	healthbarOb.transform.localScale = Vector3(4,0.5,1);
-	healthbarOb.renderer.material.color = Color(1,0,0);
-	healthbarOb.name = "Health Bar";
+	healthbarOb.transform.parent = cam.transform;															// makes child of cam
+	healthbarOb.transform.localPosition = Vector3(-cam.orthographicSize, cam.orthographicSize*0.9,10);		// Position in top center
+	healthbarOb.name = "Health Bar";																		// we like names
 	
 	// Makes the healthbar's background
 	healthbarBgOb = GameObject.CreatePrimitive(PrimitiveType.Quad);
-	healthbarBgOb.transform.parent = cam.transform;
-	healthbarBgOb.transform.localPosition = Vector3(-cam.orthographicSize, cam.orthographicSize*0.89,10);
-	healthbarBgOb.transform.localScale = Vector3(4.2,0.7,1);
-	healthbarBgOb.renderer.material.color = Color(0,0,0);
-	healthbarBgOb.name = "Health Bar background";
+	healthbarBgOb.transform.parent = cam.transform;															// Makes child of cam
+	healthbarBgOb.transform.localPosition = Vector3(-cam.orthographicSize, cam.orthographicSize*0.9,10);	// Position in top center
+	healthbarBgOb.name = "Health Bar background";															// names still good
 	
-	healthTextOb = new GameObject();
-	healthTextOb.name = "Player Health Text";
-	healthTextOb.transform.position = Vector2(0.5,0.95);
-	healthTextOb.AddComponent(GUIText);
-	healthTextOb.guiText.anchor = TextAnchor.MiddleCenter;
-	healthTextOb.guiText.fontSize = 24;
-	healthTextOb.guiText.fontStyle = FontStyle.Bold;
-	healthTextOb.guiText.font = Resources.Load("Arial",Font);
+	healthTextOb = new GameObject();									// health text object
+	healthTextOb.name = "Player Health Text";							// named
+	healthTextOb.transform.position = Vector2(0.5,0.95);				// positioned directly over healthbar (window position)
+	healthTextOb.AddComponent(GUIText);									// add GUIText
+	healthTextOb.guiText.anchor = TextAnchor.MiddleCenter;				// which is centered
+	healthTextOb.guiText.fontSize = 24;									// legibly large
+	healthTextOb.guiText.fontStyle = FontStyle.Bold;					// bold
+	healthTextOb.guiText.font = Resources.Load("Arial",Font);			// and has a font
 	
 	
 	slot1Texture = "Textures/" + PlayerSpellbook.slot1;		//Copies slot 1 from spellbook.
@@ -126,24 +122,28 @@ function Update () {
 	slot2Ob.transform.localPosition = Vector3(-cam.orthographicSize*1, cam.orthographicSize*0.9, 10);		// Position the model in the top right.
 	slot3Ob.transform.localPosition = Vector3(-cam.orthographicSize*0.8, cam.orthographicSize*0.9, 10);	// Position the model in the top right.
 	
+	// calculate current health %
 	var healthPercent : float;
 	if (maxHealth != 0) {
 		healthPercent = curHealth / maxHealth;
 	}
+	// high health bars are green
 	if (healthPercent > 0.5) {
 		healthbarOb.renderer.material.color = Color(0,.8,0);
 	}
+	// medium is yellow
 	else if (healthPercent > 0.2) {
 		healthbarOb.renderer.material.color = Color(.8,.8,0);
 	}
+	// low is red
 	else {
 		healthbarOb.renderer.material.color = Color(.8,0,0);
 	}
-	healthbarOb.transform.localScale = Vector3(healthPercent*4f, 0.5,1);
-	healthbarOb.transform.localPosition = Vector3(-(1-healthPercent)*cam.orthographicSize*0.4, cam.orthographicSize*0.9, 10);
-	healthbarBgOb.transform.localPosition = Vector3(0, cam.orthographicSize*0.9, 10);
+	healthbarOb.transform.localScale = Vector3(healthPercent*4f, 0.5,1);														// Shrink the healthbar with lost health
+	healthbarOb.transform.localPosition = Vector3(-(1-healthPercent)*cam.orthographicSize*0.4, cam.orthographicSize*0.9, 10);	// And reposition it so it appears to be shrinking straight left
+	healthbarBgOb.transform.localPosition = Vector3(0, cam.orthographicSize*0.9, 10);											// Make sure the background tracks the camera
 	
-	healthTextOb.guiText.text = curHealth + " / " + maxHealth;
+	healthTextOb.guiText.text = curHealth + " / " + maxHealth;			// update health text
 	
 	if(PlayerSpellbook.slot1Timer>0){									
 		slot1Glow.renderer.material.color = Color(0.42, 0.79, 0.89);		//Set the border to glow light blue

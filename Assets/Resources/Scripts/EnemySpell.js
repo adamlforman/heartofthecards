@@ -1,5 +1,5 @@
-﻿var damage : float = 7;
-var movespeed : int = 4;
+﻿var damage : float = 7;	 // How much damage does the spell do (WILL BE OBSOLETE)
+var movespeed : int = 4;	// How fast is the spell (WILL BE OBSOLETE)
 var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 var enemy : GameObject;	//The enemy
 
@@ -19,9 +19,9 @@ public var homing : boolean = false;			//Does the shot have the "homing" buff
 
 
 function init(ice : float, poison : float, fork : float, reflect : float, pierce : float, giant : float, splash : float, leech : float, sword : float, blind : float, meteor : float, rapid : float, homing : float, exampleMesh : Mesh, enemy : GameObject) {
-	this.exampleMesh = exampleMesh;
+	this.exampleMesh = exampleMesh;					// Bitches love meshes
 	
-	transform.localScale = Vector3(0.3, 1, 1);
+	transform.localScale = Vector3(0.3, 1, 1);		// Hey look it's arrow-shaped
 	this.enemy = enemy;
 	
 	var modelObject = new GameObject();									// Create a quad object for holding the tile texture.
@@ -102,10 +102,10 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 
 
 function Update() {
-	transform.Translate(Vector2.up * movespeed * Time.deltaTime);
+	transform.Translate(Vector2.up * movespeed * Time.deltaTime);	// Move forward by speed * time
 }
 
-function hit(other : GameObject){
+function hit(other : GameObject){		// how to hit something
 	//print("WE HAVE ENTERED");
 	var sphereSize : float;	//The size of the sphere if we splash
 	if(giant){				//If giant, then make the splash size twice as big
@@ -127,7 +127,7 @@ function hit(other : GameObject){
 		if(other.name == "Player"){
 			applyStatus(other);					//apply status debuffs to the enemy we hit
 			if(!pierce){
-				Destroy(gameObject);
+				Destroy(gameObject); 		// DANGER WILL ROBINSON THIS WILL MAKE PIERCING ARROWS ONE-SHOT EVERYTHING I MEAN EVERYTHING
 			}
 		}
 	}
