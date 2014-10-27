@@ -357,7 +357,7 @@ function spawnShot(player : GameObject, rotate : Vector3){
 	var x : float = player.transform.position.x;								//record the players x position
 	var y : float = player.transform.position.y;								//record the players y position
 	projectile.transform.position = Vector3(x,y,-1);							//move the projectile to the player's position
-	projectile.transform.Translate(Vector3(0, 1, 0));
+	projectile.transform.Translate(player.transform.up);
 	projectile.transform.eulerAngles = player.transform.eulerAngles - rotate;			//set the projectile's angle to the player's
 	playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, sword, blind, meteor, rapid, homing, exampleMesh, gameObject);	//initialize the playerSpellScript
 	playerSpellScript.name = "Shot";

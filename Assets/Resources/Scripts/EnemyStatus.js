@@ -9,11 +9,11 @@ function init (quadMesh : Mesh) {
 }
 
 function Update () {
-
+	
 }
 
 function OnTriggerEnter2D(other : Collider2D){
-	print("enemy");
+	//print("enemy");
 	if(other.gameObject.name == "Shot") {
 		if(!other.gameObject.GetComponent(PlayerSpell).splash){
 			damageText(other);
@@ -35,7 +35,7 @@ function OnTriggerEnter2D(other : Collider2D){
 }
 
 
-function takeDamage(damage : int){
+function takeDamage(damage : float){
 	health -= damage;
 	//IF THE ENENIES DIE, GIVE THE PLAYER SOME $$$$
 

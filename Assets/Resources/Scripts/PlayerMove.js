@@ -5,9 +5,12 @@ private var acceleration : float = 1;
 private var amountToMove : Vector2;
 
 
-function Update() {
-	
-}
+function Update () {
+         var mouseScreen : Vector3 = Input.mousePosition;
+         var mouse : Vector3 = Camera.main.ScreenToWorldPoint(mouseScreen);
+ 
+         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(mouse.y - transform.position.y, mouse.x - transform.position.x) * Mathf.Rad2Deg - 90);
+ }
 
 function FixedUpdate (){
 	
