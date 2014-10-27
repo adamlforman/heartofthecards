@@ -106,7 +106,7 @@ function Update() {
 }
 
 function hit(other : GameObject){
-	print("WE HAVE ENTERED");
+	//print("WE HAVE ENTERED");
 	var sphereSize : float;	//The size of the sphere if we splash
 	if(giant){				//If giant, then make the splash size twice as big
 		sphereSize = 2;
@@ -115,7 +115,7 @@ function hit(other : GameObject){
 		sphereSize = 1;		//Normal splash size
 	}
 	if(splash){				//If splash is on
-		print("WE SPLASHED");
+		//print("WE SPLASHED");
 		splashSpawn(transform.position.x,transform.position.y, sphereSize); //Spawn the explosion
 		Destroy(gameObject);  //Destroy the arrow
 	}
