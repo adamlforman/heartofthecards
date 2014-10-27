@@ -12,17 +12,18 @@ function Start() {
 	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
 	Destroy(exampleQuad); //Destroy the primitive quad
 	
-	//Build World, attaches and inits a script responsible for building the environment
+	//Build World, attaches a script responsible for building the environment
 	buildWorldScript = gameObject.AddComponent(BuildWorldScript);
-	buildWorldScript.init(world, exampleMesh);
 	
-	//Spawn World, attaches and intits a script which spawns the player and the enemies
+	//Spawn World, attaches a script which spawns the player and the enemies
 	spawnWorldScript = gameObject.AddComponent(SpawnWorldScript);
-	spawnWorldScript.init(world, exampleMesh);
 	
 	//Add the spellbooks to the game manager object
 	enemySpellbookScript = gameObject.AddComponent(EnemySpellbook);
 	
+	// inits the scripts
+	buildWorldScript.init(world, exampleMesh);
+	spawnWorldScript.init(world, exampleMesh,enemySpellbookScript);
 }
 
 /*function buildPlayer(name : String) {

@@ -25,7 +25,7 @@ function Update() {
 }
 
 function OnTriggerEnter2D(other : Collider2D){
-	print("rock");
+	//print("rock");
 	if(other.gameObject.name == "Shot"){
 		other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
 	}

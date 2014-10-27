@@ -4,13 +4,15 @@ var maxX : int; //Max X value of the map
 var maxY : int; //Max Y value of the map
 var cam : GameCamera; //Forgot what type, will fix later
 var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
+var enemySpellbookScript : EnemySpellbook;
 
 //Start spawning the world
-function init(a : Array, exampleMesh : Mesh) {
+function init(a : Array, exampleMesh : Mesh,enemySpellbookScript : EnemySpellbook) {
 	world = a; //Set the world array to reference the array passed in
 	maxY = world.length; //Sets the max Y value of the map to be the length of the world array
 	maxX = world[0].length; //Sets the max X value of the map to be the length of the first array within the world array;
 	this.exampleMesh = exampleMesh;
+	this.enemySpellbookScript = enemySpellbookScript;
 	spawnWorld(); //Spawns the world
 }
 
@@ -19,6 +21,9 @@ function init(a : Array, exampleMesh : Mesh) {
 function spawnWorld() {
 	var randX : int; //Temp variable to hold a random x variable
 	var randY : int; //Temp variable to hold a random y variable
+	
+	// Spawns player -- done before enemies so enemies can have target set
+	spawnPlayer();
 	
 	//Spawns all the enemies, (half archers, half warriors)
 	for(i = 0; i<maxX; i++) {
@@ -39,8 +44,7 @@ function spawnWorld() {
 		}
 	}
 	
-	//Spawn player then set camera
-	spawnPlayer();
+	//set camera
 	cam = Camera.main.GetComponent(GameCamera);
 	cam.init(player,0,1,maxX,maxY);
 }
@@ -49,9 +53,10 @@ function spawnWorld() {
 function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T THINK WE NEED BOTH NAME AND TYPE, ONE COULD BE THE OTHER
 	var enemyObject = new GameObject(); //Creates a new empty gameObject
 	var enemyStatusScript = enemyObject.AddComponent(EnemyStatus); //Attaches the enemyScript
-    enemyStatusScript.init(exampleMesh);
 	enemyObject.transform.position = Vector3(x, y, -1); //WHY IS THIS NOT USING THE X AND Y PASSED IN
 	enemyObject.name = name; //set enemyObject name
+	enemyStatusScript.setTarget(player);
+    enemyStatusScript.init(exampleMesh,type,enemySpellbookScript);
 	
 	var enemyModel = new GameObject(); //Create enemyModel
 	var meshFilter = enemyModel.AddComponent(MeshFilter); //Add a meshfilter
