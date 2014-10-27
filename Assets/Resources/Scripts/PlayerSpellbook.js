@@ -16,6 +16,7 @@ private var cooldown : float = 0;		//Cannot attack if it is above 0
 
 public static var deck : String[];		//The player's current deck.
 public static var library : String[];	//The player's full deck list.
+public static var cardsOwned : String[]; //The cards a player owns
 
 public static var slot1 : String;		//The card in slot 1
 public static var slot2 : String;		//The card in slot 2
