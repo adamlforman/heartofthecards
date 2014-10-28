@@ -15,23 +15,23 @@ var homing : GUIText;
 var meteor : GUIText;
 
 //Counters for all of the cards
-var iceCount : int;
-var poisonCount : int;
-var forkCount : int;
-var reflectCount : int;
-var pierceCount : int;
-var giantCount : int;
-var splashCount : int;
-var leechCount : int;
-var swordCount : int;
-var blindCount : int;
-var rapidCount : int;
-var homingCount : int;
-var meteorCount : int;
+public static var iceCount : int;
+public static var poisonCount : int;
+public static var forkCount : int;
+public static var reflectCount : int;
+public static var pierceCount : int;
+public static var giantCount : int;
+public static var splashCount : int;
+public static var leechCount : int;
+public static var swordCount : int;
+public static var blindCount : int;
+public static var rapidCount : int;
+public static var homingCount : int;
+public static var meteorCount : int;
 
 var normalSpell : String;
 var specialSpell : String;
-
+var badSpell : String;
 
 public static var theDeck : Array;
 public static var cardsOwned: Array;
@@ -39,6 +39,7 @@ public static var cardsOwned: Array;
 function Start () {
 	normalSpell = "/4";
 	specialSpell = "/1";
+	badSpell = "/0";
 	
 	//Start with none of anything
 	iceCount = 0;
@@ -140,7 +141,7 @@ function Start () {
 	var reflectO = new GameObject("reflectText");
 	reflectO.transform.position = Vector3(.02, .56, -1);
 	reflect = reflectO.AddComponent(GUIText); 
-	reflect.text = "Reflect" + " " + reflectCount + normalSpell;
+	reflect.text = "Reflect" + " " + reflectCount + badSpell;
 	reflect.fontSize = Screen.height/24;
 	
 	var pierceO = new GameObject("pierceText");
@@ -170,7 +171,7 @@ function Start () {
 	var swordO = new GameObject("swordText");
 	swordO.transform.position = Vector3(.52, .72, -1);
 	sword = swordO.AddComponent(GUIText); 
-	sword.text = "Sword" + " " + swordCount + normalSpell;
+	sword.text = "Sword" + " " + swordCount + badSpell;
 	sword.fontSize = Screen.height/24;
 	
 	var blindO = new GameObject("blindText");
@@ -188,13 +189,13 @@ function Start () {
 	var homingO = new GameObject("homingText");
 	homingO.transform.position = Vector3(.52, .48, -1);
 	homing = homingO.AddComponent(GUIText); 
-	homing.text = "Homing" + " " + homingCount + normalSpell;
+	homing.text = "Homing" + " " + homingCount + badSpell;
 	homing.fontSize = Screen.height/24;
 	
 	var meteorO = new GameObject("meteorText");
 	meteorO.transform.position = Vector3(.52, .40, -1);
 	meteor = meteorO.AddComponent(GUIText); 
-	meteor.text = "Meteor" + " " + meteorCount + normalSpell;
+	meteor.text = "Meteor" + " " + meteorCount + badSpell;
 	meteor.fontSize = Screen.height/24;
 }
 
@@ -202,16 +203,16 @@ function Update () {
 	ice.text = "Ice" + " " + iceCount + normalSpell;
 	poison.text = "Poison" + " " + poisonCount + normalSpell;
 	fork.text = "Fork" + " " + forkCount + normalSpell;
-	reflect.text = "Reflect" + " " + reflectCount + normalSpell;
+	reflect.text = "Reflect" + " " + reflectCount + badSpell;
 	pierce.text = "Pierce" + " " + pierceCount + normalSpell;
 	giant.text = "Giant" + " " + giantCount + normalSpell;
 	splash.text = "Splash"  + " " + splashCount + normalSpell;
 	leech.text = "Leech"  + " " + leechCount + normalSpell;
-	sword.text = "Sword" + " " + swordCount + normalSpell;
+	sword.text = "Sword" + " " + swordCount + badSpell;
 	blind.text = "Blind" + " " + blindCount + normalSpell;
 	rapid.text = "Rapid"  + " " + rapidCount + normalSpell;
-	homing.text = "Homing" + " " + homingCount + normalSpell;
-	meteor.text = "Meteor" + " " + meteorCount + normalSpell;
+	homing.text = "Homing" + " " + homingCount + badSpell;
+	meteor.text = "Meteor" + " " + meteorCount + badSpell;
 	reminder.text = "You have $" + PlayerStatus.money + ".";
 	
 	ice.fontSize = Screen.height/24;
@@ -288,10 +289,10 @@ function OnGUI() {
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.56,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((reflectCount < 4)  && (PlayerStatus.money >= 50)) {
-			reflectCount++;
-			PlayerStatus.money -=50;
-			add("REFLECT");
+		if ((reflectCount < 0)  && (PlayerStatus.money >= 50)) {
+			//reflectCount++;
+			//PlayerStatus.money -=50;
+			//add("REFLECT");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.48,Screen.width/5,Screen.height/15),"Buy, $50")) {
@@ -323,10 +324,10 @@ function OnGUI() {
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.72,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((swordCount < 4)  && (PlayerStatus.money >= 50)) {
-			swordCount++;
-			PlayerStatus.money -=50;
-			add("SWORD");
+		if ((swordCount < 0)  && (PlayerStatus.money >= 50)) {
+			//swordCount++;
+			//PlayerStatus.money -=50;
+			//add("SWORD");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.64,Screen.width/5,Screen.height/15),"Buy, $50")) {
@@ -344,22 +345,20 @@ function OnGUI() {
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.48,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((homingCount < 4)  && (PlayerStatus.money >= 50)) {
+		if ((homingCount < 0)  && (PlayerStatus.money >= 50)) {
 			homingCount++;
 			PlayerStatus.money -=50;
 			add("HOMING");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.40,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((meteorCount < 4)  && (PlayerStatus.money >= 50)) {
-			meteorCount++;
-			PlayerStatus.money -=50;
-			add("METEOR");
+		if ((meteorCount < 0)  && (PlayerStatus.money >= 50)) {
+			//meteorCount++;
+			//PlayerStatus.money -=50;
+			//add("METEOR");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/3,Screen.height/1.2,Screen.width*0.30,Screen.height*0.10),"Go to Deck Building!")) {
-		if (theDeck.length == 20) {
-			Application.LoadLevel("deckBuilder");
-		}
+		Application.LoadLevel("deckBuilder");
 	}
 }

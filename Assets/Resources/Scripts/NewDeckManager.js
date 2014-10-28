@@ -271,7 +271,7 @@ function OnGUI() {
 	//GUI.Text(Rect(150,25,200,40),"Build Your theDeck!");
 	
 	if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.8,Screen.width/20,Screen.height/20),"+")) {
-		if ((iceCount < 4) && (theDeck.length < 20)) {
+		if ((iceCount < 4) && (theDeck.length < 20) && (iceCount < ShopManager.iceCount)) {
 			iceCount++;
 			add("ICE");
 		}
@@ -284,7 +284,7 @@ function OnGUI() {
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.72,Screen.width/20,Screen.height/20),"+")) {
-		if ((poisonCount < 4) && (theDeck.length < 20)) {
+		if ((poisonCount < 4) && (theDeck.length < 20) && (poisonCount < ShopManager.poisonCount)) {
 			poisonCount++;
 			add("POISON");
 		}
@@ -297,7 +297,7 @@ function OnGUI() {
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.64,Screen.width/20,Screen.height/20),"+")) {
-		if ((forkCount < 4) && (theDeck.length < 20)) {
+		if ((forkCount < 4) && (theDeck.length < 20)  && (forkCount < ShopManager.forkCount)) {
 			forkCount++;
 			add("FORK");
 		}
@@ -310,7 +310,7 @@ function OnGUI() {
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.56,Screen.width/20,Screen.height/20),"+")) {
-		if ((reflectCount < 0) && (theDeck.length < 20)) {
+		if ((reflectCount < 0) && (theDeck.length < 20) && (reflectCount < ShopManager.reflectCount)) {
 			reflectCount++;
 			add("REFLECT");
 		}
@@ -323,7 +323,7 @@ function OnGUI() {
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.48,Screen.width/20,Screen.height/20),"+")) {
-		if ((pierceCount < 4) && (theDeck.length < 20)) {
+		if ((pierceCount < 4) && (theDeck.length < 20) && (pierceCount < ShopManager.pierceCount)) {
 			pierceCount++;
 			add("PIERCE");
 		}
@@ -336,7 +336,7 @@ function OnGUI() {
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.40,Screen.width/20,Screen.height/20),"+")) {
-		if ((giantCount < 4) && (theDeck.length < 20)) {
+		if ((giantCount < 4) && (theDeck.length < 20) && (giantCount < ShopManager.giantCount)) {
 			giantCount++;
 			add("GIANT");
 		}
@@ -349,7 +349,7 @@ function OnGUI() {
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.32,Screen.width/20,Screen.height/20),"+")) {
-		if ((splashCount < 4) && (theDeck.length < 20)) {
+		if ((splashCount < 4) && (theDeck.length < 20) && (splashCount < ShopManager.splashCount)) {
 			splashCount++;
 			add("SPLASH");
 		}
@@ -362,7 +362,7 @@ function OnGUI() {
 	}
 	
 	if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.8,Screen.width/20,Screen.height/20),"+")) {
-		if ((leechCount < 4) && (theDeck.length < 20)) {
+		if ((leechCount < 4) && (theDeck.length < 20) && (leechCount < ShopManager.leechCount)) {
 			leechCount++;
 			add("LEECH");
 		}
@@ -375,7 +375,7 @@ function OnGUI() {
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.72,Screen.width/20,Screen.height/20),"+")) {
-		if ((swordCount < 0) && (theDeck.length < 20)) {
+		if ((swordCount < 0) && (theDeck.length < 20) && (swordCount < ShopManager.swordCount)) {
 			swordCount++;
 			add("SWORD");
 		}
@@ -388,7 +388,7 @@ function OnGUI() {
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.64,Screen.width/20,Screen.height/20),"+")) {
-		if ((blindCount < 4) && (theDeck.length < 20)) {
+		if ((blindCount < 4) && (theDeck.length < 20)  && (blindCount < ShopManager.blindCount)) {
 			blindCount++;
 			add("BLIND");
 		}
@@ -401,7 +401,7 @@ function OnGUI() {
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.56,Screen.width/20,Screen.height/20),"+")) {
-		if ((rapidCount < 4) && (theDeck.length < 20)) {
+		if ((rapidCount < 4) && (theDeck.length < 20) && (rapidCount < ShopManager.rapidCount)) {
 			rapidCount++;
 			add("RAPID");
 		}
@@ -414,7 +414,7 @@ function OnGUI() {
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.48,Screen.width/20,Screen.height/20),"+")) {
-		if ((homingCount < 0) && (theDeck.length < 20)) {
+		if ((homingCount < 0) && (theDeck.length < 20) && (homingCount < ShopManager.homingCount)) {
 			homingCount++;
 			add("HOMING");
 		}
@@ -427,7 +427,7 @@ function OnGUI() {
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.40,Screen.width/20,Screen.height/20),"+")) {
-		if ((meteorCount < 0) && (theDeck.length < 20)) {
+		if ((meteorCount < 0) && (theDeck.length < 20) && (meteorCount < ShopManager.meteorCount)) {
 			meteorCount++;
 			add("METEOR");
 		}
@@ -439,7 +439,7 @@ function OnGUI() {
 		}
 	}
 	
-	else if (GUI.Button(Rect(Screen.width/3,Screen.height/1.2,Screen.width*0.25,Screen.height*0.07),"Play Level 1 Again!")) {
+	else if (GUI.Button(Rect(Screen.width/3,Screen.height/1.2,Screen.width*0.35,Screen.height*0.10),"Play Level 1 Again!")) {
 		if (theDeck.length == 20) {
 			Application.LoadLevel("level1refactor");
 		}
