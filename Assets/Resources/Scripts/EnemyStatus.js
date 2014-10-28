@@ -54,7 +54,7 @@ function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook) {
 function setValues (type : String) {		// ENEMY STATS BY CLASS
 	if (type.Equals("archer")) {			// archer
 		attack = archerAttack;
-		speed = 0.8f;
+		speed = 3f;
 		curHealth = 40;
 		
 		aggroRange = 6;
@@ -63,7 +63,7 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 	}
 	else if (type.Equals("warrior")) {		// warrior
 		attack = warriorAttack;
-		speed = 1f;
+		speed = 3.25f;
 		curHealth = 65;
 		
 		aggroRange = 6;
