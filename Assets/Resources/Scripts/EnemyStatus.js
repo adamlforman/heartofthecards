@@ -4,9 +4,11 @@ public var maxHealth : float;
 
 public var type : String;
 
-public var ice : float;		// }
-public var poison : float;	// } Debuff booleans
-public var blind : float;	// }
+public var iceTimer : float;		// }
+public var poisonTimer : float;		// } Debuff timers
+public var poisonCounter : int; 		// }
+public var blindTimer : float;		// }
+
 
 // Static
 var target : GameObject;	// usually the player
@@ -23,7 +25,8 @@ var aggroRange : float;		// Range at which enemy detects player
 var leashRange : float;		// Range at which enemy gives up on player
 var attackRange : float;	// Enemy's attack range
 
-var speed : float;			// enemy's speed
+var baseSpeed : float;			// enemy's speed
+var speed : float;
 
 var attack : function();
 
@@ -54,7 +57,7 @@ function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook) {
 function setValues (type : String) {		// ENEMY STATS BY CLASS
 	if (type.Equals("archer")) {			// archer
 		attack = archerAttack;
-		speed = 0.8f;
+		baseSpeed = 0.8f;
 		curHealth = 15;
 		
 		aggroRange = 6;
@@ -63,7 +66,7 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 	}
 	else if (type.Equals("warrior")) {		// warrior
 		attack = warriorAttack;
-		speed = 1f;
+		baseSpeed = 1f;
 		curHealth = 25;
 		
 		aggroRange = 6;
@@ -80,6 +83,7 @@ function setTarget(newTarget : GameObject) {	// In case of mind control powers o
 
 function Update () {
 	incrementTimers();		// tick tock goes the clock
+	processDebuffs();
 	if (curHealth <= 0) {	// how to die
 		die();
 	}
@@ -90,7 +94,13 @@ function Update () {
 	
 	
 	var distance : float = Vector2.Distance(this.transform.position,target.transform.position);		// distance from player
-	var LoS : boolean = lineOfSight(target.transform.position);										// can we see them?
+	var LoS : boolean;
+	if (distance <= leashRange) {
+		LoS = lineOfSight(target.transform.position);										// can we see them?
+	}
+	else {
+		LoS = false;
+	}
 	
 	if (!aggro) {						// if we don't know of player
 		if (distance <= aggroRange) {	// and are in aggro range
@@ -121,16 +131,17 @@ function Update () {
 }
 
 function lineOfSight(location : Vector2) {														// Is there a rock in the way from my location to the target?
-	var hit : RaycastHit;
-    if (Physics.Raycast(transform.position, location - this.transform.position,hit)) {			// raycast
-    	if (hit.gameObject.name == "ROCK") {													// if we hit a rock
-    		print(hit.gameObject.name);															// DEBUG
-             return false;																		// we don't have LoS
-        }
-    }
-    else {																						// otherwise
-    	return true;																			// we do!
-    }
+	var hits : RaycastHit2D[] = (Physics2D.RaycastAll(transform.position,location - this.transform.position, Vector2.Distance(location, this.transform.position)));
+	Debug.DrawRay (transform.position, location - this.transform.position, Color.white);
+    for (var x: RaycastHit2D in hits) {
+    	if (x) {			// raycast
+    		if (x.collider.gameObject.transform.root.name == "Rocks") {													// if we hit a rock
+    			//print(hit.collider.gameObject.transform.root.name);															// DEBUG
+    	         return false;																		// we don't have LoS
+    	    }
+   		}
+   	}
+  	return true;
 }
 
 function face(location : Vector2) {						// THIS IS A USEFUL FUNCTION
@@ -218,10 +229,25 @@ function damageText(other : Collider2D){
 
 }
 
+function processDebuffs() {
+	speed = baseSpeed;
+	if (iceTimer > 0) {
+		speed = speed*0.5;
+	}
+	if (poisonCounter > 0 && poisonTimer <= 0) {
+		takeDamage(2);
+		poisonCounter--;
+		poisonTimer = 1;
+	}
+}
+
 function incrementTimers() {			// All of our various timers (there'll be more)
 	var tick : float = Time.deltaTime;
 	wanderTimer -= tick;
 	attackTimer -= tick;
+	iceTimer -= tick;
+	poisonTimer -= tick;
+	blindTimer -= tick;
 }
 
 function die() {						// How to die: a manual
@@ -232,13 +258,15 @@ function die() {						// How to die: a manual
 // -------------------------------
 
 function warriorAttack() {				// The warrior's attack function
-	//Debug.Log("warrior attack");
-	target.GetComponent(PlayerStatus).takeDamage(10);	// damage just happens
-	attackTimer = 3;									// 3 second recharge seems long, but w/e
+	if (blindTimer <= 0) {
+		target.GetComponent(PlayerStatus).takeDamage(10);	// damage just happens
+		attackTimer = 3;									// 3 second recharge seems long, but w/e
+	}
 }
 
 function archerAttack() {				// the archer's attack function
-	//Debug.Log("archer attack");
-	spellbook.shot(gameObject);			// shoot the thing
-	attackTimer = 3;
+	if (blindTimer <= 0) {
+		spellbook.shot(gameObject);			// shoot the thing
+		attackTimer = 3;
+	}
 }

@@ -29,5 +29,8 @@ function OnTriggerEnter2D(other : Collider2D){
 	if(other.gameObject.name == "Shot"){
 		other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
 	}
+	if(other.gameObject.name == "Enemy Shot") {
+		other.gameObject.GetComponent(EnemySpell).hit(gameObject);
+	}
 }
 

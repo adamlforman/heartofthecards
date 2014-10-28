@@ -110,6 +110,12 @@ function buildRock(x : float, y : float){
 	
 	var boxCollider2D = terrainObject.AddComponent(BoxCollider2D); //Add a box collider
 	var rigidModel = terrainObject.AddComponent(Rigidbody2D); //Add a rigid body for collisions
+	
+	var childCollider = new GameObject();						// 3D colliders needed to raycast through walls
+	childCollider.transform.parent = terrainObject.transform;
+	childCollider.transform.localPosition = Vector3(0,0,0);
+	childCollider.AddComponent(BoxCollider);
+	
 	rigidModel.isKinematic = true; //Set kinematic to true
 	rigidModel.fixedAngle = true; //Set fixed angle to true
 	rigidModel.gravityScale = 0; 								//Turn off gravity
