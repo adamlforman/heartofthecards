@@ -34,6 +34,8 @@ var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold th
 
 function init() {
 	
+	
+	
 	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
 	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
 	Destroy(exampleQuad); //Destroy the primitive quad
@@ -45,9 +47,14 @@ function init() {
 	}
 	else{
 		deck = ["ICE", "ICE", "ICE", "ICE", "POISON", "POISON", "POISON", "POISON", "PIERCE", "PIERCE", "PIERCE", "PIERCE", "GIANT", "GIANT", "GIANT", "GIANT", "LEECH", "LEECH", "LEECH", "LEECH"];
+		cardsOwned = deck;
 	}
 	
 	library = deck;
+	
+	if (ShopManager.cardsOwned !=null ) {
+		cardsOwned = ShopManager.cardsOwned;
+	}
 	
 	shuffle(deck);
 	

@@ -39,7 +39,7 @@ function takeDamage(damage : float){	// Take damage function
 function OnTriggerEnter2D(other : Collider2D) {
 	if (other.name == "LevelEnd") { //If it is the door
 		money +=100;
-		Application.LoadLevel("deckBuilder"); //move to the deckbuilding interface
+		Application.LoadLevel("shop"); //move to the deckbuilding interface
 	}
 	if(other.gameObject.name == "Enemy Shot") {	// If it is an enemy arrow
 		if(!other.gameObject.GetComponent(EnemySpell).splash){

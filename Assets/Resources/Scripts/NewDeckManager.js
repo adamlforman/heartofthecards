@@ -34,6 +34,7 @@ var badSpell : String;
 
 
 public static var theDeck : Array;
+public static var cardsOwned: Array;
 
 function Start () {
 	normalSpell = "/4";
@@ -54,10 +55,7 @@ function Start () {
 	homingCount = 0;
 	meteorCount = 0;
 
-
 	
-
-
 	if (PlayerSpellbook.deck != null) {
 		theDeck = PlayerSpellbook.library;
 	}
