@@ -57,8 +57,9 @@ function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook) {
 function setValues (type : String) {		// ENEMY STATS BY CLASS
 	if (type.Equals("archer")) {			// archer
 		attack = archerAttack;
-		baseSpeed = 0.8f;
-		curHealth = 15;
+		
+		baseSpeed = 3f;
+		curHealth = 40;
 		
 		aggroRange = 6;
 		leashRange = 10;
@@ -66,8 +67,9 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 	}
 	else if (type.Equals("warrior")) {		// warrior
 		attack = warriorAttack;
-		baseSpeed = 1f;
-		curHealth = 25;
+		
+		baseSpeed = 3.25f;
+		curHealth = 65;
 		
 		aggroRange = 6;
 		leashRange = 15;
@@ -251,6 +253,7 @@ function incrementTimers() {			// All of our various timers (there'll be more)
 }
 
 function die() {						// How to die: a manual
+	PlayerStatus.money +=10;
 	GameObject.Destroy(gameObject);		// Stop existing. the end.
 }
 // -------------------------------
@@ -259,7 +262,7 @@ function die() {						// How to die: a manual
 
 function warriorAttack() {				// The warrior's attack function
 	if (blindTimer <= 0) {
-		target.GetComponent(PlayerStatus).takeDamage(10);	// damage just happens
+		target.GetComponent(PlayerStatus).takeDamage(5);	// damage just happens
 		attackTimer = 3;									// 3 second recharge seems long, but w/e
 	}
 }
