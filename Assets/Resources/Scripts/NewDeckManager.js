@@ -29,6 +29,22 @@ var rapidCount : int;
 var homingCount : int;
 var meteorCount : int;
 
+//Max for all of the cards
+var iceMax : int;
+var poisonMax : int;
+var forkMax : int;
+var reflectMax : int;
+var pierceMax : int;
+var giantMax : int;
+var splashMax : int;
+var leechMax : int;
+var swordMax : int;
+var blindMax : int;
+var rapidMax : int;
+var homingMax : int;
+var meteorMax : int;
+
+
 var normalSpell : String;
 var badSpell : String;
 
@@ -54,6 +70,8 @@ function Start () {
 	rapidCount = 0;
 	homingCount = 0;
 	meteorCount = 0;
+	
+	cardsOwned = ShopManager.cardsOwned;
 
 	
 	if (PlayerSpellbook.deck != null) {
@@ -107,6 +125,48 @@ function Start () {
 		}
 	}
 	
+	for (i = 0; i < cardsOwned.length; i++) {
+		if (cardsOwned[i] == "ICE") {
+			iceMax++;
+		}
+		if (cardsOwned[i] == "POISON") {
+			poisonMax++;
+		}
+		if (cardsOwned[i] == "FORK") {
+			forkMax++;
+		}
+		if (cardsOwned[i] == "REFLECT") {
+			reflectMax++;
+		}
+		if (cardsOwned[i] == "PIERCE") {
+			pierceMax++;
+		}
+		if (cardsOwned[i] == "GIANT") {
+			giantMax++;
+		}
+		if (cardsOwned[i] == "SPLASH") {
+			splashMax++;
+		}
+		if (cardsOwned[i] == "LEECH") {
+			leechMax++;
+		}
+		if (cardsOwned[i] == "SWORD") {
+			swordMax++;
+		}
+		if (cardsOwned[i] == "BLIND") {
+			blindMax++;
+		}
+		if (cardsOwned[i] == "RAPID") {
+			rapidMax++;
+		}
+		if (cardsOwned[i] == "HOMING") {
+			homingMax++;
+		}
+		if (cardsOwned[i] == "meteor") {
+			meteorMax++;
+		}
+	}
+	
 	
 	//*****************************SETTING ALL THE OF TEXT**************************************
 	var titleO = new GameObject("TitleText");
@@ -116,7 +176,7 @@ function Start () {
 	title.fontSize = Screen.height/19;
 	
 	var reminderO = new GameObject("TitleText");
-	reminderO.transform.position = Vector3(.25, .25, -1);
+	reminderO.transform.position = Vector3(.31, .25, -1);
 	reminder = reminderO.AddComponent(GUIText); 
 	reminder.text = "You have " + theDeck.length + " card out of 20 needed.";
 	reminder.fontSize = Screen.height/28;
@@ -124,19 +184,19 @@ function Start () {
 	var iceO = new GameObject("iceText");
 	iceO.transform.position = Vector3(.02, .8, -1);
 	ice = iceO.AddComponent(GUIText); 
-	ice.text = "Ice" + " " + iceCount + normalSpell;
+	ice.text = "Ice" + " " + iceCount + "/" + iceMax;
 	ice.fontSize = Screen.height/24;
 	
 	var poisonO = new GameObject("poisonText");
 	poisonO.transform.position = Vector3(.02, .72, -1);
 	poison = poisonO.AddComponent(GUIText); 
-	poison.text = "Poison" + " " + poisonCount + normalSpell;
+	poison.text = "Poison" + " " + poisonCount + "/" + poisonMax;
 	poison.fontSize = Screen.height/24;
 	
 	var forkO = new GameObject("forkText");
 	forkO.transform.position = Vector3(.02, .64, -1);
 	fork = forkO.AddComponent(GUIText); 
-	fork.text = "Fork" + " " + forkCount + normalSpell;
+	fork.text = "Fork" + " " + forkCount + "/" + forkMax;
 	fork.fontSize = Screen.height/24;
 	
 	var reflectO = new GameObject("reflectText");
@@ -148,25 +208,25 @@ function Start () {
 	var pierceO = new GameObject("pierceText");
 	pierceO.transform.position = Vector3(.02, .48, -1);
 	pierce = pierceO.AddComponent(GUIText); 
-	pierce.text = "Pierce" + " " + pierceCount + normalSpell;
+	pierce.text = "Pierce" + " " + pierceCount + "/" + pierceMax;
 	pierce.fontSize = Screen.height/24;
 	
 	var giantO = new GameObject("giantText");
 	giantO.transform.position = Vector3(.02, .40, -1);
 	giant = giantO.AddComponent(GUIText); 
-	giant.text = "Giant" + " " + giantCount + normalSpell;
+	giant.text = "Giant" + " " + giantCount + "/" + giantMax;
 	giant.fontSize = Screen.height/24;
 	
 	var splashO = new GameObject("splashText");
 	splashO.transform.position = Vector3(.02, .32, -1);
 	splash = splashO.AddComponent(GUIText); 
-	splash.text = "Splash"  + " " + splashCount + normalSpell;
+	splash.text = "Splash"  + " " + splashCount + "/" + splashMax;
 	splash.fontSize = Screen.height/24;
 	
 	var leechO = new GameObject("leechText");
 	leechO.transform.position = Vector3(.52, .8, -1);
 	leech = leechO.AddComponent(GUIText); 
-	leech.text = "Leech"  + " " + leechCount + normalSpell;
+	leech.text = "Leech"  + " " + leechCount + "/" + leechMax;
 	leech.fontSize = Screen.height/24;
 	
 	var swordO = new GameObject("swordText");
@@ -178,13 +238,13 @@ function Start () {
 	var blindO = new GameObject("blindText");
 	blindO.transform.position = Vector3(.52, .64, -1);
 	blind = blindO.AddComponent(GUIText); 
-	blind.text = "Blind" + " " + blindCount + normalSpell;
+	blind.text = "Blind" + " " + blindCount + "/" + blindMax;
 	blind.fontSize = Screen.height/24;
 	
 	var rapidO = new GameObject("rapidText");
 	rapidO.transform.position = Vector3(.52, .56, -1);
 	rapid = rapidO.AddComponent(GUIText); 
-	rapid.text = "Rapid" + " " + rapidCount + normalSpell;
+	rapid.text = "Rapid" + " " + rapidCount + "/" + rapidMax;
 	rapid.fontSize = Screen.height/24;
 	
 	var homingO = new GameObject("homingText");
@@ -201,17 +261,17 @@ function Start () {
 }
 
 function Update () {
-	ice.text = "Ice" + " " + iceCount + normalSpell;
-	poison.text = "Poison" + " " + poisonCount + normalSpell;
-	fork.text = "Fork" + " " + forkCount + normalSpell;
+	ice.text = "Ice" + " " + iceCount + "/" + iceMax;
+	poison.text = "Poison" + " " + poisonCount + "/" + poisonMax;
+	fork.text = "Fork" + " " + forkCount + "/" + forkMax;
 	reflect.text = "Reflect" + " " + reflectCount + badSpell;
-	pierce.text = "Pierce" + " " + pierceCount + normalSpell;
-	giant.text = "Giant" + " " + giantCount + normalSpell;
-	splash.text = "Splash"  + " " + splashCount + normalSpell;
-	leech.text = "Leech"  + " " + leechCount + normalSpell;
+	pierce.text = "Pierce" + " " + pierceCount + "/" + pierceMax;
+	giant.text = "Giant" + " " + giantCount + "/" + giantMax;
+	splash.text = "Splash"  + " " + splashCount + "/" + splashMax;
+	leech.text = "Leech"  + " " + leechCount + "/" + leechMax;
 	sword.text = "Sword" + " " + swordCount + badSpell;
-	blind.text = "Blind" + " " + blindCount + normalSpell;
-	rapid.text = "Rapid"  + " " + rapidCount + normalSpell;
+	blind.text = "Blind" + " " + blindCount + "/" + blindMax;
+	rapid.text = "Rapid"  + " " + rapidCount + "/" + rapidMax;
 	homing.text = "Homing" + " " + homingCount + badSpell;
 	meteor.text = "Meteor" + " " + meteorCount + badSpell;
 	reminder.text = "You have " + theDeck.length + " card out of 20 needed.";
@@ -439,7 +499,7 @@ function OnGUI() {
 		}
 	}
 	
-	else if (GUI.Button(Rect(Screen.width/3,Screen.height/1.2,Screen.width*0.35,Screen.height*0.10),"Play Level 1 Again!")) {
+	else if (GUI.Button(Rect(Screen.width/3.1,Screen.height/1.2,Screen.width*0.35,Screen.height*0.10),"Play Level 1 Again!")) {
 		if (theDeck.length == 20) {
 			Application.LoadLevel("level1refactor");
 		}
