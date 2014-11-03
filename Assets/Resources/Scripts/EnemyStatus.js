@@ -1,6 +1,7 @@
 var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 public var curHealth : float;	// remaining health
 public var maxHealth : float;
+public var armor : float;
 
 public var type : String;
 
@@ -8,6 +9,12 @@ public var iceTimer : float;		// }
 public var poisonTimer : float;		// } Debuff timers
 public var poisonCounter : int; 		// }
 public var blindTimer : float;		// }
+
+var hyper : boolean;
+var raging : boolean;
+var armored : boolean;
+var juggernaut : boolean;
+
 
 
 // Static
@@ -35,8 +42,21 @@ var wanderTimer : float;	// wandering finds a new point every wanderTimer second
 var attackTimer : float;	// delay between attacks -- set durin attack function
 
 
-function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook) {
+function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook, prefix : String, suffix : String) {
 	exampleMesh = quadMesh;
+	
+	if(prefix == "hyper"){
+		hyper = true;
+	}
+	if(prefix == "raging"){
+		raging = true;
+	}
+	if(prefix == "armored"){
+		armored = true;
+	}
+	if(suffix == "juggernaut"){
+		juggernaut = true;
+	}
 	
 	healthBar = GameObject.CreatePrimitive(PrimitiveType.Quad);		// Enemies have healthbars
 	healthBar.transform.parent = transform;							// We're going to override the position updates, but this makes the hierarchy not look terrifying
@@ -57,9 +77,16 @@ function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook) {
 function setValues (type : String) {		// ENEMY STATS BY CLASS
 	if (type.Equals("archer")) {			// archer
 		attack = archerAttack;
-		
+				
 		baseSpeed = 3f;
+		if(hyper){
+			baseSpeed = baseSpeed * 1.2;	//pump up the move speed if hyper
+		}
 		curHealth = 40;
+		
+		if(armored){
+			armor = 2;		//Archers get a small amount of armor
+		}
 		
 		aggroRange = 6;
 		leashRange = 10;
@@ -69,7 +96,14 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 		attack = warriorAttack;
 		
 		baseSpeed = 3.25f;
+		if(hyper){
+			baseSpeed = baseSpeed * 1.2;	//pump up the move speed if hyper
+		}
 		curHealth = 65;
+		
+		if(armored){
+			armor = 4;		//Warriors get more armor.  Because melee.
+		}
 		
 		aggroRange = 6;
 		leashRange = 15;
@@ -233,7 +267,7 @@ function damageText(other : Collider2D){
 
 function processDebuffs() {
 	speed = baseSpeed;
-	if (iceTimer > 0) {
+	if (iceTimer > 0 && !juggernaut) {
 		speed = speed*0.5;
 	}
 	if (poisonCounter > 0 && poisonTimer <= 0) {
@@ -256,13 +290,23 @@ function die() {						// How to die: a manual
 	PlayerStatus.money +=10;
 	GameObject.Destroy(gameObject);		// Stop existing. the end.
 }
+
+function getRaging(){
+	return raging;
+}
 // -------------------------------
 // Below are attack functions
 // -------------------------------
 
 function warriorAttack() {				// The warrior's attack function
 	if (blindTimer <= 0) {
-		target.GetComponent(PlayerStatus).takeDamage(5);	// damage just happens
+		if(raging){
+			target.GetComponent(PlayerStatus).takeDamage(7);	// damage just happens
+		}
+		else{
+			target.GetComponent(PlayerStatus).takeDamage(5);	// damage just happens
+		}
+		
 		attackTimer = 3;									// 3 second recharge seems long, but w/e
 	}
 }

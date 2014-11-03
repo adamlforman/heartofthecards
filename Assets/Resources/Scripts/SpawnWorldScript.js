@@ -56,7 +56,7 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 	enemyObject.transform.position = Vector3(x, y, -1); //WHY IS THIS NOT USING THE X AND Y PASSED IN
 	enemyObject.name = name; //set enemyObject name
 	enemyStatusScript.setTarget(player);
-    enemyStatusScript.init(exampleMesh,type,enemySpellbookScript);
+    enemyStatusScript.init(exampleMesh,type,enemySpellbookScript, "PREFIX", "SUFFIX");
 	
 	var enemyModel = new GameObject(); //Create enemyModel
 	var meshFilter = enemyModel.AddComponent(MeshFilter); //Add a meshfilter

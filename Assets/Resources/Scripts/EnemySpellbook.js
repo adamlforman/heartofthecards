@@ -14,6 +14,8 @@ public var homing : float = 0;			//Amount of time that attacks have "homing" buf
 
 private var cooldown : float = 0;		//Cannot attack if it is above 0
 
+public var enemy : GameObject;
+
 
 var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 
