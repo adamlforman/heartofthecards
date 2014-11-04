@@ -26,7 +26,7 @@ function spawnWorld() {
 	spawnPlayer();
 	
 	//Spawns all the enemies, (half archers, half warriors)
-	for(i = 0; i<maxX; i++) {
+	for(i = 0; i<25; i++) {			//WHY ON EARTH WAS THE NUMBER OF ENEMIES BASED ON THE WIDTH OF THE MAP?
 		randX = Random.Range(0,maxX); //Random variable between 0 and max map X value
 		randY = Random.Range(0,maxY); //Random variable between 0 and max map Y value
 		//While the randomly selected tile of the map is not just ground, reroll numbers
@@ -56,7 +56,14 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 	enemyObject.transform.position = Vector3(x, y, -1); //WHY IS THIS NOT USING THE X AND Y PASSED IN
 	enemyObject.name = name; //set enemyObject name
 	enemyStatusScript.setTarget(player);
-    enemyStatusScript.init(exampleMesh,type,enemySpellbookScript, "PREFIX", "SUFFIX");
+	
+	var prefix = "prefix";
+	randTest = Random.Range(0,5);
+	if(randTest==1){
+		prefix = "hyper";
+	}
+	
+    enemyStatusScript.init(exampleMesh,type,enemySpellbookScript, prefix, "SUFFIX");
 	
 	var enemyModel = new GameObject(); //Create enemyModel
 	var meshFilter = enemyModel.AddComponent(MeshFilter); //Add a meshfilter

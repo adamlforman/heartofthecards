@@ -46,7 +46,7 @@ function init() {
 		deck = NewDeckManager.theDeck;
 	}
 	else{
-		deck = ["BLIND", "BLIND", "BLIND", "BLIND", "SPLASH", "SPLASH", "SPLASH", "SPLASH", "PIERCE", "PIERCE", "PIERCE", "PIERCE", "GIANT", "GIANT", "GIANT", "GIANT", "LEECH", "LEECH", "LEECH", "LEECH"];
+		deck = ["BLIND", "BLIND", "BLIND", "BLIND", "ICE", "ICE", "ICE", "ICE", "POISON", "POISON", "POISON", "POISON", "LEECH", "LEECH", "LEECH", "LEECH", "RAPID", "RAPID", "RAPID", "RAPID"];
 		cardsOwned = deck;
 	}
 	
