@@ -15,6 +15,9 @@ var raging : boolean;
 var armored : boolean;
 var juggernaut : boolean;
 
+//If the player can move
+var canMove : float = 0;
+
 
 
 // Static
@@ -195,8 +198,10 @@ function FixedUpdate() {										// Enemy behaviour
 		}
 		else {
 			face(target.transform.position);						// face the player
-			transform.Translate(Vector2(0,speed*Time.deltaTime));	// and move forward
-		}
+			if (canMove <= 0) {
+				transform.Translate(Vector2(0,speed*Time.deltaTime));	// and move forward
+			}
+		}	
 	}
 	else {															//otherwise
 		wander();														// Idle behaviour
@@ -282,6 +287,7 @@ function incrementTimers() {			// All of our various timers (there'll be more)
 	iceTimer -= tick;
 	poisonTimer -= tick;
 	blindTimer -= tick;
+	canMove -= tick;
 }
 
 function die() {						// How to die: a manual
@@ -312,6 +318,7 @@ function warriorAttack() {				// The warrior's attack function
 function archerAttack() {				// the archer's attack function
 	if (blindTimer <= 0) {
 		spellbook.shot(gameObject);			// shoot the thing
+		canMove = .5;
 		attackTimer = 3;
 	}
 }
