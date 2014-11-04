@@ -1,12 +1,21 @@
 var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 public var curHealth : float;	// remaining health
 public var maxHealth : float;
+public var armor : float;
 
 public var type : String;
 
-public var ice : float;		// }
-public var poison : float;	// } Debuff booleans
-public var blind : float;	// }
+public var iceTimer : float;		// }
+public var poisonTimer : float;		// } Debuff timers
+public var poisonCounter : int; 		// }
+public var blindTimer : float;		// }
+
+var hyper : boolean;
+var raging : boolean;
+var armored : boolean;
+var juggernaut : boolean;
+
+
 
 // Static
 var target : GameObject;	// usually the player
@@ -23,7 +32,8 @@ var aggroRange : float;		// Range at which enemy detects player
 var leashRange : float;		// Range at which enemy gives up on player
 var attackRange : float;	// Enemy's attack range
 
-var speed : float;			// enemy's speed
+var baseSpeed : float;			// enemy's speed
+var speed : float;
 
 var attack : function();
 
@@ -32,8 +42,24 @@ var wanderTimer : float;	// wandering finds a new point every wanderTimer second
 var attackTimer : float;	// delay between attacks -- set durin attack function
 
 
-function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook) {
+function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook, prefix : String, suffix : String) {
 	exampleMesh = quadMesh;
+	
+	if(prefix == "hyper"){
+		hyper = true;
+	}
+	if(prefix == "raging"){
+		raging = true;
+	}
+	if(prefix == "armored"){
+		armored = true;
+	}
+	else{
+		armor = 0;
+	}
+	if(suffix == "juggernaut"){
+		juggernaut = true;
+	}
 	
 	healthBar = GameObject.CreatePrimitive(PrimitiveType.Quad);		// Enemies have healthbars
 	healthBar.transform.parent = transform;							// We're going to override the position updates, but this makes the hierarchy not look terrifying
@@ -49,13 +75,22 @@ function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook) {
 	setValues(type);				// and all the consequences of it
 	
 	this.spellbook = spellbook;		// learn magic
+	visualEffects();
 }
 
 function setValues (type : String) {		// ENEMY STATS BY CLASS
 	if (type.Equals("archer")) {			// archer
 		attack = archerAttack;
-		speed = 3f;
+				
+		baseSpeed = 3f;
+		if(hyper){
+			baseSpeed = baseSpeed * 1.2;	//pump up the move speed if hyper
+		}
 		curHealth = 40;
+		
+		if(armored){
+			armor = 2;		//Archers get a small amount of armor
+		}
 		
 		aggroRange = 6;
 		leashRange = 10;
@@ -63,8 +98,16 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 	}
 	else if (type.Equals("warrior")) {		// warrior
 		attack = warriorAttack;
-		speed = 3.25f;
+		
+		baseSpeed = 3.25f;
+		if(hyper){
+			baseSpeed = baseSpeed * 1.2;	//pump up the move speed if hyper
+		}
 		curHealth = 65;
+		
+		if(armored){
+			armor = 4;		//Warriors get more armor.  Because melee.
+		}
 		
 		aggroRange = 6;
 		leashRange = 15;
@@ -80,6 +123,7 @@ function setTarget(newTarget : GameObject) {	// In case of mind control powers o
 
 function Update () {
 	incrementTimers();		// tick tock goes the clock
+	processDebuffs();
 	if (curHealth <= 0) {	// how to die
 		die();
 	}
@@ -90,7 +134,13 @@ function Update () {
 	
 	
 	var distance : float = Vector2.Distance(this.transform.position,target.transform.position);		// distance from player
-	var LoS : boolean = lineOfSight(target.transform.position);										// can we see them?
+	var LoS : boolean;
+	if (distance <= leashRange) {
+		LoS = lineOfSight(target.transform.position);										// can we see them?
+	}
+	else {
+		LoS = false;
+	}
 	
 	if (!aggro) {						// if we don't know of player
 		if (distance <= aggroRange) {	// and are in aggro range
@@ -121,16 +171,17 @@ function Update () {
 }
 
 function lineOfSight(location : Vector2) {														// Is there a rock in the way from my location to the target?
-	var hit : RaycastHit;
-    if (Physics.Raycast(transform.position, location - this.transform.position,hit)) {			// raycast
-    	if (hit.gameObject.name == "ROCK") {													// if we hit a rock
-    		print(hit.gameObject.name);															// DEBUG
-             return false;																		// we don't have LoS
-        }
-    }
-    else {																						// otherwise
-    	return true;																			// we do!
-    }
+	var hits : RaycastHit2D[] = (Physics2D.RaycastAll(transform.position,location - this.transform.position, Vector2.Distance(location, this.transform.position)));
+	Debug.DrawRay (transform.position, location - this.transform.position, Color.white);
+    for (var x: RaycastHit2D in hits) {
+    	if (x) {			// raycast
+    		if (x.collider.gameObject.transform.root.name == "Rocks") {													// if we hit a rock
+    			//print(hit.collider.gameObject.transform.root.name);															// DEBUG
+    	         return false;																		// we don't have LoS
+    	    }
+   		}
+   	}
+  	return true;
 }
 
 function face(location : Vector2) {						// THIS IS A USEFUL FUNCTION
@@ -175,7 +226,6 @@ function OnTriggerEnter2D(other : Collider2D){
 	//print("enemy");
 	if(other.gameObject.name == "Shot") {
 		if(!other.gameObject.GetComponent(PlayerSpell).splash){
-			damageText(other);
 			other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
 		}
 		else{
@@ -183,33 +233,28 @@ function OnTriggerEnter2D(other : Collider2D){
 		}
 	}
 	if(other.gameObject.name == "Explosion") {
-		/*var damageTextScript = playerObject.AddComponent(DamageText);			//Add the DamageText Script
-		damageTextScript.init(this);*/
-
-
-		damageText(other);
-		
 		other.gameObject.GetComponent(Splash).hit(gameObject);
 	}
 }
 
 
 function takeDamage(damage : float){
-	curHealth -= damage;
+	curHealth -= (damage-armor);
+	damageText(damage-armor);
 	//IF THE ENENIES DIE, GIVE THE PLAYER SOME $$$$
 
 }
 
-function damageText(other : Collider2D){
+function damageText(damage : int){
 	var damageObject = new GameObject("DamageText");
-	damageObject.transform.parent = this.transform;
-	//damageObject.transform.localPosition = Vector3(.5, -.25, -2);
-	damageObject.transform.localPosition = Vector3(0,0,-2);
+	//damageObject.transform.parent = this.transform;
+	damageObject.transform.position = this.transform.position;
 	damageObject.transform.localScale = Vector3(1,1,1); //NOT SURE IF THIS IS NECESSARY
 	var meshFilter = damageObject.AddComponent(MeshFilter); //Add a mesh filter for textures
 	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
 	damageObject.AddComponent(MeshRenderer); //Add a renderer for textures
-	var textureName = "Textures/TEN"; //Get the texture name with texture folder
+	var textureName = "Textures/"+damage; //Get the texture name with texture folder
+	print(textureName);
 	damageObject.renderer.material.mainTexture = Resources.Load(textureName, Texture2D); //Set the texture.  Must be in Resources folder.
 	damageObject.renderer.material.color = Color(1,0,0); //Set the color (easy way to tint things).
 	damageObject.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
@@ -218,28 +263,99 @@ function damageText(other : Collider2D){
 
 }
 
+function processDebuffs() {
+	speed = baseSpeed;
+	if (iceTimer > 0 && !juggernaut) {
+		speed = speed*0.5;
+	}
+	if (poisonCounter > 0 && poisonTimer <= 0) {
+		takeDamage(2);
+		poisonCounter--;
+		poisonTimer = 1;
+	}
+}
+
 function incrementTimers() {			// All of our various timers (there'll be more)
 	var tick : float = Time.deltaTime;
 	wanderTimer -= tick;
 	attackTimer -= tick;
+	iceTimer -= tick;
+	poisonTimer -= tick;
+	blindTimer -= tick;
 }
 
 function die() {						// How to die: a manual
 	PlayerStatus.money +=10;
 	GameObject.Destroy(gameObject);		// Stop existing. the end.
 }
+
+function getRaging(){
+	return raging;
+}
 // -------------------------------
 // Below are attack functions
 // -------------------------------
 
 function warriorAttack() {				// The warrior's attack function
-	//Debug.Log("warrior attack");
-	target.GetComponent(PlayerStatus).takeDamage(5);	// damage just happens
-	attackTimer = 3;									// 3 second recharge seems long, but w/e
+	if (blindTimer <= 0) {
+		if(raging){
+			target.GetComponent(PlayerStatus).takeDamage(7);	// damage just happens
+		}
+		else{
+			target.GetComponent(PlayerStatus).takeDamage(5);	// damage just happens
+		}
+		
+		attackTimer = 3;									// 3 second recharge seems long, but w/e
+	}
 }
 
 function archerAttack() {				// the archer's attack function
-	//Debug.Log("archer attack");
-	spellbook.shot(gameObject);			// shoot the thing
-	attackTimer = 3;
+	if (blindTimer <= 0) {
+		spellbook.shot(gameObject);			// shoot the thing
+		attackTimer = 3;
+	}
 }
+
+function visualEffects(){
+
+	if(hyper){
+		attachEffect("Hyper Effect");
+	}
+	if(armored){
+		attachEffect("Armored Effect");
+	}
+	if(raging){
+		attachEffect("Raging Effect");
+	}
+	if(juggernaut){
+		attachEffect("Juggernaut Effect");
+	}
+}
+
+function attachEffect(name : String){
+	var effectObject = new GameObject();							// Create a quad object for holding the tile texture.
+	var meshFilter0 = effectObject.AddComponent(MeshFilter); 		//Add a mesh filter for textures
+	meshFilter0.mesh = exampleMesh; 								//Give the mesh filter a quadmesh
+	effectObject.AddComponent(MeshRenderer); 					//Add a renderer for textures
+	effectObject.SetActive(false);								// Turn off the object so its script doesn't do anything until we're ready.
+	
+	model = effectObject.AddComponent(BuffEffectModel);				// Add a spellModel script to control visuals of the spell.
+	model.name = name;									//Name the PlayerModel
+	model.init(this.gameObject, name);								// Initialize the spellModel.
+	effectObject.SetActive(true);								// Turn on the object (the Update function will start being called).
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

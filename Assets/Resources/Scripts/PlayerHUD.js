@@ -37,6 +37,8 @@ function init(cam : Camera, player : GameObject){
 	healthbarBgOb = GameObject.CreatePrimitive(PrimitiveType.Quad);
 	healthbarBgOb.transform.parent = cam.transform;															// Makes child of cam
 	healthbarBgOb.transform.localPosition = Vector3(-cam.orthographicSize, cam.orthographicSize*0.9,10);	// Position in top center
+	healthbarBgOb.transform.localScale = Vector3(4.2,0.7,1);
+	healthbarBgOb.renderer.material.color = Color(0,0,0);
 	healthbarBgOb.name = "Health Bar background";															// names still good
 	
 	healthTextOb = new GameObject();									// health text object
@@ -141,7 +143,7 @@ function Update () {
 	}
 	healthbarOb.transform.localScale = Vector3(healthPercent*4f, 0.5,1);														// Shrink the healthbar with lost health
 	healthbarOb.transform.localPosition = Vector3(-(1-healthPercent)*cam.orthographicSize*0.4, cam.orthographicSize*0.9, 10);	// And reposition it so it appears to be shrinking straight left
-	healthbarBgOb.transform.localPosition = Vector3(0, cam.orthographicSize*0.9, 10);											// Make sure the background tracks the camera
+	healthbarBgOb.transform.localPosition = Vector3(0, cam.orthographicSize*0.9, 11);											// Make sure the background tracks the camera
 	
 	healthTextOb.guiText.text = curHealth + " / " + maxHealth;			// update health text
 	

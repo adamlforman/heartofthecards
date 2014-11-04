@@ -24,7 +24,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	transform.localScale = Vector3(0.3, 1, 1);
 	this.player = player;
 	
-	var modelObject = new GameObject();									// Create a quad object for holding the tile texture.
+	var modelObject = new GameObject();							// Create a quad object for holding the tile texture.
 	var meshFilter = modelObject.AddComponent(MeshFilter); 		//Add a mesh filter for textures
 	meshFilter.mesh = exampleMesh; 								//Give the mesh filter a quadmesh
 	modelObject.AddComponent(MeshRenderer); 					//Add a renderer for textures
@@ -36,13 +36,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	
 	
 	modelObject.SetActive(true);								// Turn on the object (the Update function will start being called).
-	
-	
-	
-	
-	
-	
-	
+		
 	//check
 	if(ice > 0){
 		this.ice=true;				//Set "ice" boolean to true
@@ -66,7 +60,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	//Check
 	if(giant > 0){
 		this.giant=true;			//Set "giant" boolean to true
-		gameObject.transform.localScale = Vector3(0.6,2,0);
+		gameObject.transform.localScale = Vector3(0.6,2,1);
 	}
 	//check
 	if(splash > 0){
@@ -97,6 +91,8 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 		this.meteor=true;			//Set "meteor" boolean to true
 	}
 	
+	
+	visualEffects();
 }
 
 
@@ -138,13 +134,13 @@ function hit(other : GameObject){
 function applyStatus(target : GameObject){
 	target.GetComponent(EnemyStatus).takeDamage(10);
 	if(ice){
-		target.GetComponent(EnemyStatus).ice = 5;							//Apply ice if arrow is iced
+		target.GetComponent(EnemyStatus).iceTimer = 5;							//Apply ice if arrow is iced
 	}
 	if(poison){
-		target.GetComponent(EnemyStatus).poison = 5;						//Apply poison
+		target.GetComponent(EnemyStatus).poisonCounter = 5;						//Apply poison
 	}
 	if(blind){
-		target.GetComponent(EnemyStatus).blind = 5;						//Apply blind
+		target.GetComponent(EnemyStatus).blindTimer = 5;						//Apply blind
 	}
 	if(leech){
 		player.GetComponent(PlayerStatus).addHealth(5);
@@ -174,6 +170,58 @@ function splashSpawn(x :float, y:float, size:int){
 	
 	explosion.SetActive(true);
 }
+
+//Brace yourselves motherfuckers.  This is going to be ugly.
+//We're going to make some particles that represent what buffs are active.
+function visualEffects(){
+
+	if(ice){
+		attachEffect("Ice Effect");
+	}
+	if(poison){
+		attachEffect("Poison Effect");
+	}
+	if(pierce){
+		attachEffect("Pierce Effect");
+	}
+	if(splash){
+		attachEffect("Splash Effect");
+	}
+	if(leech){
+		attachEffect("Leech Effect");
+	}
+	if(blind){
+		attachEffect("Blind Effect");
+	}
+}
+
+function attachEffect(name : String){
+	var effectObject = new GameObject();							// Create a quad object for holding the tile texture.
+	var meshFilter0 = effectObject.AddComponent(MeshFilter); 		//Add a mesh filter for textures
+	meshFilter0.mesh = exampleMesh; 								//Give the mesh filter a quadmesh
+	effectObject.AddComponent(MeshRenderer); 					//Add a renderer for textures
+	effectObject.SetActive(false);								// Turn off the object so its script doesn't do anything until we're ready.
+	
+	model = effectObject.AddComponent(EffectModel);				// Add a spellModel script to control visuals of the spell.
+	model.name = name + " Effect";									//Name the PlayerModel
+	model.init(this.gameObject, name);								// Initialize the spellModel.
+	effectObject.SetActive(true);								// Turn on the object (the Update function will start being called).
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
