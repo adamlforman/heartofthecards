@@ -136,7 +136,12 @@ function hit(other : GameObject){		// how to hit something
 
 //All of the basic attack status buffs
 function applyStatus(target : GameObject){
-	target.GetComponent(PlayerStatus).takeDamage(10);
+	if(enemy.GetComponent(EnemyStatus).getRaging()){
+		target.GetComponent(PlayerStatus).takeDamage(10);		//Bitches be mad.  They hit harder.
+	}
+	else{
+		target.GetComponent(PlayerStatus).takeDamage(8);
+	}
 	if(ice){
 		target.GetComponent(PlayerStatus).ice = 5;							//Apply ice if arrow is iced
 	}

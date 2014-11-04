@@ -5,12 +5,14 @@ var maxY : int; //Max Y value of the map
 var cam : GameCamera; //Forgot what type, will fix later
 var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 var enemySpellbookScript : EnemySpellbook;
+var maxEnemies : int;
 
 //Start spawning the world
-function init(a : Array, exampleMesh : Mesh,enemySpellbookScript : EnemySpellbook) {
+function init(a : Array, exampleMesh : Mesh,enemySpellbookScript : EnemySpellbook, maxEnemies : int) {
 	world = a; //Set the world array to reference the array passed in
 	maxY = world.length; //Sets the max Y value of the map to be the length of the world array
 	maxX = world[0].length; //Sets the max X value of the map to be the length of the first array within the world array;
+	this.maxEnemies = maxEnemies;
 	this.exampleMesh = exampleMesh;
 	this.enemySpellbookScript = enemySpellbookScript;
 	spawnWorld(); //Spawns the world
@@ -26,7 +28,7 @@ function spawnWorld() {
 	spawnPlayer();
 	
 	//Spawns all the enemies, (half archers, half warriors)
-	for(i = 0; i<maxX; i++) {
+	for(i = 0; i<maxEnemies; i++) {			//WHY ON EARTH WAS THE NUMBER OF ENEMIES BASED ON THE WIDTH OF THE MAP?
 		randX = Random.Range(0,maxX); //Random variable between 0 and max map X value
 		randY = Random.Range(0,maxY); //Random variable between 0 and max map Y value
 		//While the randomly selected tile of the map is not just ground, reroll numbers
@@ -36,7 +38,7 @@ function spawnWorld() {
 		}
 		world[randY][randX] = world[randY][randX] + "E"; //Update the world array to show that there is also an enemy there
 		//Spawn half archers, half warriors
-		if(i<(maxX /2)) {
+		if(i<(maxEnemies /2)) {
 			spawnEnemy(randX, world.length-randY, "Enemy Archer", "archer"); //Spawns an archer, 
 		}
 		else {
@@ -56,7 +58,24 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 	enemyObject.transform.position = Vector3(x, y, -1); //WHY IS THIS NOT USING THE X AND Y PASSED IN
 	enemyObject.name = name; //set enemyObject name
 	enemyStatusScript.setTarget(player);
-    enemyStatusScript.init(exampleMesh,type,enemySpellbookScript);
+	
+	var prefix = "prefix";
+	var suffix = "suffix";
+	randTest = Random.Range(0,10);
+	if(randTest==1){
+		prefix = "hyper";
+	}
+	if(randTest==2){
+		prefix = "armored";
+	}
+	if(randTest==3){
+		prefix = "raging";
+	}
+	if(randTest==4){
+		suffix = "juggernaut";
+	}
+	
+    enemyStatusScript.init(exampleMesh,type,enemySpellbookScript, prefix, suffix);
 	
 	var enemyModel = new GameObject(); //Create enemyModel
 	var meshFilter = enemyModel.AddComponent(MeshFilter); //Add a meshfilter

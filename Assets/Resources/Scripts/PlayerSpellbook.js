@@ -14,12 +14,13 @@ public var homing : float = 0;			//Amount of time that attacks have "homing" buf
 
 private var cooldown : float = 0;		//Cannot attack if it is above 0
 
-public static var deck : String[];				//The player's current deck.
+public static var deck : String[];		//The player's current deck.
 public static var library : String[];	//The player's full deck list.
+public static var cardsOwned : String[]; //The cards a player owns
 
-public static var slot1 : String;				//The card in slot 1
-public static var slot2 : String;				//The card in slot 2
-public static var slot3 : String;				//The card in slot 3
+public static var slot1 : String;		//The card in slot 1
+public static var slot2 : String;		//The card in slot 2
+public static var slot3 : String;		//The card in slot 3
 
 public static var slot1Timer : float;	//The duration of the card in slot 1
 public static var slot2Timer : float;	//The duration of the card in slot 2
@@ -33,6 +34,8 @@ var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold th
 
 function init() {
 	
+	
+	
 	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
 	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
 	Destroy(exampleQuad); //Destroy the primitive quad
@@ -43,10 +46,15 @@ function init() {
 		deck = NewDeckManager.theDeck;
 	}
 	else{
-		deck = ["SPLASH"];
+		deck = ["BLIND", "BLIND", "BLIND", "BLIND", "ICE", "ICE", "ICE", "ICE", "POISON", "POISON", "POISON", "POISON", "LEECH", "LEECH", "LEECH", "LEECH", "RAPID", "RAPID", "RAPID", "RAPID"];
+		cardsOwned = deck;
 	}
 	
 	library = deck;
+	
+	if (ShopManager.cardsOwned !=null ) {
+		cardsOwned = ShopManager.cardsOwned;
+	}
 	
 	shuffle(deck);
 	

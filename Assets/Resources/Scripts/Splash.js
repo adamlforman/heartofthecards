@@ -92,6 +92,7 @@ function hit(target : GameObject){
 	}
 	if(poison){
 		target.GetComponent(EnemyStatus).poisonCounter = 5;						//Apply poison
+
 	}
 	if(blind){
 		target.GetComponent(EnemyStatus).blindTimer = 5;						//Apply blind

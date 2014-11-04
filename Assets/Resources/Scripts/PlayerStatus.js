@@ -3,9 +3,14 @@ public var maxHealth : int;		// Player's maximum health
 
 public var HUD : PlayerHUD;		// HUD script
 
+public static var money : int;
+
 function init () {				// Initialization function
 	curHealth = 100;
 	maxHealth = curHealth;
+	if (money != null) {
+		money = 0;
+	}
 }
 
 function Update () {			// If you have 0 or less health you die
@@ -33,19 +38,20 @@ function takeDamage(damage : float){	// Take damage function
 //If something enters the levelEnd model
 function OnTriggerEnter2D(other : Collider2D) {
 	if (other.name == "LevelEnd") { //If it is the door
-		Application.LoadLevel("deckBuilder"); //move to the deckbuilding interface
+		money +=100;
+		Application.LoadLevel("shop"); //move to the deckbuilding interface
 	}
 	if(other.gameObject.name == "Enemy Shot") {	// If it is an enemy arrow
 		if(!other.gameObject.GetComponent(EnemySpell).splash){
 			other.gameObject.GetComponent(EnemySpell).hit(gameObject);	// Ask it to hit us please
 		}
 		else{
-			other.gameObject.GetComponent(EnemySpell).hit(gameObject);		// WHY DO WE HAVE DUPLICATE CODE
+			other.gameObject.GetComponent(EnemySpell).hit(gameObject);		// WHY DO WE HAVE DUPLICATE CODE?  Question seconded by Connor.  Suspects answer is because Adam blindly copied my code for the player.
 		}
 	}
 
 }
 
 function die() {						// Death function
-	GameObject.Destroy(gameObject);		// Promptly cease existing
+	Application.LoadLevel("deckBuilder"); //move to the deckbuilding interface
 }
