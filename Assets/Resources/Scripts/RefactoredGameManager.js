@@ -24,7 +24,7 @@ function Start() {
 	// inits the scripts
 	enemySpellbookScript.init();
 	buildWorldScript.init(world, exampleMesh);
-	spawnWorldScript.init(world, exampleMesh,enemySpellbookScript);
+	spawnWorldScript.init(world, exampleMesh,enemySpellbookScript, 25);
 }
 
 /*function buildPlayer(name : String) {

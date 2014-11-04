@@ -75,6 +75,7 @@ function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook, pre
 	setValues(type);				// and all the consequences of it
 	
 	this.spellbook = spellbook;		// learn magic
+	visualEffects();
 }
 
 function setValues (type : String) {		// ENEMY STATS BY CLASS
@@ -314,3 +315,47 @@ function archerAttack() {				// the archer's attack function
 		attackTimer = 3;
 	}
 }
+
+function visualEffects(){
+
+	if(hyper){
+		attachEffect("Hyper Effect");
+	}
+	if(armored){
+		attachEffect("Armored Effect");
+	}
+	if(raging){
+		attachEffect("Raging Effect");
+	}
+	if(juggernaut){
+		attachEffect("Juggernaut Effect");
+	}
+}
+
+function attachEffect(name : String){
+	var effectObject = new GameObject();							// Create a quad object for holding the tile texture.
+	var meshFilter0 = effectObject.AddComponent(MeshFilter); 		//Add a mesh filter for textures
+	meshFilter0.mesh = exampleMesh; 								//Give the mesh filter a quadmesh
+	effectObject.AddComponent(MeshRenderer); 					//Add a renderer for textures
+	effectObject.SetActive(false);								// Turn off the object so its script doesn't do anything until we're ready.
+	
+	model = effectObject.AddComponent(BuffEffectModel);				// Add a spellModel script to control visuals of the spell.
+	model.name = name;									//Name the PlayerModel
+	model.init(this.gameObject, name);								// Initialize the spellModel.
+	effectObject.SetActive(true);								// Turn on the object (the Update function will start being called).
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
