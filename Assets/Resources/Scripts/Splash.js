@@ -88,13 +88,13 @@ function Update () {
 function hit(target : GameObject){
 	target.GetComponent(EnemyStatus).takeDamage(10);
 	if(ice){
-		target.GetComponent(EnemyStatus).ice = 5;							//Apply ice if arrow is iced
+		target.GetComponent(EnemyStatus).iceTimer = 5;							//Apply ice if arrow is iced
 	}
 	if(poison){
-		target.GetComponent(EnemyStatus).poison = 5;						//Apply poison
+		target.GetComponent(EnemyStatus).poisonCounter = 5;						//Apply poison
 	}
 	if(blind){
-		target.GetComponent(EnemyStatus).blind = 5;						//Apply blind
+		target.GetComponent(EnemyStatus).blindTimer = 5;						//Apply blind
 	}
 	if(leech){
 		player.GetComponent(PlayerStatus).addHealth(5);
