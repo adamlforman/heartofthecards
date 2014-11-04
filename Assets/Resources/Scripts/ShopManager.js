@@ -212,7 +212,7 @@ function Update () {
 	blind.text = "Blind" + " " + blindCount + normalSpell;
 	rapid.text = "Rapid"  + " " + rapidCount + normalSpell;
 	homing.text = "Homing" + " " + homingCount + badSpell;
-	meteor.text = "Meteor" + " " + meteorCount + bad3Spell;
+	meteor.text = "Meteor" + " " + meteorCount + badSpell;
 	reminder.text = "You have $" + PlayerStatus.money + ".";
 	
 	ice.fontSize = Screen.height/24;
