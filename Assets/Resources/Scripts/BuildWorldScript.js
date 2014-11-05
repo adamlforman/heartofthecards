@@ -4,6 +4,69 @@ var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold t
 public var rockParent : GameObject;		//Parent Object for the rocks
 public var groundParent : GameObject;		//Parent Object for the grounds
 
+function proceduralInit(a : Array, exampleMesh : Mesh){
+	var plg : CreateLevel = gameObject.AddComponent(CreateLevel);
+	world = a;
+	this.exampleMesh = exampleMesh;
+	
+	rockParent = new GameObject("Rocks");
+	groundParent = new GameObject("Grounds");
+	
+	var maxX = 60; //Max x value of map, explicitely set for now
+	var maxY = 50; //Max y value of map, explicitely set for now
+	world.length=maxY;	//world length = maximum Y value
+	world = plg.createLevel(maxX,maxY, world);
+	
+	for(var i = 0; i<maxY;i++){
+		for(var j = 0; j<world[i].length;j++){
+			if(world[i][j]=="R"){
+				buildRock(j,i);
+			}
+			else if(world[i][j]=="G"){
+				buildGround(j,i);
+			}
+			else {
+				Debug.Log("Invalid tile type: " +j+ " " + i + " " + world[i][j]);
+			}
+		}
+	}
+
+	
+		randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
+		randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+		//While the randomly selected tile of the map is not just ground, reroll numbers
+		while(world[randY][randX]!= "G") {
+			randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
+			randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+		}
+		world[randY][randX] = world[randY][randX] + "L"; //Update the world array to show that there is also a levelend there
+		buildLevelEnd(randX,randY); //Builds the level end portal
+		
+		randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
+		randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+		//While the randomly selected tile of the map is not just ground, reroll numbers
+		while(world[randY][randX]!= "G") {
+			randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
+			randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+		}
+		world[randY][randX] = world[randY][randX] + "K"; //Update the world array to show that there is also a levelend there
+		buildKey(randX,randY); //Builds the level end portal
+		
+		
+		// designate the player start location
+		randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
+		randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+		//While the randomly selected tile of the map is not just ground, reroll numbers
+		while(world[randY][randX]!= "G") {
+			randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
+			randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+		}
+		world[randY][randX] = "P"; //Update the world array to show that there is a player there
+		
+
+	return world;
+}
+
 //Start building the world
 function init(a : Array, exampleMesh : Mesh) {
 	world = a; //Set the world array to reference the array passed in
@@ -21,6 +84,7 @@ function buildWorld() {
 	var maxY = 50; //Max y value of map, explicitely set for now (never used atm)
 	var R : String = "R"; //Represents a tile of rock in the environment
 	var G : String = "G"; //Represents a tile of ground in the environment
+	var P : String = "P"; // Represents the player's starting location
 	world.length=maxY;	//world length = maximum Y value
 	world[0] =  [R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
 	world[1] =  [R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R, R];
@@ -77,7 +141,7 @@ function buildWorld() {
 	world[52] = [R, G, G, G, G, G, G, G, G, G, R, R, R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R];
 	world[53] = [R, G, G, G, G, G, G, G, G, G, R, R, R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R];
 	world[54] = [R, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R];
-	world[55] = [R, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R];
+	world[55] = [R, G, G, G, P, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R];
 	world[56] = [R, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R];
 	world[57] = [R, G, G, G, G, G, G, G, G, G, R, R, R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R];
 	world[58] = [R, G, G, G, G, G, G, G, G, G, R, R, R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R, R, G, G, G, G, G, G, G, G, G, G, G, R, R, R, R];
@@ -92,9 +156,12 @@ function buildWorld() {
 			if(world[i][j]=="G"){
 				buildGround(j, world.length-i);
 			}
+			if (world[i][j] == "P") {
+				buildGround(j,world.length-i);
+			}
 		}
 	}
-	buildLevelEnd(); //Builds the level end portal
+	buildLevelEnd(22, 48); //Builds the level end portal
 }
 
 //Builds a rock object
@@ -147,15 +214,27 @@ function buildGround(x : float, y : float){
 }
 
 //Builds the level end
-function buildLevelEnd() {
+function buildLevelEnd(x: float, y : float) {
 	var levelEndObject = new GameObject(); //Creates a new empty game object that will hold the level end portal
 	var levelEndScript = levelEndObject.AddComponent(LevelEndScript); //Adds the  levelEnd script to the object.	
 	//CURRENTLY EXPLICITELY SET PER THE DEFAULT LEVEL, NEED TO PASS IN X AND Y OR SOMETHING?
 	var boxCollider2D = levelEndObject.AddComponent(BoxCollider2D); //Add a box collider
 	boxCollider2D.isTrigger = true; //It is a trigger	
-	levelEndScript.transform.position = Vector3(22,48,-1);	// Position the at x,y.
+	levelEndScript.transform.position = Vector3(x,y,-1);	// Position the at x,y.
 	levelEndScript.init(exampleMesh); //Initialize the script.
 	levelEndScript.name = "LevelEnd";// Give the object a name in the Hierarchy pane.
+}
+
+//Builds the key
+function buildKey(x: float, y : float) {
+	var levelEndObject = new GameObject(); //Creates a new empty game object that will hold the level end portal
+	var levelEndScript = levelEndObject.AddComponent(KeyScript); //Adds the  levelEnd script to the object.	
+	//CURRENTLY EXPLICITELY SET PER THE DEFAULT LEVEL, NEED TO PASS IN X AND Y OR SOMETHING?
+	var boxCollider2D = levelEndObject.AddComponent(BoxCollider2D); //Add a box collider
+	boxCollider2D.isTrigger = true; //It is a trigger	
+	levelEndScript.transform.position = Vector3(x,y,-1);	// Position the at x,y.
+	levelEndScript.init(exampleMesh); //Initialize the script.
+	levelEndScript.name = "Key";// Give the object a name in the Hierarchy pane.
 }
 
 //COMMENTS ARE FUN!

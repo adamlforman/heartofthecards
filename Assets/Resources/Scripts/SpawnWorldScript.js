@@ -1,11 +1,13 @@
 var world : Array; //Array to hold the world
 var player : GameObject; //Player object
+
 var maxX : int; //Max X value of the map
 var maxY : int; //Max Y value of the map
 var cam : GameCamera; //Forgot what type, will fix later
 var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 var enemySpellbookScript : EnemySpellbook;
 var maxEnemies : int;
+
 
 //Start spawning the world
 function init(a : Array, exampleMesh : Mesh,enemySpellbookScript : EnemySpellbook, maxEnemies : int) {
@@ -25,37 +27,69 @@ function spawnWorld() {
 	var randY : int; //Temp variable to hold a random y variable
 	
 	// Spawns player -- done before enemies so enemies can have target set
-	spawnPlayer();
+	
+	var spawned : boolean = false;
+	for (i = 0; i < maxX; i++) {
+		for (j = 0; j < maxY; j++) {
+			if (world[j][i] == "P") {
+				spawnPlayer(i, j);
+				spawned = true;
+			}
+		}
+	}
+	
+	if (!spawned) {
+		spawnPlayer(-1,-1);
+		/*
+		randX = Random.Range(0,world.length-1); //Random variable between 0 and max map X value
+		randY = Random.Range(0,world[0].length-1); //Random variable between 0 and max map Y value
+		//While the randomly selected tile of the map is not just ground, reroll numbers
+		while(world[randX][randY]!= "G") {
+			randX = Random.Range(0,world.length-1); //Random variable between 0 and max map X value
+			randY = Random.Range(0,world[0].length-1); //Random variable between 0 and max map Y value
+		}
+		world[randX][randY] += "P"; //Update the world array to show that there is also a levelend there
+		spawnPlayer(world[0].length - randX,randY); //Builds the level end portal
+		*/
+	
+	}
+	
 	
 	//Spawns all the enemies, (half archers, half warriors)
-	for(i = 0; i<maxEnemies; i++) {			//WHY ON EARTH WAS THE NUMBER OF ENEMIES BASED ON THE WIDTH OF THE MAP?
-		randX = Random.Range(0,maxX); //Random variable between 0 and max map X value
-		randY = Random.Range(0,maxY); //Random variable between 0 and max map Y value
+	for(i = 0; i<maxEnemies; i++) {			//for numEnemies
+		randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
+		randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+		var xDist = Mathf.Abs(randX - player.transform.position.x);
+		var yDist = Mathf.Abs(randY - player.transform.position.y);
 		//While the randomly selected tile of the map is not just ground, reroll numbers
-		while((world[randY][randX]!= "G") || (randX<15 && randY>49)) {
-			randX = Random.Range(0,maxX); //Random variable between 0 and max map X value
-			randY = Random.Range(0,maxY); //Random variable between 0 and max map Y value
+		var iterateCount = 0;
+		while(((world[randY][randX]!= "G") || (xDist < 9 && yDist < 9)) && iterateCount < 100) {
+			iterateCount++;
+			randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
+			randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+			xDist = Mathf.Abs(randX - player.transform.position.x);
+			yDist = Mathf.Abs(randY - player.transform.position.y);
 		}
 		world[randY][randX] = world[randY][randX] + "E"; //Update the world array to show that there is also an enemy there
 		//Spawn half archers, half warriors
 		if(i<(maxEnemies /2)) {
-			spawnEnemy(randX, world.length-randY, "Enemy Archer", "archer"); //Spawns an archer, 
+			spawnEnemy(randX, randY, "Enemy Archer", "archer"); //Spawns an archer, 
 		}
 		else {
-			spawnEnemy(randX, world.length-randY, "Enemy Warrior", "warrior"); //Spawns a warrior
+			spawnEnemy(randX, randY, "Enemy Warrior", "warrior"); //Spawns a warrior
 		}
 	}
 	
 	//set camera
 	cam = Camera.main.GetComponent(GameCamera);
-	cam.init(player,0,1,maxX,maxY);
+	cam.init(player,0,0,maxX-1,maxY-1);
 }
 
 //Spawns an enemy at a specific location given a name and type;
 function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T THINK WE NEED BOTH NAME AND TYPE, ONE COULD BE THE OTHER
 	var enemyObject = new GameObject(); //Creates a new empty gameObject
 	var enemyStatusScript = enemyObject.AddComponent(EnemyStatus); //Attaches the enemyScript
-	enemyObject.transform.position = Vector3(x, y, -1); //WHY IS THIS NOT USING THE X AND Y PASSED IN
+	enemyObject.transform.position = Vector3(x, y, -1); //move to spot
 	enemyObject.name = name; //set enemyObject name
 	enemyStatusScript.setTarget(player);
 	
@@ -82,7 +116,7 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
 	enemyModel.AddComponent(MeshRenderer); //Add a renderer for textures
 	enemyModel.SetActive(false); //Turn off the object so its script doesn't do anything until we're ready.
-	model = enemyModel.AddComponent(CharModel); //Add a CharModel script to control visuals of the Player.
+	var model = enemyModel.AddComponent(CharModel); //Add a CharModel script to control visuals of the Player.
 	model.name = name + " Model"; //Name the Model
 	model.init(enemyObject, type); //Initialize the model
 	var boxCollider2D = enemyObject.AddComponent(BoxCollider2D);//Add a box collider
@@ -94,9 +128,9 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 }
 
 //Spawns a player at a specific location
-function spawnPlayer() {
+function spawnPlayer(x : int, y : int) {
 	var playerObject = new GameObject(); //Creates a new empty gameObject
-	playerObject.transform.position = Vector3(3, 3, -1);
+	playerObject.transform.position = Vector3(x, y, -1);
 	playerObject.name = "Player";
 	//var playerScript = playerObject.AddComponent(PlayerScript); //Attaches the playerScript
 	//var playerAudio = playerObject.AddComponent(AudioSource); //Attaches an audioSource, WHY?
@@ -118,7 +152,7 @@ function spawnPlayer() {
 	meshFilter.mesh = exampleMesh; 								//Give the mesh filter a quadmesh
 	playerModel.AddComponent(MeshRenderer); 					//Add a renderer for textures
 	playerModel.SetActive(false); 								//Turn off the object so its script doesn't do anything until we're ready.
-	model = playerModel.AddComponent(CharModel); 				//Add a CharModel script to control visuals of the Player.
+	var model = playerModel.AddComponent(CharModel); 				//Add a CharModel script to control visuals of the Player.
 	model.name = "Player Model";								//Name the PlayerModel
 	model.init(playerObject, "FACE"); 							//Initialize the PlayerModel.
 	
