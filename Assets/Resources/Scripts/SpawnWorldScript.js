@@ -39,8 +39,7 @@ function spawnWorld() {
 	}
 	
 	if (!spawned) {
-		spawnPlayer(-1,-1);
-		/*
+		Debug.
 		randX = Random.Range(0,world.length-1); //Random variable between 0 and max map X value
 		randY = Random.Range(0,world[0].length-1); //Random variable between 0 and max map Y value
 		//While the randomly selected tile of the map is not just ground, reroll numbers
@@ -50,8 +49,6 @@ function spawnWorld() {
 		}
 		world[randX][randY] += "P"; //Update the world array to show that there is also a levelend there
 		spawnPlayer(world[0].length - randX,randY); //Builds the level end portal
-		*/
-	
 	}
 	
 	
