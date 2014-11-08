@@ -110,7 +110,7 @@ function Update () {
 		meteor-=Time.deltaTime;			//Decrement "meteor" buff duration if it is above zero
 	}
 	
-	var cast : float = Input.GetAxis("Fire1");		//variable that checks if you are trying to attack
+	var cast1 : float = Input.GetAxis("Fire1");		//variable that checks if you are trying to attack
 	
 	//testing sword 
 	var swing : float = Input.GetAxis("Fire2");		//variable that checks if you are trying to attack
@@ -124,7 +124,7 @@ function Update () {
 	
 	//testing sword
 	
-	if(cast > 0 && cooldown<=0){					//if you are trying to shoot and can shoot
+	if(cast1> 0 && cooldown<=0){					//if you are trying to shoot and can shoot
 		shot(gameObject);							//spawn a projectile
 		cooldown+=1;								//increment cooldown
 		if(rapid>0){
@@ -360,6 +360,7 @@ function shot (player : GameObject){
 
 function spawnShot(player : GameObject, rotate : Vector3){
 	var projectile = new GameObject();											//create a projectile
+	projectile.name = "Shot";
 	//var meshFilter = projectile.AddComponent(MeshFilter); 						//Add a mesh filter for textures
 	//meshFilter.mesh = exampleMesh; 												//Give the mesh filter a quadmesh
 	//projectile.AddComponent(MeshRenderer); 										//Add a renderer for textures
@@ -379,7 +380,7 @@ function spawnShot(player : GameObject, rotate : Vector3){
 	projectile.transform.position = Vector3(x,y,-1);							//move the projectile to the player's position
 	projectile.transform.Translate(player.transform.up);
 	projectile.transform.eulerAngles = player.transform.eulerAngles - rotate;			//set the projectile's angle to the player's
-	playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, sword, blind, meteor, rapid, homing, exampleMesh, gameObject);	//initialize the playerSpellScript
+	playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, gameObject);	//initialize the playerSpellScript
 	playerSpellScript.name = "Shot";
 	projectile.SetActive(true);
 }
@@ -387,6 +388,7 @@ function spawnShot(player : GameObject, rotate : Vector3){
 //not done yet
 function swing (player : GameObject){
 	var sword = new GameObject();											//create a sword
+	sword.name = "Sword";
 	sword.SetActive(false); 												//Turn off the object so its script doesn't do anything until we're ready.
 	var boxCollider2D = sword.AddComponent(BoxCollider2D);					//Add a box collider
 	boxCollider2D.isTrigger = true;
@@ -402,9 +404,9 @@ function swing (player : GameObject){
 	var y : float = player.transform.position.y;								//record the players y position
 	sword.transform.position = Vector3(x,y,-1);							//move the sword to the player's position
 	sword.transform.Translate(player.transform.up);
-	sword.transform.eulerAngles = player.transform.eulerAngles - rotate;			//set the sword's angle to the player's
-	playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, sword, blind, meteor, rapid, homing, exampleMesh, gameObject);	//initialize the playerSpellScript
-	playerSpellScript.name = "Shot";
+	//sword.transform.eulerAngles = player.transform.eulerAngles - rotate;			//set the sword's angle to the player's
+	playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, gameObject);	//initialize the playerSpellScript
+	playerSpellScript.name = "Sword";
 	sword.SetActive(true);
 }
 

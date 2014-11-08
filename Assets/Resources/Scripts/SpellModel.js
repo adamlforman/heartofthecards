@@ -12,9 +12,12 @@ function init(o : GameObject) {
 	if(owner.name == "Explosion"){
 		textureName = "Textures/EXPLOSION";
 	}
-	else{
-		name = "Shot Model";							// Name the object.
+	else if(owner.name == "Shot"){
 		textureName = "Textures/ARROW";					//Set the name of the texture path
+	}
+	else if(owner.name == "Sword"){
+		textureName = "Textures/SWORD";					//Set the name of the texture path
+		print(textureName);
 	}
 	renderer.material.mainTexture = Resources.Load(textureName, Texture2D);				// Set the texture.  Must be in Resources folder.
 	renderer.material.color = Color(1,1,1);												// Set the color (easy way to tint things).

@@ -18,10 +18,10 @@ public var rapid : boolean = false;				//Does the shot have the "rapid" buff
 public var homing : boolean = false;			//Does the shot have the "homing" buff
 
 
-function init(ice : float, poison : float, fork : float, reflect : float, pierce : float, giant : float, splash : float, leech : float, sword : float, blind : float, meteor : float, rapid : float, homing : float, exampleMesh : Mesh, player : GameObject) {
+function init(ice : float, poison : float, fork : float, reflect : float, pierce : float, giant : float, splash : float, leech : float, blind : float, meteor : float, rapid : float, homing : float, exampleMesh : Mesh, player : GameObject) {
 	this.exampleMesh = exampleMesh;
 	
-	transform.localScale = Vector3(0.3, 1, 1);
+	
 	this.player = player;
 	
 	var modelObject = new GameObject();							// Create a quad object for holding the tile texture.
@@ -31,7 +31,15 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	modelObject.SetActive(false);								// Turn off the object so its script doesn't do anything until we're ready.
 	
 	model = modelObject.AddComponent(SpellModel);				// Add a spellModel script to control visuals of the spell.
-	model.name = "Shot Model";									//Name the PlayerModel
+	if(this.name == "Shot"){									//Let's do arrow specific things
+		model.name = "Shot Model";								//Name the Model
+		transform.localScale = Vector3(0.3, 1, 1);
+	}
+	if(this.name == "Sword"){
+		model.name = "Sword Model";								//Name the Model
+		transform.localScale = Vector3(1, 1, 1);
+		print("BUTTS");
+	}
 	model.init(this.gameObject);								// Initialize the spellModel.
 	
 	
@@ -69,10 +77,6 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	//check
 	if(leech > 0){
 		this.leech=true;			//Set "leech" boolean to true
-	}
-	//This is hard
-	if(sword > 0){
-		this.sword=true;			//Set "sword" boolean to true
 	}
 	//check
 	if(blind > 0){
