@@ -109,9 +109,9 @@ function Start () {
 	
 	//*****************************SETTING ALL THE OF TEXT**************************************
 	var titleO = new GameObject("TitleText");
-	titleO.transform.position = Vector3(.35, .95, -1);
+	titleO.transform.position = Vector3(.44, .95, -1);
 	title = titleO.AddComponent(GUIText); 
-	title.text = "CAPITALISM!";
+	title.text = "Shop!";
 	title.fontSize = Screen.height/19;
 	
 	var reminderO = new GameObject("TitleText");

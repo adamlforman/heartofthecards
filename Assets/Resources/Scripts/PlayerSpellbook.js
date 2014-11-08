@@ -112,7 +112,19 @@ function Update () {
 	
 	var cast1 : float = Input.GetAxis("Fire1");		//variable that checks if you are trying to attack
 	
-	if(cast1 > 0 && cooldown<=0){					//if you are trying to shoot and can shoot
+	//testing sword 
+	var swing : float = Input.GetAxis("Fire2");		//variable that checks if you are trying to attack
+	if(swing > 0 && cooldown<=0){					//if you are trying to shoot and can shoot
+		swing(gameObject);							//spawn a projectile
+		cooldown+=1;								//increment cooldown
+		if(rapid>0){
+			cooldown-=0.5;
+		}
+	}
+	
+	//testing sword
+	
+	if(cast1> 0 && cooldown<=0){					//if you are trying to shoot and can shoot
 		shot(gameObject);							//spawn a projectile
 		cooldown+=1;								//increment cooldown
 		if(rapid>0){
@@ -260,27 +272,27 @@ function Update () {
 	if(slot1Timer>0){						//COUNT DOWN
 		slot1Timer -= Time.deltaTime;
 	}
-	if(slot1Timer<=0 && slot1Timer>-5){						//We are out of duration on slot1
+	if(slot1Timer<=0 && slot1Timer>-5){		//We are out of duration on slot1
 		slot1 = "BLANK";					//Fill the spell slot with the empty marker.
 		if(drawTimer == 0){
 			drawTimer = 5;
 		}
-		slot1Timer = -10;						//Reset the timer
+		slot1Timer = -10;					//Reset the timer
 	}
 	if(slot2Timer>0){						//COUNT DOWN
 		slot2Timer -= Time.deltaTime;
 	}
-	if(slot2Timer<=0 && slot2Timer>-5){						//We are out of duration on slot2
+	if(slot2Timer<=0 && slot2Timer>-5){		//We are out of duration on slot2
 		slot2 = "BLANK";					//Fill the spell slot with the empty marker.
 		if(drawTimer == 0){
 			drawTimer = 5;
 		}
-		slot2Timer = -10;						//Reset the timer
+		slot2Timer = -10;					//Reset the timer
 	}
 	if(slot3Timer>0){						//COUNT DOWN
 		slot3Timer -= Time.deltaTime;
 	}
-	if(slot3Timer<=0 && slot3Timer>-5){						//We are out of duration on slot3
+	if(slot3Timer<=0 && slot3Timer>-5){		//We are out of duration on slot3
 		slot3 = "BLANK";					//Fill the spell slot with the empty marker.
 		if(drawTimer == 0){
 			drawTimer = 5;
@@ -348,6 +360,7 @@ function shot (player : GameObject){
 
 function spawnShot(player : GameObject, rotate : Vector3){
 	var projectile = new GameObject();											//create a projectile
+	projectile.name = "Shot";
 	//var meshFilter = projectile.AddComponent(MeshFilter); 						//Add a mesh filter for textures
 	//meshFilter.mesh = exampleMesh; 												//Give the mesh filter a quadmesh
 	//projectile.AddComponent(MeshRenderer); 										//Add a renderer for textures
@@ -367,9 +380,34 @@ function spawnShot(player : GameObject, rotate : Vector3){
 	projectile.transform.position = Vector3(x,y,-1);							//move the projectile to the player's position
 	projectile.transform.Translate(player.transform.up);
 	projectile.transform.eulerAngles = player.transform.eulerAngles - rotate;			//set the projectile's angle to the player's
-	playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, sword, blind, meteor, rapid, homing, exampleMesh, gameObject);	//initialize the playerSpellScript
+	playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, gameObject);	//initialize the playerSpellScript
 	playerSpellScript.name = "Shot";
 	projectile.SetActive(true);
+}
+
+//not done yet
+function swing (player : GameObject){
+	var sword = new GameObject();											//create a sword
+	sword.name = "Sword";
+	sword.SetActive(false); 												//Turn off the object so its script doesn't do anything until we're ready.
+	var boxCollider2D = sword.AddComponent(BoxCollider2D);					//Add a box collider
+	boxCollider2D.isTrigger = true;
+	var rigidModel = sword.AddComponent(Rigidbody2D); 						//Add a rigid body for collisions
+	rigidModel.gravityScale = 0; 												//Turn off gravity
+	rigidModel.fixedAngle = true; 												//Set fixed angle to true
+	rigidModel.isKinematic = true;
+	
+	var tempScript : Temporary = sword.AddComponent(Temporary);			//make the sword temporary (add script)
+	tempScript.life = 5;														//set it's life to 5 seconds
+	var playerSpellScript : PlayerSpell = sword.AddComponent(PlayerSpell);	//add the playerSpell script
+	var x : float = player.transform.position.x;								//record the players x position
+	var y : float = player.transform.position.y;								//record the players y position
+	sword.transform.position = Vector3(x,y,-1);							//move the sword to the player's position
+	sword.transform.Translate(player.transform.up);
+	//sword.transform.eulerAngles = player.transform.eulerAngles - rotate;			//set the sword's angle to the player's
+	playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, gameObject);	//initialize the playerSpellScript
+	playerSpellScript.name = "Sword";
+	sword.SetActive(true);
 }
 
 function shuffle(list : String[]){ //v1.0
