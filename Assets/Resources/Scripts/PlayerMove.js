@@ -5,6 +5,10 @@ private var acceleration : float = 1;
 private var amountToMove : Vector2;
 
 
+function init() {
+		// currently does nothing
+}
+
 function Update () {
          var mouseScreen : Vector3 = Input.mousePosition;
          var mouse : Vector3 = Camera.main.ScreenToWorldPoint(mouseScreen);

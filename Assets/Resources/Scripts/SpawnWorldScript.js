@@ -86,9 +86,10 @@ function spawnWorld() {
 function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T THINK WE NEED BOTH NAME AND TYPE, ONE COULD BE THE OTHER
 	var enemyObject = new GameObject(); //Creates a new empty gameObject
 	var enemyStatusScript = enemyObject.AddComponent(EnemyStatus); //Attaches the enemyScript
+	var enemyMoveScript = enemyObject.AddComponent(EnemyMove);	// attaches the other enemyscript
 	enemyObject.transform.position = Vector3(x, y, -1); //move to spot
 	enemyObject.name = name; //set enemyObject name
-	enemyStatusScript.setTarget(player);
+	enemyMoveScript.setTarget(player);
 	
 	var prefix = "prefix";
 	var suffix = "suffix";
@@ -107,6 +108,7 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 	}
 	
     enemyStatusScript.init(exampleMesh,type,enemySpellbookScript, prefix, suffix);
+    enemyMoveScript.init(exampleMesh,type,enemySpellbookScript, prefix, suffix);
 	
 	var enemyModel = new GameObject(); //Create enemyModel
 	var meshFilter = enemyModel.AddComponent(MeshFilter); //Add a meshfilter
@@ -116,7 +118,7 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 	var model = enemyModel.AddComponent(CharModel); //Add a CharModel script to control visuals of the Player.
 	model.name = name + " Model"; //Name the Model
 	model.init(enemyObject, type); //Initialize the model
-	var boxCollider2D = enemyObject.AddComponent(BoxCollider2D);//Add a box collider
+	enemyObject.AddComponent(BoxCollider2D);//Add a box collider
 	var rigidModel = enemyObject.AddComponent(Rigidbody2D); 	//Add a rigid body for collisions
 	rigidModel.gravityScale = 0; 								//Turn off gravity
 	rigidModel.fixedAngle = true; 								//Set fixed angle to true
@@ -135,6 +137,7 @@ function spawnPlayer(x : int, y : int) {
 	//player = playerScript; //set a reference to the playerScript
 	
 	var playerMoveScript = playerObject.AddComponent(PlayerMove);			//Add the PlayerMove Script
+	playerMoveScript.init();
 	var playerStatusScript = playerObject.AddComponent(PlayerStatus);		//Add the PlayerStatus Script
 	playerStatusScript.init();
 	var playerSpellbookScript = playerObject.AddComponent(PlayerSpellbook); //Add the PlayerSpellbook script
@@ -155,7 +158,7 @@ function spawnPlayer(x : int, y : int) {
 	
 	//add a rigidbody and boxcollider for collisions
 	
-	var boxCollider2D = playerObject.AddComponent(BoxCollider2D);//Add a box collider
+	playerObject.AddComponent(BoxCollider2D);//Add a box collider
 	var rigidModel = playerObject.AddComponent(Rigidbody2D); 	//Add a rigid body for collisions
 	rigidModel.gravityScale = 0; 								//Turn off gravity
 	rigidModel.fixedAngle = true; 								//Set fixed angle to true

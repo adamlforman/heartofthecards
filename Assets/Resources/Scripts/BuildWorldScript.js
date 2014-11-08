@@ -80,7 +80,7 @@ function init(a : Array, exampleMesh : Mesh) {
 }
 //Builds the world
 function buildWorld() {
-	var maxX = 60; //Max x value of map, explicitely set for now
+	//var maxX = 60; //Max x value of map, explicitely set for now
 	var maxY = 50; //Max y value of map, explicitely set for now (never used atm)
 	var R : String = "R"; //Represents a tile of rock in the environment
 	var G : String = "G"; //Represents a tile of ground in the environment
@@ -175,7 +175,7 @@ function buildRock(x : float, y : float){
 	
 	//add a rigidbody and boxcollider for collisions
 	
-	var boxCollider2D = terrainObject.AddComponent(BoxCollider2D); //Add a box collider
+	terrainObject.AddComponent(BoxCollider2D); //Add a box collider
 	var rigidModel = terrainObject.AddComponent(Rigidbody2D); //Add a rigid body for collisions
 	
 	var childCollider = new GameObject();						// 3D colliders needed to raycast through walls
