@@ -98,6 +98,17 @@ function spawnPlayer() {
 	var playerObject = new GameObject(); //Creates a new empty gameObject
 	playerObject.transform.position = Vector3(3, 3, -1);
 	playerObject.name = "Player";
+	
+	var playerModel = new GameObject(); 						//Create a quad object to hold the tile texture.
+	var meshFilter = playerModel.AddComponent(MeshFilter); 		//Add a mesh filter for textures
+	meshFilter.mesh = exampleMesh; 								//Give the mesh filter a quadmesh
+	playerModel.AddComponent(MeshRenderer); 					//Add a renderer for textures
+	playerModel.SetActive(false); 								//Turn off the object so its script doesn't do anything until we're ready.
+	model = playerModel.AddComponent(CharModel); 				//Add a CharModel script to control visuals of the Player.
+	model.name = "Player Model";								//Name the PlayerModel
+	model.init(playerObject, "FACE"); 							//Initialize the PlayerModel.
+	playerModel.transform.parent = playerObject.transform;
+	
 	//var playerScript = playerObject.AddComponent(PlayerScript); //Attaches the playerScript
 	//var playerAudio = playerObject.AddComponent(AudioSource); //Attaches an audioSource, WHY?
 	//playerScript.init(gameObject,playerObject, "Player", "FACE",3,3); //AGAIN BOTH NAME AND TYPE (JUST RENAME TEXTURE AND USE NAME?)
@@ -113,14 +124,7 @@ function spawnPlayer() {
 	playerStatusScript.HUD = playerHUDScript;
 	
 	
-	var playerModel = new GameObject(); 						//Create a quad object to hold the tile texture.
-	var meshFilter = playerModel.AddComponent(MeshFilter); 		//Add a mesh filter for textures
-	meshFilter.mesh = exampleMesh; 								//Give the mesh filter a quadmesh
-	playerModel.AddComponent(MeshRenderer); 					//Add a renderer for textures
-	playerModel.SetActive(false); 								//Turn off the object so its script doesn't do anything until we're ready.
-	model = playerModel.AddComponent(CharModel); 				//Add a CharModel script to control visuals of the Player.
-	model.name = "Player Model";								//Name the PlayerModel
-	model.init(playerObject, "FACE"); 							//Initialize the PlayerModel.
+	
 	
 	//add a rigidbody and boxcollider for collisions
 	

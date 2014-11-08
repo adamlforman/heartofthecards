@@ -79,7 +79,7 @@ function init(classType : String) {
 		//First we create and empty object that is parented by the player
 		var fistParent = new GameObject();
 		fistParent.name = "Fist Parent";
-		fistParent.transform.parent = this.transform;
+		fistParent.transform.parent = gameObject.transform.GetChild(0).transform;
 		this.fistParent = fistParent;
 		var x : float = this.transform.position.x;								//record the players x position
 		var y : float = this.transform.position.y;								//record the players y position
@@ -99,7 +99,7 @@ function init(classType : String) {
 		
 		var playerSpellScript : PlayerSpell = fist.AddComponent(PlayerSpell);	//add the playerSpell script
 		fist.transform.parent = fistParent.transform;							//Parent fistParent to fist
-		fist.transform.position = fistParent.transform.position + Vector3(1, 0, 0);							//move the fist to the player's position
+		fist.transform.localPosition = Vector3(1, 0, 0);							//move the fist to the player's position
 		fist.transform.localScale = Vector3(0.35, 0.35, 1);
 		playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, gameObject);	//initialize the playerSpellScript
 		playerSpellScript.name = "Fist";
@@ -153,6 +153,8 @@ function Update () {
 	var cast1 : float = Input.GetAxis("Fire1");		//variable that checks if you are trying to attack
 	
 	//Circle Stuff
+	fistParent.transform.localPosition = Vector3(0,0,-1);
+	fist.transform.localPosition = Vector3(1,0,0);
 	if(cast1> 0 && cooldown<=0 && classType=="Circle"){					//if you are trying to shoot and can shoot
 		swing();							//Punch that mother fucker
 		fist.GetComponent(PlayerSpell).punchOn();
