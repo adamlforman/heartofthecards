@@ -86,7 +86,7 @@ function Update () {
 }
 
 function hit(target : GameObject){
-	target.GetComponent(EnemyStatus).takeDamage(10);
+	target.GetComponent(EnemyStatus).takeDamage(10, false);
 	if(ice){
 		target.GetComponent(EnemyStatus).iceTimer = 5;							//Apply ice if arrow is iced
 	}

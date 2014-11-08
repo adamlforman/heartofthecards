@@ -107,7 +107,7 @@ function spawnPlayer() {
 	var playerStatusScript = playerObject.AddComponent(PlayerStatus);		//Add the PlayerStatus Script
 	playerStatusScript.init();
 	var playerSpellbookScript = playerObject.AddComponent(PlayerSpellbook); //Add the PlayerSpellbook script
-	playerSpellbookScript.init();
+	playerSpellbookScript.init("Circle");
 	var playerHUDScript = playerObject.AddComponent(PlayerHUD);				//Add the PlayerHUD Script
 	playerHUDScript.init(Camera.main, playerObject);
 	playerStatusScript.HUD = playerHUDScript;

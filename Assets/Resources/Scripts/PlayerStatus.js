@@ -29,7 +29,7 @@ function addHealth(heal : int){		// Function to gain health
 	}
 }
 
-function takeDamage(damage : float){	// Take damage function
+function takeDamage(damage : float, magic : boolean){	// Take damage function
 	curHealth -= damage;				// take the damage
 	if (HUD) {
 		HUD.curHealth = curHealth;		// tell the HUD

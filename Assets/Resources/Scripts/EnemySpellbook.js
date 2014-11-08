@@ -37,6 +37,7 @@ function shot (enemy : GameObject){
 
 function spawnShot(enemy : GameObject, rotate : Vector3){
 	var projectile = new GameObject();											//create a projectile
+	projectile.name = "Enemy Shot";
 	//var meshFilter = projectile.AddComponent(MeshFilter); 						//Add a mesh filter for textures
 	//meshFilter.mesh = exampleMesh; 												//Give the mesh filter a quadmesh
 	//projectile.AddComponent(MeshRenderer); 										//Add a renderer for textures

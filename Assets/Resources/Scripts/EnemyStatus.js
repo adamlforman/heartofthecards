@@ -229,7 +229,7 @@ function wander() {																				// Idle movement for enemies
 
 function OnTriggerEnter2D(other : Collider2D){
 	//print("enemy");
-	if(other.gameObject.name == "Shot") {
+	if(other.gameObject.name == "Shot" || other.gameObject.name == "Fist" ) {
 		if(!other.gameObject.GetComponent(PlayerSpell).splash){
 			other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
 		}
@@ -243,10 +243,15 @@ function OnTriggerEnter2D(other : Collider2D){
 }
 
 
-function takeDamage(damage : float){
-	curHealth -= (damage-armor);
-	damageText(damage-armor);
-	//IF THE ENENIES DIE, GIVE THE PLAYER SOME $$$$
+function takeDamage(damage : float, magic : boolean){ 
+	if(magic){
+		curHealth -= (damage);
+		damageText(damage);
+	}
+	else{
+		curHealth -= (damage-armor);
+		damageText(damage-armor);
+	}
 
 }
 
@@ -274,7 +279,7 @@ function processDebuffs() {
 		speed = speed*0.5;
 	}
 	if (poisonCounter > 0 && poisonTimer <= 0) {
-		takeDamage(2);
+		takeDamage(2, true);
 		poisonCounter--;
 		poisonTimer = 1;
 	}
@@ -305,10 +310,10 @@ function getRaging(){
 function warriorAttack() {				// The warrior's attack function
 	if (blindTimer <= 0) {
 		if(raging){
-			target.GetComponent(PlayerStatus).takeDamage(7);	// damage just happens
+			target.GetComponent(PlayerStatus).takeDamage(7, false);	// damage just happens
 		}
 		else{
-			target.GetComponent(PlayerStatus).takeDamage(5);	// damage just happens
+			target.GetComponent(PlayerStatus).takeDamage(5, false);	// damage just happens
 		}
 		
 		attackTimer = 3;									// 3 second recharge seems long, but w/e

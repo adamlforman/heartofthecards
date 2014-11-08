@@ -30,11 +30,17 @@ public var drawTimer : float;			//The time until your next draw.
 
 var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 
+private var classType : String;		//The class of the player (circle, square, triangle)
 
 
-function init() {
-	
-	
+//Circle global variables
+private var fist : GameObject;
+private var fistParent : GameObject;	//The child of the player that will move the fist.
+private var rotationSpeed = 0.1;
+public var swinging = false;
+
+
+function init(classType : String) {
 	
 	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
 	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
@@ -65,6 +71,40 @@ function init() {
 	slot1Timer = -5;
 	slot2Timer = -5;
 	slot3Timer = -5;
+	
+	
+	//Set up class specific things.
+	this.classType = classType;
+	if(classType == "Circle"){
+		//First we create and empty object that is parented by the player
+		var fistParent = new GameObject();
+		fistParent.name = "Fist Parent";
+		fistParent.transform.parent = this.transform;
+		this.fistParent = fistParent;
+		var x : float = this.transform.position.x;								//record the players x position
+		var y : float = this.transform.position.y;								//record the players y position
+		fistParent.transform.position = Vector3(x,y,-1);							//move the fist to the player's position
+		fistParent.transform.localRotation = Quaternion.identity;
+		
+		
+	
+		var fist = new GameObject();											//create a fist
+		this.fist = fist;
+		fist.name = "Fist";
+		fist.SetActive(false); 												//Turn off the object so its script doesn't do anything until we're ready.
+		var boxCollider2D = fist.AddComponent(BoxCollider2D);					//Add a box collider
+		boxCollider2D.isTrigger = true;
+		var rigidModel = fist.AddComponent(Rigidbody2D); 						//Add a rigid body for collisions
+		rigidModel.gravityScale = 0; 												//Turn off gravity
+		
+		var playerSpellScript : PlayerSpell = fist.AddComponent(PlayerSpell);	//add the playerSpell script
+		fist.transform.parent = fistParent.transform;							//Parent fistParent to fist
+		fist.transform.position = fistParent.transform.position + Vector3(1, 0, 0);							//move the fist to the player's position
+		fist.transform.localScale = Vector3(0.35, 0.35, 1);
+		playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, gameObject);	//initialize the playerSpellScript
+		playerSpellScript.name = "Fist";
+		fist.SetActive(true);
+	}
 }
 
 function Update () {
@@ -112,19 +152,29 @@ function Update () {
 	
 	var cast1 : float = Input.GetAxis("Fire1");		//variable that checks if you are trying to attack
 	
-	//testing sword 
-	var swing : float = Input.GetAxis("Fire2");		//variable that checks if you are trying to attack
-	if(swing > 0 && cooldown<=0){					//if you are trying to shoot and can shoot
-		swing(gameObject);							//spawn a projectile
+	//Circle Stuff
+	if(cast1> 0 && cooldown<=0 && classType=="Circle"){					//if you are trying to shoot and can shoot
+		swing();							//Punch that mother fucker
+		fist.GetComponent(PlayerSpell).punchOn();
+		fist.GetComponent(PlayerSpell).updateBuffs(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing);
 		cooldown+=1;								//increment cooldown
 		if(rapid>0){
 			cooldown-=0.5;
 		}
 	}
 	
-	//testing sword
+	if(swinging){
+		fistParent.transform.rotation *= Quaternion.Euler(0,0,4.5);
+		if(fistParent.transform.rotation == this.transform.rotation * Quaternion.Euler(0,0,180)){
+			fistParent.transform.rotation = this.transform.rotation;
+			swinging = false;
+			fist.GetComponent(PlayerSpell).punchOff();
+		}
+	}
 	
-	if(cast1> 0 && cooldown<=0){					//if you are trying to shoot and can shoot
+	
+	//Triangle Stuff
+	if(cast1> 0 && cooldown<=0 && classType=="Triangle"){					//if you are trying to shoot and can shoot
 		shot(gameObject);							//spawn a projectile
 		cooldown+=1;								//increment cooldown
 		if(rapid>0){
@@ -386,28 +436,9 @@ function spawnShot(player : GameObject, rotate : Vector3){
 }
 
 //not done yet
-function swing (player : GameObject){
-	var sword = new GameObject();											//create a sword
-	sword.name = "Sword";
-	sword.SetActive(false); 												//Turn off the object so its script doesn't do anything until we're ready.
-	var boxCollider2D = sword.AddComponent(BoxCollider2D);					//Add a box collider
-	boxCollider2D.isTrigger = true;
-	var rigidModel = sword.AddComponent(Rigidbody2D); 						//Add a rigid body for collisions
-	rigidModel.gravityScale = 0; 												//Turn off gravity
-	rigidModel.fixedAngle = true; 												//Set fixed angle to true
-	rigidModel.isKinematic = true;
+function swing (){
+	swinging = true;
 	
-	var tempScript : Temporary = sword.AddComponent(Temporary);			//make the sword temporary (add script)
-	tempScript.life = 5;														//set it's life to 5 seconds
-	var playerSpellScript : PlayerSpell = sword.AddComponent(PlayerSpell);	//add the playerSpell script
-	var x : float = player.transform.position.x;								//record the players x position
-	var y : float = player.transform.position.y;								//record the players y position
-	sword.transform.position = Vector3(x,y,-1);							//move the sword to the player's position
-	sword.transform.Translate(player.transform.up);
-	//sword.transform.eulerAngles = player.transform.eulerAngles - rotate;			//set the sword's angle to the player's
-	playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, gameObject);	//initialize the playerSpellScript
-	playerSpellScript.name = "Sword";
-	sword.SetActive(true);
 }
 
 function shuffle(list : String[]){ //v1.0

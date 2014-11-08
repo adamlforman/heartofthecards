@@ -17,10 +17,14 @@ public var meteor : boolean = false;			//Does the shot have the "meteor" buff
 public var rapid : boolean = false;				//Does the shot have the "rapid" buff
 public var homing : boolean = false;			//Does the shot have the "homing" buff
 
+public var readyToPunch : boolean;
+
+//Circle Specific Things.
+
 
 function init(ice : float, poison : float, fork : float, reflect : float, pierce : float, giant : float, splash : float, leech : float, blind : float, meteor : float, rapid : float, homing : float, exampleMesh : Mesh, player : GameObject) {
 	this.exampleMesh = exampleMesh;
-	
+	readyToPunch = false;
 	
 	this.player = player;
 	
@@ -34,11 +38,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	if(this.name == "Shot"){									//Let's do arrow specific things
 		model.name = "Shot Model";								//Name the Model
 		transform.localScale = Vector3(0.3, 1, 1);
-	}
-	if(this.name == "Sword"){
-		model.name = "Sword Model";								//Name the Model
-		transform.localScale = Vector3(1, 1, 1);
-		print("BUTTS");
+		readyToPunch = true;
 	}
 	model.init(this.gameObject);								// Initialize the spellModel.
 	
@@ -102,41 +102,50 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 
 
 function Update() {
-	transform.Translate(Vector2.up * movespeed * Time.deltaTime);
+	if(name == "Shot"){
+		transform.Translate(Vector2.up * movespeed * Time.deltaTime);
+	}
 }
 
 function hit(other : GameObject){
-	//print("WE HAVE ENTERED");
-	var sphereSize : float;	//The size of the sphere if we splash
-	if(giant){				//If giant, then make the splash size twice as big
-		sphereSize = 2;
-	}
-	else{
-		sphereSize = 1;		//Normal splash size
-	}
-	if(splash){				//If splash is on
-		//print("WE SPLASHED");
-		splashSpawn(transform.position.x,transform.position.y, sphereSize); //Spawn the explosion
-		Destroy(gameObject);  //Destroy the arrow
-	}
-	//Now if there was no splash
-	else{
-		if(other.name == "ROCK"){
-					Destroy(gameObject);		//destroy the arrow if it hits a rock
+	if(readyToPunch){
+		//print("WE HAVE ENTERED");
+		var sphereSize : float;	//The size of the sphere if we splash
+		if(giant){				//If giant, then make the splash size twice as big
+			sphereSize = 2;
 		}
-		if(other.name == "Enemy Warrior" || other.name == "Enemy Archer"){
-			applyStatus(other);					//apply status debuffs to the enemy we hit
-			if(!pierce){
-				Destroy(gameObject);
+		else{
+			sphereSize = 1;		//Normal splash size
+		}
+		if(splash){				//If splash is on
+			//print("WE SPLASHED");
+			splashSpawn(transform.position.x,transform.position.y, sphereSize); //Spawn the explosion
+			if(name == "Shot"){
+				Destroy(gameObject);  //Destroy the arrow
+			}
+		}
+		//Now if there was no splash
+		else{
+			if(name == "Shot"){
+				if(other.name == "ROCK"){
+					Destroy(gameObject);		//destroy the arrow if it hits a rock
+				}
+			}
+			if(other.name == "Enemy Warrior" || other.name == "Enemy Archer"){
+				applyStatus(other);					//apply status debuffs to the enemy we hit
+				if(!pierce){
+					if(name == "Shot"){
+						Destroy(gameObject);
+					}
+				}
 			}
 		}
 	}
-	
 }
 
 //All of the basic attack status buffs
 function applyStatus(target : GameObject){
-	target.GetComponent(EnemyStatus).takeDamage(10);
+	target.GetComponent(EnemyStatus).takeDamage(10, false);
 	if(ice){
 		target.GetComponent(EnemyStatus).iceTimer = 5;							//Apply ice if arrow is iced
 	}
@@ -178,24 +187,25 @@ function splashSpawn(x :float, y:float, size:int){
 //Brace yourselves motherfuckers.  This is going to be ugly.
 //We're going to make some particles that represent what buffs are active.
 function visualEffects(){
-
-	if(ice){
-		attachEffect("Ice Effect");
-	}
-	if(poison){
-		attachEffect("Poison Effect");
-	}
-	if(pierce){
-		attachEffect("Pierce Effect");
-	}
-	if(splash){
-		attachEffect("Splash Effect");
-	}
-	if(leech){
-		attachEffect("Leech Effect");
-	}
-	if(blind){
-		attachEffect("Blind Effect");
+	if(name == "Shot"){
+		if(ice){
+			attachEffect("Ice Effect");
+		}
+		if(poison){
+			attachEffect("Poison Effect");
+		}
+		if(pierce){
+			attachEffect("Pierce Effect");
+		}
+		if(splash){
+			attachEffect("Splash Effect");
+		}
+		if(leech){
+			attachEffect("Leech Effect");
+		}
+		if(blind){
+			attachEffect("Blind Effect");
+		}
 	}
 }
 
@@ -212,9 +222,102 @@ function attachEffect(name : String){
 	effectObject.SetActive(true);								// Turn on the object (the Update function will start being called).
 }
 
+function punchOn(){
+	readyToPunch = true;
+}
 
+function punchOff(){
+	readyToPunch = false;
+}
 
-
+function updateBuffs(ice : float, poison : float, fork : float, reflect : float, pierce : float, giant : float, splash : float, leech : float, blind : float, meteor : float, rapid : float, homing : float){
+	//check
+	if(ice > 0){
+		this.ice=true;				//Set "ice" boolean to true
+	}
+	else{
+		this.ice = false;
+	}
+	//check
+	if(poison > 0){
+		this.poison=true;			//Set "poison" boolean to true
+	}
+	else{
+		this.ice = false;
+	}
+	//check
+	if(fork > 0){
+		this.fork=true;				//Set "fork" boolean to true
+	}
+	else{
+		this.fork = false;
+	}
+	//This is hard
+	if(reflect > 0){
+		this.reflect=true;			//Set "reflect" boolean to true
+	}
+	else{
+		this.reflect = false;
+	}
+	//check
+	if(pierce > 0){
+		this.pierce=true;			//Set "pierce" boolean to true
+	}
+	else{
+		this.pierce = false;
+	}
+	//Check
+	if(giant > 0){
+		this.giant=true;			//Set "giant" boolean to true
+		gameObject.transform.localScale = Vector3(0.6,2,1);
+	}
+	else{
+		this.giant = false;
+	}
+	//check
+	if(splash > 0){
+		this.splash=true;			//Set "splash" boolean to true
+	}
+	else{
+		this.splash = false;
+	}
+	//check
+	if(leech > 0){
+		this.leech=true;			//Set "leech" boolean to true
+	}
+	else{
+		this.leech = false;
+	}
+	//check
+	if(blind > 0){
+		this.blind=true;			//Set "blind" boolean to true
+	}
+	else{
+		this.blind = false;
+	}
+	//check
+	if(rapid > 0){
+		this.rapid=true;			//Set "rapid" boolean to true
+	}
+	else{
+		this.rapid = false;
+	}
+	if(homing > 0){
+		this.homing=true;			//Set "homing" boolean to true
+	}
+	else{
+		this.homing = false;
+	}
+	//This is hard
+	if(meteor > 0){
+		this.meteor=true;			//Set "meteor" boolean to true
+	}
+	else{
+		this.meteor = false;
+	}
+	
+	visualEffects();
+}
 
 
 
