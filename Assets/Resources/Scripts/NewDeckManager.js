@@ -76,7 +76,7 @@ function Start () {
 		cardsOwned = ShopManager.cardsOwned;
 	}
 	else{
-		cardsOwned = ["BLIND", "BLIND", "BLIND", "BLIND", "ICE", "ICE", "ICE", "ICE", "POISON", "POISON", "POISON", "POISON", "LEECH", "LEECH", "LEECH", "LEECH", "RAPID", "RAPID", "RAPID", "RAPID"];
+		cardsOwned = ["blind", "blind", "blind", "blind", "ice", "ice", "ice", "ice", "poison", "poison", "poison", "poison", "leech", "leech", "leech", "leech", "rapid", "rapid", "rapid", "rapid"];
 	}
 	
 
@@ -91,37 +91,37 @@ function Start () {
 	
 	//Goes through the deck and increments the card count variables
 	for (var i = 0; i < theDeck.length; i++) {
-		if (theDeck[i] == "ICE") {
+		if (theDeck[i] == "ice") {
 			iceCount++;
 		}
-		if (theDeck[i] == "POISON") {
+		if (theDeck[i] == "poison") {
 			poisonCount++;
 		}
-		if (theDeck[i] == "FORK") {
+		if (theDeck[i] == "fork") {
 			forkCount++;
 		}
 		if (theDeck[i] == "REFLECT") {
 			reflectCount++;
 		}
-		if (theDeck[i] == "PIERCE") {
+		if (theDeck[i] == "pierce") {
 			pierceCount++;
 		}
-		if (theDeck[i] == "GIANT") {
+		if (theDeck[i] == "giant") {
 			giantCount++;
 		}
-		if (theDeck[i] == "SPLASH") {
+		if (theDeck[i] == "splash") {
 			splashCount++;
 		}
-		if (theDeck[i] == "LEECH") {
+		if (theDeck[i] == "leech") {
 			leechCount++;
 		}
 		if (theDeck[i] == "SWORD") {
 			swordCount++;
 		}
-		if (theDeck[i] == "BLIND") {
+		if (theDeck[i] == "blind") {
 			blindCount++;
 		}
-		if (theDeck[i] == "RAPID") {
+		if (theDeck[i] == "rapid") {
 			rapidCount++;
 		}
 		if (theDeck[i] == "HOMING") {
@@ -133,37 +133,37 @@ function Start () {
 	}
 	
 	for (i = 0; i < cardsOwned.length; i++) {
-		if (cardsOwned[i] == "ICE") {
+		if (cardsOwned[i] == "ice") {
 			iceMax++;
 		}
-		if (cardsOwned[i] == "POISON") {
+		if (cardsOwned[i] == "poison") {
 			poisonMax++;
 		}
-		if (cardsOwned[i] == "FORK") {
+		if (cardsOwned[i] == "fork") {
 			forkMax++;
 		}
 		if (cardsOwned[i] == "REFLECT") {
 			reflectMax++;
 		}
-		if (cardsOwned[i] == "PIERCE") {
+		if (cardsOwned[i] == "pierce") {
 			pierceMax++;
 		}
-		if (cardsOwned[i] == "GIANT") {
+		if (cardsOwned[i] == "giant") {
 			giantMax++;
 		}
-		if (cardsOwned[i] == "SPLASH") {
+		if (cardsOwned[i] == "splash") {
 			splashMax++;
 		}
-		if (cardsOwned[i] == "LEECH") {
+		if (cardsOwned[i] == "leech") {
 			leechMax++;
 		}
 		if (cardsOwned[i] == "SWORD") {
 			swordMax++;
 		}
-		if (cardsOwned[i] == "BLIND") {
+		if (cardsOwned[i] == "blind") {
 			blindMax++;
 		}
-		if (cardsOwned[i] == "RAPID") {
+		if (cardsOwned[i] == "rapid") {
 			rapidMax++;
 		}
 		if (cardsOwned[i] == "HOMING") {
@@ -206,11 +206,11 @@ function Start () {
 	fork.text = "Fork" + " " + forkCount + "/" + forkMax;
 	fork.fontSize = Screen.height/24;
 	
-	var reflectO = new GameObject("reflectText");
+	/*var reflectO = new GameObject("reflectText");
 	reflectO.transform.position = Vector3(.02, .56, -1);
 	reflect = reflectO.AddComponent(GUIText); 
 	reflect.text = "Reflect" + " " + reflectCount + badSpell;
-	reflect.fontSize = Screen.height/24;
+	reflect.fontSize = Screen.height/24;*/
 	
 	var pierceO = new GameObject("pierceText");
 	pierceO.transform.position = Vector3(.02, .48, -1);
@@ -236,11 +236,11 @@ function Start () {
 	leech.text = "Leech"  + " " + leechCount + "/" + leechMax;
 	leech.fontSize = Screen.height/24;
 	
-	var swordO = new GameObject("swordText");
+	/*var swordO = new GameObject("swordText");
 	swordO.transform.position = Vector3(.52, .72, -1);
 	sword = swordO.AddComponent(GUIText); 
 	sword.text = "Sword" + " " + swordCount + badSpell;
-	sword.fontSize = Screen.height/24;
+	sword.fontSize = Screen.height/24;*/
 	
 	var blindO = new GameObject("blindText");
 	blindO.transform.position = Vector3(.52, .64, -1);
@@ -254,7 +254,7 @@ function Start () {
 	rapid.text = "Rapid" + " " + rapidCount + "/" + rapidMax;
 	rapid.fontSize = Screen.height/24;
 	
-	var homingO = new GameObject("homingText");
+	/*var homingO = new GameObject("homingText");
 	homingO.transform.position = Vector3(.52, .48, -1);
 	homing = homingO.AddComponent(GUIText); 
 	homing.text = "Homing" + " " + homingCount + badSpell;
@@ -264,53 +264,53 @@ function Start () {
 	meteorO.transform.position = Vector3(.52, .40, -1);
 	meteor = meteorO.AddComponent(GUIText); 
 	meteor.text = "Meteor" + " " + meteorCount + badSpell;
-	meteor.fontSize = Screen.height/24;
+	meteor.fontSize = Screen.height/24;*/
 }
 
 function Update () {
 	ice.text = "Ice" + " " + iceCount + "/" + iceMax;
 	poison.text = "Poison" + " " + poisonCount + "/" + poisonMax;
 	fork.text = "Fork" + " " + forkCount + "/" + forkMax;
-	reflect.text = "Reflect" + " " + reflectCount + badSpell;
+//	reflect.text = "Reflect" + " " + reflectCount + badSpell;
 	pierce.text = "Pierce" + " " + pierceCount + "/" + pierceMax;
 	giant.text = "Giant" + " " + giantCount + "/" + giantMax;
 	splash.text = "Splash"  + " " + splashCount + "/" + splashMax;
 	leech.text = "Leech"  + " " + leechCount + "/" + leechMax;
-	sword.text = "Sword" + " " + swordCount + badSpell;
+//	sword.text = "Sword" + " " + swordCount + badSpell;
 	blind.text = "Blind" + " " + blindCount + "/" + blindMax;
 	rapid.text = "Rapid"  + " " + rapidCount + "/" + rapidMax;
-	homing.text = "Homing" + " " + homingCount + badSpell;
-	meteor.text = "Meteor" + " " + meteorCount + badSpell;
+//	homing.text = "Homing" + " " + homingCount + badSpell;
+//	meteor.text = "Meteor" + " " + meteorCount + badSpell;
 	reminder.text = "You have " + theDeck.length + " card out of 20 needed.";
 	
 	ice.fontSize = Screen.height/24;
 	poison.fontSize = Screen.height/24;
 	fork.fontSize = Screen.height/24;
-	reflect.fontSize = Screen.height/24;
+	//reflect.fontSize = Screen.height/24;
 	pierce.fontSize = Screen.height/24;
 	giant.fontSize = Screen.height/24;
 	splash.fontSize = Screen.height/24;
 	leech.fontSize = Screen.height/24;
-	sword.fontSize = Screen.height/24;
+	//sword.fontSize = Screen.height/24;
 	blind.fontSize = Screen.height/24;
 	rapid.fontSize = Screen.height/24;
-	homing.fontSize = Screen.height/24;
-	meteor.fontSize = Screen.height/24;
+	//homing.fontSize = Screen.height/24;
+	//meteor.fontSize = Screen.height/24;
 	title.fontSize = Screen.height/19;
 	reminder.fontSize = Screen.height/28;
 	
 }
 function remove(card : String) {
-	for (var i = 0; i < theDeck.length; i++) {
-		if (theDeck[i] == card) {
-			theDeck.RemoveAt(i);
-			i = theDeck.length + 6;
+	for (var i = 0; i < NewDeckManager.theDeck.length; i++) {
+		if (NewDeckManager.theDeck[i] == card) {
+			NewDeckManager.theDeck.RemoveAt(i);
+			i = NewDeckManager.theDeck.length + 6;
 		}
 	}
 }
 
 function add(card : String) {
-	theDeck.Push(card);
+	NewDeckManager.theDeck.Push(card);
 }
 
 /*function spawnBackground() {
@@ -340,43 +340,43 @@ function OnGUI() {
 	if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.8,Screen.width/20,Screen.height/20),"+")) {
 		if ((iceCount < 4) && (theDeck.length < 20) && (iceCount < ShopManager.iceCount)) {
 			iceCount++;
-			add("ICE");
+			add("ice");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/4 +Screen.width/20,Screen.height-Screen.height*0.8,Screen.width/20,Screen.height/20),"-")) {
 		if (iceCount > 0) {
 			iceCount--;
-			remove("ICE");
+			remove("ice");
 		}
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.72,Screen.width/20,Screen.height/20),"+")) {
 		if ((poisonCount < 4) && (theDeck.length < 20) && (poisonCount < ShopManager.poisonCount)) {
 			poisonCount++;
-			add("POISON");
+			add("poison");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/4 +Screen.width/20,Screen.height-Screen.height*0.72,Screen.width/20,Screen.height/20),"-")) {
 		if (poisonCount > 0) {
 			poisonCount--;
-			remove("POISON");
+			remove("poison");
 		}
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.64,Screen.width/20,Screen.height/20),"+")) {
 		if ((forkCount < 4) && (theDeck.length < 20)  && (forkCount < ShopManager.forkCount)) {
 			forkCount++;
-			add("FORK");
+			add("fork");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/4 +Screen.width/20,Screen.height-Screen.height*0.64, Screen.width/20,Screen.height/20),"-")) {
 		if (forkCount > 0) {
 			forkCount--;
-			remove("FORK");
+			remove("fork");
 		}
 	}
 	
-	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.56,Screen.width/20,Screen.height/20),"+")) {
+	/*else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.56,Screen.width/20,Screen.height/20),"+")) {
 		if ((reflectCount < 0) && (theDeck.length < 20) && (reflectCount < ShopManager.reflectCount)) {
 			reflectCount++;
 			add("REFLECT");
@@ -387,61 +387,61 @@ function OnGUI() {
 			reflectCount--;
 			remove("REFLECT");
 		}
-	}
+	}*/
 	
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.48,Screen.width/20,Screen.height/20),"+")) {
 		if ((pierceCount < 4) && (theDeck.length < 20) && (pierceCount < ShopManager.pierceCount)) {
 			pierceCount++;
-			add("PIERCE");
+			add("pierce");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/4 +Screen.width/20,Screen.height-Screen.height*0.48,Screen.width/20,Screen.height/20),"-")) {
 		if (pierceCount > 0) {
 			pierceCount--;
-			remove("PIERCE");
+			remove("pierce");
 		}
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.40,Screen.width/20,Screen.height/20),"+")) {
 		if ((giantCount < 4) && (theDeck.length < 20) && (giantCount < ShopManager.giantCount)) {
 			giantCount++;
-			add("GIANT");
+			add("giant");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/4 + Screen.width/20,Screen.height-Screen.height*0.40,Screen.width/20,Screen.height/20),"-")) {
 		if (giantCount > 0) {
 			giantCount--;
-			remove("GIANT");
+			remove("giant");
 		}
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.32,Screen.width/20,Screen.height/20),"+")) {
 		if ((splashCount < 4) && (theDeck.length < 20) && (splashCount < ShopManager.splashCount)) {
 			splashCount++;
-			add("SPLASH");
+			add("splash");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/4 + Screen.width/20,Screen.height-Screen.height*0.32,Screen.width/20,Screen.height/20),"-")) {
 		if (splashCount > 0) {
 			splashCount--;
-			remove("SPLASH");
+			remove("splash");
 		}
 	}
 	
 	if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.8,Screen.width/20,Screen.height/20),"+")) {
 		if ((leechCount < 4) && (theDeck.length < 20) && (leechCount < ShopManager.leechCount)) {
 			leechCount++;
-			add("LEECH");
+			add("leech");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/1.3 +Screen.width/20,Screen.height-Screen.height*0.8,Screen.width/20,Screen.height/20),"-")) {
 		if (leechCount > 0) {
 			leechCount--;
-			remove("LEECH");
+			remove("leech");
 		}
 	}
 	
-	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.72,Screen.width/20,Screen.height/20),"+")) {
+	/*else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.72,Screen.width/20,Screen.height/20),"+")) {
 		if ((swordCount < 0) && (theDeck.length < 20) && (swordCount < ShopManager.swordCount)) {
 			swordCount++;
 			add("SWORD");
@@ -452,35 +452,35 @@ function OnGUI() {
 			swordCount--;
 			remove("SWORD");
 		}
-	}
+	}*/
 	
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.64,Screen.width/20,Screen.height/20),"+")) {
 		if ((blindCount < 4) && (theDeck.length < 20)  && (blindCount < ShopManager.blindCount)) {
 			blindCount++;
-			add("BLIND");
+			add("blind");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/1.3 +Screen.width/20,Screen.height-Screen.height*0.64, Screen.width/20,Screen.height/20),"-")) {
 		if (blindCount > 0) {
 			blindCount--;
-			remove("BLIND");
+			remove("blind");
 		}
 	}
 	
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.56,Screen.width/20,Screen.height/20),"+")) {
 		if ((rapidCount < 4) && (theDeck.length < 20) && (rapidCount < ShopManager.rapidCount)) {
 			rapidCount++;
-			add("RAPID");
+			add("rapid");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/1.3 +Screen.width/20,Screen.height-Screen.height*0.56,Screen.width/20,Screen.height/20),"-")) {
 		if (rapidCount > 0) {
 			rapidCount--;
-			remove("RAPID");
+			remove("rapid");
 		}
 	}
 	
-	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.48,Screen.width/20,Screen.height/20),"+")) {
+	/*else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.48,Screen.width/20,Screen.height/20),"+")) {
 		if ((homingCount < 0) && (theDeck.length < 20) && (homingCount < ShopManager.homingCount)) {
 			homingCount++;
 			add("HOMING");
@@ -504,11 +504,13 @@ function OnGUI() {
 			meteorCount--;
 			remove("METEOR");
 		}
-	}
-	
+	}*/
 	else if (GUI.Button(Rect(Screen.width/3.1,Screen.height/1.2,Screen.width*0.35,Screen.height*0.10),"Play Level 1 Again!")) {
 		if (theDeck.length == 20) {
 			Application.LoadLevel("procedural");
 		}
+	}
+	else if (GUI.Button(Rect(Screen.width*6/8,Screen.height/1.2,Screen.width*0.10,Screen.height*0.10),"--->")) {
+		Application.LoadLevel("deckBuilder2");
 	}
 }

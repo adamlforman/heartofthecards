@@ -61,41 +61,41 @@ function Start () {
 		cardsOwned = PlayerSpellbook.cardsOwned;
 	}
 	else {
-		cardsOwned = ["BLIND", "BLIND", "BLIND", "BLIND", "ICE", "ICE", "ICE", "ICE", "POISON", "POISON", "POISON", "POISON", "LEECH", "LEECH", "LEECH", "LEECH", "RAPID", "RAPID", "RAPID", "RAPID"];
+		cardsOwned = ["blind", "blind", "blind", "blind", "ice", "ice", "ice", "ice", "poison", "poison", "poison", "poison", "leech", "leech", "leech", "leech", "rapid", "rapid", "rapid", "rapid"];
 	}
 	//Goes through the deck and increments the card count variables
 	for (var i = 0; i < cardsOwned.length; i++) {
-		if (cardsOwned[i] == "ICE") {
+		if (cardsOwned[i] == "ice") {
 			iceCount++;
 		}
-		if (cardsOwned[i] == "POISON") {
+		if (cardsOwned[i] == "poison") {
 			poisonCount++;
 		}
-		if (cardsOwned[i] == "FORK") {
+		if (cardsOwned[i] == "fork") {
 			forkCount++;
 		}
 		if (cardsOwned[i] == "REFLECT") {
 			reflectCount++;
 		}
-		if (cardsOwned[i] == "PIERCE") {
+		if (cardsOwned[i] == "pierce") {
 			pierceCount++;
 		}
-		if (cardsOwned[i] == "GIANT") {
+		if (cardsOwned[i] == "giant") {
 			giantCount++;
 		}
-		if (cardsOwned[i] == "SPLASH") {
+		if (cardsOwned[i] == "splash") {
 			splashCount++;
 		}
-		if (cardsOwned[i] == "LEECH") {
+		if (cardsOwned[i] == "leech") {
 			leechCount++;
 		}
 		if (cardsOwned[i] == "SWORD") {
 			swordCount++;
 		}
-		if (cardsOwned[i] == "BLIND") {
+		if (cardsOwned[i] == "blind") {
 			blindCount++;
 		}
-		if (cardsOwned[i] == "RAPID") {
+		if (cardsOwned[i] == "rapid") {
 			rapidCount++;
 		}
 		if (cardsOwned[i] == "HOMING") {
@@ -138,11 +138,11 @@ function Start () {
 	fork.text = "Fork" + " " + forkCount + normalSpell;
 	fork.fontSize = Screen.height/24;
 	
-	var reflectO = new GameObject("reflectText");
+	/*var reflectO = new GameObject("reflectText");
 	reflectO.transform.position = Vector3(.02, .56, -1);
 	reflect = reflectO.AddComponent(GUIText); 
 	reflect.text = "Reflect" + " " + reflectCount + badSpell;
-	reflect.fontSize = Screen.height/24;
+	reflect.fontSize = Screen.height/24;*/
 	
 	var pierceO = new GameObject("pierceText");
 	pierceO.transform.position = Vector3(.02, .48, -1);
@@ -168,11 +168,11 @@ function Start () {
 	leech.text = "Leech"  + " " + leechCount + normalSpell;
 	leech.fontSize = Screen.height/24;
 	
-	var swordO = new GameObject("swordText");
+	/*var swordO = new GameObject("swordText");
 	swordO.transform.position = Vector3(.52, .72, -1);
 	sword = swordO.AddComponent(GUIText); 
 	sword.text = "Sword" + " " + swordCount + badSpell;
-	sword.fontSize = Screen.height/24;
+	sword.fontSize = Screen.height/24;*/
 	
 	var blindO = new GameObject("blindText");
 	blindO.transform.position = Vector3(.52, .64, -1);
@@ -186,7 +186,7 @@ function Start () {
 	rapid.text = "Rapid" + " " + rapidCount + normalSpell;
 	rapid.fontSize = Screen.height/24;
 	
-	var homingO = new GameObject("homingText");
+/*	var homingO = new GameObject("homingText");
 	homingO.transform.position = Vector3(.52, .48, -1);
 	homing = homingO.AddComponent(GUIText); 
 	homing.text = "Homing" + " " + homingCount + badSpell;
@@ -196,38 +196,38 @@ function Start () {
 	meteorO.transform.position = Vector3(.52, .40, -1);
 	meteor = meteorO.AddComponent(GUIText); 
 	meteor.text = "Meteor" + " " + meteorCount + badSpell;
-	meteor.fontSize = Screen.height/24;
+	meteor.fontSize = Screen.height/24;*/
 }
 
 function Update () {
 	ice.text = "Ice" + " " + iceCount + normalSpell;
 	poison.text = "Poison" + " " + poisonCount + normalSpell;
 	fork.text = "Fork" + " " + forkCount + normalSpell;
-	reflect.text = "Reflect" + " " + reflectCount + badSpell;
+	//reflect.text = "Reflect" + " " + reflectCount + badSpell;
 	pierce.text = "Pierce" + " " + pierceCount + normalSpell;
 	giant.text = "Giant" + " " + giantCount + normalSpell;
 	splash.text = "Splash"  + " " + splashCount + normalSpell;
 	leech.text = "Leech"  + " " + leechCount + normalSpell;
-	sword.text = "Sword" + " " + swordCount + badSpell;
+	//sword.text = "Sword" + " " + swordCount + badSpell;
 	blind.text = "Blind" + " " + blindCount + normalSpell;
 	rapid.text = "Rapid"  + " " + rapidCount + normalSpell;
-	homing.text = "Homing" + " " + homingCount + badSpell;
-	meteor.text = "Meteor" + " " + meteorCount + badSpell;
+	//homing.text = "Homing" + " " + homingCount + badSpell;
+	//meteor.text = "Meteor" + " " + meteorCount + badSpell;
 	reminder.text = "You have $" + PlayerStatus.money + ".";
 	
 	ice.fontSize = Screen.height/24;
 	poison.fontSize = Screen.height/24;
 	fork.fontSize = Screen.height/24;
-	reflect.fontSize = Screen.height/24;
+	//reflect.fontSize = Screen.height/24;
 	pierce.fontSize = Screen.height/24;
 	giant.fontSize = Screen.height/24;
 	splash.fontSize = Screen.height/24;
 	leech.fontSize = Screen.height/24;
-	sword.fontSize = Screen.height/24;
+	//sword.fontSize = Screen.height/24;
 	blind.fontSize = Screen.height/24;
 	rapid.fontSize = Screen.height/24;
-	homing.fontSize = Screen.height/24;
-	meteor.fontSize = Screen.height/24;
+	//homing.fontSize = Screen.height/24;
+	//meteor.fontSize = Screen.height/24;
 	title.fontSize = Screen.height/19;
 	reminder.fontSize = Screen.height/22;
 	
@@ -271,80 +271,80 @@ function OnGUI() {
 		if ((iceCount < 4) && (PlayerStatus.money >= 0)) {
 			iceCount++;
 			PlayerStatus.money -=50;
-			add("ICE");
+			add("ice");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.72,Screen.width/5,Screen.height/15),"Buy, $50")) {
 		if ((poisonCount < 4)  && (PlayerStatus.money >= 50)) {
 			poisonCount++;
 			PlayerStatus.money -=50;
-			add("POISON");
+			add("poison");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.64,Screen.width/5,Screen.height/15),"Buy, $50")) {
 		if ((forkCount < 4)  && (PlayerStatus.money >= 50)) {
 			forkCount++;
 			PlayerStatus.money -=50;
-			add("FORK");
+			add("fork");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.56,Screen.width/5,Screen.height/15),"Buy, $50")) {
+	/*else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.56,Screen.width/5,Screen.height/15),"Buy, $50")) {
 		if ((reflectCount < 0)  && (PlayerStatus.money >= 50)) {
 			//reflectCount++;
 			//PlayerStatus.money -=50;
 			//add("REFLECT");
 		}
-	}
+	}*/
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.48,Screen.width/5,Screen.height/15),"Buy, $50")) {
 		if ((pierceCount < 4)  && (PlayerStatus.money >= 50)) {
 			pierceCount++;
 			PlayerStatus.money -=50;
-			add("PIERCE");
+			add("pierce");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.40,Screen.width/5,Screen.height/15),"Buy, $50")) {
 		if ((giantCount < 4)  && (PlayerStatus.money >= 50)) {
 			giantCount++;
 			PlayerStatus.money -=50;
-			add("GIANT");
+			add("giant");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.32,Screen.width/5,Screen.height/15),"Buy, $50")) {
 		if ((splashCount < 4) && (PlayerStatus.money >= 50)) {
 			splashCount++;
 			PlayerStatus.money -=50;
-			add("SPLASH");
+			add("splash");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.8,Screen.width/5,Screen.height/15),"Buy, $50")) {
 		if ((leechCount < 4)  && (PlayerStatus.money >= 50)) {
 			leechCount++;
 			PlayerStatus.money -=50;
-			add("LEECH");
+			add("leech");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.72,Screen.width/5,Screen.height/15),"Buy, $50")) {
+	/*else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.72,Screen.width/5,Screen.height/15),"Buy, $50")) {
 		if ((swordCount < 0)  && (PlayerStatus.money >= 50)) {
 			//swordCount++;
 			//PlayerStatus.money -=50;
 			//add("SWORD");
 		}
-	}
+	}*/
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.64,Screen.width/5,Screen.height/15),"Buy, $50")) {
 		if ((blindCount < 4)  && (PlayerStatus.money >= 50)) {
 			blindCount++;
 			PlayerStatus.money -=50;
-			add("BLIND");
+			add("blind");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.56,Screen.width/5,Screen.height/15),"Buy, $50")) {
 		if ((rapidCount < 4)  && (PlayerStatus.money >= 50)) {
 			rapidCount++;
 			PlayerStatus.money -=50;
-			add("RAPID");
+			add("rapid");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.48,Screen.width/5,Screen.height/15),"Buy, $50")) {
+	/*else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.48,Screen.width/5,Screen.height/15),"Buy, $50")) {
 		if ((homingCount < 0)  && (PlayerStatus.money >= 50)) {
 			homingCount++;
 			PlayerStatus.money -=50;
@@ -357,8 +357,11 @@ function OnGUI() {
 			//PlayerStatus.money -=50;
 			//add("METEOR");
 		}
-	}
+	}*/
 	else if (GUI.Button(Rect(Screen.width/3,Screen.height/1.2,Screen.width*0.30,Screen.height*0.10),"Go to Deck Building!")) {
 		Application.LoadLevel("deckBuilder");
+	}
+	else if (GUI.Button(Rect(Screen.width*6/8,Screen.height/1.2,Screen.width*0.10,Screen.height*0.10),"--->")) {
+		Application.LoadLevel("shop2");
 	}
 }
