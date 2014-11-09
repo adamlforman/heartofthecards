@@ -159,7 +159,7 @@ function spawnPlayer(x : int, y : int) {
 	
 	//add a rigidbody and boxcollider for collisions
 	
-	playerObject.AddComponent(BoxCollider2D);//Add a box collider
+	playerObject.AddComponent(CircleCollider2D);//Add a box collider
 	var rigidModel = playerObject.AddComponent(Rigidbody2D); 	//Add a rigid body for collisions
 	rigidModel.gravityScale = 0; 								//Turn off gravity
 	rigidModel.fixedAngle = true; 								//Set fixed angle to true
