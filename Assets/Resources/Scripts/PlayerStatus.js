@@ -1,11 +1,13 @@
 public var curHealth : int;		// Player's current health
 public var maxHealth : int;		// Player's maximum health
+public var haveKey : boolean;
 
 public var HUD : PlayerHUD;		// HUD script
 
 public static var money : int;
 
 function init () {				// Initialization function
+	haveKey = false;
 	curHealth = 100;
 	maxHealth = curHealth;
 	if (money != null) {
@@ -29,7 +31,7 @@ function addHealth(heal : int){		// Function to gain health
 	}
 }
 
-function takeDamage(damage : float){	// Take damage function
+function takeDamage(damage : float, magic : boolean){	// Take damage function
 	curHealth -= damage;				// take the damage
 	if (HUD) {
 		HUD.curHealth = curHealth;		// tell the HUD
@@ -37,7 +39,11 @@ function takeDamage(damage : float){	// Take damage function
 }
 //If something enters the levelEnd model
 function OnTriggerEnter2D(other : Collider2D) {
-	if (other.name == "LevelEnd") { //If it is the door
+	if (other.name == "Key") {
+		haveKey = true;
+		other.gameObject.GetComponent(KeyScript).collect();
+	}
+	if (other.name == "LevelEnd" && haveKey) { //If it is the door
 		money +=100;
 		Application.LoadLevel("shop"); //move to the deckbuilding interface
 	}
