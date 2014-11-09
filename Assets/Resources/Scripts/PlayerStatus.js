@@ -51,7 +51,7 @@ function OnTriggerEnter2D(other : Collider2D) {
 	}
 	if (other.name == "LevelEnd" && haveKey) { //If it is the door
 		money +=100;
-		Application.LoadLevel("shop"); //move to the deckbuilding interface
+		Application.LoadLevel("shop"); //move to the shop interface
 	}
 	if(other.gameObject.name == "Enemy Shot") {	// If it is an enemy arrow
 		if(!other.gameObject.GetComponent(EnemySpell).splash){

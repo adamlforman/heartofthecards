@@ -501,7 +501,7 @@ function OnGUI() {
 	
 	else if (GUI.Button(Rect(Screen.width/3.1,Screen.height/1.2,Screen.width*0.35,Screen.height*0.10),"Play Level 1 Again!")) {
 		if (theDeck.length == 20) {
-			Application.LoadLevel("level1refactor");
+			Application.LoadLevel("procedural");
 		}
 	}
 }
