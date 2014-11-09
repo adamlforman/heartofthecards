@@ -5,18 +5,16 @@ var maxX : int; //Max X value of the map
 var maxY : int; //Max Y value of the map
 var cam : GameCamera; //Forgot what type, will fix later
 var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
-var enemySpellbookScript : EnemySpellbook;
 var maxEnemies : int;
 
 
 //Start spawning the world
-function init(a : Array, exampleMesh : Mesh,enemySpellbookScript : EnemySpellbook, maxEnemies : int) {
+function init(a : Array, exampleMesh : Mesh, maxEnemies : int) {
 	world = a; //Set the world array to reference the array passed in
 	maxY = world.length; //Sets the max Y value of the map to be the length of the world array
 	maxX = world[0].length; //Sets the max X value of the map to be the length of the first array within the world array;
 	this.maxEnemies = maxEnemies;
 	this.exampleMesh = exampleMesh;
-	this.enemySpellbookScript = enemySpellbookScript;
 	spawnWorld(); //Spawns the world
 }
 
@@ -86,8 +84,21 @@ function spawnWorld() {
 function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T THINK WE NEED BOTH NAME AND TYPE, ONE COULD BE THE OTHER
 	
 	var enemyObject = new GameObject(); //Creates a new empty gameObject
-	var enemyStatusScript = enemyObject.AddComponent(EnemyStatus); //Attaches the enemyScript
+	
+	var enemyModel = new GameObject(); //Create enemyModel
+	var meshFilter = enemyModel.AddComponent(MeshFilter); //Add a meshfilter
+	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+	enemyModel.AddComponent(MeshRenderer); //Add a renderer for textures
+	enemyModel.SetActive(false); //Turn off the object so its script doesn't do anything until we're ready.
+	var model = enemyModel.AddComponent(CharModel); //Add a CharModel script to control visuals of the Player.
+	model.name = name + " Model"; //Name the Model
+	model.init(enemyObject, type); //Initialize the model
+	enemyModel.transform.parent = enemyObject.transform;
 	var enemyMoveScript = enemyObject.AddComponent(EnemyMove);	// attaches the other enemyscript
+	var enemySpellbookScript = enemyObject.AddComponent(EnemySpellbook); //Add the PlayerSpellbook script
+	enemySpellbookScript.init(type);
+	var enemyStatusScript = enemyObject.AddComponent(EnemyStatus); //Attaches the enemyScript
+	
 	enemyObject.transform.position = Vector3(x, y, -1); //move to spot
 	enemyObject.name = name; //set enemyObject name
 	enemyMoveScript.setTarget(player);
@@ -109,16 +120,18 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 	}
 	
 	
-	var enemyModel = new GameObject(); //Create enemyModel
-	var meshFilter = enemyModel.AddComponent(MeshFilter); //Add a meshfilter
-	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
-	enemyModel.AddComponent(MeshRenderer); //Add a renderer for textures
-	enemyModel.SetActive(false); //Turn off the object so its script doesn't do anything until we're ready.
-	var model = enemyModel.AddComponent(CharModel); //Add a CharModel script to control visuals of the Player.
-	model.name = name + " Model"; //Name the Model
-	model.init(enemyObject, type); //Initialize the model
-	var circleCollider = enemyObject.AddComponent(CircleCollider2D);//Add a circle collider
-	circleCollider.radius = .3; //set circle collider radius to .3
+	if(type == "warrior"){		//Give it a circle collider if it is a circle
+		var circleCol = enemyObject.AddComponent(CircleCollider2D);//Add a circle collider
+		circleCol.radius = .3;
+	}
+	else if(type == "archer"){	//Give it a triangle collider (NOT YET IMPLEMENTED)
+		var circleCol = enemyObject.AddComponent(CircleCollider2D);//Add a circle collider
+		circleCol.radius = .3;
+	}
+	else if(type == "mage"){	//Give it a box collider (i think the mage actually wants this?
+		enemyObject.AddComponent(BoxCollider2D);//Add a box collider
+	}
+>>>>>>> b277910550a58996c4200a52b07d783520acbf75
 	var rigidModel = enemyObject.AddComponent(Rigidbody2D); 	//Add a rigid body for collisions
 	rigidModel.gravityScale = 0; 								//Turn off gravity
 	rigidModel.fixedAngle = true; 								//Set fixed angle to true

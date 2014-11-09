@@ -22,18 +22,37 @@ function Start() {
 	spawnWorldScript = gameObject.AddComponent(SpawnWorldScript);
 	
 	//Add the spellbooks to the game manager object
-	enemySpellbookScript = gameObject.AddComponent(EnemySpellbook);
+	//enemySpellbookScript = gameObject.AddComponent(EnemySpellbook); 
 	
 	// inits the scripts
-	enemySpellbookScript.init();
+	//enemySpellbookScript.init(); //We don't want to do this, the spellbook now takes in a class type
 	world = buildWorldScript.proceduralInit(world, exampleMesh);
 	//buildWorldScript.init(world, exampleMesh);
-	spawnWorldScript.init(world, exampleMesh,enemySpellbookScript,25);
+	spawnWorldScript.init(world, exampleMesh,25);
 }
 
 function Update () {
 	if (Input.GetKeyDown("p") == true) {
 		Pause();
+	}
+	
+}
+
+function OnGUI(){
+	/*if(GUI.Button (Rect (Screen.width*0.85, Screen.height*0.05, Screen.width*0.12, Screen.height*0.07), "Pause")){
+		Pause();
+	}*/
+	if(isPaused==true){
+		GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "Menu");
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.35, Screen.width*0.25, Screen.height*0.07), "Resume")){
+			Pause();
+		}
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Restart")){
+			Application.LoadLevel("shop");
+		}
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.55, Screen.width*0.25, Screen.height*0.07), "Main Menu")){
+			Pause();
+		}
 	}
 }
 

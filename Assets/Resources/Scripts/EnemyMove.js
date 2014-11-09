@@ -23,6 +23,7 @@ var attackRange : float;	// Enemy's attack range
 
 var baseSpeed : float;			// enemy's speed
 var speed : float;
+var damage : int;
 
 
 var attack : function();
@@ -87,6 +88,10 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 		if(armored){
 			armor = 2;		//Archers get a small amount of armor
 		}
+		damage = 7;
+		if(raging){
+			damage += 2;
+		}
 		
 		aggroRange = 6;
 		leashRange = 10;
@@ -104,6 +109,10 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 		
 		if(armored){
 			armor = 4;		//Warriors get more armor.  Because melee.
+		}
+		damage = 5;
+		if(raging){
+			damage += 2;
 		}
 
 		
@@ -256,13 +265,7 @@ function incrementTimers() {			// All of our various timers (there'll be more)
 
 function warriorAttack() {				// The warrior's attack function
 	if (blindTimer <= 0) {
-
-		if(raging){
-			target.GetComponent(PlayerStatus).takeDamage(7,false);	// damage just happens
-		}
-		else{
-			target.GetComponent(PlayerStatus).takeDamage(5,false);	// damage just happens
-		}
+		spellbook.swing();
 
 		attackTimer = 3;									// 3 second recharge seems long, but w/e
 	}
@@ -281,4 +284,8 @@ function archerAttack() {				// the archer's attack function
 		attackTimer = 1;
 	}
 
+}
+
+function getDamage(){
+	return damage;
 }

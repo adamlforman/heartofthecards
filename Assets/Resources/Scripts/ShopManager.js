@@ -61,7 +61,7 @@ function Start () {
 		cardsOwned = PlayerSpellbook.cardsOwned;
 	}
 	else {
-		cardsOwned = ["ICE"];
+		cardsOwned = ["BLIND", "BLIND", "BLIND", "BLIND", "ICE", "ICE", "ICE", "ICE", "POISON", "POISON", "POISON", "POISON", "LEECH", "LEECH", "LEECH", "LEECH", "RAPID", "RAPID", "RAPID", "RAPID"];
 	}
 	//Goes through the deck and increments the card count variables
 	for (var i = 0; i < cardsOwned.length; i++) {

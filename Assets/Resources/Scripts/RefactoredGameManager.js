@@ -19,13 +19,13 @@ function Start() {
 	spawnWorldScript = gameObject.AddComponent(SpawnWorldScript);
 	
 	//Add the spellbooks to the game manager object
-	enemySpellbookScript = gameObject.AddComponent(EnemySpellbook);
+	//enemySpellbookScript = gameObject.AddComponent(EnemySpellbook);
 	
 	// inits the scripts
-	enemySpellbookScript.init();
+	//enemySpellbookScript.init();
 	//buildWorldScript.proceduralInit(world, exampleMesh);
 	buildWorldScript.init(world, exampleMesh);
-	spawnWorldScript.init(world, exampleMesh,enemySpellbookScript, 25);
+	spawnWorldScript.init(world, exampleMesh, 25);
 }
 
 /*function buildPlayer(name : String) {
