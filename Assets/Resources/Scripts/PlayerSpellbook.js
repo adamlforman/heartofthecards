@@ -163,7 +163,7 @@ function Update () {
 	
 	if(swinging){
 		if(rapid>0){
-			fistParent.transform.rotation *= Quaternion.Euler(0,0,6.0);
+			fistParent.transform.rotation *= Quaternion.Euler(0,0,9.0);
 		}
 		else{
 			fistParent.transform.rotation *= Quaternion.Euler(0,0,4.5);

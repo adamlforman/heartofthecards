@@ -9,7 +9,7 @@ public var type : String;
 public var poisonTimer : float;		// } Debuff timers
 public var poisonCounter : int; 		// }
 //public var blindTimer : float;		// }
-
+private var invulnerable : float;
 
 var hyper : boolean;
 var raging : boolean;
@@ -47,6 +47,7 @@ var healthBar : GameObject;
 
 function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook, prefix : String, suffix : String) {
 	exampleMesh = quadMesh;
+	invulnerable = 0;
 	/*
 	if(prefix == "hyper"){
 		hyper = true;
@@ -143,7 +144,7 @@ function Update () {
 
 function OnTriggerEnter2D(other : Collider2D){
 	//print("enemy");
-	if(other.gameObject.name == "Shot" || other.gameObject.name == "Fist" ) {
+	if(other.gameObject.name == "Shot") {
 		if(!other.gameObject.GetComponent(PlayerSpell).splash){
 			other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
 		}
@@ -154,19 +155,35 @@ function OnTriggerEnter2D(other : Collider2D){
 	if(other.gameObject.name == "Explosion") {
 		other.gameObject.GetComponent(Splash).hit(gameObject);
 	}
+
+}
+
+function OnTriggerStay2D(other : Collider2D){
+	if(invulnerable<=0){
+		if(other.gameObject.name == "Fist" ) {
+			if(!other.gameObject.GetComponent(PlayerSpell).splash){
+				other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
+			}
+			else{
+				other.gameObject.GetComponent(PlayerSpell).hit(gameObject);		//If we splash, dont make damage text yet.
+			}
+		}
+	}
 }
 
 
 function takeDamage(damage : float, magic : boolean){ 
-	if(magic){
-		curHealth -= (damage);
-		damageText(damage);
+	if(invulnerable<=0){
+		if(magic){
+			curHealth -= (damage);
+			damageText(damage);
+		}
+		else{
+			curHealth -= (damage-armor);
+			damageText(damage-armor);
+			invulnerable = 0.5;
+		}
 	}
-	else{
-		curHealth -= (damage-armor);
-		damageText(damage-armor);
-	}
-
 }
 
 function damageText(damage : int){
@@ -198,6 +215,7 @@ function processDebuffs() {
 function incrementTimers() {			// All of our various timers (there'll be more)
 	var tick : float = Time.deltaTime;
 	poisonTimer -= tick;
+	invulnerable -= tick;
 }
 
 function die() {						// How to die: a manual
