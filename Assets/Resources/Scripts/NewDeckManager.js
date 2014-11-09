@@ -71,7 +71,14 @@ function Start () {
 	homingCount = 0;
 	meteorCount = 0;
 	
-	cardsOwned = ShopManager.cardsOwned;
+	
+	if (ShopManager.cardsOwned != null) {
+		cardsOwned = ShopManager.cardsOwned;
+	}
+	else{
+		cardsOwned = ["BLIND", "BLIND", "BLIND", "BLIND", "ICE", "ICE", "ICE", "ICE", "POISON", "POISON", "POISON", "POISON", "LEECH", "LEECH", "LEECH", "LEECH", "RAPID", "RAPID", "RAPID", "RAPID"];
+	}
+	
 
 	
 	if (PlayerSpellbook.deck != null) {
