@@ -17,9 +17,10 @@ public var meteor : boolean = false;			//Does the shot have the "meteor" buff
 public var rapid : boolean = false;				//Does the shot have the "rapid" buff
 public var homing : boolean = false;			//Does the shot have the "homing" buff
 
+//Circle Specific Things.
 public var readyToPunch : boolean;
 
-//Circle Specific Things.
+
 
 
 function init(ice : float, poison : float, fork : float, reflect : float, pierce : float, giant : float, splash : float, leech : float, blind : float, meteor : float, rapid : float, homing : float, exampleMesh : Mesh, player : GameObject) {
@@ -68,7 +69,9 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	//Check
 	if(giant > 0){
 		this.giant=true;			//Set "giant" boolean to true
-		gameObject.transform.localScale = Vector3(0.6,2,1);
+		if(gameObject.name == "Shot"){
+			gameObject.transform.localScale = Vector3(0.6,2,1);
+		}
 	}
 	//check
 	if(splash > 0){
@@ -269,7 +272,6 @@ function updateBuffs(ice : float, poison : float, fork : float, reflect : float,
 	//Check
 	if(giant > 0){
 		this.giant=true;			//Set "giant" boolean to true
-		gameObject.transform.localScale = Vector3(0.6,2,1);
 	}
 	else{
 		this.giant = false;

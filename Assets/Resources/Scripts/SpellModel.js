@@ -21,6 +21,9 @@ function init(o : GameObject) {
 	else if(owner.name == "Fist"){
 		textureName = "Textures/FIST";					//Set the name of the texture path
 	}
+	else if(owner.name == "Enemy Fist"){
+		textureName = "Textures/Enemy Fist";					//Set the name of the texture path
+	}
 	renderer.material.mainTexture = Resources.Load(textureName, Texture2D);				// Set the texture.  Must be in Resources folder.
 	renderer.material.color = Color(1,1,1);												// Set the color (easy way to tint things).
 	renderer.material.shader = Shader.Find ("Transparent/Diffuse");						// Tell the renderer that our textures have transparency. 

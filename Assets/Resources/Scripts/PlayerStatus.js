@@ -47,7 +47,7 @@ function OnTriggerEnter2D(other : Collider2D) {
 		money +=100;
 		Application.LoadLevel("shop"); //move to the deckbuilding interface
 	}
-	if(other.gameObject.name == "Enemy Shot") {	// If it is an enemy arrow
+	if(other.gameObject.name == "Enemy Shot" || other.gameObject.name == "Enemy Fist" ) {	// If it is an enemy arrow
 		if(!other.gameObject.GetComponent(EnemySpell).splash){
 			other.gameObject.GetComponent(EnemySpell).hit(gameObject);	// Ask it to hit us please
 		}

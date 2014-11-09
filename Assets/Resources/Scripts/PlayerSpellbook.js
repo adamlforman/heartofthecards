@@ -6,7 +6,6 @@ public var pierce : float = 0;			//Amount of time that attacks have "pierce" buf
 public var giant : float = 0;			//Amount of time that attacks have "giant" buff
 public var splash : float = 0;			//Amount of time that attacks have "splash" buff
 public var leech : float = 0;			//Amount of time that attacks have "leech" buff
-public var sword : float = 0;			//Amount of time that attacks have "sword" buff
 public var blind : float = 0;			//Amount of time that attacks have "blind" buff
 public var meteor : float = 0;			//Amount of time that attacks have "meteor" buff
 public var rapid : float = 0;			//Amount of time that attacks have "rapid" buff
@@ -134,9 +133,6 @@ function Update () {
 	if(leech > 0){
 		leech-=Time.deltaTime;			//Decrement "leech" buff duration if it is above zero
 	}
-	if(sword > 0){
-		sword-=Time.deltaTime;			//Decrement "sword" buff duration if it is above zero
-	}
 	if(blind > 0){
 		blind-=Time.deltaTime;			//Decrement "blind" buff duration if it is above zero
 	}
@@ -154,7 +150,7 @@ function Update () {
 	
 	//Circle Stuff
 	fistParent.transform.localPosition = Vector3(0,0,-1);
-	fist.transform.localPosition = Vector3(1,0,0);
+	fist.transform.localPosition = Vector3(0.75,0,0);
 	if(cast1> 0 && cooldown<=0 && classType=="Circle"){					//if you are trying to shoot and can shoot
 		swing();							//Punch that mother fucker
 		fist.GetComponent(PlayerSpell).punchOn();
@@ -166,7 +162,12 @@ function Update () {
 	}
 	
 	if(swinging){
-		fistParent.transform.rotation *= Quaternion.Euler(0,0,4.5);
+		if(rapid>0){
+			fistParent.transform.rotation *= Quaternion.Euler(0,0,6.0);
+		}
+		else{
+			fistParent.transform.rotation *= Quaternion.Euler(0,0,4.5);
+		}
 		if(fistParent.transform.rotation == this.transform.rotation * Quaternion.Euler(0,0,180)){
 			fistParent.transform.rotation = this.transform.rotation;
 			swinging = false;
@@ -386,8 +387,12 @@ function Update () {
 	}
 		
 
-	
-	
+	if(giant>0){
+		fist.transform.localScale = Vector3(0.7,0.7,1);
+	}
+	else{
+		fist.transform.localScale = Vector3(0.35,0.35,1);
+	}
 }
 
 /*	var playerModel = new GameObject(); 						//Create a quad object to hold the tile texture.
