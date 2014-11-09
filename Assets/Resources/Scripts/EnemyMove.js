@@ -31,11 +31,21 @@ var attack : function();
 var wanderTimer : float;	// wandering finds a new point every wanderTimer seconds, and moves there.
 var attackTimer : float;	// delay between attacks -- set durin attack function
 
+var archerChase : boolean;
+
+private var size : float;
+private var center : Vector2;
+private var theCollider : CircleCollider2D;
 
 
-function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook, prefix : String, suffix : String) {
+
+function init (circCol : CircleCollider2D, quadMesh : Mesh, inType : String, spellbook : EnemySpellbook, prefix : String, suffix : String) {
 	//exampleMesh = quadMesh;
 	
+	
+	
+	
+	archerChase = false;
 	canMove = 0;
 	if(prefix == "hyper"){
 		hyper = true;
@@ -57,6 +67,10 @@ function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook, pre
 	
 	this.spellbook = spellbook;		// learn magic
 	//visualEffects();
+	
+	theCollider = circCol;
+	size = theCollider.radius;
+	center = theCollider.center;
 }
 
 function setValues (type : String) {		// ENEMY STATS BY CLASS
@@ -142,6 +156,13 @@ function Update() {
 		}
 		
 	}
+	
+	if ((distance <= 4) && (LoS == true)) {
+		archerChase = false;
+	}
+	else {
+		archerChase = true;
+	}
 }
 
 function FixedUpdate() {										// Enemy behaviour
@@ -159,25 +180,37 @@ function FixedUpdate() {										// Enemy behaviour
 }
 
 function chase(location : Vector2) {
-	face(location);						// face the target
-	if (canMove <= 0) {
+	face(location); // face the target
+	if (type.Equals("archer")) {
+		if ((archerChase == true) && (canMove <= 0)) {
+			transform.Translate(Vector2(0,speed*Time.deltaTime));	// and move forward
+		}
+	}
+	else {						
 		transform.Translate(Vector2(0,speed*Time.deltaTime));	// and move forward
 	}
 }
 
 
 function lineOfSight(location : Vector2) {														// Is there a rock in the way from my location to the target?
-	var hits : RaycastHit2D[] = (Physics2D.RaycastAll(transform.position,location - this.transform.position, Vector2.Distance(location, this.transform.position)));
-	Debug.DrawRay (transform.position, location - this.transform.position, Color.white);
-    for (var x: RaycastHit2D in hits) {
-    	if (x) {			// raycast
-    		if (x.collider.gameObject.transform.root.name == "Rocks") {													// if we hit a rock
-    			//print(hit.collider.gameObject.transform.root.name);															// DEBUG
-    	         return false;																		// we don't have LoS
-    	    }
-   		}
-   	}
-  	return true;
+	var LoS : boolean = true;
+	var position : Vector2 = transform.position;
+	for (var i : int = 0; i < 3; i++) {
+		var x : float = (position.x - size) + size * i;
+		var y : float = position.y;
+		var rayOrigin : Vector2 = Vector2(x, y);
+		var hits : RaycastHit2D[] = (Physics2D.RaycastAll(rayOrigin,location - this.transform.position, Vector2.Distance(location, this.transform.position)));
+		Debug.DrawRay (rayOrigin, location - this.transform.position, Color.white);
+	    for (var j: RaycastHit2D in hits) {
+	    	if (j) {			// raycast
+	    		if (j.collider.gameObject.transform.root.name == "Rocks") {													// if we hit a rock
+	    			//print(hit.collider.gameObject.transform.root.name);															// DEBUG
+	    	         LoS = false;																		// we don't have LoS
+	    	    }
+	   		}
+	   	}
+	}
+  	return LoS;
 }
 
 

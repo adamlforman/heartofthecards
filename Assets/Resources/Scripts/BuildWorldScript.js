@@ -3,6 +3,8 @@ var world : Array; //Array to hold the world
 var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 public var rockParent : GameObject;		//Parent Object for the rocks
 public var groundParent : GameObject;		//Parent Object for the grounds
+private var maxX : int;
+private var maxY : int;
 
 function proceduralInit(a : Array, exampleMesh : Mesh){
 	var plg : CreateLevel = gameObject.AddComponent(CreateLevel);
@@ -12,8 +14,8 @@ function proceduralInit(a : Array, exampleMesh : Mesh){
 	rockParent = new GameObject("Rocks");
 	groundParent = new GameObject("Grounds");
 	
-	var maxX = 60; //Max x value of map, explicitely set for now
-	var maxY = 50; //Max y value of map, explicitely set for now
+	maxX = 60; //Max x value of map, explicitely set for now
+	maxY = 50; //Max y value of map, explicitely set for now
 	world.length=maxY;	//world length = maximum Y value
 	world = plg.createLevel(maxX,maxY, world);
 	
@@ -31,40 +33,78 @@ function proceduralInit(a : Array, exampleMesh : Mesh){
 		}
 	}
 
+	var randomGroundXY : Array;
+	var thingsToAdd : Array;
+	var hashNames = new Object();
+	var randXT : int;
+	var randYT : int;
+	var stringName : String;
+	var stringCharacter : String;
 	
-		randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
-		randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
-		//While the randomly selected tile of the map is not just ground, reroll numbers
-		while(world[randY][randX]!= "G") {
-			randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
-			randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+	hashNames = {"L" : "LevelEnd", "K" : "Key", "C" : "Chest"};
+	thingsToAdd = ["L", "K", "P"];
+	
+	for (var k : int = 0; k < thingsToAdd.length; k++) {
+		stringCharacter = thingsToAdd[k];
+		randomGroundXY = getRandomGround();
+		randX = randomGroundXY[0];
+		randY = randomGroundXY[1];
+		if (stringCharacter != "P") {
+			stringName = hashNames[stringCharacter];
+			buildInteractables(stringName, randX, randY);
+			world[randY][randX] = world[randY][randX] + stringCharacter;
 		}
-		world[randY][randX] = world[randY][randX] + "L"; //Update the world array to show that there is also a levelend there
-		buildLevelEnd(randX,randY); //Builds the level end portal
-		
-		randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
-		randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
-		//While the randomly selected tile of the map is not just ground, reroll numbers
-		while(world[randY][randX]!= "G") {
-			randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
-			randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+		else {
+			world[randY][randX] = stringCharacter; //Why do i have to set to P and not GP?
 		}
-		world[randY][randX] = world[randY][randX] + "K"; //Update the world array to show that there is also a levelend there
-		buildKey(randX,randY); //Builds the level end portal
-		
-		
-		// designate the player start location
-		randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
-		randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
-		//While the randomly selected tile of the map is not just ground, reroll numbers
-		while(world[randY][randX]!= "G") {
-			randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
-			randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
-		}
-		world[randY][randX] = "P"; //Update the world array to show that there is a player there
-		
+	}
+	
 
+	
+	/*
+	//WHHHHHY
+	var randX : int = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
+	var randY : int = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+	//While the randomly selected tile of the map is not just ground, reroll numbers
+	while(world[randY][randX]!= "G") {
+		randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
+		randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+	}
+	world[randY][randX] = world[randY][randX] + "L"; //Update the world array to show that there is also a levelend there
+	buildInteractables(hashNames["L"], randX,randY); //Builds the level end portal 
+	
+	randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
+	randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+	//While the randomly selected tile of the map is not just ground, reroll numbers
+	while(world[randY][randX]!= "G") {
+		randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
+		randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+	}
+	world[randY][randX] = world[randY][randX] + "K"; //Update the world array to show that there is also a levelend there
+	buildInteractables(hashNames["K"], randX,randY); //Builds the level end portal
+	
+	
+	// designate the player start location
+	randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
+	randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+	//While the randomly selected tile of the map is not just ground, reroll numbers
+	while(world[randY][randX]!= "G") {
+		randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
+		randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+	}
+	world[randY][randX] = "P"; //Update the world array to show that there is a player there
+	*/
 	return world;
+}
+
+function getRandomGround() {
+	var randX : int = Random.Range(0, maxX-1);
+	var randY : int = Random.Range(0, maxY-1);
+	while(world[randY][randX] != "G") {
+		randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
+		randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+	}
+	return [randX, randY];
 }
 
 //Start building the world
@@ -161,7 +201,7 @@ function buildWorld() {
 			}
 		}
 	}
-	buildLevelEnd(22, 48); //Builds the level end portal
+	//buildLevelEnd(22, 48); //Builds the level end portal
 }
 
 //Builds a rock object
@@ -212,7 +252,7 @@ function buildGround(x : float, y : float){
 	terrainScript.name = "Ground"; //Give the terrain object a name in the Hierarchy pane.
 	terrainScript.transform.parent = groundParent.transform;
 }
-
+/*
 //Builds the level end
 function buildLevelEnd(x: float, y : float) {
 	var levelEndObject = new GameObject(); //Creates a new empty game object that will hold the level end portal
@@ -235,6 +275,18 @@ function buildKey(x: float, y : float) {
 	levelEndScript.transform.position = Vector3(x,y,-1);	// Position the at x,y.
 	levelEndScript.init(exampleMesh); //Initialize the script.
 	levelEndScript.name = "Key";// Give the object a name in the Hierarchy pane.
+}*/
+
+function buildInteractables(name : String, x: float, y : float) {
+	var interactableObject = new GameObject(); //Creates a new empty game object that will hold the chest
+	var scriptString = name + "Script"; //String with name + script for clarity
+	var interactableScript = interactableObject.AddComponent(scriptString); //Adds the  script to the object.	
+	var boxCollider2D = interactableObject.AddComponent(BoxCollider2D); //Add a box collider
+	boxCollider2D.isTrigger = true; //It is a trigger	
+	interactableScript.transform.position = Vector3(x,y,-1);	// Position the at x,y.
+	interactableScript.init(exampleMesh); //Initialize the script.
+	interactableScript.name = name;// Give the object a name in the Hierarchy pane.
 }
+
 
 //COMMENTS ARE FUN!

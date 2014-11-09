@@ -5,8 +5,8 @@
 	modelObject.AddComponent(MeshRenderer); //Add a renderer for textures
 	modelObject.SetActive(false); //Turn off the object so its script doesn't do anything until we're ready.
 		
-	model = modelObject.AddComponent(LevelEndModel); //Add a model script to control visuals of the portal.
-	model.init(this); //Initialize the portalmodel.
+	model = modelObject.AddComponent(ChestModel); //Add a model script to control visuals of the portal.
+	model.init(this); //Initialize the chestmodel.
 
 	modelObject.SetActive(true);//Turn on the object (the Update function will start being called).
 }

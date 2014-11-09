@@ -5,7 +5,7 @@ var world : Array; //Array to hold the world
 var player : GameObject;	//The player object
 var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 
-var isPaused : boolean;
+public static var isPaused : boolean;
 
 function Start() {
 	isPaused = false;

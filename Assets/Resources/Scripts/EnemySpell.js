@@ -122,9 +122,10 @@ function hit(other : GameObject){		// how to hit something
 	//Now if there was no splash
 	else{
 		if(other.name == "ROCK"){
-					Destroy(gameObject);		//destroy the arrow if it hits a rock
+			Destroy(gameObject);		//destroy the arrow if it hits a rock
 		}
 		if(other.name == "Player"){
+			other.GetComponent(PlayerStatus).takeDamage(7,false);
 			applyStatus(other);					//apply status debuffs to the enemy we hit
 			if(!pierce){
 				Destroy(gameObject); 		// DANGER WILL ROBINSON THIS WILL MAKE PIERCING ARROWS ONE-SHOT EVERYTHING I MEAN EVERYTHING

@@ -39,8 +39,10 @@ private var fistParent : GameObject;	//The child of the player that will move th
 private var rotationSpeed = 0.1;
 public var swinging = false;
 
+private var isPaused : boolean;
 
 function init(classType : String) {
+	isPaused = ProceduralGameManager.isPaused;
 	
 	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
 	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
@@ -108,8 +110,7 @@ function init(classType : String) {
 }
 
 function Update () {
-	
-	
+	isPaused = ProceduralGameManager.isPaused;
 	if(ice > 0){
 		ice-=Time.deltaTime;			//Decrement "ice" buff duration if it is above zero
 	}
@@ -165,7 +166,7 @@ function Update () {
 		}
 	}
 	
-	if(swinging){
+	if(swinging && (isPaused == false)){
 		fistParent.transform.rotation *= Quaternion.Euler(0,0,4.5);
 		if(fistParent.transform.rotation == this.transform.rotation * Quaternion.Euler(0,0,180)){
 			fistParent.transform.rotation = this.transform.rotation;
@@ -187,7 +188,7 @@ function Update () {
 		cooldown-=Time.deltaTime;					//decrement cooldown
 	}
 	
-	if(Input.GetKeyDown ("1") && slot1Timer==-5){	//When they press 1...
+	if(Input.GetKeyDown ("1") && slot1Timer==-5 && (isPaused == false)){	//When they press 1...
 		slot1Timer = 5;
 		
 		//Check the card we just used.  BRACE YOURSELF
@@ -232,7 +233,7 @@ function Update () {
 		}
 		
 	}
-	if(Input.GetKeyDown ("2") && slot2Timer==-5){	//When they press 2...
+	if(Input.GetKeyDown ("2") && slot2Timer==-5 && (isPaused == false)){	//When they press 2...
 		slot2Timer = 5;
 		
 		//Check the card we just used.  BRACE YOURSELF
@@ -276,7 +277,7 @@ function Update () {
 			meteor=5;
 		}
 	}
-	if(Input.GetKeyDown ("3") && slot3Timer==-5){	//When they press 3...
+	if(Input.GetKeyDown ("3") && slot3Timer==-5 && (isPaused == false)){	//When they press 3...
 		slot3Timer = 5;
 		
 		//Check the card we just used.  BRACE YOURSELF
@@ -409,6 +410,7 @@ function shot (player : GameObject){
 		spawnShot(player, Vector3(0,0,0));
 	}
 }
+
 
 function spawnShot(player : GameObject, rotate : Vector3){
 	var projectile = new GameObject();											//create a projectile

@@ -84,6 +84,7 @@ function spawnWorld() {
 
 //Spawns an enemy at a specific location given a name and type;
 function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T THINK WE NEED BOTH NAME AND TYPE, ONE COULD BE THE OTHER
+	
 	var enemyObject = new GameObject(); //Creates a new empty gameObject
 	var enemyStatusScript = enemyObject.AddComponent(EnemyStatus); //Attaches the enemyScript
 	var enemyMoveScript = enemyObject.AddComponent(EnemyMove);	// attaches the other enemyscript
@@ -107,8 +108,6 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 		suffix = "juggernaut";
 	}
 	
-    enemyStatusScript.init(exampleMesh,type,enemySpellbookScript, prefix, suffix);
-    enemyMoveScript.init(exampleMesh,type,enemySpellbookScript, prefix, suffix);
 	
 	var enemyModel = new GameObject(); //Create enemyModel
 	var meshFilter = enemyModel.AddComponent(MeshFilter); //Add a meshfilter
@@ -118,12 +117,16 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 	var model = enemyModel.AddComponent(CharModel); //Add a CharModel script to control visuals of the Player.
 	model.name = name + " Model"; //Name the Model
 	model.init(enemyObject, type); //Initialize the model
-	enemyObject.AddComponent(BoxCollider2D);//Add a box collider
+	var circleCollider = enemyObject.AddComponent(CircleCollider2D);//Add a circle collider
+	circleCollider.radius = .3; //set circle collider radius to .3
 	var rigidModel = enemyObject.AddComponent(Rigidbody2D); 	//Add a rigid body for collisions
 	rigidModel.gravityScale = 0; 								//Turn off gravity
 	rigidModel.fixedAngle = true; 								//Set fixed angle to true
 	enemyModel.SetActive(true);								//Turn on the object.
 	//enemyScript.init(gameObject,enemyObject,player,name, type,x,y);	//Initializes the enemyScript
+	
+	enemyStatusScript.init(exampleMesh,type,enemySpellbookScript, prefix, suffix);
+    enemyMoveScript.init(circleCollider, exampleMesh,type,enemySpellbookScript, prefix, suffix);
 }
 
 //Spawns a player at a specific location
