@@ -225,10 +225,10 @@ function warriorAttack() {				// The warrior's attack function
 	if (blindTimer <= 0) {
 
 		if(raging){
-			target.GetComponent(PlayerStatus).takeDamage(7);	// damage just happens
+			target.GetComponent(PlayerStatus).takeDamage(7,false);	// damage just happens
 		}
 		else{
-			target.GetComponent(PlayerStatus).takeDamage(5);	// damage just happens
+			target.GetComponent(PlayerStatus).takeDamage(5,false);	// damage just happens
 		}
 
 		attackTimer = 3;									// 3 second recharge seems long, but w/e
