@@ -119,19 +119,20 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 		suffix = "juggernaut";
 	}
 	
-	
-	if(type == "warrior"){		//Give it a circle collider if it is a circle
-		var circleCol = enemyObject.AddComponent(CircleCollider2D);//Add a circle collider
+	var circleCol : CircleCollider2D;
+	circleCol = enemyObject.AddComponent(CircleCollider2D);//Add a circle collider
+	circleCol.radius = .3;
+	/*if(type == "warrior"){		//Give it a circle collider if it is a circle
+		circleCol = enemyObject.AddComponent(CircleCollider2D);//Add a circle collider
 		circleCol.radius = .3;
 	}
 	else if(type == "archer"){	//Give it a triangle collider (NOT YET IMPLEMENTED)
-		var circleCol = enemyObject.AddComponent(CircleCollider2D);//Add a circle collider
+		circleCol = enemyObject.AddComponent(CircleCollider2D);//Add a circle collider
 		circleCol.radius = .3;
 	}
 	else if(type == "mage"){	//Give it a box collider (i think the mage actually wants this?
 		enemyObject.AddComponent(BoxCollider2D);//Add a box collider
-	}
->>>>>>> b277910550a58996c4200a52b07d783520acbf75
+	}*/
 	var rigidModel = enemyObject.AddComponent(Rigidbody2D); 	//Add a rigid body for collisions
 	rigidModel.gravityScale = 0; 								//Turn off gravity
 	rigidModel.fixedAngle = true; 								//Set fixed angle to true
@@ -139,7 +140,7 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 	//enemyScript.init(gameObject,enemyObject,player,name, type,x,y);	//Initializes the enemyScript
 	
 	enemyStatusScript.init(exampleMesh,type,enemySpellbookScript, prefix, suffix);
-    enemyMoveScript.init(circleCollider, exampleMesh,type,enemySpellbookScript, prefix, suffix);
+    enemyMoveScript.init(circleCol, exampleMesh,type,enemySpellbookScript, prefix, suffix);
 }
 
 //Spawns a player at a specific location

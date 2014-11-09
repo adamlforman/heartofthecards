@@ -149,7 +149,6 @@ function hit(other : GameObject){		// how to hit something
 						Destroy(gameObject); 		
 					}
 				}
->>>>>>> b277910550a58996c4200a52b07d783520acbf75
 			}
 		}
 	}
