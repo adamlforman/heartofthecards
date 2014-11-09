@@ -138,7 +138,7 @@ function buildRock(x : float, y : float){
 function buildGround(x : float, y : float){
 	var terrainObject = new GameObject(); //Create a new empty game object that will hold a terrain.
 	var terrainScript = terrainObject.AddComponent(TerrainScript); //Add the terrain script to the object.
-	var rand = Random.Range(1, 4); //Temp variable to store a random number between 1 and 4 (inclusive)
+	var rand = Random.Range(1, 3); //Temp variable to store a random number between 1 and 4 (inclusive)
 	terrainType = "Ground" + rand; //Sets the terrain type that will be passed to the terrainScript to Ground + rand
 	terrainScript.transform.position = Vector3(x,y,0); //Position the terrain at x,y.
 	terrainScript.init(terrainType, exampleMesh); //Initialize the terrain script.
