@@ -5,7 +5,10 @@ var world : Array; //Array to hold the world
 var player : GameObject;	//The player object
 var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 
+var isPaused : boolean;
+
 function Start() {
+	isPaused = false;
 	world = new Array(); //Initializes the world array
 	
 	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
@@ -28,6 +31,22 @@ function Start() {
 	spawnWorldScript.init(world, exampleMesh,enemySpellbookScript,25);
 }
 
+function Update () {
+	if (Input.GetKeyDown("p") == true) {
+		Pause();
+	}
+}
+
+function Pause() {
+	if (isPaused == true) {
+		Time.timeScale = 1;
+		isPaused = false;
+	}
+	else {
+		Time.timeScale = 0;
+		isPaused = true;
+	}
+}
 /*function buildPlayer(name : String) {
 	var playerMoveScript = player.AddComponent(PlayerMove);
 	
