@@ -41,7 +41,7 @@ function proceduralInit(a : Array, exampleMesh : Mesh){
 	var stringName : String;
 	var stringCharacter : String;
 	
-	hashNames = {"L" : "LevelEnd", "K" : "Key", "C" : "Chest"};
+	hashNames = {"L" : "LevelEnd", "K" : "Key", "C" : "Chest", "V" : "Vrom", "S" : "Spikes", "T" : "Tar"};
 	thingsToAdd = ["L", "K", "P"];
 	
 	for (var k : int = 0; k < thingsToAdd.length; k++) {
@@ -252,6 +252,7 @@ function buildGround(x : float, y : float){
 	terrainScript.name = "Ground"; //Give the terrain object a name in the Hierarchy pane.
 	terrainScript.transform.parent = groundParent.transform;
 }
+
 /*
 //Builds the level end
 function buildLevelEnd(x: float, y : float) {

@@ -1,19 +1,37 @@
-﻿public var speed : float = 3;
+﻿public static var speed : float = 3;
+private var baseSpeed : float = 3;
 private var currentSpeedx : float;
 private var currentSpeedy : float;
 private var acceleration : float = 1;
 private var amountToMove : Vector2;
+public static var vrom : float;
+public static var tar : float;
 
 
 function init() {
+	vrom = 0;
+	tar = 0;
 		// currently does nothing
 }
 
 function Update () {
-         var mouseScreen : Vector3 = Input.mousePosition;
-         var mouse : Vector3 = Camera.main.ScreenToWorldPoint(mouseScreen);
- 
-         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(mouse.y - transform.position.y, mouse.x - transform.position.x) * Mathf.Rad2Deg - 90);
+	if (vrom > 0) {
+		speed = baseSpeed + 2;
+		vrom -=Time.deltaTime;
+	}
+	else {
+		speed = baseSpeed;
+	}
+	if (tar > 0) {
+		speed = baseSpeed - 2;;
+		vrom -=Time.deltaTime;
+	}
+	else {
+		speed = baseSpeed;
+	}
+	var mouseScreen : Vector3 = Input.mousePosition;
+    var mouse : Vector3 = Camera.main.ScreenToWorldPoint(mouseScreen);
+ 	transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(mouse.y - transform.position.y, mouse.x - transform.position.x) * Mathf.Rad2Deg - 90);
  }
 
 function FixedUpdate (){

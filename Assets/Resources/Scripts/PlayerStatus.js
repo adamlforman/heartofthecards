@@ -57,6 +57,15 @@ function OnTriggerEnter2D(other : Collider2D) {
 	else if (other.name == "Chest") {
 		chestLoot();
 	}
+	else if (other.name == "Vrom") {
+		PlayerMove.vrom = 2;
+	}
+	else if (other.name == "Tar") {
+		PlayerMove.tar = 2;
+	}
+	else if (other.name == "Spikes") {
+		takeDamage(6, false);
+	}
 	else if (other.name == "LevelEnd" && haveKey) { //If it is the door
 		money +=100;
 		Application.LoadLevel("shop"); //move to the shop interface
