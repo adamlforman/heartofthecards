@@ -40,8 +40,11 @@ function FixedUpdate (){
 	var moveX : float = Input.GetAxis ("Horizontal"); //horizontal movespeed
 	
 	var moveDirection : Vector3 = Vector3(moveX, moveY, 0);
+	if (moveDirection.magnitude > 1) {
+		moveDirection = moveDirection.normalized;
+	}
 	if(moveY!=0 || moveX != 0){
-		transform.Translate(speed*Time.deltaTime * moveDirection.normalized, Space.World); //moves player
+		transform.Translate(speed*Time.deltaTime * moveDirection, Space.World); //moves player
 	}
 	//if(moveX!=0){
 	//	transform.Translate(Vector3(moveX * Time.deltaTime, 0, 0), Space.World); //moves player horizontally

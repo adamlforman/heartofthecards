@@ -269,7 +269,7 @@ function OnGUI() {
 	//GUI.Text(Rect(150,25,200,40),"Build Your theDeck!");
 	
 	if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.8,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((iceCount < 4) && (PlayerStatus.money >= 0)) {
+		if ((iceCount < 4) && (PlayerStatus.money >= 50)) {
 			iceCount++;
 			PlayerStatus.money -=50;
 			add("ice");

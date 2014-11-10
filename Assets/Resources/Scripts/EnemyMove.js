@@ -96,7 +96,7 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 		}
 		
 		aggroRange = 6;
-		leashRange = 10;
+		leashRange = 8;
 		attackRange = 5;
 	}
 	else if (type.Equals("warrior")) {		// warrior
@@ -119,8 +119,30 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 
 		
 		aggroRange = 6;
-		leashRange = 15;
+		leashRange = 8;
 		attackRange = 1.5;
+	}
+	else if (type.Equals("mage")) {
+		attack = mageAttack;
+		
+		baseSpeed = 2.5f;
+		
+		if (hyper) {
+			baseSpeed = baseSpeed*1.2;
+		}
+		curHealth = 40;
+		
+		if (armored) {
+			armor = 3;	// mages get more than archers but less than warriors
+		}
+		damage = 9;		// mages motherfucking hurt. better dodge.
+		if (raging) {
+			damage += 3;
+		}
+		
+		aggroRange = 6;
+		leashRange = 8;
+		attackRange = 5;
 	}
 	else Debug.Log("INVALID ENEMY TYPE: '"+ type+"'");	// is all we have at the moment
 }
@@ -294,6 +316,14 @@ function archerAttack() {				// the archer's attack function
 		attackTimer = 1;
 	}
 
+}
+
+function mageAttack() {
+	// MAGES can't be blinded, so no blindTimer
+	spellbook.comet(gameObject,target);
+	canMove =  1;	// LONG attack lag
+	attackTimer = 4.5;	// Long attack delat
+	
 }
 
 function getDamage(){

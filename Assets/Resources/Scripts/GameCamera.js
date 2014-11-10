@@ -45,3 +45,14 @@ function setTarget(p : GameObject) {
 	transform.position = Vector3(target.position.x, target.position.y, -14);
 	camera.orthographicSize = 5;
 }
+
+function setBounds(minX : float, maxX: float, minY : float, maxY : float) {
+	this.minX = minX;
+	this.minY = minY;
+	this.maxX = maxX;
+	this.maxY = maxY;
+}
+
+function setZoom(newZoom : float) {
+	camera.orthographicSize = newZoom;
+}

@@ -20,6 +20,9 @@ public var homing : boolean = false;			//Does the shot have the "homing" buff
 //Circle Specific Things.
 public var readyToPunch : boolean;
 
+// Square specific things
+public var delayTimer : float;
+
 
 
 function init(ice : float, poison : float, fork : float, reflect : float, pierce : float, giant : float, splash : float, leech : float, blind : float, meteor : float, rapid : float, homing : float, exampleMesh : Mesh, enemy : GameObject, damage : int) {
@@ -39,6 +42,11 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	}
 	else if(this.name == "Enemy Fist"){
 		model.name = "Enemy Fist Model";
+	}
+	else if (this.name == "Enemy Comet") {
+		delayTimer = 1;
+		readyToPunch = true;
+		model.name = "Enemy Comet Model";
 	}
 	this.enemy = enemy;
 	
@@ -116,6 +124,19 @@ function Update() {
 	if(name == "Enemy Shot"){
 		transform.Translate(Vector2.up * movespeed * Time.deltaTime);
 	}
+	if(name == "Enemy Comet") {
+		delayTimer -= Time.deltaTime;
+		if (delayTimer <= 0) {
+			var size : float = 0.5;
+			if (giant) {
+				size = size*1.5;
+			}
+			for (other in Physics2D.OverlapCircleAll(transform.position, size)) {
+				hit (other.gameObject);
+			}
+			Destroy(gameObject);
+		}
+	}
 }
 
 function hit(other : GameObject){		// how to hit something
@@ -156,7 +177,7 @@ function hit(other : GameObject){		// how to hit something
 
 //All of the basic attack status buffs
 function applyStatus(target : GameObject){
-	target.GetComponent(PlayerStatus).takeDamage(enemy.GetComponent(EnemyMove).getDamage(), false);
+	target.GetComponent(PlayerStatus).takeDamage(damage, false);
 	if(ice){
 		target.GetComponent(PlayerStatus).ice = 5;							//Apply ice if arrow is iced
 	}

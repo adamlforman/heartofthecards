@@ -120,6 +120,12 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 		//leashRange = 15;
 		//attackRange = 1.5;
 	}
+	else if (type.Equals("mage")) {
+		curHealth = 30;
+		if (armored) {
+			armor = 3;
+		}
+	}
 	else Debug.Log("INVALID ENEMY TYPE: '"+ type+"'");	// is all we have at the moment
 	maxHealth = curHealth;					// this will always happen (..... right?)
 }

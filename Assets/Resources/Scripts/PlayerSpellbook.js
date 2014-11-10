@@ -110,6 +110,9 @@ function init(classType : String) {
 		playerSpellScript.name = "Fist";
 		fist.SetActive(true);
 	}
+	else if (classType == "Square") {
+		
+	}
 }
 
 function Update () {
@@ -154,41 +157,66 @@ function Update () {
 	var cast1 : float = Input.GetAxis("Fire1");		//variable that checks if you are trying to attack
 	
 	//Circle Stuff
-	fistParent.transform.localPosition = Vector3(0,0,-1);
-	fist.transform.localPosition = Vector3(0.75,0,0);
-	if(cast1> 0 && cooldown<=0 && classType=="Circle"){					//if you are trying to shoot and can shoot
-		swing();							//Punch that mother fucker
-		fist.GetComponent(PlayerSpell).punchOn();
-		fist.GetComponent(PlayerSpell).updateBuffs(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing);
-		cooldown+=1;								//increment cooldown
-		if(rapid>0){
-			cooldown-=0.5;
+	if (classType == "Circle") {
+		fistParent.transform.localPosition = Vector3(0,0,-1);
+		fist.transform.localPosition = Vector3(0.75,0,0);
+		if(cast1> 0 && cooldown<=0 && classType=="Circle"){					//if you are trying to shoot and can shoot
+			swing();							//Punch that mother fucker
+			fist.GetComponent(PlayerSpell).punchOn();
+			fist.GetComponent(PlayerSpell).updateBuffs(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing);
+			cooldown+=1;								//increment cooldown
+			if(rapid>0){
+				cooldown-=0.5;
+			}
 		}
-	}
-	
-	if(swinging  && (isPaused ==false)){
-		if(rapid>0){
-			fistParent.transform.rotation *= Quaternion.Euler(0,0,9.0);
+		
+		if(swinging  && (isPaused ==false)){
+			if(rapid>0){
+				fistParent.transform.rotation *= Quaternion.Euler(0,0,9.0);
+			}
+			else{
+				fistParent.transform.rotation *= Quaternion.Euler(0,0,4.5);
+			}
+			if(fistParent.transform.rotation == this.transform.rotation * Quaternion.Euler(0,0,180)){
+				fistParent.transform.rotation = this.transform.rotation;
+				swinging = false;
+				fist.GetComponent(PlayerSpell).punchOff();
+			}
+		}
+		if(giant>0){
+			fist.transform.localScale = Vector3(0.7,0.7,1);
 		}
 		else{
-			fistParent.transform.rotation *= Quaternion.Euler(0,0,4.5);
-		}
-		if(fistParent.transform.rotation == this.transform.rotation * Quaternion.Euler(0,0,180)){
-			fistParent.transform.rotation = this.transform.rotation;
-			swinging = false;
-			fist.GetComponent(PlayerSpell).punchOff();
+			fist.transform.localScale = Vector3(0.35,0.35,1);
 		}
 	}
 	
 	
 	//Triangle Stuff
-	if(cast1> 0 && cooldown<=0 && classType=="Triangle"){					//if you are trying to shoot and can shoot
-		shot(gameObject);							//spawn a projectile
-		cooldown+=1;								//increment cooldown
-		if(rapid>0){
-			cooldown-=0.5;
+	if (classType == "Triangle") {
+		if(cast1> 0 && cooldown<=0){					//if you are trying to shoot and can shoot
+			shot(gameObject);							//spawn a projectile
+			cooldown+=1;								//increment cooldown
+			if(rapid>0){
+				cooldown-=0.5;
+			}
 		}
 	}
+	
+	//Square Stuff
+	if (classType == "Square") {
+		if(cast1 > 0 && cooldown <= 0) {
+			print("BOOM");
+			var target : Vector2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			comet(gameObject, target);
+			cooldown = 2;
+			if (rapid > 0) {
+				cooldown = 1;
+			}
+		}
+	}
+	
+	
 	if(cooldown>0){
 		cooldown-=Time.deltaTime;					//decrement cooldown
 	}
@@ -203,11 +231,17 @@ function Update () {
 		if(slot1=="ice2"){
 			ice=10;
 		}
+		if(slot1=="ice3"){
+			ice=15;
+		}
 		if(slot1=="poison"){
 			poison=5;
 		}
 		if(slot1=="poison2"){
 			poison=10;
+		}
+		if(slot1=="poison3"){
+			poison=15;
 		}
 		if(slot1=="fork"){
 			fork=5;
@@ -215,11 +249,17 @@ function Update () {
 		if(slot1=="fork2"){
 			fork=10;
 		}
+		if(slot1=="fork3"){
+			fork=15;
+		}
 		if(slot1=="pierce"){
 			pierce=5;
 		}
 		if(slot1=="pierce2"){
 			pierce=10;
+		}
+		if(slot1=="pierce3"){
+			pierce=15;
 		}
 		if(slot1=="giant"){
 			giant=5;
@@ -227,11 +267,17 @@ function Update () {
 		if(slot1=="giant2"){
 			giant=10;
 		}
+		if(slot1=="giant3"){
+			giant=15;
+		}
 		if(slot1=="splash"){
 			splash=5;
 		}
 		if(slot1=="splash2"){
 			splash=10;
+		}
+		if(slot1=="splash3"){
+			splash=15;
 		}
 		if(slot1=="leech"){
 			leech=5;
@@ -239,17 +285,26 @@ function Update () {
 		if(slot1=="leech2"){
 			leech=10;
 		}
+		if(slot1=="leech3"){
+			leech=15;
+		}
 		if(slot1=="blind"){
 			blind=5;
 		}
 		if(slot1=="blind2"){
 			blind=10;
 		}
+		if(slot1=="blind3"){
+			blind=15;
+		}
 		if(slot1=="rapid"){
 			rapid=5;
 		}
 		if(slot1=="rapid2"){
 			rapid=10;
+		}
+		if(slot1=="rapid3"){
+			rapid=15;
 		}
 		
 	}
@@ -263,11 +318,17 @@ function Update () {
 		if(slot2=="ice2"){
 			ice=10;
 		}
+		if(slot2=="ice3"){
+			ice=15;
+		}
 		if(slot2=="poison"){
 			poison=5;
 		}
 		if(slot2=="poison2"){
 			poison=10;
+		}
+		if(slot2=="poison3"){
+			poison=15;
 		}
 		if(slot2=="fork"){
 			fork=5;
@@ -275,11 +336,17 @@ function Update () {
 		if(slot2=="fork2"){
 			fork=10;
 		}
+		if(slot2=="fork3"){
+			fork=15;
+		}
 		if(slot2=="pierce"){
 			pierce=5;
 		}
 		if(slot2=="pierce2"){
 			pierce=10;
+		}
+		if(slot2=="pierce3"){
+			pierce=15;
 		}
 		if(slot2=="giant"){
 			giant=5;
@@ -287,11 +354,17 @@ function Update () {
 		if(slot2=="giant2"){
 			giant=10;
 		}
+		if(slot2=="giant3"){
+			giant=15;
+		}
 		if(slot2=="splash"){
 			splash=5;
 		}
 		if(slot2=="splash2"){
 			splash=10;
+		}
+		if(slot2=="splash3"){
+			splash=15;
 		}
 		if(slot2=="leech"){
 			leech=5;
@@ -299,17 +372,26 @@ function Update () {
 		if(slot2=="leech2"){
 			leech=10;
 		}
+		if(slot2=="leech3"){
+			leech=15;
+		}
 		if(slot2=="blind"){
 			blind=5;
 		}
 		if(slot2=="blind2"){
 			blind=10;
 		}
+		if(slot2=="blind3"){
+			blind=15;
+		}
 		if(slot2=="rapid"){
 			rapid=5;
 		}
 		if(slot2=="rapid2"){
 			rapid=10;
+		}
+		if(slot2=="rapid3"){
+			rapid=15;
 		}
 	}
 	if(Input.GetKeyDown ("3") && slot3Timer==-5 && (isPaused == false)){	//When they press 3...
@@ -322,11 +404,17 @@ function Update () {
 		if(slot3=="ice2"){
 			ice=10;
 		}
+		if(slot3=="ice3"){
+			ice=15;
+		}
 		if(slot3=="poison"){
 			poison=5;
 		}
 		if(slot3=="poison2"){
 			poison=10;
+		}
+		if(slot3=="poison3"){
+			poison=15;
 		}
 		if(slot3=="fork"){
 			fork=5;
@@ -334,11 +422,17 @@ function Update () {
 		if(slot3=="fork2"){
 			fork=10;
 		}
+		if(slot3=="fork3"){
+			fork=15;
+		}
 		if(slot3=="pierce"){
 			pierce=5;
 		}
 		if(slot3=="pierce2"){
 			pierce=10;
+		}
+		if(slot3=="pierce3"){
+			pierce=15;
 		}
 		if(slot3=="giant"){
 			giant=5;
@@ -346,11 +440,17 @@ function Update () {
 		if(slot3=="giant2"){
 			giant=10;
 		}
+		if(slot3=="giant3"){
+			giant=15;
+		}
 		if(slot3=="splash"){
 			splash=5;
 		}
 		if(slot3=="splash2"){
 			splash=10;
+		}
+		if(slot3=="splash3"){
+			splash=15;
 		}
 		if(slot3=="leech"){
 			leech=5;
@@ -358,17 +458,26 @@ function Update () {
 		if(slot3=="leech2"){
 			leech=10;
 		}
+		if(slot3=="leech3"){
+			leech=15;
+		}
 		if(slot3=="blind"){
 			blind=5;
 		}
 		if(slot3=="blind2"){
 			blind=10;
 		}
+		if(slot3=="blind3"){
+			blind=15;
+		}
 		if(slot3=="rapid"){
 			rapid=5;
 		}
 		if(slot3=="rapid2"){
 			rapid=10;
+		}
+		if(slot3=="rapid3"){
+			rapid=15;
 		}
 	}
 	
@@ -437,12 +546,7 @@ function Update () {
 	}
 		
 
-	if(giant>0){
-		fist.transform.localScale = Vector3(0.7,0.7,1);
-	}
-	else{
-		fist.transform.localScale = Vector3(0.35,0.35,1);
-	}
+
 }
 
 /*	var playerModel = new GameObject(); 						//Create a quad object to hold the tile texture.
@@ -463,6 +567,18 @@ function shot (player : GameObject){
 	else{
 		spawnShot(player, Vector3(0,0,0));
 	}
+}
+
+function comet (player : GameObject, target : Vector2) {
+	spawnComet(player,target);
+	// FORK does nothing for mages, yet. find a way to not make OP.
+
+}
+
+//not done yet
+function swing (){
+	swinging = true;
+	
 }
 
 
@@ -493,10 +609,19 @@ function spawnShot(player : GameObject, rotate : Vector3){
 	projectile.SetActive(true);
 }
 
-//not done yet
-function swing (){
-	swinging = true;
+function spawnComet(player : GameObject,location : Vector2) {
+	var comet = new GameObject();
+	comet.name = "Comet";
 	
+	comet.SetActive(false);
+	comet.transform.position = location;
+	comet.transform.position.z = -1;
+	
+	
+	var playerSpellScript : PlayerSpell = comet.AddComponent(PlayerSpell);
+	playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, player);	//initialize the enemySpellScript
+	
+	comet.SetActive(true);
 }
 
 function shuffle(list : String[]){ //v1.0
@@ -510,6 +635,9 @@ function shuffle(list : String[]){ //v1.0
 }
 
 function drawSpell() {
+	if (deck == null) {
+		return null;
+	}
 	var newCard;
 	if (deck.length > 1) {
 		newCard = deck[deck.length-1];
