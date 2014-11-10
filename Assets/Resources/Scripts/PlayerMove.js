@@ -18,15 +18,16 @@ function Update () {
 
 function FixedUpdate (){
 	
-    var moveY : float = Input.GetAxis ("Vertical") * speed; //vertical movespeed
-	var moveX : float = Input.GetAxis ("Horizontal") * speed; //horizontal movespeed
+    var moveY : float = Input.GetAxis ("Vertical"); //vertical movespeed
+	var moveX : float = Input.GetAxis ("Horizontal"); //horizontal movespeed
 	
-	if(moveY!=0){
-		transform.Translate(Vector3(0, moveY * Time.deltaTime, 0), Space.World); //moves player vertically
+	var moveDirection : Vector3 = Vector3(moveX, moveY, 0);
+	if(moveY!=0 || moveX != 0){
+		transform.Translate(speed*Time.deltaTime * moveDirection.normalized, Space.World); //moves player
 	}
-	if(moveX!=0){
-		transform.Translate(Vector3(moveX * Time.deltaTime, 0, 0), Space.World); //moves player horizontally
-	}
+	//if(moveX!=0){
+	//	transform.Translate(Vector3(moveX * Time.deltaTime, 0, 0), Space.World); //moves player horizontally
+	//}
     /*targetSpeedx = Input.GetAxisRaw("Horizontal") * speed;
 	currentSpeedx = incrementTowards(currentSpeedx, targetSpeedx, acceleration);
 	targetSpeedy = Input.GetAxisRaw("Vertical") * speed;
