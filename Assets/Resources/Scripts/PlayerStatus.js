@@ -5,9 +5,17 @@ private var invulnerable : float;
 
 public var HUD : PlayerHUD;		// HUD script
 
+private var armor : int;
+
 public static var money : int;
 
-function init () {				// Initialization function
+function init (type : String) {				// Initialization function
+	if(type == "Circle"){
+		armor = 2;
+	}
+	else{
+		armor = 0;
+	}
 	haveKey = false;
 	curHealth = 100;
 	maxHealth = curHealth;
