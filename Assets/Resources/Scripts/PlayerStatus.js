@@ -85,5 +85,5 @@ function OnTriggerStay2D(other : Collider2D){
 }
 
 function die() {						// Death function
-	Application.LoadLevel("deckBuilder"); //move to the deckbuilding interface
+	Application.LoadLevel("shop"); //move to the deckbuilding interface
 }

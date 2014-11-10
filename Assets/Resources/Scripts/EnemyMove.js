@@ -33,6 +33,7 @@ var wanderTimer : float;	// wandering finds a new point every wanderTimer second
 var attackTimer : float;	// delay between attacks -- set durin attack function
 
 var archerChase : boolean;
+var warriorChase : boolean;
 
 private var size : float;
 private var center : Vector2;
@@ -47,6 +48,7 @@ function init (circCol : CircleCollider2D, quadMesh : Mesh, inType : String, spe
 	
 	
 	archerChase = false;
+	warriorChase = false;
 	canMove = 0;
 	if(prefix == "hyper"){
 		hyper = true;
@@ -165,7 +167,12 @@ function Update() {
 		}
 		
 	}
-	
+	if ((distance <= 1) && (LoS == true)) {
+		warriorChase = false;
+	}
+	else {
+		warriorChase = true;
+	}
 	if ((distance <= 4) && (LoS == true)) {
 		archerChase = false;
 	}
@@ -196,8 +203,10 @@ function chase(location : Vector2) {
 			transform.Translate(Vector2(0,speed*Time.deltaTime));	// and move forward
 		}
 	}
-	else {						
-		transform.Translate(Vector2(0,speed*Time.deltaTime));	// and move forward
+	else if(type.Equals("warrior")){						
+		if ((warriorChase == true) && (canMove <= 0)) {
+			transform.Translate(Vector2(0,speed*Time.deltaTime));	// and move forward
+		}
 	}
 }
 
