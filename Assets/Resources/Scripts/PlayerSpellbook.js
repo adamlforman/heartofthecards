@@ -203,11 +203,17 @@ function Update () {
 		if(slot1=="ice2"){
 			ice=10;
 		}
+		if(slot1=="ice3"){
+			ice=15;
+		}
 		if(slot1=="poison"){
 			poison=5;
 		}
 		if(slot1=="poison2"){
 			poison=10;
+		}
+		if(slot1=="poison3"){
+			poison=15;
 		}
 		if(slot1=="fork"){
 			fork=5;
@@ -215,11 +221,17 @@ function Update () {
 		if(slot1=="fork2"){
 			fork=10;
 		}
+		if(slot1=="fork3"){
+			fork=15;
+		}
 		if(slot1=="pierce"){
 			pierce=5;
 		}
 		if(slot1=="pierce2"){
 			pierce=10;
+		}
+		if(slot1=="pierce3"){
+			pierce=15;
 		}
 		if(slot1=="giant"){
 			giant=5;
@@ -227,11 +239,17 @@ function Update () {
 		if(slot1=="giant2"){
 			giant=10;
 		}
+		if(slot1=="giant3"){
+			giant=15;
+		}
 		if(slot1=="splash"){
 			splash=5;
 		}
 		if(slot1=="splash2"){
 			splash=10;
+		}
+		if(slot1=="splash3"){
+			splash=15;
 		}
 		if(slot1=="leech"){
 			leech=5;
@@ -239,17 +257,26 @@ function Update () {
 		if(slot1=="leech2"){
 			leech=10;
 		}
+		if(slot1=="leech3"){
+			leech=15;
+		}
 		if(slot1=="blind"){
 			blind=5;
 		}
 		if(slot1=="blind2"){
 			blind=10;
 		}
+		if(slot1=="blind3"){
+			blind=15;
+		}
 		if(slot1=="rapid"){
 			rapid=5;
 		}
 		if(slot1=="rapid2"){
 			rapid=10;
+		}
+		if(slot1=="rapid3"){
+			rapid=15;
 		}
 		
 	}
@@ -263,11 +290,17 @@ function Update () {
 		if(slot2=="ice2"){
 			ice=10;
 		}
+		if(slot2=="ice3"){
+			ice=15;
+		}
 		if(slot2=="poison"){
 			poison=5;
 		}
 		if(slot2=="poison2"){
 			poison=10;
+		}
+		if(slot2=="poison3"){
+			poison=15;
 		}
 		if(slot2=="fork"){
 			fork=5;
@@ -275,11 +308,17 @@ function Update () {
 		if(slot2=="fork2"){
 			fork=10;
 		}
+		if(slot2=="fork3"){
+			fork=15;
+		}
 		if(slot2=="pierce"){
 			pierce=5;
 		}
 		if(slot2=="pierce2"){
 			pierce=10;
+		}
+		if(slot2=="pierce3"){
+			pierce=15;
 		}
 		if(slot2=="giant"){
 			giant=5;
@@ -287,11 +326,17 @@ function Update () {
 		if(slot2=="giant2"){
 			giant=10;
 		}
+		if(slot2=="giant3"){
+			giant=15;
+		}
 		if(slot2=="splash"){
 			splash=5;
 		}
 		if(slot2=="splash2"){
 			splash=10;
+		}
+		if(slot2=="splash3"){
+			splash=15;
 		}
 		if(slot2=="leech"){
 			leech=5;
@@ -299,17 +344,26 @@ function Update () {
 		if(slot2=="leech2"){
 			leech=10;
 		}
+		if(slot2=="leech3"){
+			leech=15;
+		}
 		if(slot2=="blind"){
 			blind=5;
 		}
 		if(slot2=="blind2"){
 			blind=10;
 		}
+		if(slot2=="blind3"){
+			blind=15;
+		}
 		if(slot2=="rapid"){
 			rapid=5;
 		}
 		if(slot2=="rapid2"){
 			rapid=10;
+		}
+		if(slot2=="rapid3"){
+			rapid=15;
 		}
 	}
 	if(Input.GetKeyDown ("3") && slot3Timer==-5 && (isPaused == false)){	//When they press 3...
@@ -322,11 +376,17 @@ function Update () {
 		if(slot3=="ice2"){
 			ice=10;
 		}
+		if(slot3=="ice3"){
+			ice=15;
+		}
 		if(slot3=="poison"){
 			poison=5;
 		}
 		if(slot3=="poison2"){
 			poison=10;
+		}
+		if(slot3=="poison3"){
+			poison=15;
 		}
 		if(slot3=="fork"){
 			fork=5;
@@ -334,11 +394,17 @@ function Update () {
 		if(slot3=="fork2"){
 			fork=10;
 		}
+		if(slot3=="fork3"){
+			fork=15;
+		}
 		if(slot3=="pierce"){
 			pierce=5;
 		}
 		if(slot3=="pierce2"){
 			pierce=10;
+		}
+		if(slot3=="pierce3"){
+			pierce=15;
 		}
 		if(slot3=="giant"){
 			giant=5;
@@ -346,11 +412,17 @@ function Update () {
 		if(slot3=="giant2"){
 			giant=10;
 		}
+		if(slot3=="giant3"){
+			giant=15;
+		}
 		if(slot3=="splash"){
 			splash=5;
 		}
 		if(slot3=="splash2"){
 			splash=10;
+		}
+		if(slot3=="splash3"){
+			splash=15;
 		}
 		if(slot3=="leech"){
 			leech=5;
@@ -358,17 +430,26 @@ function Update () {
 		if(slot3=="leech2"){
 			leech=10;
 		}
+		if(slot3=="leech3"){
+			leech=15;
+		}
 		if(slot3=="blind"){
 			blind=5;
 		}
 		if(slot3=="blind2"){
 			blind=10;
 		}
+		if(slot3=="blind3"){
+			blind=15;
+		}
 		if(slot3=="rapid"){
 			rapid=5;
 		}
 		if(slot3=="rapid2"){
 			rapid=10;
+		}
+		if(slot3=="rapid3"){
+			rapid=15;
 		}
 	}
 	

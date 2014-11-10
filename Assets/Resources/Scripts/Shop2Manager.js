@@ -260,91 +260,91 @@ function OnGUI() {
 	//GUI.Text(Rect(150,25,200,40),"Build Your theDeck!");
 	
 	if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.8,Screen.width/5,Screen.height/15),"Buy, $200")) {
-		if ((ice2Count < 4) && (PlayerStatus.money >= 0)) {
+		if ((ice2Count < 4) && (PlayerStatus.money >= 200)) {
 			ice2Count++;
 			PlayerStatus.money -=200;
 			add("ice2");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.72,Screen.width/5,Screen.height/15),"Buy, $200")) {
-		if ((poison2Count < 4)  && (PlayerStatus.money >= 50)) {
+		if ((poison2Count < 4)  && (PlayerStatus.money >= 200)) {
 			poison2Count++;
 			PlayerStatus.money -=200;
 			add("poison2");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.64,Screen.width/5,Screen.height/15),"Buy, $200")) {
-		if ((fork2Count < 4)  && (PlayerStatus.money >= 50)) {
+		if ((fork2Count < 4)  && (PlayerStatus.money >= 200)) {
 			fork2Count++;
 			PlayerStatus.money -=200;
 			add("fork2");
 		}
 	}
 	/*else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.56,Screen.width/5,Screen.height/15),"Buy, $200")) {
-		if ((reflectCount < 0)  && (PlayerStatus.money >= 50)) {
+		if ((reflectCount < 0)  && (PlayerStatus.money >= 200)) {
 			//reflectCount++;
 			//PlayerStatus.money -=200;
 			//add("REFLECT");
 		}
 	}*/
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.48,Screen.width/5,Screen.height/15),"Buy, $200")) {
-		if ((pierce2Count < 4)  && (PlayerStatus.money >= 50)) {
+		if ((pierce2Count < 4)  && (PlayerStatus.money >= 200)) {
 			pierce2Count++;
 			PlayerStatus.money -=200;
 			add("pierce2");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.40,Screen.width/5,Screen.height/15),"Buy, $200")) {
-		if ((giant2Count < 4)  && (PlayerStatus.money >= 50)) {
+		if ((giant2Count < 4)  && (PlayerStatus.money >= 200)) {
 			giant2Count++;
 			PlayerStatus.money -=200;
 			add("giant2");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.32,Screen.width/5,Screen.height/15),"Buy, $200")) {
-		if ((splash2Count < 4) && (PlayerStatus.money >= 50)) {
+		if ((splash2Count < 4) && (PlayerStatus.money >= 200)) {
 			splash2Count++;
 			PlayerStatus.money -=200;
 			add("splash2");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.8,Screen.width/5,Screen.height/15),"Buy, $200")) {
-		if ((leech2Count < 4)  && (PlayerStatus.money >= 50)) {
+		if ((leech2Count < 4)  && (PlayerStatus.money >= 200)) {
 			leech2Count++;
 			PlayerStatus.money -=200;
 			add("leech2");
 		}
 	}
 	/*else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.72,Screen.width/5,Screen.height/15),"Buy, $200")) {
-		if ((swordCount < 0)  && (PlayerStatus.money >= 50)) {
+		if ((swordCount < 0)  && (PlayerStatus.money >= 200)) {
 			//swordCount++;
 			//PlayerStatus.money -=200;
 			//add("SWORD");
 		}
 	}*/
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.64,Screen.width/5,Screen.height/15),"Buy, $200")) {
-		if ((blind2Count < 4)  && (PlayerStatus.money >= 50)) {
+		if ((blind2Count < 4)  && (PlayerStatus.money >= 200)) {
 			blind2Count++;
 			PlayerStatus.money -=200;
 			add("blind2");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.56,Screen.width/5,Screen.height/15),"Buy, $200")) {
-		if ((rapid2Count < 4)  && (PlayerStatus.money >= 50)) {
+		if ((rapid2Count < 4)  && (PlayerStatus.money >= 200)) {
 			rapid2Count++;
 			PlayerStatus.money -=200;
 			add("rapid2");
 		}
 	}
 	/*else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.48,Screen.width/5,Screen.height/15),"Buy, $200")) {
-		if ((homingCount < 0)  && (PlayerStatus.money >= 50)) {
+		if ((homingCount < 0)  && (PlayerStatus.money >= 200)) {
 			homingCount++;
 			PlayerStatus.money -=200;
 			add("HOMING");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.40,Screen.width/5,Screen.height/15),"Buy, $200")) {
-		if ((meteorCount < 0)  && (PlayerStatus.money >= 50)) {
+		if ((meteorCount < 0)  && (PlayerStatus.money >= 200)) {
 			//meteorCount++;
 			//PlayerStatus.money -=200;
 			//add("METEOR");
