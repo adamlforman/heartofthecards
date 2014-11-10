@@ -57,7 +57,7 @@ function init(classType : String) {
 		deck = NewDeckManager.theDeck;
 	}
 	else{
-		deck = ["BLIND", "BLIND", "BLIND", "BLIND", "ICE", "ICE", "ICE", "ICE", "POISON", "POISON", "POISON", "POISON", "LEECH", "LEECH", "LEECH", "LEECH", "RAPID", "RAPID", "RAPID", "RAPID"];
+		deck = ["blind", "blind", "blind", "blind", "ice", "ice", "ice", "ice", "poison", "poison", "poison", "poison", "leech", "leech", "leech", "leech", "rapid", "rapid", "rapid", "rapid"];
 		cardsOwned = deck;
 	}
 	
@@ -197,44 +197,59 @@ function Update () {
 		slot1Timer = 5;
 		
 		//Check the card we just used.  BRACE YOURSELF
-		if(slot1=="ICE"){
+		if(slot1=="ice"){
 			ice=5;
 		}
-		if(slot1=="POISON"){
+		if(slot1=="ice2"){
+			ice=10;
+		}
+		if(slot1=="poison"){
 			poison=5;
 		}
-		if(slot1=="FORK"){
+		if(slot1=="poison2"){
+			poison=10;
+		}
+		if(slot1=="fork"){
 			fork=5;
 		}
-		if(slot1=="REFLECT"){
-			reflect=5;
+		if(slot1=="fork2"){
+			fork=10;
 		}
-		if(slot1=="PIERCE"){
+		if(slot1=="pierce"){
 			pierce=5;
 		}
-		if(slot1=="GIANT"){
+		if(slot1=="pierce2"){
+			pierce=10;
+		}
+		if(slot1=="giant"){
 			giant=5;
 		}
-		if(slot1=="SPLASH"){
+		if(slot1=="giant2"){
+			giant=10;
+		}
+		if(slot1=="splash"){
 			splash=5;
 		}
-		if(slot1=="LEECH"){
+		if(slot1=="splash2"){
+			splash=10;
+		}
+		if(slot1=="leech"){
 			leech=5;
 		}
-		if(slot1=="SWORD"){
-			sword=5;
+		if(slot1=="leech2"){
+			leech=10;
 		}
-		if(slot1=="BLIND"){
+		if(slot1=="blind"){
 			blind=5;
 		}
-		if(slot1=="RAPID"){
+		if(slot1=="blind2"){
+			blind=10;
+		}
+		if(slot1=="rapid"){
 			rapid=5;
 		}
-		if(slot1=="HOMING"){
-			homing=5;
-		}
-		if(slot1=="METEOR"){
-			meteor=5;
+		if(slot1=="rapid2"){
+			rapid=10;
 		}
 		
 	}
@@ -242,88 +257,118 @@ function Update () {
 		slot2Timer = 5;
 		
 		//Check the card we just used.  BRACE YOURSELF
-		if(slot2=="ICE"){
+		if(slot2=="ice"){
 			ice=5;
 		}
-		if(slot2=="POISON"){
+		if(slot2=="ice2"){
+			ice=10;
+		}
+		if(slot2=="poison"){
 			poison=5;
 		}
-		if(slot2=="FORK"){
+		if(slot2=="poison2"){
+			poison=10;
+		}
+		if(slot2=="fork"){
 			fork=5;
 		}
-		if(slot2=="REFLECT"){
-			reflect=5;
+		if(slot2=="fork2"){
+			fork=10;
 		}
-		if(slot2=="PIERCE"){
+		if(slot2=="pierce"){
 			pierce=5;
 		}
-		if(slot2=="GIANT"){
+		if(slot2=="pierce2"){
+			pierce=10;
+		}
+		if(slot2=="giant"){
 			giant=5;
 		}
-		if(slot2=="SPLASH"){
+		if(slot2=="giant2"){
+			giant=10;
+		}
+		if(slot2=="splash"){
 			splash=5;
 		}
-		if(slot2=="LEECH"){
+		if(slot2=="splash2"){
+			splash=10;
+		}
+		if(slot2=="leech"){
 			leech=5;
 		}
-		if(slot2=="SWORD"){
-			sword=5;
+		if(slot2=="leech2"){
+			leech=10;
 		}
-		if(slot2=="BLIND"){
+		if(slot2=="blind"){
 			blind=5;
 		}
-		if(slot2=="RAPID"){
+		if(slot2=="blind2"){
+			blind=10;
+		}
+		if(slot2=="rapid"){
 			rapid=5;
 		}
-		if(slot2=="HOMING"){
-			homing=5;
-		}
-		if(slot2=="METEOR"){
-			meteor=5;
+		if(slot2=="rapid2"){
+			rapid=10;
 		}
 	}
 	if(Input.GetKeyDown ("3") && slot3Timer==-5 && (isPaused == false)){	//When they press 3...
 		slot3Timer = 5;
 		
 		//Check the card we just used.  BRACE YOURSELF
-		if(slot3=="ICE"){
+		if(slot3=="ice"){
 			ice=5;
 		}
-		if(slot3=="POISON"){
+		if(slot3=="ice2"){
+			ice=10;
+		}
+		if(slot3=="poison"){
 			poison=5;
 		}
-		if(slot3=="FORK"){
+		if(slot3=="poison2"){
+			poison=10;
+		}
+		if(slot3=="fork"){
 			fork=5;
 		}
-		if(slot3=="REFLECT"){
-			reflect=5;
+		if(slot3=="fork2"){
+			fork=10;
 		}
-		if(slot3=="PIERCE"){
+		if(slot3=="pierce"){
 			pierce=5;
 		}
-		if(slot3=="GIANT"){
+		if(slot3=="pierce2"){
+			pierce=10;
+		}
+		if(slot3=="giant"){
 			giant=5;
 		}
-		if(slot3=="SPLASH"){
+		if(slot3=="giant2"){
+			giant=10;
+		}
+		if(slot3=="splash"){
 			splash=5;
 		}
-		if(slot3=="LEECH"){
+		if(slot3=="splash2"){
+			splash=10;
+		}
+		if(slot3=="leech"){
 			leech=5;
 		}
-		if(slot3=="SWORD"){
-			sword=5;
+		if(slot3=="leech2"){
+			leech=10;
 		}
-		if(slot3=="BLIND"){
+		if(slot3=="blind"){
 			blind=5;
 		}
-		if(slot3=="RAPID"){
+		if(slot3=="blind2"){
+			blind=10;
+		}
+		if(slot3=="rapid"){
 			rapid=5;
 		}
-		if(slot3=="HOMING"){
-			homing=5;
-		}
-		if(slot3=="METEOR"){
-			meteor=5;
+		if(slot3=="rapid2"){
+			rapid=10;
 		}
 	}
 	
