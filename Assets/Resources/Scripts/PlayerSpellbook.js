@@ -40,7 +40,11 @@ public var swinging = false;
 
 private var isPaused : boolean;
 
+public static var allCards : Array;
+
+
 function init(classType : String) {
+	allCards = ["ice", "poison", "fork", "reflect", "pierce", "giant", "splash", "leech", "blind", "rapid", "homing", "meteor"];
 	isPaused = ProceduralGameManager.isPaused;
 	
 	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?

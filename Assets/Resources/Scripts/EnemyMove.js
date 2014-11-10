@@ -177,6 +177,7 @@ function Update() {
 function FixedUpdate() {										// Enemy behaviour
 	if (aggro) {													// if we know the player is there	
 		if (inRange && attackTimer <= 0) {								// and we can attack them
+			chase(target.transform.position);
 			attack();														// do so
 		}
 		else {

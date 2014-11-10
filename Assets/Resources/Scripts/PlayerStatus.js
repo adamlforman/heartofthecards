@@ -43,17 +43,25 @@ function takeDamage(damage : float, magic : boolean){	// Take damage function
 	}
 	
 }
-//If something enters the levelEnd model
+
+function chestLoot() {
+	money+=50;
+}
+
+
 function OnTriggerEnter2D(other : Collider2D) {
 	if (other.name == "Key") {
 		haveKey = true;
 		other.gameObject.GetComponent(KeyScript).collect();
 	}
-	if (other.name == "LevelEnd" && haveKey) { //If it is the door
+	else if (other.name == "Chest") {
+		chestLoot();
+	}
+	else if (other.name == "LevelEnd" && haveKey) { //If it is the door
 		money +=100;
 		Application.LoadLevel("shop"); //move to the shop interface
 	}
-	if(other.gameObject.name == "Enemy Shot") {	// If it is an enemy arrow
+	else if(other.gameObject.name == "Enemy Shot") {	// If it is an enemy arrow
 		if(!other.gameObject.GetComponent(EnemySpell).splash){
 			other.gameObject.GetComponent(EnemySpell).hit(gameObject);	// Ask it to hit us please
 		}

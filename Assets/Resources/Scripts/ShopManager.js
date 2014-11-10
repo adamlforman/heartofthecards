@@ -18,16 +18,16 @@ var meteor : GUIText;
 public static var iceCount : int;
 public static var poisonCount : int;
 public static var forkCount : int;
-public static var reflectCount : int;
+public static var reflectCount : int; //does not exist
 public static var pierceCount : int;
 public static var giantCount : int;
 public static var splashCount : int;
 public static var leechCount : int;
-public static var swordCount : int;
+public static var swordCount : int; //does not exist
 public static var blindCount : int;
 public static var rapidCount : int;
-public static var homingCount : int;
-public static var meteorCount : int;
+public static var homingCount : int; //does not exist
+public static var meteorCount : int; //does not exist
 
 var normalSpell : String;
 var specialSpell : String;
@@ -35,6 +35,7 @@ var badSpell : String;
 
 public static var theDeck : Array;
 public static var cardsOwned: Array;
+
 
 function Start () {
 	normalSpell = "/4";
