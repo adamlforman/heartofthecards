@@ -36,19 +36,6 @@ function spawnWorld() {
 		}
 	}
 	
-	if (!spawned) {
-		Debug.
-		randX = Random.Range(0,world.length-1); //Random variable between 0 and max map X value
-		randY = Random.Range(0,world[0].length-1); //Random variable between 0 and max map Y value
-		//While the randomly selected tile of the map is not just ground, reroll numbers
-		while(world[randX][randY]!= "G") {
-			randX = Random.Range(0,world.length-1); //Random variable between 0 and max map X value
-			randY = Random.Range(0,world[0].length-1); //Random variable between 0 and max map Y value
-		}
-		world[randX][randY] += "P"; //Update the world array to show that there is also a levelend there
-		spawnPlayer(world[0].length - randX,randY); //Builds the level end portal
-	}
-	
 	
 	//Spawns all the enemies, (half archers, half warriors)
 	for(i = 0; i<maxEnemies; i++) {			//for numEnemies
@@ -67,12 +54,13 @@ function spawnWorld() {
 		}
 		world[randY][randX] = world[randY][randX] + "E"; //Update the world array to show that there is also an enemy there
 		//Spawn half archers, half warriors
-		if(i<(maxEnemies /2)) {
+		/*if(i<(maxEnemies /2)) {
 			spawnEnemy(randX, randY, "Enemy Archer", "archer"); //Spawns an archer, 
 		}
 		else {
 			spawnEnemy(randX, randY, "Enemy Warrior", "warrior"); //Spawns a warrior
-		}
+		}*/
+		spawnEnemy(randX,randY, "Enemy Mage", "mage"); // Spawns a mage
 	}
 	
 	//set camera
@@ -167,9 +155,9 @@ function spawnPlayer(x : int, y : int) {
 	var playerMoveScript = playerObject.AddComponent(PlayerMove);			//Add the PlayerMove Script
 	playerMoveScript.init();
 	var playerStatusScript = playerObject.AddComponent(PlayerStatus);		//Add the PlayerStatus Script
-	playerStatusScript.init("Circle");
+	playerStatusScript.init("Square");
 	var playerSpellbookScript = playerObject.AddComponent(PlayerSpellbook); //Add the PlayerSpellbook script
-	playerSpellbookScript.init("Circle");
+	playerSpellbookScript.init("Square");
 	var playerHUDScript = playerObject.AddComponent(PlayerHUD);				//Add the PlayerHUD Script
 	playerHUDScript.init(Camera.main, playerObject);
 	playerStatusScript.HUD = playerHUDScript;

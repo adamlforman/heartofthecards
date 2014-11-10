@@ -116,6 +116,15 @@ function shot (enemy : GameObject){
 	}
 }
 
+// Square specific stuff
+
+function comet (enemy : GameObject, target : GameObject) {
+	var location : Vector2 = target.transform.position;
+	spawnComet(enemy,location);
+	// FORK does nothing for mages, yet. find a way to not make OP.
+
+}
+
 
 
 function spawnShot(enemy : GameObject, rotate : Vector3){
@@ -144,6 +153,23 @@ function spawnShot(enemy : GameObject, rotate : Vector3){
 	enemySpellScript.name = "Enemy Shot";
 	projectile.SetActive(true);
 }
+
+function spawnComet(enemy : GameObject,location : Vector2) {
+	var comet = new GameObject();
+	comet.name = "Enemy Comet";
+	
+	comet.SetActive(false);
+	comet.transform.position = location;
+	comet.transform.position.z = -1;
+	
+	
+	var enemySpellScript : EnemySpell = comet.AddComponent(EnemySpell);
+	enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, enemy, gameObject.GetComponent(EnemyMove).getDamage());	//initialize the enemySpellScript
+	
+	comet.SetActive(true);
+}
+
+
 
 
 

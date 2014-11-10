@@ -20,6 +20,8 @@ public var homing : boolean = false;			//Does the shot have the "homing" buff
 //Circle Specific Things.
 public var readyToPunch : boolean;
 
+// Square specific things
+public var delayTimer : float;
 
 
 
@@ -40,6 +42,11 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 		model.name = "Shot Model";								//Name the Model
 		transform.localScale = Vector3(0.3, 1, 1);
 		readyToPunch = true;
+	}
+	else if (this.name == "Comet") {
+		delayTimer = 1;
+		readyToPunch = true;
+		model.name = "Enemy Comet Model";
 	}
 	model.init(this.gameObject);								// Initialize the spellModel.
 	
@@ -108,6 +115,20 @@ function Update() {
 	if(name == "Shot"){
 		transform.Translate(Vector2.up * movespeed * Time.deltaTime);
 	}
+	if(name == "Comet") {
+		delayTimer -= Time.deltaTime;
+		if (delayTimer <= 0) {
+			var size : float = 0.5;
+			if (giant) {
+				size = size*1.5;
+			}
+			for (other in Physics2D.OverlapCircleAll(transform.position, size)) {
+				hit (other.gameObject);
+			}
+			Destroy(gameObject);
+		}
+	}
+	
 }
 
 function hit(other : GameObject){
@@ -129,12 +150,12 @@ function hit(other : GameObject){
 		}
 		//Now if there was no splash
 		else{
-			if(name == "Shot"){
-				if(other.name == "ROCK"){
+			if(other.name == "ROCK"){
+				if(name == "Shot"){
 					Destroy(gameObject);		//destroy the arrow if it hits a rock
 				}
 			}
-			if(other.name == "Enemy Warrior" || other.name == "Enemy Archer"){
+			if(other.name == "Enemy Warrior" || other.name == "Enemy Archer" || other.name == "Enemy Mage"){
 				applyStatus(other);					//apply status debuffs to the enemy we hit
 				if(!pierce){
 					if(name == "Shot"){

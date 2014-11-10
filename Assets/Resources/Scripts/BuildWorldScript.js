@@ -97,15 +97,6 @@ function proceduralInit(a : Array, exampleMesh : Mesh){
 	return world;
 }
 
-function getRandomGround() {
-	var randX : int = Random.Range(0, maxX-1);
-	var randY : int = Random.Range(0, maxY-1);
-	while(world[randY][randX] != "G") {
-		randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
-		randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
-	}
-	return [randX, randY];
-}
 
 //Start building the world
 function init(a : Array, exampleMesh : Mesh) {
@@ -118,6 +109,20 @@ function init(a : Array, exampleMesh : Mesh) {
 	buildWorld(); //Builds the world
 	
 }
+
+function bossInit(a : Array, exampleMesh : Mesh, bossNum : int) {
+	world = a; //Set the world array to reference the array passed in
+	this.exampleMesh = exampleMesh;
+	
+	rockParent = new GameObject("Rocks");
+	groundParent = new GameObject("Grounds");
+	
+	if (bossNum == 1) {
+		buildSpiderRoom();
+	}
+
+}
+
 //Builds the world
 function buildWorld() {
 	//var maxX = 60; //Max x value of map, explicitely set for now
@@ -202,6 +207,54 @@ function buildWorld() {
 		}
 	}
 	//buildLevelEnd(22, 48); //Builds the level end portal
+}
+
+function buildSpiderRoom() {
+	var maxY = 15; //Max y value of map, explicitely set for now (never used atm)
+	var R : String = "R"; //Represents a tile of rock in the environment
+	var G : String = "G"; //Represents a tile of ground in the environment
+	var P : String = "P"; // Represents the player's starting location
+	world.length=maxY;	//world length = maximum Y value
+	world[0]  = [R,R,R,R,R,R,R,R,R,R,R,R,R,R,R];
+	world[1]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
+	world[2]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
+	world[3]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
+	world[4]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
+	world[5]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
+	world[6]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
+	world[7]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
+	world[8]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
+	world[9]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
+	world[10] = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
+	world[11] = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
+	world[12] = [R,G,G,G,G,G,G,P,G,G,G,G,G,G,R];
+	world[13] = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
+	world[14] = [R,R,R,R,R,R,R,R,R,R,R,R,R,R,R];
+	
+	for(var i = 0; i<world.length;i++){
+		for(var j = 0; j<world[i].length;j++){
+			if(world[i][j]=="R"){
+				buildRock(j, world.length-i);
+			}
+			if(world[i][j]=="G"){
+				buildGround(j, world.length-i);
+			}
+			if (world[i][j] == "P") {
+				buildGround(j,world.length-i);
+			}
+		}
+	}
+}
+
+
+function getRandomGround() {
+	var randX : int = Random.Range(0, maxX-1);
+	var randY : int = Random.Range(0, maxY-1);
+	while(world[randY][randX] != "G") {
+		randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
+		randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
+	}
+	return [randX, randY];
 }
 
 //Builds a rock object

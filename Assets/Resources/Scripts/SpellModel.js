@@ -24,12 +24,26 @@ function init(o : GameObject) {
 	else if(owner.name == "Enemy Fist"){
 		textureName = "Textures/Enemy Fist";					//Set the name of the texture path
 	}
+	else if(owner.name == "Enemy Comet"){
+		textureName = "Textures/Comet";
+	}
+	else if(owner.name == "Comet") {
+		textureName = "Textures/Comet";
+	}
 	renderer.material.mainTexture = Resources.Load(textureName, Texture2D);				// Set the texture.  Must be in Resources folder.
 	renderer.material.color = Color(1,1,1);												// Set the color (easy way to tint things).
 	renderer.material.shader = Shader.Find ("Transparent/Diffuse");						// Tell the renderer that our textures have transparency. 
 }
 
 function Update () {
-	
+	var getColor : float;
+	if (owner.name == "Enemy Comet") {
+		getColor = owner.GetComponent(EnemySpell).delayTimer;
+		renderer.material.color = Color(1-getColor,0,0);
+	}
+	else if (owner.name == "Comet") {
+		getColor = owner.GetComponent(PlayerSpell).delayTimer;
+		renderer.material.color = Color(0,0,1-getColor);
+	}	
 }
 
