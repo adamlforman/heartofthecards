@@ -206,7 +206,6 @@ function Update () {
 	//Square Stuff
 	if (classType == "Square") {
 		if(cast1 > 0 && cooldown <= 0) {
-			print("BOOM");
 			var target : Vector2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			comet(gameObject, target);
 			cooldown = 2;

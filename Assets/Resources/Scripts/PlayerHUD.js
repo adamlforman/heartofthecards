@@ -70,7 +70,7 @@ function init(cam : Camera, player : GameObject){
 	slot1Glow.transform.localPosition = Vector3(0, 0, 1);												//Center it on its parent
 	slot1Glow.transform.localScale = Vector3(1.5, 1.5, 1);												//Scale it up to be bigger than parent
 	slot1Glow.renderer.material.mainTexture = Resources.Load("Textures/BACK", Texture2D);				// Set the texture.  Must be in Resources folder.
-	slot1Glow.renderer.material.color = Color(1,1,1);													// Set the color to black.
+	slot1Glow.renderer.material.color = Color(0,0,0);													// Set the color to black.
 	slot1Glow.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 	
 	//Makes Slot 2
@@ -87,7 +87,7 @@ function init(cam : Camera, player : GameObject){
 	slot2Glow.transform.localPosition = Vector3(0, 0, 1);												//Center it on its parent
 	slot2Glow.transform.localScale = Vector3(1.5, 1.5, 1);												//Scale it up to be bigger than parent
 	slot2Glow.renderer.material.mainTexture = Resources.Load("Textures/BACK", Texture2D);				// Set the texture.  Must be in Resources folder.
-	slot2Glow.renderer.material.color = Color(1,1,1);													// Set the color to black.
+	slot2Glow.renderer.material.color = Color(0,0,0);													// Set the color to black.
 	slot2Glow.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 	
 	//Makes Slot 3
@@ -104,7 +104,7 @@ function init(cam : Camera, player : GameObject){
 	slot3Glow.transform.localPosition = Vector3(0, 0, 1);												//Center it on its parent
 	slot3Glow.transform.localScale = Vector3(1.5, 1.5, 1);												//Scale it up to be bigger than parent
 	slot3Glow.renderer.material.mainTexture = Resources.Load("Textures/BACK", Texture2D);				// Set the texture.  Must be in Resources folder.
-	slot3Glow.renderer.material.color = Color(1,1,1);													// Set the color to black.
+	slot3Glow.renderer.material.color = Color(0,0,0);													// Set the color to black.
 	slot3Glow.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 }
 
@@ -151,21 +151,21 @@ function Update () {
 		slot1Glow.renderer.material.color = Color(0.42, 0.79, 0.89);		//Set the border to glow light blue
 	}
 	if(PlayerSpellbook.slot1Timer<= 0){									
-		slot1Glow.renderer.material.color = Color(1, 1, 1);					//Set it back to white
+		slot1Glow.renderer.material.color = Color(0, 0, 0);					//Set it back to white
 	}
 	
 	if(PlayerSpellbook.slot2Timer>0){									
 		slot2Glow.renderer.material.color = Color(0.42, 0.79, 0.89);		//Set the border to glow light blue
 	}
 	if(PlayerSpellbook.slot2Timer<= 0){									
-		slot2Glow.renderer.material.color = Color(1, 1, 1);					//Set it back to white
+		slot2Glow.renderer.material.color = Color(0, 0, 0);					//Set it back to white
 	}
 	
 	if(PlayerSpellbook.slot3Timer>0){									
 		slot3Glow.renderer.material.color = Color(0.42, 0.79, 0.89);		//Set the border to glow light blue
 	}
 	if(PlayerSpellbook.slot3Timer<= 0){									
-		slot3Glow.renderer.material.color = Color(1, 1, 1);					//Set it back to white
+		slot3Glow.renderer.material.color = Color(0, 0, 0);						//Set it back to white
 	}
 }
 

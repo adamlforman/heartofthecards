@@ -19,17 +19,47 @@ function spawnWorld() {
 		for (j = 0; j < maxY; j++) {
 			if (world[j][i] == "P") {
 				spawnPlayer(i, j);
-				spawned = true;
 			}
 		}
 	}
 	
-	
+	spawnBoss(12,17,"Bob");
 	
 	//set camera
 	cam = Camera.main.GetComponent(GameCamera);
 	cam.init(player,0,0,maxX-1,maxY-1);
 	cam.setZoom(7);
+	
+}
+
+function spawnBoss(x : int, y : int, type : String) {
+	var bossObject = new GameObject();
+	bossObject.transform.position = Vector3(x, y, -1);
+	bossObject.name = "Enemy Warrior";		/// We're lazy and this lets it take damage
+	
+	var bossModel = new GameObject();
+	var meshFilter = bossModel.AddComponent(MeshFilter);
+	meshFilter.mesh = exampleMesh;
+	bossModel.AddComponent(MeshRenderer);
+	bossModel.SetActive(false);
+	var model = bossModel.AddComponent(BossModel);
+	model.name = "Boss Model";
+	model.init(bossObject, type);
+	bossModel.transform.parent = bossObject.transform;
+	
+	var bossMoveScript = bossObject.AddComponent(BossController);
+	var bossStatusScript = bossObject.AddComponent(BossStatus);
+	var bossSpellbookScript = bossObject.AddComponent(EnemySpellbook);
+	bossSpellbookScript.init(type);
+	bossMoveScript.init(player,bossSpellbookScript);
+	bossStatusScript.init(exampleMesh,type,bossSpellbookScript);
+	
+	var rigidModel = bossObject.AddComponent(Rigidbody2D);
+	rigidModel.gravityScale = 0;
+	rigidModel.fixedAngle = true;
+	
+	bossModel.SetActive(true);
+	
 }
 
 function spawnPlayer(x : int, y : int) {
@@ -42,7 +72,7 @@ function spawnPlayer(x : int, y : int) {
 	meshFilter.mesh = exampleMesh; 								//Give the mesh filter a quadmesh
 	playerModel.AddComponent(MeshRenderer); 					//Add a renderer for textures
 	playerModel.SetActive(false); 								//Turn off the object so its script doesn't do anything until we're ready.
-	model = playerModel.AddComponent(CharModel); 				//Add a CharModel script to control visuals of the Player.
+	var model = playerModel.AddComponent(CharModel); 				//Add a CharModel script to control visuals of the Player.
 	model.name = "Player Model";								//Name the PlayerModel
 	model.init(playerObject, "FACE"); 							//Initialize the PlayerModel.
 	playerModel.transform.parent = playerObject.transform;
