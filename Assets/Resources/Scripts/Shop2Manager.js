@@ -365,12 +365,12 @@ function OnGUI() {
 	}
 	else if (GUI.Button(Rect(Screen.width/8,Screen.height/1.2,Screen.width*0.10,Screen.height*0.10),"<---")) {
 		audioS.loop = false;
-        audioS.stop();
+        audioS.Stop();
         Application.LoadLevel("shop");
 	}
 	else if (GUI.Button(Rect(Screen.width*6/8,Screen.height/1.2,Screen.width*0.10,Screen.height*0.10),"--->")) {
 		audioS.loop = false;
-        audioS.stop();
+        audioS.Stop();
         Application.LoadLevel("shop3");
 	}
 }

@@ -361,12 +361,12 @@ function OnGUI() {
 	}*/
 	else if (GUI.Button(Rect(Screen.width/3,Screen.height/1.2,Screen.width*0.30,Screen.height*0.10),"Go to Deck Building!")) {
 		audioS.loop = false;
-        audioS.stop();
+        audioS.Stop();
         Application.LoadLevel("deckBuilder");
 	}
 	else if (GUI.Button(Rect(Screen.width/8,Screen.height/1.2,Screen.width*0.10,Screen.height*0.10),"<---")) {
 		audioS.loop = false;
-        audioS.stop();
+        audioS.Stop();
         Application.LoadLevel("shop2");
 	}
 }
