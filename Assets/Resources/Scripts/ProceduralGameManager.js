@@ -7,6 +7,8 @@ var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold th
 
 public static var isPaused : boolean;
 
+public var playerClass : String;
+
 function Start() {
 	isPaused = false;
 	world = new Array(); //Initializes the world array
@@ -24,11 +26,13 @@ function Start() {
 	//Add the spellbooks to the game manager object
 	//enemySpellbookScript = gameObject.AddComponent(EnemySpellbook); 
 	
+	playerClass = GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).lastArg;
+	
 	// inits the scripts
 	//enemySpellbookScript.init(); //We don't want to do this, the spellbook now takes in a class type
 	world = buildWorldScript.proceduralInit(world, exampleMesh);
 	//buildWorldScript.init(world, exampleMesh);
-	spawnWorldScript.init(world, exampleMesh,25);
+	spawnWorldScript.init(world, exampleMesh,25,playerClass);
 }
 
 function Update () {
@@ -48,10 +52,10 @@ function OnGUI(){
 			Pause();
 		}
 		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Restart")){
-			Application.LoadLevel("shop");
+			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("shop");
 		}
 		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.55, Screen.width*0.25, Screen.height*0.07), "Main Menu")){
-			Pause();
+			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("mainMenu");
 		}
 	}
 }

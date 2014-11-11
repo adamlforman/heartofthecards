@@ -73,11 +73,11 @@ function OnTriggerEnter2D(other : Collider2D) {
 	}
 	else if (other.name == "Vrom") {
 		audioS.PlayOneShot(Resources.Load("Sounds/fast"));
-		PlayerMove.vrom = 4;
+		gameObject.GetComponent(PlayerMove).vrom = 4;
 	}
 	else if (other.name == "Tar") {
 		audioS.PlayOneShot(Resources.Load("Sounds/slow"));
-		PlayerMove.tar = 4;
+		gameObject.GetComponent(PlayerMove).tar = 4;
 	}
 	else if (other.name == "Spikes") {
 		audioS.PlayOneShot(Resources.Load("Sounds/ow"));
@@ -86,7 +86,7 @@ function OnTriggerEnter2D(other : Collider2D) {
 	else if (other.name == "LevelEnd" && haveKey) { //If it is the door
 		money +=100;
 		audioS.PlayOneShot(Resources.Load("Sounds/levelend2"));
-		Application.LoadLevel("shop"); //move to the shop interface
+		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel(); //move to the shop interface
 	}
 	else if(other.gameObject.name == "Enemy Shot") {	// If it is an enemy arrow
 		if(!other.gameObject.GetComponent(EnemySpell).splash){

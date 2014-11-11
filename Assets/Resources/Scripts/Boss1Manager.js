@@ -5,6 +5,10 @@ var world : Array; //Array to hold the world
 var player : GameObject;	//The player object
 var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 
+var boss : GameObject;	 // So we can tell when level is done
+var done : boolean = false;
+var playerClass : String;
+
 public static var isPaused : boolean;
 
 function Start() {
@@ -24,16 +28,23 @@ function Start() {
 	//Add the spellbooks to the game manager object
 	//enemySpellbookScript = gameObject.AddComponent(EnemySpellbook); 
 	
+	playerClass = GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).lastArg;
+	
 	// inits the scripts
 	//enemySpellbookScript.init(); //We don't want to do this, the spellbook now takes in a class type
 	//world = buildWorldScript.proceduralInit(world, exampleMesh);
 	buildWorldScript.bossInit(world, exampleMesh,1);
-	spawnWorldScript.init(world, exampleMesh,1);
+	boss = spawnWorldScript.init(world, exampleMesh,1, playerClass);
 }
 
 function Update () {
 	if (Input.GetKeyDown("p") == true) {
 		Pause();
+	}
+	if (!boss && !done) {
+		buildWorldScript.buildInteractables("LevelEnd", 16,16);
+		buildWorldScript.buildInteractables("Key", 16,15);
+		done = true;
 	}
 	
 }
@@ -48,10 +59,10 @@ function OnGUI(){
 			Pause();
 		}
 		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Restart")){
-			Application.LoadLevel("shop");
+			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("shop"); 
 		}
 		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.55, Screen.width*0.25, Screen.height*0.07), "Main Menu")){
-			Pause();
+			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("mainMenu");
 		}
 	}
 }

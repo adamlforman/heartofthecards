@@ -25,7 +25,7 @@ function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook) {
 	healthBar = GameObject.CreatePrimitive(PrimitiveType.Quad);		// Enemies have healthbars
 	healthBar.transform.parent = transform;							// We're going to override the position updates, but this makes the hierarchy not look terrifying
 	healthBar.renderer.material.color = Color(0.8,0,0);				// enemy health bars are red
-	healthBar.transform.localPosition = Vector2(0,0.7);				// and are slightly above their characters' heads
+	healthBar.transform.localPosition = Vector2(0,transform.localScale.y*1.2);				// and are slightly above their characters' heads
 	healthBar.name = "Health Bar";
 	
 	
@@ -37,7 +37,7 @@ function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook) {
 
 function setValues (type : String) {		// ENEMY STATS BY CLASS
 	if (type.Equals("Bob")) {
-		curHealth = 100;
+		curHealth = 150;
 		armor = 6;
 	}
 	maxHealth = curHealth;					// this will always happen (..... right?)
@@ -51,7 +51,7 @@ function Update () {
 	}
 	var healthPercent = curHealth / maxHealth;																								// update health %
 	healthBar.transform.localScale = Vector3(healthPercent,0.15,1);																			// rescale healthbar
-	healthBar.transform.position = Vector3((1-healthPercent)/2 + transform.position.x,0.7 + transform.position.y,transform.position.z);		// and update the transform
+	healthBar.transform.position = Vector3((1-healthPercent)/2 + transform.position.x,transform.localScale.y*0.7 + transform.position.y,transform.position.z);		// and update the transform
 	healthBar.transform.rotation = Quaternion.identity;
 	
 	
@@ -105,6 +105,7 @@ function damageText(damage : int){
 	var damageObject = new GameObject("DamageText");
 	//damageObject.transform.parent = this.transform;
 	damageObject.transform.position = this.transform.position;
+	damageObject.transform.position.z = -2;
 	damageObject.transform.localScale = Vector3(1,1,1); //NOT SURE IF THIS IS NECESSARY
 	var meshFilter = damageObject.AddComponent(MeshFilter); //Add a mesh filter for textures
 	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
@@ -133,7 +134,9 @@ function incrementTimers() {			// All of our various timers (there'll be more)
 }
 
 function die() {						// How to die: a manual
+	
 	PlayerStatus.money += 250;
+	
 	GameObject.Destroy(gameObject);		// Stop existing. the end.
 }
 

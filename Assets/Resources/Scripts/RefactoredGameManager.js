@@ -5,6 +5,8 @@ var world : Array; //Array to hold the world
 var player : GameObject;	//The player object
 var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 
+var playerClass : String;
+
 function Start() {
 	world = new Array(); //Initializes the world array
 	
@@ -21,11 +23,13 @@ function Start() {
 	//Add the spellbooks to the game manager object
 	//enemySpellbookScript = gameObject.AddComponent(EnemySpellbook);
 	
+	playerClass = GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).lastArg;
+	
 	// inits the scripts
 	//enemySpellbookScript.init();
 	//buildWorldScript.proceduralInit(world, exampleMesh);
 	buildWorldScript.init(world, exampleMesh);
-	spawnWorldScript.init(world, exampleMesh, 25);
+	spawnWorldScript.init(world, exampleMesh, 25,playerClass);
 }
 
 /*function buildPlayer(name : String) {

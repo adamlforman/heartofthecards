@@ -7,14 +7,17 @@ var cam : GameCamera; //Forgot what type, will fix later
 var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 var maxEnemies : int;
 
+var playerClass : String;
+
 
 //Start spawning the world
-function init(a : Array, exampleMesh : Mesh, maxEnemies : int) {
+function init(a : Array, exampleMesh : Mesh, maxEnemies : int, playerClass : String) {
 	world = a; //Set the world array to reference the array passed in
 	maxY = world.length; //Sets the max Y value of the map to be the length of the world array
 	maxX = world[0].length; //Sets the max X value of the map to be the length of the first array within the world array;
 	this.maxEnemies = maxEnemies;
 	this.exampleMesh = exampleMesh;
+	this.playerClass = playerClass;
 	spawnWorld(); //Spawns the world
 }
 
@@ -136,6 +139,9 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 
 //Spawns a player at a specific location
 function spawnPlayer(x : int, y : int) {
+	if (playerClass == "null") {
+		playerClass = "Circle";
+	}
 	var playerObject = new GameObject(); //Creates a new empty gameObject
 	playerObject.transform.position = Vector3(x, y, -1);
 	playerObject.name = "Player";
@@ -147,7 +153,7 @@ function spawnPlayer(x : int, y : int) {
 	playerModel.SetActive(false); 								//Turn off the object so its script doesn't do anything until we're ready.
 	model = playerModel.AddComponent(CharModel); 				//Add a CharModel script to control visuals of the Player.
 	model.name = "Player Model";								//Name the PlayerModel
-	model.init(playerObject, "Circle"); 							//Initialize the PlayerModel.
+	model.init(playerObject, playerClass); 							//Initialize the PlayerModel.
 	playerModel.transform.parent = playerObject.transform;
 	
 	//var playerScript = playerObject.AddComponent(PlayerScript); //Attaches the playerScript
@@ -157,9 +163,9 @@ function spawnPlayer(x : int, y : int) {
 	
 	var playerMoveScript = playerObject.AddComponent(PlayerMove);			//Add the PlayerMove Script
 	var playerStatusScript = playerObject.AddComponent(PlayerStatus);		//Add the PlayerStatus Script
-	playerStatusScript.init("Circle");
+	playerStatusScript.init(playerClass);
 	var playerSpellbookScript = playerObject.AddComponent(PlayerSpellbook); //Add the PlayerSpellbook script
-	playerSpellbookScript.init("Circle");
+	playerSpellbookScript.init(playerClass);
 	var playerHUDScript = playerObject.AddComponent(PlayerHUD);				//Add the PlayerHUD Script
 	playerHUDScript.init(Camera.main, playerObject);
 	playerStatusScript.HUD = playerHUDScript;

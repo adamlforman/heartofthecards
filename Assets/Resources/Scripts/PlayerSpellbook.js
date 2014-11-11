@@ -29,7 +29,7 @@ public var drawTimer : float;			//The time until your next draw.
 
 var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 
-private var classType : String;		//The class of the player (circle, square, triangle)
+public var classType : String;		//The class of the player (circle, square, triangle)
 
 
 //Circle global variables

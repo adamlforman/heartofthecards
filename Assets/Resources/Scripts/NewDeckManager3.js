@@ -485,12 +485,12 @@ function OnGUI() {
 		}
 	}*/
 	
-	else if (GUI.Button(Rect(Screen.width/3.1,Screen.height/1.2,Screen.width*0.35,Screen.height*0.10),"Play Level 1 Again!")) {
+	else if (GUI.Button(Rect(Screen.width/3.1,Screen.height/1.2,Screen.width*0.35,Screen.height*0.10),"Done Building")) {
 		if (NewDeckManager.theDeck.length == 20) {
-			Application.LoadLevel("procedural");
+			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel();
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/8,Screen.height/1.2,Screen.width*0.10,Screen.height*0.10),"<---")) {
-		Application.LoadLevel("deckBuilder2");
+		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("deckBuilder2");
 	}
 }

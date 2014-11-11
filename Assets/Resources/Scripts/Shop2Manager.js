@@ -361,16 +361,16 @@ function OnGUI() {
 	else if (GUI.Button(Rect(Screen.width/3,Screen.height/1.2,Screen.width*0.30,Screen.height*0.10),"Go to Deck Building!")) {
 		audioS.loop = false;
         audioS.stop();
-        Application.LoadLevel("deckBuilder");
+        GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel();
 	}
 	else if (GUI.Button(Rect(Screen.width/8,Screen.height/1.2,Screen.width*0.10,Screen.height*0.10),"<---")) {
 		audioS.loop = false;
         audioS.Stop();
-        Application.LoadLevel("shop");
+        GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("shop");
 	}
 	else if (GUI.Button(Rect(Screen.width*6/8,Screen.height/1.2,Screen.width*0.10,Screen.height*0.10),"--->")) {
 		audioS.loop = false;
         audioS.Stop();
-        Application.LoadLevel("shop3");
+        GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("shop3");
 	}
 }

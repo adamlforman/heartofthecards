@@ -156,7 +156,7 @@ function Update () {
 		healthbarOb.renderer.material.color = Color(.8,0,0);
 	}
 	healthbarOb.transform.localScale = Vector3(healthPercent*4f, 0.5,1);														// Shrink the healthbar with lost health
-	healthbarOb.transform.localPosition = Vector3(-(1-healthPercent)*cam.orthographicSize*0.4, cam.orthographicSize*0.9, 10);	// And reposition it so it appears to be shrinking straight left
+	healthbarOb.transform.localPosition = Vector3(-(1-healthPercent)*2, cam.orthographicSize*0.9, 10);	// And reposition it so it appears to be shrinking straight left
 	healthbarBgOb.transform.localPosition = Vector3(0, cam.orthographicSize*0.9, 11);											// Make sure the background tracks the camera
 	
 	healthTextOb.guiText.text = curHealth + " / " + maxHealth;			// update health text

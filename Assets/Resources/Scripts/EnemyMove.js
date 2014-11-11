@@ -35,6 +35,7 @@ var attackTimer : float;	// delay between attacks -- set durin attack function
 
 var archerChase : boolean;
 var warriorChase : boolean;
+var mageRun : boolean;
 
 private var size : float;
 private var center : Vector2;
@@ -203,6 +204,12 @@ function Update() {
 	else {
 		archerChase = true;
 	}
+	if ((distance <= 3) && LoS) {
+		mageRun = true;
+	}
+	else {
+		mageRun = false;
+	}
 }
 
 function FixedUpdate() {										// Enemy behaviour
@@ -222,7 +229,7 @@ function FixedUpdate() {										// Enemy behaviour
 
 function chase(location : Vector2) {
 	face(location); // face the target
-	if (type.Equals("archer") || type.Equals("mage")) {
+	if (type.Equals("archer")){
 		if (archerChase == true) {
 			if (canMove <= 0) {
 				transform.Translate(Vector2(0,speed*Time.deltaTime));	// and move forward
@@ -230,6 +237,16 @@ function chase(location : Vector2) {
 		}
 		else {
 			avoid(target.transform.position);
+		}
+	}
+	else if ( type.Equals("mage")) {
+		if (archerChase == true) {
+			if (canMove <= 0) {
+				transform.Translate(Vector2(0,speed*Time.deltaTime));
+			}
+		}
+		else if (mageRun) {
+			avoid(location);
 		}
 	}
 	else if(type.Equals("warrior")){						

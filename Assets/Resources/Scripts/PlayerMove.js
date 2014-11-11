@@ -1,11 +1,11 @@
-public static var speed : float = 3;
+public var speed : float = 3;
 private var baseSpeed : float = 3;
 private var currentSpeedx : float;
 private var currentSpeedy : float;
 private var acceleration : float = 1;
 private var amountToMove : Vector2;
-public static var vrom : float;
-public static var tar : float;
+public  var vrom : float;
+public  var tar : float;
 
 
 function init() {

@@ -211,6 +211,7 @@ function damageText(damage : int){
 	var damageObject = new GameObject("DamageText");
 	//damageObject.transform.parent = this.transform;
 	damageObject.transform.position = this.transform.position;
+	damageObject.transform.position.z = -2;
 	damageObject.transform.localScale = Vector3(1,1,1); //NOT SURE IF THIS IS NECESSARY
 	var meshFilter = damageObject.AddComponent(MeshFilter); //Add a mesh filter for textures
 	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh

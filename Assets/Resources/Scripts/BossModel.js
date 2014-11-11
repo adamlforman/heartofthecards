@@ -10,9 +10,6 @@ function init(o : GameObject, texture : String) {
 	renderer.material.color = Color(1,1,1);
 	renderer.material.shader = Shader.Find ("Transparent/Diffuse");
 	
-	if (texture == "Bob") {
-		transform.localScale = Vector2(2,2);
-	}
 }
 
 function Update(){

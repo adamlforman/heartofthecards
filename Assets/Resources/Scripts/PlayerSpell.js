@@ -175,17 +175,39 @@ function hit(other : GameObject){
 
 //All of the basic attack status buffs
 function applyStatus(target : GameObject){
-	target.GetComponent(EnemyMove).runAway = true;
-	target.GetComponent(EnemyStatus).takeDamage(10, false);
-	if(ice){
-		target.GetComponent(EnemyMove).iceTimer = 5;							//Apply ice if arrow is iced
+	if (target.GetComponent(EnemyMove)) {
+		target.GetComponent(EnemyMove).runAway = true;
+		if(ice){
+			target.GetComponent(EnemyMove).iceTimer = 5;							//Apply ice if arrow is iced
+		}
+		if(blind){
+			target.GetComponent(EnemyMove).blindTimer = 5;						//Apply blind
+		}
 	}
-	if(poison){
-		target.GetComponent(EnemyStatus).poisonCounter = 5;						//Apply poison
+	if (target.GetComponent(EnemyStatus)) {
+		if (player.GetComponent(PlayerSpellbook).classType != "Square") {
+			target.GetComponent(EnemyStatus).takeDamage(10,false);
+		}
+		else {
+			target.GetComponent(EnemyStatus).takeDamage(10,true);
+		};
+	
+		if(poison){
+			target.GetComponent(EnemyStatus).poisonCounter = 5;						//Apply poison
+		}
 	}
-	if(blind){
-		target.GetComponent(EnemyMove).blindTimer = 5;						//Apply blind
+	else if (target.GetComponent(BossStatus)) {
+		if (player.GetComponent(PlayerSpellbook).classType != "Square") {
+			target.GetComponent(BossStatus).takeDamage(10,false);
+		}
+		else {
+			target.GetComponent(BossStatus).takeDamage(10,true);
+		}
+		if(poison){
+			target.GetComponent(EnemyStatus).poisonCounter = 5;						//Apply poison
+		}
 	}
+
 	if(leech){
 		player.GetComponent(PlayerStatus).addHealth(5);
 	}
