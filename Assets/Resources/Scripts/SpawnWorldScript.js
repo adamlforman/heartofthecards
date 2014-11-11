@@ -144,7 +144,7 @@ function spawnPlayer(x : int, y : int) {
 	playerModel.SetActive(false); 								//Turn off the object so its script doesn't do anything until we're ready.
 	model = playerModel.AddComponent(CharModel); 				//Add a CharModel script to control visuals of the Player.
 	model.name = "Player Model";								//Name the PlayerModel
-	model.init(playerObject, "FACE"); 							//Initialize the PlayerModel.
+	model.init(playerObject, "Circle"); 							//Initialize the PlayerModel.
 	playerModel.transform.parent = playerObject.transform;
 	
 	//var playerScript = playerObject.AddComponent(PlayerScript); //Attaches the playerScript
@@ -154,9 +154,9 @@ function spawnPlayer(x : int, y : int) {
 	
 	var playerMoveScript = playerObject.AddComponent(PlayerMove);			//Add the PlayerMove Script
 	var playerStatusScript = playerObject.AddComponent(PlayerStatus);		//Add the PlayerStatus Script
-	playerStatusScript.init("Square");
+	playerStatusScript.init("Circle");
 	var playerSpellbookScript = playerObject.AddComponent(PlayerSpellbook); //Add the PlayerSpellbook script
-	playerSpellbookScript.init("Square");
+	playerSpellbookScript.init("Circle");
 	var playerHUDScript = playerObject.AddComponent(PlayerHUD);				//Add the PlayerHUD Script
 	playerHUDScript.init(Camera.main, playerObject);
 	playerStatusScript.HUD = playerHUDScript;
