@@ -64,6 +64,7 @@ function OnTriggerEnter2D(other : Collider2D) {
 		audioS.PlayOneShot(Resources.Load("Sounds/key"));
 		haveKey = true;
 		other.gameObject.GetComponent(KeyScript).collect();
+		gameObject.GetComponent(PlayerHUD).key();
 	}
 	else if (other.name == "Chest") {
 		audioS.PlayOneShot(Resources.Load("Sounds/chest"));
