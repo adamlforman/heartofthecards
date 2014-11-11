@@ -665,6 +665,10 @@ function pop(list : String[]) {
 	return newList;
 }
 
+function getType(){
+	return classType;
+}
+
 
 
 

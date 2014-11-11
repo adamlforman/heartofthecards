@@ -1,4 +1,4 @@
-﻿public static var speed : float = 3;
+public static var speed : float = 3;
 private var baseSpeed : float = 3;
 private var currentSpeedx : float;
 private var currentSpeedy : float;
@@ -11,7 +11,16 @@ public static var tar : float;
 function init() {
 	vrom = 0;
 	tar = 0;
-		// currently does nothing
+
+	if(gameObject.GetComponent(PlayerSpellbook).getType() == "Circle"){
+	
+	}
+	if(gameObject.GetComponent(PlayerSpellbook).getType() == "Square"){
+	
+	}
+	if(gameObject.GetComponent(PlayerSpellbook).getType() == "Triangle"){
+	
+	}
 }
 
 function Update () {
