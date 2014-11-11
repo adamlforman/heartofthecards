@@ -69,4 +69,7 @@ function iterateLevel() {
 			nextLevel = "procedural";
 		}
 	}
+	else if (nextLevel == "boss1") {
+		nextLevel = "shop";
+	}
 }
