@@ -84,7 +84,7 @@ function Start () {
 	if (PlayerSpellbook.deck != null) {
 		theDeck = PlayerSpellbook.library;
 	}
-	else {
+	else if(NewDeckManager.theDeck == null){
 		theDeck = [];
 	}
 

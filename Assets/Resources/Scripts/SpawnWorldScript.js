@@ -153,7 +153,6 @@ function spawnPlayer(x : int, y : int) {
 	//player = playerScript; //set a reference to the playerScript
 	
 	var playerMoveScript = playerObject.AddComponent(PlayerMove);			//Add the PlayerMove Script
-	playerMoveScript.init();
 	var playerStatusScript = playerObject.AddComponent(PlayerStatus);		//Add the PlayerStatus Script
 	playerStatusScript.init("Square");
 	var playerSpellbookScript = playerObject.AddComponent(PlayerSpellbook); //Add the PlayerSpellbook script
@@ -161,6 +160,7 @@ function spawnPlayer(x : int, y : int) {
 	var playerHUDScript = playerObject.AddComponent(PlayerHUD);				//Add the PlayerHUD Script
 	playerHUDScript.init(Camera.main, playerObject);
 	playerStatusScript.HUD = playerHUDScript;
+	playerMoveScript.init();
 	
 	//add a rigidbody and boxcollider for collisions
 	

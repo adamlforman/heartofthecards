@@ -6,7 +6,15 @@ private var amountToMove : Vector2;
 
 
 function init() {
-		// currently does nothing
+	if(gameObject.GetComponent(PlayerSpellbook).getType() == "Circle"){
+	
+	}
+	if(gameObject.GetComponent(PlayerSpellbook).getType() == "Square"){
+	
+	}
+	if(gameObject.GetComponent(PlayerSpellbook).getType() == "Triangle"){
+	
+	}
 }
 
 function Update () {
