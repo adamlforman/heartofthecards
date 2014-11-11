@@ -39,8 +39,10 @@ public static var cardsOwned: Array;
 private var audioS: AudioSource; 
 function Start () {
     audioS = gameObject.AddComponent(AudioSource);
+    audioS.clip = Resources.Load("Sounds/shopmusic");
+ 	audioS.Play();
     audioS.loop = true;
-    audioS.PlayOneShot(Resources.Load("sounds/shop"));
+
     
 	normalSpell = "/4";
 	specialSpell = "/1";
