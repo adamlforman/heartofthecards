@@ -10,7 +10,367 @@ Platform assembly: C:\Users\Adam Forman\Documents\GitHub\heartofthecards\CardCha
 Loading C:\Users\Adam Forman\Documents\GitHub\heartofthecards\CardChaser_Data\Managed\UnityEngine.dll into Unity Child Domain
 Platform assembly: C:\Users\Adam Forman\Documents\GitHub\heartofthecards\CardChaser_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
 Loading C:\Users\Adam Forman\Documents\GitHub\heartofthecards\CardChaser_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
-- Completed reload, in  0.058 seconds
+- Completed reload, in  0.044 seconds
 desktop: 1680x1050 60Hz; virtual: 1680x1050 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
+Platform assembly: C:\Users\Adam Forman\Documents\GitHub\heartofthecards\CardChaser_Data\Managed\UnityScript.Lang.dll (this message is harmless)
+Platform assembly: C:\Users\Adam Forman\Documents\GitHub\heartofthecards\CardChaser_Data\Managed\Boo.Lang.dll (this message is harmless)
+Platform assembly: C:\Users\Adam Forman\Documents\GitHub\heartofthecards\CardChaser_Data\Managed\System.dll (this message is harmless)
+Loaded level: shop
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.194110 ms
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 140.
+Total: 0.530687 ms (FindLiveObjects: 0.005342 ms CreateObjectMapping: 0.006232 ms MarkObjects: 0.087260 ms  DeleteObjects: 0.002671 ms)
+
+Loaded level: shop2
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.258665 ms
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 152.
+Total: 0.778668 ms (FindLiveObjects: 0.007123 ms CreateObjectMapping: 0.006232 ms MarkObjects: 0.104623 ms  DeleteObjects: 0.217261 ms)
+
+Loaded level: shop3
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.255994 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 153.
+Total: 0.704318 ms (FindLiveObjects: 0.006678 ms CreateObjectMapping: 0.006678 ms MarkObjects: 0.084144 ms  DeleteObjects: 0.191884 ms)
+
+Loaded level: deckBuilder
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.230617 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 152.
+Total: 0.709216 ms (FindLiveObjects: 0.006232 ms CreateObjectMapping: 0.006232 ms MarkObjects: 0.085925 ms  DeleteObjects: 0.190994 ms)
+
+Loaded level: charSelect
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.227055 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 155.
+Total: 0.524900 ms (FindLiveObjects: 0.007123 ms CreateObjectMapping: 0.006232 ms MarkObjects: 0.100171 ms  DeleteObjects: 0.002671 ms)
+
+Loaded level: boss1
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.622845 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 142.
+Total: 0.500413 ms (FindLiveObjects: 0.010684 ms CreateObjectMapping: 0.006232 ms MarkObjects: 0.093048 ms  DeleteObjects: 0.002226 ms)
+
+Platform assembly: C:\Users\Adam Forman\Documents\GitHub\heartofthecards\CardChaser_Data\Managed\System.Core.dll (this message is harmless)
+Bob init
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 5.911914 ms
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 578 unused Assets to reduce memory usage. Loaded Objects now: 145.
+Total: 2.171723 ms (FindLiveObjects: 0.016917 ms CreateObjectMapping: 0.059657 ms MarkObjects: 0.121541 ms  DeleteObjects: 1.541309 ms)
+
+Loaded level: shop
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.262227 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 158.
+Total: 0.767093 ms (FindLiveObjects: 0.007123 ms CreateObjectMapping: 0.006678 ms MarkObjects: 0.115308 ms  DeleteObjects: 0.203905 ms)
+
+Loaded level: deckBuilder
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.260446 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 158.
+Total: 0.745723 ms (FindLiveObjects: 0.007123 ms CreateObjectMapping: 0.007123 ms MarkObjects: 0.117089 ms  DeleteObjects: 0.201233 ms)
+
+Loaded level: charSelect
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.207021 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 161.
+Total: 0.523119 ms (FindLiveObjects: 0.007123 ms CreateObjectMapping: 0.006678 ms MarkObjects: 0.109521 ms  DeleteObjects: 0.002671 ms)
+
+Loaded level: procedural
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.379317 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 148.
+Total: 0.558735 ms (FindLiveObjects: 0.005342 ms CreateObjectMapping: 0.006232 ms MarkObjects: 0.121986 ms  DeleteObjects: 0.002226 ms)
+
+Level has 26 different caverns.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Largest size is cavern 1 with 1493 tiles.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 34.370041 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 3386 unused Assets to reduce memory usage. Loaded Objects now: 145.
+Total: 12.347393 ms (FindLiveObjects: 0.089486 ms CreateObjectMapping: 0.325446 ms MarkObjects: 0.161610 ms  DeleteObjects: 11.310504 ms)
+
+Loaded level: procedural
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.281816 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 158.
+Total: 0.788463 ms (FindLiveObjects: 0.007123 ms CreateObjectMapping: 0.007123 ms MarkObjects: 0.149144 ms  DeleteObjects: 0.195891 ms)
+
+Level has 14 different caverns.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Largest size is cavern 0 with 1512 tiles.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Loaded level: procedural
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 33.681309 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 3241 unused Assets to reduce memory usage. Loaded Objects now: 144.
+Total: 10.127142 ms (FindLiveObjects: 0.085479 ms CreateObjectMapping: 0.304076 ms MarkObjects: 0.153596 ms  DeleteObjects: 8.796862 ms)
+
+Level has 36 different caverns.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Largest size is cavern 4 with 1211 tiles.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Loaded level: boss1
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 39.229042 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 3229 unused Assets to reduce memory usage. Loaded Objects now: 144.
+Total: 10.187690 ms (FindLiveObjects: 0.089931 ms CreateObjectMapping: 0.298289 ms MarkObjects: 0.166062 ms  DeleteObjects: 9.186418 ms)
+
+Bob init
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 6.123833 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 622 unused Assets to reduce memory usage. Loaded Objects now: 145.
+Total: 2.354258 ms (FindLiveObjects: 0.026267 ms CreateObjectMapping: 0.066335 ms MarkObjects: 0.147808 ms  DeleteObjects: 1.706036 ms)
+
+Loaded level: shop
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.297398 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 158.
+Total: 0.762195 ms (FindLiveObjects: 0.006678 ms CreateObjectMapping: 0.007123 ms MarkObjects: 0.146028 ms  DeleteObjects: 0.193220 ms)
+
+Loaded level: deckBuilder
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.231953 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 158.
+Total: 0.835209 ms (FindLiveObjects: 0.006678 ms CreateObjectMapping: 0.007123 ms MarkObjects: 0.156713 ms  DeleteObjects: 0.217706 ms)
+
+Loaded level: charSelect
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.252878 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 161.
+Total: 0.612605 ms (FindLiveObjects: 0.006232 ms CreateObjectMapping: 0.006678 ms MarkObjects: 0.170514 ms  DeleteObjects: 0.002671 ms)
+
+Loaded level: procedural
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 1.347644 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 148.
+Total: 0.563187 ms (FindLiveObjects: 0.005787 ms CreateObjectMapping: 0.006678 ms MarkObjects: 0.156267 ms  DeleteObjects: 0.002226 ms)
+
+Level has 14 different caverns.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Largest size is cavern 0 with 1825 tiles.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 29.041351 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 3220 unused Assets to reduce memory usage. Loaded Objects now: 145.
+Total: 9.733578 ms (FindLiveObjects: 0.086370 ms CreateObjectMapping: 0.300515 ms MarkObjects: 0.169624 ms  DeleteObjects: 8.738094 ms)
+
+Loaded level: procedural
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.257775 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 158.
+Total: 0.783565 ms (FindLiveObjects: 0.006678 ms CreateObjectMapping: 0.006678 ms MarkObjects: 0.154487 ms  DeleteObjects: 0.190548 ms)
+
+Level has 16 different caverns.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Largest size is cavern 0 with 1731 tiles.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Loaded level: mainMenu
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 34.467545 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 3289 unused Assets to reduce memory usage. Loaded Objects now: 150.
+Total: 11.384854 ms (FindLiveObjects: 0.088596 ms CreateObjectMapping: 0.302296 ms MarkObjects: 0.202569 ms  DeleteObjects: 10.367554 ms)
+
+Loaded level: shop
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.232843 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 148.
+Total: 0.580551 ms (FindLiveObjects: 0.006232 ms CreateObjectMapping: 0.007123 ms MarkObjects: 0.171850 ms  DeleteObjects: 0.002226 ms)
+
+Loaded level: deckBuilder
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.235960 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 158.
+Total: 0.780449 ms (FindLiveObjects: 0.007568 ms CreateObjectMapping: 0.007123 ms MarkObjects: 0.162055 ms  DeleteObjects: 0.190994 ms)
+
+Loaded level: charSelect
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.247090 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 161.
+Total: 0.587674 ms (FindLiveObjects: 0.007568 ms CreateObjectMapping: 0.007123 ms MarkObjects: 0.178083 ms  DeleteObjects: 0.002671 ms)
+
+Loaded level: procedural
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 0.377981 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 148.
+Total: 0.580996 ms (FindLiveObjects: 0.005787 ms CreateObjectMapping: 0.007123 ms MarkObjects: 0.169624 ms  DeleteObjects: 0.002671 ms)
+
+Level has 21 different caverns.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Largest size is cavern 2 with 1425 tiles.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Loaded level: procedural
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 35.550289 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 3284 unused Assets to reduce memory usage. Loaded Objects now: 144.
+Total: 10.383136 ms (FindLiveObjects: 0.081473 ms CreateObjectMapping: 0.308083 ms MarkObjects: 0.206576 ms  DeleteObjects: 9.352480 ms)
+
+Level has 13 different caverns.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Largest size is cavern 1 with 1716 tiles.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Loaded level: procedural
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 30.394339 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 3567 unused Assets to reduce memory usage. Loaded Objects now: 144.
+Total: 13.565927 ms (FindLiveObjects: 0.093493 ms CreateObjectMapping: 0.334351 ms MarkObjects: 0.205686 ms  DeleteObjects: 12.487189 ms)
+
+Level has 33 different caverns.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Largest size is cavern 2 with 1407 tiles.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Loaded level: mainMenu
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 41.808575 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 3173 unused Assets to reduce memory usage. Loaded Objects now: 151.
+Total: 8.902374 ms (FindLiveObjects: 0.085034 ms CreateObjectMapping: 0.296063 ms MarkObjects: 0.174076 ms  DeleteObjects: 7.923808 ms)
+

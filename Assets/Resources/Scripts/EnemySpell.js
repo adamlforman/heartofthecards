@@ -48,6 +48,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 		delayTimer = 1;
 		readyToPunch = true;
 		model.name = "Enemy Comet Model";
+		transform.localPosition.z = -2;
 	}
 	this.enemy = enemy;
 	
