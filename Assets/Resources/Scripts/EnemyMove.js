@@ -13,6 +13,7 @@ var spellbook : EnemySpellbook; // functions for spells, called from attack func
 
 // Moment-to-moment behaviour
 var aggro : boolean;		// currently attempting to chase?
+var runAway : boolean;
 var inRange : boolean;
 var waypoint : Vector2;		// waypoint -- used for wandering randomly or if loses LoS of target
 var canMove : float;
@@ -162,6 +163,7 @@ function Update() {
 	}
 	else {
 		LoS = false;
+		runAway = false;
 	}
 	
 	if (!aggro) {						// if not aggro

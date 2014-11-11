@@ -169,6 +169,7 @@ function hit(other : GameObject){
 
 //All of the basic attack status buffs
 function applyStatus(target : GameObject){
+	target.GetComponent(EnemyMove).runAway = true;
 	target.GetComponent(EnemyStatus).takeDamage(10, false);
 	if(ice){
 		target.GetComponent(EnemyMove).iceTimer = 5;							//Apply ice if arrow is iced

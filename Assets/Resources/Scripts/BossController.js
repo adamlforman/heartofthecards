@@ -6,6 +6,12 @@ var dancing : boolean;
 var danceTimer : float;
 var cometTimer : float;
 
+var growing : boolean;
+var growTimer : float;
+
+var tired : boolean; 
+var tiredTimer : float;
+
 var baseSize : Vector2;
 var goalSize : Vector2;
 
@@ -22,6 +28,8 @@ function init(target : GameObject, spellbook : EnemySpellbook) {
 
 function Update() {
 	incrementTimers();
+	triggerStuff();
+	
 	if (target) {
 		if (dancing) {
 			if (cometTimer <= 0) {
@@ -29,9 +37,13 @@ function Update() {
 				cometTimer = 0.3;
 			}
 		}
+		
+		if (growing) {
+			face(target.transform.position);
+		}
 	
 	}
-	if (transform.localScale != goalSize) {
+	if (transform.localScale != goalSize) {		// INCREMENTS size towards goalSize
 		if (Mathf.Abs(transform.localPosition.x - goalSize.x) < 0.2) {
 			transform.localScale.x = goalSize.x;
 		}
@@ -63,10 +75,28 @@ function returnToNormal() {
 
 }
 
+function face(location : Vector2) {						// THIS IS A USEFUL FUNCTION
+	transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(location.y - transform.position.y, location.x - transform.position.x) * Mathf.Rad2Deg - 90);
+}
+
 
 
 function incrementTimers() {
 	var tick : float = Time.deltaTime;
 	danceTimer -= tick;
 	cometTimer -= tick;
+	growTimer -= tick;
+	tiredTimer -= tick;
+}
+
+function triggerStuff() {
+	if (danceTimer <= 0) {
+		dancing = false;
+	}
+	if (growTimer <= 0) {
+		growing = false;
+	}
+	if (tiredTimer <= 0) {
+		tired = false;
+	}
 }
