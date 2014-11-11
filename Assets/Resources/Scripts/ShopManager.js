@@ -42,6 +42,7 @@ function Start () {
     audioS.clip = Resources.Load("Sounds/shopmusic");
  	audioS.Play();
     audioS.loop = true;
+
     
 	normalSpell = "/4";
 	specialSpell = "/1";
