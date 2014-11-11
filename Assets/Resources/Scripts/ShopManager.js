@@ -1,4 +1,4 @@
-﻿var title : GUIText;
+var title : GUIText;
 var reminder : GUIText;
 var ice : GUIText;
 var poison : GUIText;
@@ -36,8 +36,12 @@ var badSpell : String;
 public static var theDeck : Array;
 public static var cardsOwned: Array;
 
-
+private var audioS: AudioSource; 
 function Start () {
+    audioS = this.AddComponent(AudioSource);
+    audioS.loop = true;
+    audioS.PlayOneShot(Resources.load("sounds/shop"));
+    
 	normalSpell = "/4";
 	specialSpell = "/1";
 	badSpell = "/0";
@@ -360,9 +364,13 @@ function OnGUI() {
 		}
 	}*/
 	else if (GUI.Button(Rect(Screen.width/3,Screen.height/1.2,Screen.width*0.30,Screen.height*0.10),"Go to Deck Building!")) {
-		Application.LoadLevel("deckBuilder");
+		audioS.loop = false;
+        audioS.stop();
+        Application.LoadLevel("deckBuilder");
 	}
 	else if (GUI.Button(Rect(Screen.width*6/8,Screen.height/1.2,Screen.width*0.10,Screen.height*0.10),"--->")) {
-		Application.LoadLevel("shop2");
+		audioS.loop = false;
+        audioS.stop();
+        Application.LoadLevel("shop2");
 	}
 }
