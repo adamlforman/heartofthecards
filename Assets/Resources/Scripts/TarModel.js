@@ -5,7 +5,6 @@ function init(o : TarScript) {
 	
 	transform.parent = owner.transform; //Set the model's parent
 	transform.localPosition = Vector3(0,0,0); //Center the model on the parent.
-	transform.localScale = Vector3(1,1,1); //IS THIS NECESSARY?
 	name = "Tar Model"; //Name the object.
 	
 	textureName = "Textures/slow"; //Get the texture name with texture folder

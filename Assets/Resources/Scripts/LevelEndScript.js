@@ -4,9 +4,10 @@
 	meshFilter.mesh = quadMesh; //Give the mesh filter a quadmesh
 	modelObject.AddComponent(MeshRenderer); //Add a renderer for textures
 	modelObject.SetActive(false); //Turn off the object so its script doesn't do anything until we're ready.
-		
+	
+
 	model = modelObject.AddComponent(LevelEndModel); //Add a model script to control visuals of the portal.
 	model.init(this); //Initialize the portalmodel.
-
+	modelObject.transform.localPosition = Vector3(0,0,.5);
 	modelObject.SetActive(true);//Turn on the object (the Update function will start being called).
 }

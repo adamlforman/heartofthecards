@@ -23,9 +23,10 @@ public var readyToPunch : boolean;
 // Square specific things
 public var delayTimer : float;
 
-
+var audioS : AudioSource;
 
 function init(ice : float, poison : float, fork : float, reflect : float, pierce : float, giant : float, splash : float, leech : float, blind : float, meteor : float, rapid : float, homing : float, exampleMesh : Mesh, enemy : GameObject, damage : int) {
+	audioS = gameObject.AddComponent(AudioSource);
 	this.exampleMesh = exampleMesh;					// Bitches love meshes
 	this.damage = damage;
 	var modelObject = new GameObject();									// Create a quad object for holding the tile texture.
@@ -165,6 +166,10 @@ function hit(other : GameObject){		// how to hit something
 			}
 			if(other.name == "Player"){
 				applyStatus(other);				//apply status debuffs to the enemy we hit
+				if (name == "Enemy Fist") {
+					audioS.PlayOneShot(Resources.Load("Sounds/fisthit"));
+					audioS.PlayOneShot(Resources.Load("Sounds/uugh"));
+				}
 				if(!pierce){
 					if(name == "Enemy Shot"){
 						Destroy(gameObject); 		

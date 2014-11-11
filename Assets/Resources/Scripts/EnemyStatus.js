@@ -15,8 +15,10 @@ var hyper : boolean;
 var raging : boolean;
 var armored : boolean;
 var juggernaut : boolean;
-
-
+var arrowHit: AudioClip;
+var uugh : AudioClip;
+var explosion : AudioClip;
+var fistHit : AudioClip;
 
 //If the player can move
 //var canMove : float = 0;
@@ -51,6 +53,10 @@ var audioS : AudioSource;
 
 function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook, prefix : String, suffix : String) {
 	audioS = this.GetComponent(AudioSource);
+	uugh = Resources.Load("Sounds/uugh");
+	arrowHit = Resources.Load("Sounds/arrowhit");
+	explosion = Resources.Load("Sounds/explosion");
+	fistHit = Resources.Load("Sounds/fisthit");
 	exampleMesh = quadMesh;
 	invulnerable = 0;
 	/*
@@ -157,18 +163,18 @@ function OnTriggerEnter2D(other : Collider2D){
 	//print("enemy");
 	if(other.gameObject.name == "Shot") {
 		if(!other.gameObject.GetComponent(PlayerSpell).splash){
-			audioS.PlayOneShot(Resources.Load("Sounds/arrowhit"));
-			audioS.PlayOneShot(Resources.Load("Sounds/uugh"));
+			audioS.PlayOneShot(arrowHit);
+			audioS.PlayOneShot(uugh);
 			other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
 		}
 		else{
-			audioS.PlayOneShot(Resources.Load("Sounds/arrowhit"));
-			audioS.PlayOneShot(Resources.Load("Sounds/uugh"));
+			audioS.PlayOneShot(arrowHit);
+			audioS.PlayOneShot(uugh);
 			other.gameObject.GetComponent(PlayerSpell).hit(gameObject);		//If we splash, dont make damage text yet.
 		}
 	}
 	if(other.gameObject.name == "Explosion") {
-		audioS.PlayOneShot(Resources.Load("Sounds/explosion"));
+		audioS.PlayOneShot(explosion);
 		other.gameObject.GetComponent(Splash).hit(gameObject);
 	}
 
@@ -178,13 +184,9 @@ function OnTriggerStay2D(other : Collider2D){
 	if(invulnerable<=0){
 		if(other.gameObject.name == "Fist" ) {
 			if(!other.gameObject.GetComponent(PlayerSpell).splash){
-				audioS.PlayOneShot(Resources.Load("Sounds/fisthit"));
-				audioS.PlayOneShot(Resources.Load("Sounds/uugh"));
 				other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
 			}
 			else{
-				audioS.PlayOneShot(Resources.Load("Sounds/fisthit"));
-				audioS.PlayOneShot(Resources.Load("Sounds/uugh"));
 				other.gameObject.GetComponent(PlayerSpell).hit(gameObject);		//If we splash, dont make damage text yet.
 			}
 		}

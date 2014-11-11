@@ -23,9 +23,11 @@ public var readyToPunch : boolean;
 // Square specific things
 public var delayTimer : float;
 
+var audioS : AudioSource;
 
 
 function init(ice : float, poison : float, fork : float, reflect : float, pierce : float, giant : float, splash : float, leech : float, blind : float, meteor : float, rapid : float, homing : float, exampleMesh : Mesh, player : GameObject) {
+	audioS = gameObject.AddComponent(AudioSource);
 	this.exampleMesh = exampleMesh;
 	readyToPunch = false;
 	
@@ -157,6 +159,10 @@ function hit(other : GameObject){
 			}
 			if(other.name == "Enemy Warrior" || other.name == "Enemy Archer" || other.name == "Enemy Mage"){
 				applyStatus(other);					//apply status debuffs to the enemy we hit
+				if (name == "Fist") {
+					audioS.PlayOneShot(Resources.Load("Sounds/fisthit"));
+					audioS.PlayOneShot(Resources.Load("Sounds/ow"));
+				}
 				if(!pierce){
 					if(name == "Shot"){
 						Destroy(gameObject);

@@ -5,7 +5,6 @@ function init(o : SpikesScript) {
 	
 	transform.parent = owner.transform; //Set the model's parent
 	transform.localPosition = Vector3(0,0,0); //Center the model on the parent.
-	transform.localScale = Vector3(1,1,1); //IS THIS NECESSARY?
 	name = "Spikes Model"; //Name the object.
 	
 	textureName = "Textures/spikes"; //Get the texture name with texture folder
