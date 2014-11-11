@@ -42,11 +42,13 @@ private var isPaused : boolean;
 
 public static var allCards : Array;
 
+var audioS : AudioSource;
+
 
 function init(classType : String) {
 	allCards = ["ice", "poison", "fork", "reflect", "pierce", "giant", "splash", "leech", "blind", "rapid", "homing", "meteor"];
 	isPaused = ProceduralGameManager.isPaused;
-	
+	audioS = this.GetComponent(AudioSource);
 	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
 	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
 	Destroy(exampleQuad); //Destroy the primitive quad
@@ -206,7 +208,6 @@ function Update () {
 	//Square Stuff
 	if (classType == "Square") {
 		if(cast1 > 0 && cooldown <= 0) {
-			print("BOOM");
 			var target : Vector2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			comet(gameObject, target);
 			cooldown = 2;
@@ -559,6 +560,7 @@ function Update () {
 	model.init(playerObject, "FACE"); 							//Initialize the PlayerModel.
 */
 function shot (player : GameObject){
+	audioS.PlayOneShot(Resources.Load("Sounds/arrowattack"));
 	if(fork>0){
 		spawnShot(player, Vector3(0,0,30));
 		spawnShot(player, Vector3(0,0,-30));
@@ -570,6 +572,7 @@ function shot (player : GameObject){
 }
 
 function comet (player : GameObject, target : Vector2) {
+	audioS.PlayOneShot(Resources.Load("Sounds/mageattack"));
 	spawnComet(player,target);
 	// FORK does nothing for mages, yet. find a way to not make OP.
 
@@ -577,6 +580,7 @@ function comet (player : GameObject, target : Vector2) {
 
 //not done yet
 function swing (){
+	audioS.PlayOneShot(Resources.Load("Sounds/fistattack"));
 	swinging = true;
 	
 }

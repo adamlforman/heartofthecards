@@ -16,6 +16,8 @@ var raging : boolean;
 var armored : boolean;
 var juggernaut : boolean;
 
+
+
 //If the player can move
 //var canMove : float = 0;
 
@@ -24,6 +26,8 @@ var juggernaut : boolean;
 //var target : GameObject;	// usually the player
 //var spellbook : EnemySpellbook; // functions for spells, called from attack functions
 var healthBar : GameObject;
+
+var audioS : AudioSource;
 
 // Moment-to-moment behaviour
 //var aggro : boolean;		// currently attempting to chase?
@@ -46,6 +50,7 @@ var healthBar : GameObject;
 
 
 function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook, prefix : String, suffix : String) {
+	audioS = this.GetComponent(AudioSource);
 	exampleMesh = quadMesh;
 	invulnerable = 0;
 	/*
@@ -152,13 +157,18 @@ function OnTriggerEnter2D(other : Collider2D){
 	//print("enemy");
 	if(other.gameObject.name == "Shot") {
 		if(!other.gameObject.GetComponent(PlayerSpell).splash){
+			audioS.PlayOneShot(Resources.Load("Sounds/arrowhit"));
+			audioS.PlayOneShot(Resources.Load("Sounds/uugh"));
 			other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
 		}
 		else{
+			audioS.PlayOneShot(Resources.Load("Sounds/arrowhit"));
+			audioS.PlayOneShot(Resources.Load("Sounds/uugh"));
 			other.gameObject.GetComponent(PlayerSpell).hit(gameObject);		//If we splash, dont make damage text yet.
 		}
 	}
 	if(other.gameObject.name == "Explosion") {
+		audioS.PlayOneShot(Resources.Load("Sounds/explosion"));
 		other.gameObject.GetComponent(Splash).hit(gameObject);
 	}
 
@@ -168,9 +178,13 @@ function OnTriggerStay2D(other : Collider2D){
 	if(invulnerable<=0){
 		if(other.gameObject.name == "Fist" ) {
 			if(!other.gameObject.GetComponent(PlayerSpell).splash){
+				audioS.PlayOneShot(Resources.Load("Sounds/fisthit"));
+				audioS.PlayOneShot(Resources.Load("Sounds/uugh"));
 				other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
 			}
 			else{
+				audioS.PlayOneShot(Resources.Load("Sounds/fisthit"));
+				audioS.PlayOneShot(Resources.Load("Sounds/uugh"));
 				other.gameObject.GetComponent(PlayerSpell).hit(gameObject);		//If we splash, dont make damage text yet.
 			}
 		}

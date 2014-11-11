@@ -6,10 +6,11 @@ private var invulnerable : float;
 public var HUD : PlayerHUD;		// HUD script
 
 private var armor : int;
-
+var audioS : AudioSource;
 public static var money : int;
 
 function init (type : String) {				// Initialization function
+	audioS = this.GetComponent(AudioSource);
 	if(type == "Circle"){
 		armor = 2;
 	}
@@ -58,31 +59,42 @@ function chestLoot() {
 
 
 function OnTriggerEnter2D(other : Collider2D) {
+	var audioS : AudioSource = this.GetComponent(AudioSource);
 	if (other.name == "Key") {
+		audioS.PlayOneShot(Resources.Load("Sounds/key"));
 		haveKey = true;
 		other.gameObject.GetComponent(KeyScript).collect();
 	}
 	else if (other.name == "Chest") {
+		audioS.PlayOneShot(Resources.Load("Sounds/chest"));
 		chestLoot();
 	}
 	else if (other.name == "Vrom") {
+		audioS.PlayOneShot(Resources.Load("Sounds/fast"));
 		PlayerMove.vrom = 2;
 	}
 	else if (other.name == "Tar") {
+		audioS.PlayOneShot(Resources.Load("Sounds/slow"));
 		PlayerMove.tar = 2;
 	}
 	else if (other.name == "Spikes") {
+		audioS.PlayOneShot(Resources.Load("Sounds/ow"));
 		takeDamage(6, false);
 	}
 	else if (other.name == "LevelEnd" && haveKey) { //If it is the door
 		money +=100;
+		audioS.PlayOneShot(Resources.Load("Sounds/levelend2"));
 		Application.LoadLevel("shop"); //move to the shop interface
 	}
 	else if(other.gameObject.name == "Enemy Shot") {	// If it is an enemy arrow
 		if(!other.gameObject.GetComponent(EnemySpell).splash){
+			audioS.PlayOneShot(Resources.Load("Sounds/arrowhit"));
+			audioS.PlayOneShot(Resources.Load("Sounds/ow"));
 			other.gameObject.GetComponent(EnemySpell).hit(gameObject);	// Ask it to hit us please
 		}
 		else{
+			audioS.PlayOneShot(Resources.Load("Sounds/arrowhit"));
+			audioS.PlayOneShot(Resources.Load("Sounds/ow"));
 			other.gameObject.GetComponent(EnemySpell).hit(gameObject);		// WHY DO WE HAVE DUPLICATE CODE?  Question seconded by Connor.  Suspects answer is because Adam blindly copied my code for the player.
 		}
 	}
@@ -92,9 +104,13 @@ function OnTriggerStay2D(other : Collider2D){
 	if(invulnerable<=0){
 		if(other.gameObject.name == "Enemy Fist") {
 			if(!other.gameObject.GetComponent(EnemySpell).splash){
+				audioS.PlayOneShot(Resources.Load("Sounds/fisthit"));
+				audioS.PlayOneShot(Resources.Load("Sounds/ow"));
 				other.gameObject.GetComponent(EnemySpell).hit(gameObject);
 			}
 			else{
+				audioS.PlayOneShot(Resources.Load("Sounds/fisthit"));
+				audioS.PlayOneShot(Resources.Load("Sounds/ow"));
 				other.gameObject.GetComponent(EnemySpell).hit(gameObject);		//If we splash, dont make damage text yet.
 			}
 		}
@@ -102,5 +118,6 @@ function OnTriggerStay2D(other : Collider2D){
 }
 
 function die() {						// Death function
+	audioS.PlayOneShot(Resources.Load("Sounds/death"));
 	Application.LoadLevel("shop"); //move to the deckbuilding interface
 }

@@ -72,7 +72,7 @@ function spawnWorld() {
 function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T THINK WE NEED BOTH NAME AND TYPE, ONE COULD BE THE OTHER
 	
 	var enemyObject = new GameObject(); //Creates a new empty gameObject
-	
+	enemyObject.AddComponent(AudioSource);
 	var enemyModel = new GameObject(); //Create enemyModel
 	var meshFilter = enemyModel.AddComponent(MeshFilter); //Add a meshfilter
 	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
@@ -136,7 +136,7 @@ function spawnPlayer(x : int, y : int) {
 	var playerObject = new GameObject(); //Creates a new empty gameObject
 	playerObject.transform.position = Vector3(x, y, -1);
 	playerObject.name = "Player";
-	
+	playerObject.AddComponent(AudioSource);
 	var playerModel = new GameObject(); 						//Create a quad object to hold the tile texture.
 	var meshFilter = playerModel.AddComponent(MeshFilter); 		//Add a mesh filter for textures
 	meshFilter.mesh = exampleMesh; 								//Give the mesh filter a quadmesh

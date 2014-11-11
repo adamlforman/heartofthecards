@@ -20,6 +20,8 @@ var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold th
 
 private var classType : String;		//The class of the enemy (circle, square, triangle)
 
+var audioS : AudioSource;
+
 
 //Circle global variables
 private var fist : GameObject;
@@ -31,6 +33,7 @@ public var swinging = false;
 
 
 function init(classType : String) {
+	audioS = this.GetComponent(AudioSource);
 	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
 	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
 	Destroy(exampleQuad); //Destroy the primitive quad
@@ -90,7 +93,8 @@ function Update(){
 }
 //Circle specific stuff
 
-function swing(){					
+function swing(){
+	audioS.PlayOneShot(Resources.Load("Sounds/fistattack"));					
 	swinging = true;							//Punch that mother fucker
 	fist.GetComponent(EnemySpell).punchOn();
 	fist.GetComponent(EnemySpell).updateBuffs(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing);
@@ -106,6 +110,7 @@ function swing(){
 //Triangle specific stuff
 
 function shot (enemy : GameObject){
+	audioS.PlayOneShot(Resources.Load("Sounds/arrowattack"));
 	if(fork>0){
 		spawnShot(enemy, Vector3(0,0,30));
 		spawnShot(enemy, Vector3(0,0,-30));
@@ -119,6 +124,7 @@ function shot (enemy : GameObject){
 // Square specific stuff
 
 function comet (enemy : GameObject, target : GameObject) {
+	audioS.PlayOneShot(Resources.Load("Sounds/mageattack"));
 	var location : Vector2 = target.transform.position;
 	spawnComet(enemy,location);
 	// FORK does nothing for mages, yet. find a way to not make OP.
