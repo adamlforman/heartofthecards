@@ -198,9 +198,11 @@ function Update () {
 	if (classType == "Triangle") {
 		if(cast1> 0 && cooldown<=0){					//if you are trying to shoot and can shoot
 			shot(gameObject);							//spawn a projectile
-			cooldown+=1;								//increment cooldown
+			cooldown+=1;
+			gameObject.GetComponent(PlayerMove).cantMove = 0.5;								//increment cooldown
 			if(rapid>0){
 				cooldown-=0.5;
+				gameObject.GetComponent(PlayerMove).cantMove = 0.3;	
 			}
 		}
 	}
@@ -211,8 +213,10 @@ function Update () {
 			var target : Vector2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			comet(gameObject, target);
 			cooldown = 2;
+			gameObject.GetComponent(PlayerMove).cantMove = 1;	
 			if (rapid > 0) {
 				cooldown = 1;
+				gameObject.GetComponent(PlayerMove).cantMove = 0.6;	
 			}
 		}
 	}

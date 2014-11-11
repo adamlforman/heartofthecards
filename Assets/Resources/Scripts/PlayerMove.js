@@ -7,6 +7,8 @@ private var amountToMove : Vector2;
 public  var vrom : float;
 public  var tar : float;
 
+public var cantMove : float;
+
 
 function init() {
 	vrom = 0;
@@ -38,6 +40,10 @@ function Update () {
 	}
 	else {
 		speed = baseSpeed;
+	}
+	cantMove -= Time.deltaTime;
+	if (cantMove > 0) {
+		speed = 0;
 	}
 	var mouseScreen : Vector3 = Input.mousePosition;
     var mouse : Vector3 = Camera.main.ScreenToWorldPoint(mouseScreen);
