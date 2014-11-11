@@ -53,7 +53,6 @@ function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook, pre
 	audioS = this.GetComponent(AudioSource);
 	exampleMesh = quadMesh;
 	invulnerable = 0;
-	/*
 	if(prefix == "hyper"){
 		hyper = true;
 	}
@@ -68,7 +67,7 @@ function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook, pre
 	}
 	if(suffix == "juggernaut"){
 		juggernaut = true;
-	}*/
+	}
 	
 	healthBar = GameObject.CreatePrimitive(PrimitiveType.Quad);		// Enemies have healthbars
 	healthBar.transform.parent = transform;							// We're going to override the position updates, but this makes the hierarchy not look terrifying

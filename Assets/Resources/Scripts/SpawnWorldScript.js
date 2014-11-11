@@ -83,8 +83,7 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 	model.init(enemyObject, type); //Initialize the model
 	enemyModel.transform.parent = enemyObject.transform;
 	var enemyMoveScript = enemyObject.AddComponent(EnemyMove);	// attaches the other enemyscript
-	var enemySpellbookScript = enemyObject.AddComponent(EnemySpellbook); //Add the PlayerSpellbook script
-	enemySpellbookScript.init(type);
+	
 	var enemyStatusScript = enemyObject.AddComponent(EnemyStatus); //Attaches the enemyScript
 	
 	enemyObject.transform.position = Vector3(x, y, -1); //move to spot
@@ -127,8 +126,12 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 	enemyModel.SetActive(true);								//Turn on the object.
 	//enemyScript.init(gameObject,enemyObject,player,name, type,x,y);	//Initializes the enemyScript
 	
-	enemyStatusScript.init(exampleMesh,type,enemySpellbookScript, prefix, suffix);
+	
+    
+    var enemySpellbookScript = enemyObject.AddComponent(EnemySpellbook); //Add the PlayerSpellbook script
     enemyMoveScript.init(circleCol, exampleMesh,type,enemySpellbookScript, prefix, suffix);
+    enemyStatusScript.init(exampleMesh,type,enemySpellbookScript, prefix, suffix);
+	enemySpellbookScript.init(type);
 }
 
 //Spawns a player at a specific location

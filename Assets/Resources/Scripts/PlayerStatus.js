@@ -106,13 +106,13 @@ function OnTriggerStay2D(other : Collider2D){
 	if(invulnerable<=0){
 		if(other.gameObject.name == "Enemy Fist") {
 			if(!other.gameObject.GetComponent(EnemySpell).splash){
-				audioS.PlayOneShot(Resources.Load("Sounds/fisthit"));
-				audioS.PlayOneShot(Resources.Load("Sounds/ow"));
+				//audioS.PlayOneShot(Resources.Load("Sounds/fisthit"));
+				//audioS.PlayOneShot(Resources.Load("Sounds/ow"));
 				other.gameObject.GetComponent(EnemySpell).hit(gameObject);
 			}
 			else{
-				audioS.PlayOneShot(Resources.Load("Sounds/fisthit"));
-				audioS.PlayOneShot(Resources.Load("Sounds/ow"));
+				//audioS.PlayOneShot(Resources.Load("Sounds/fisthit"));
+				//audioS.PlayOneShot(Resources.Load("Sounds/ow"));
 				other.gameObject.GetComponent(EnemySpell).hit(gameObject);		//If we splash, dont make damage text yet.
 			}
 		}
