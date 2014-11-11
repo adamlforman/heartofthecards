@@ -42,7 +42,7 @@ function proceduralInit(a : Array, exampleMesh : Mesh){
 	var stringCharacter : String;
 	
 	hashNames = {"L" : "LevelEnd", "K" : "Key", "C" : "Chest", "V" : "Vrom", "S" : "Spikes", "T" : "Tar"};
-	thingsToAdd = ["L", "K", "P"];
+	thingsToAdd = ["L", "K", "V", "V", "V", "V", "V", "V", "V", "V", "V", "V", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "C", "C", "P"];
 	
 	for (var k : int = 0; k < thingsToAdd.length; k++) {
 		stringCharacter = thingsToAdd[k];

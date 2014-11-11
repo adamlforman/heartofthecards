@@ -69,14 +69,15 @@ function OnTriggerEnter2D(other : Collider2D) {
 	else if (other.name == "Chest") {
 		audioS.PlayOneShot(Resources.Load("Sounds/chest"));
 		chestLoot();
+		Destroy(other.gameObject);
 	}
 	else if (other.name == "Vrom") {
 		audioS.PlayOneShot(Resources.Load("Sounds/fast"));
-		PlayerMove.vrom = 2;
+		PlayerMove.vrom = 4;
 	}
 	else if (other.name == "Tar") {
 		audioS.PlayOneShot(Resources.Load("Sounds/slow"));
-		PlayerMove.tar = 2;
+		PlayerMove.tar = 4;
 	}
 	else if (other.name == "Spikes") {
 		audioS.PlayOneShot(Resources.Load("Sounds/ow"));

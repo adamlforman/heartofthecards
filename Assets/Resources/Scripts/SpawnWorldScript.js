@@ -54,13 +54,13 @@ function spawnWorld() {
 		}
 		world[randY][randX] = world[randY][randX] + "E"; //Update the world array to show that there is also an enemy there
 		//Spawn half archers, half warriors
-		/*if(i<(maxEnemies /2)) {
+		if(i<(maxEnemies /2)) {
 			spawnEnemy(randX, randY, "Enemy Archer", "archer"); //Spawns an archer, 
 		}
 		else {
 			spawnEnemy(randX, randY, "Enemy Warrior", "warrior"); //Spawns a warrior
-		}*/
-		spawnEnemy(randX,randY, "Enemy Mage", "mage"); // Spawns a mage
+		}
+		//spawnEnemy(randX,randY, "Enemy Mage", "mage"); // Spawns a mage
 	}
 	
 	//set camera

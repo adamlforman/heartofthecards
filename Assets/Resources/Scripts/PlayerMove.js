@@ -25,7 +25,7 @@ function init() {
 
 function Update () {
 	if (vrom > 0) {
-		speed = baseSpeed + 2;
+		speed = baseSpeed + 4;
 		vrom -=Time.deltaTime;
 	}
 	else {
@@ -33,7 +33,7 @@ function Update () {
 	}
 	if (tar > 0) {
 		speed = baseSpeed - 2;;
-		vrom -=Time.deltaTime;
+		tar -=Time.deltaTime;
 	}
 	else {
 		speed = baseSpeed;

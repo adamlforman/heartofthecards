@@ -7,6 +7,6 @@
 		
 	model = modelObject.AddComponent(VromModel); //Add a model script to control visuals of the portal.
 	model.init(this); //Initialize the chestmodel.
-
+	modelObject.transform.localPosition = Vector3(0,0,.5);
 	modelObject.SetActive(true);//Turn on the object (the Update function will start being called).
 }
