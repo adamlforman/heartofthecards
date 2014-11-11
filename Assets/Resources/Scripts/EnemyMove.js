@@ -220,9 +220,14 @@ function FixedUpdate() {										// Enemy behaviour
 
 function chase(location : Vector2) {
 	face(location); // face the target
-	if (type.Equals("archer")) {
-		if ((archerChase == true) && (canMove <= 0)) {
-			transform.Translate(Vector2(0,speed*Time.deltaTime));	// and move forward
+	if (type.Equals("archer") || type.Equals("mage")) {
+		if (archerChase == true) {
+			if (canMove <= 0) {
+				transform.Translate(Vector2(0,speed*Time.deltaTime));	// and move forward
+			}
+		}
+		else {
+			avoid(target.transform.position);
 		}
 	}
 	else if(type.Equals("warrior")){						
@@ -230,6 +235,11 @@ function chase(location : Vector2) {
 			transform.Translate(Vector2(0,speed*Time.deltaTime));	// and move forward
 		}
 	}
+}
+
+function avoid(location : Vector2) {
+	face(location); // face the target
+	transform.Translate(Vector2(0,-speed*Time.deltaTime));
 }
 
 
@@ -320,7 +330,7 @@ function archerAttack() {				// the archer's attack function
 
 function mageAttack() {
 	// MAGES can't be blinded, so no blindTimer
-	spellbook.comet(gameObject,target);
+	spellbook.comet(gameObject,target,damage);
 	canMove =  1;	// LONG attack lag
 	attackTimer = 4.5;	// Long attack delat
 	

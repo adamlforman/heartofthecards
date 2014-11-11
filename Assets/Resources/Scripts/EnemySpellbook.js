@@ -1,4 +1,4 @@
-﻿public var ice : float = 0;				//Amount of time that attacks have "ice" buff
+public var ice : float = 0;				//Amount of time that attacks have "ice" buff
 public var poison : float = 0;			//Amount of time that attacks have "poison" buff
 public var fork : float = 0;			//Amount of time that attacks have "fork" buff
 public var reflect : float = 0;			//Amount of time that attacks have "reflect" buff
@@ -123,10 +123,10 @@ function shot (enemy : GameObject){
 
 // Square specific stuff
 
-function comet (enemy : GameObject, target : GameObject) {
-	audioS.PlayOneShot(Resources.Load("Sounds/mageattack"));
-	var location : Vector2 = target.transform.position;
-	spawnComet(enemy,location);
+function comet (enemy : GameObject, target : GameObject, damage : float) {
+    audioS.PlayOneShot(Resources.Load("Sounds/mageattack"));
+    var location : Vector2 = target.transform.position;
+	spawnComet(enemy,location,damage);
 	// FORK does nothing for mages, yet. find a way to not make OP.
 
 }
@@ -160,7 +160,7 @@ function spawnShot(enemy : GameObject, rotate : Vector3){
 	projectile.SetActive(true);
 }
 
-function spawnComet(enemy : GameObject,location : Vector2) {
+function spawnComet(enemy : GameObject,location : Vector2, damage : float) {
 	var comet = new GameObject();
 	comet.name = "Enemy Comet";
 	
@@ -170,7 +170,7 @@ function spawnComet(enemy : GameObject,location : Vector2) {
 	
 	
 	var enemySpellScript : EnemySpell = comet.AddComponent(EnemySpell);
-	enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, enemy, gameObject.GetComponent(EnemyMove).getDamage());	//initialize the enemySpellScript
+	enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, enemy, damage);	//initialize the enemySpellScript
 	
 	comet.SetActive(true);
 }

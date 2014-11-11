@@ -210,26 +210,34 @@ function buildWorld() {
 }
 
 function buildSpiderRoom() {
-	var maxY = 15; //Max y value of map, explicitely set for now (never used atm)
+	var maxY = 23; //Max y value of map, explicitely set for now (never used atm)
 	var R : String = "R"; //Represents a tile of rock in the environment
 	var G : String = "G"; //Represents a tile of ground in the environment
 	var P : String = "P"; // Represents the player's starting location
 	world.length=maxY;	//world length = maximum Y value
-	world[0]  = [R,R,R,R,R,R,R,R,R,R,R,R,R,R,R];
-	world[1]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
-	world[2]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
-	world[3]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
-	world[4]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
-	world[5]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
-	world[6]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
-	world[7]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
-	world[8]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
-	world[9]  = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
-	world[10] = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
-	world[11] = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
-	world[12] = [R,G,G,G,G,G,G,P,G,G,G,G,G,G,R];
-	world[13] = [R,G,G,G,G,G,G,G,G,G,G,G,G,G,R];
-	world[14] = [R,R,R,R,R,R,R,R,R,R,R,R,R,R,R];
+	world[0]  = [R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R];
+	world[1]  = [R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R];
+	world[2]  = [R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R];
+	world[3]  = [R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R];
+	world[4]  = [R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R];
+	world[5]  = [R,R,R,R,R,G,G,G,G,G,G,G,G,G,G,G,G,G,R,R,R,R,R];
+	world[6]  = [R,R,R,R,R,G,G,G,G,G,G,G,G,G,G,G,G,G,R,R,R,R,R];
+	world[7]  = [R,R,R,R,R,G,G,G,G,G,G,G,G,G,G,G,G,G,R,R,R,R,R];
+	world[8]  = [R,R,R,R,R,G,G,G,G,G,G,G,G,G,G,G,G,G,R,R,R,R,R];
+	world[9]  = [R,R,R,R,R,G,G,G,G,G,G,G,G,G,G,G,G,G,R,R,R,R,R];
+	world[10] = [R,R,R,R,R,G,G,G,G,G,G,G,G,G,G,G,G,G,R,R,R,R,R];
+	world[11] = [R,R,R,R,R,G,G,G,G,G,G,G,G,G,G,G,G,G,R,R,R,R,R];
+	world[12] = [R,R,R,R,R,G,G,G,G,G,G,G,G,G,G,G,G,G,R,R,R,R,R];
+	world[13] = [R,R,R,R,R,G,G,G,G,G,G,G,G,G,G,G,G,G,R,R,R,R,R];
+	world[14] = [R,R,R,R,R,G,G,G,G,G,G,G,G,G,G,G,G,G,R,R,R,R,R];
+	world[15] = [R,R,R,R,R,G,G,G,G,G,G,G,G,G,G,G,G,G,R,R,R,R,R];
+	world[16] = [R,R,R,R,R,G,G,G,G,G,G,P,G,G,G,G,G,G,R,R,R,R,R];
+	world[17] = [R,R,R,R,R,G,G,G,G,G,G,G,G,G,G,G,G,G,R,R,R,R,R];
+	world[18] = [R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R];
+	world[19] = [R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R];
+	world[20] = [R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R];
+	world[21] = [R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R];
+	world[22] = [R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R];
 	
 	for(var i = 0; i<world.length;i++){
 		for(var j = 0; j<world[i].length;j++){
