@@ -16,6 +16,11 @@ function loadLevel(level : String) {
 	loadNextLevel();
 }
 
+function loadLevel(level : String, arg : String) {
+	nextLevel = level;
+	loadNextLevel(arg);
+}
+
 
 function loadNextLevel() {
 	loadNextLevel(null);
