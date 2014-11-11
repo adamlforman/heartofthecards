@@ -13,14 +13,15 @@ function init() {
 	tar = 0;
 
 	if(gameObject.GetComponent(PlayerSpellbook).getType() == "Circle"){
-	
+		baseSpeed = 3.25;
 	}
 	if(gameObject.GetComponent(PlayerSpellbook).getType() == "Square"){
-	
+		baseSpeed = 2.5;
 	}
 	if(gameObject.GetComponent(PlayerSpellbook).getType() == "Triangle"){
-	
+		baseSpeed = 3;
 	}
+	speed = baseSpeed;
 }
 
 function Update () {
