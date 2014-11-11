@@ -10,7 +10,7 @@ Platform assembly: C:\Users\Adam Forman\Documents\GitHub\heartofthecards\CardCha
 Loading C:\Users\Adam Forman\Documents\GitHub\heartofthecards\CardChaser_Data\Managed\UnityEngine.dll into Unity Child Domain
 Platform assembly: C:\Users\Adam Forman\Documents\GitHub\heartofthecards\CardChaser_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
 Loading C:\Users\Adam Forman\Documents\GitHub\heartofthecards\CardChaser_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
-- Completed reload, in  0.046 seconds
+- Completed reload, in  0.058 seconds
 desktop: 1680x1050 60Hz; virtual: 1680x1050 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
