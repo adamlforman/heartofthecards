@@ -7,6 +7,19 @@ var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold th
 
 var playerClass : String;
 
+function Awake () {
+	var levelLoader = new GameObject();
+	if (GameObject.Find("Level Loader")) {
+		Destroy(levelLoader);
+	}
+	else {
+		DontDestroyOnLoad(levelLoader);
+		var levelScript = levelLoader.AddComponent(LevelLoaderScript);
+		levelLoader.name = "Level Loader";
+		levelScript.init();
+	}
+}
+
 function Start() {
 	world = new Array(); //Initializes the world array
 	

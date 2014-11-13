@@ -52,6 +52,19 @@ var badSpell : String;
 public static var theDeck : Array;
 public static var cardsOwned: Array;
 
+function Awake () {
+	var levelLoader = new GameObject();
+	if (GameObject.Find("Level Loader")) {
+		Destroy(levelLoader);
+	}
+	else {
+		DontDestroyOnLoad(levelLoader);
+		var levelScript = levelLoader.AddComponent(LevelLoaderScript);
+		levelLoader.name = "Level Loader";
+		levelScript.init();
+	}
+}
+
 function Start () {
 	normalSpell = "/4";
 	badSpell = "/0";

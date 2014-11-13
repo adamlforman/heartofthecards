@@ -35,6 +35,18 @@ var badSpell : String;
 
 private var audioS: AudioSource; 
 
+function Awake () {
+	var levelLoader = new GameObject();
+	if (GameObject.Find("Level Loader")) {
+		Destroy(levelLoader);
+	}
+	else {
+		DontDestroyOnLoad(levelLoader);
+		var levelScript = levelLoader.AddComponent(LevelLoaderScript);
+		levelLoader.name = "Level Loader";
+		levelScript.init();
+	}
+}
 
 function Start () {
     audioS = gameObject.AddComponent(AudioSource);
@@ -360,7 +372,7 @@ function OnGUI() {
 	}*/
 	else if (GUI.Button(Rect(Screen.width/3,Screen.height/1.2,Screen.width*0.30,Screen.height*0.10),"Go to Deck Building!")) {
 		audioS.loop = false;
-        audioS.stop();
+        audioS.Stop();
         GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel();
 	}
 	else if (GUI.Button(Rect(Screen.width/8,Screen.height/1.2,Screen.width*0.10,Screen.height*0.10),"<---")) {

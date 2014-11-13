@@ -20,6 +20,8 @@ var smallSize : Vector2;
 
 var chargeSpeed : float;
 
+
+
 function init(target : GameObject, spellbook : EnemySpellbook) {
 	Debug.Log("Bob init");
 	this.target = target;
