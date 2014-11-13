@@ -236,7 +236,9 @@ function chase(location : Vector2) {
 			}
 		}
 		else {
-			avoid(target.transform.position);
+			if (canMove <= 0) {
+				avoid(target.transform.position);
+			}
 		}
 	}
 	else if ( type.Equals("mage")) {
@@ -246,7 +248,9 @@ function chase(location : Vector2) {
 			}
 		}
 		else if (mageRun) {
-			avoid(location);
+			if (canMove <= 0) {
+				avoid(location);
+			}
 		}
 	}
 	else if(type.Equals("warrior")){						
