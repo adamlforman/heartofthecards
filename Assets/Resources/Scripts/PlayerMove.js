@@ -1,8 +1,8 @@
-public var speed : float = 3;
-private var baseSpeed : float = 3;
+public var speed : float;
+private var baseSpeed : float;
 private var currentSpeedx : float;
 private var currentSpeedy : float;
-private var acceleration : float = 1;
+private var acceleration : float;
 private var amountToMove : Vector2;
 public  var vrom : float;
 public  var tar : float;
@@ -11,6 +11,9 @@ public var cantMove : float;
 
 
 function init() {
+	speed = 3;
+	baseSpeed = 3;
+	acceleration = 1;
 	vrom = 0;
 	tar = 0;
 
@@ -31,10 +34,7 @@ function Update () {
 		speed = baseSpeed + 4;
 		vrom -=Time.deltaTime;
 	}
-	else {
-		speed = baseSpeed;
-	}
-	if (tar > 0) {
+	else if (tar > 0) {
 		speed = baseSpeed - 2;;
 		tar -=Time.deltaTime;
 	}
@@ -60,6 +60,7 @@ function FixedUpdate (){
 		moveDirection = moveDirection.normalized;
 	}
 	if(moveY!=0 || moveX != 0){
+		print(speed);
 		transform.Translate(speed*Time.deltaTime * moveDirection, Space.World); //moves player
 	}
 	//if(moveX!=0){

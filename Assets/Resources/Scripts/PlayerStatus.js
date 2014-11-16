@@ -73,6 +73,7 @@ function OnTriggerEnter2D(other : Collider2D) {
 	}
 	else if (other.name == "Vrom") {
 		audioS.PlayOneShot(Resources.Load("Sounds/fast"));
+		
 		gameObject.GetComponent(PlayerMove).vrom = 4;
 	}
 	else if (other.name == "Tar") {
