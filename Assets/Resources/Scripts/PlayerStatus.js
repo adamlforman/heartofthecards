@@ -1,7 +1,11 @@
 public var curHealth : int;		// Player's current health
 public var maxHealth : int;		// Player's maximum health
+
 public var haveKey : boolean;
 private var invulnerable : float;
+
+var healthTickDelay : float;
+var healthTickTimer : float;
 
 public var HUD : PlayerHUD;		// HUD script
 
@@ -12,9 +16,15 @@ public static var money : int;
 function init (type : String) {				// Initialization function
 	audioS = this.GetComponent(AudioSource);
 	if(type == "Circle"){
+		healthTickDelay = 1;
 		armor = 2;
 	}
-	else{
+	else if (type == "Triangle") {
+		healthTickDelay = 2;
+		armor = 0;
+	}
+	else if (type == "Square") {
+		healthTickDelay = 1.5;
 		armor = 0;
 	}
 	haveKey = false;
@@ -30,7 +40,13 @@ function Update () {			// If you have 0 or less health you die
 	if (curHealth <= 0) {
 		die();
 	}
+	healthTickTimer -= Time.deltaTime;
 	invulnerable -= Time.deltaTime;
+	
+	if (healthTickTimer <= 0) {
+		addHealth(1);
+		healthTickTimer = healthTickDelay;
+	}
 }
 
 function addHealth(heal : int){		// Function to gain health
