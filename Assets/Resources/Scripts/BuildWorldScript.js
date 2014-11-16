@@ -254,7 +254,6 @@ function buildSpiderRoom() {
 	}
 }
 
-
 function getRandomGround() {
 	var randX : int = Random.Range(0, maxX-1);
 	var randY : int = Random.Range(0, maxY-1);

@@ -1,5 +1,4 @@
-﻿#pragma strict
-
+﻿
 function Awake () {
 	var levelLoader = new GameObject();
 	if (GameObject.Find("Level Loader")) {
