@@ -81,7 +81,7 @@ function Start() {
 }
 
 function Update () {
-	if (Input.GetKeyDown("p") == true) {
+	if (Input.GetKeyDown(KeyCode.Escape) == true) {
 		Pause();
 	}
 	if (pressedW == false) {
@@ -141,7 +141,7 @@ function Update () {
 			}
 			else if (abilitiesLearned == true) {
 				if(pressedPause == false) {
-					if (Input.GetKeyDown("p")) {
+					if (Input.GetKeyDown(KeyCode.Escape)) {
 						pressedPause = true;
 						//tell them to pick up the chest, and go over slow tile
 						buildWorldScript.buildInteractables("Chest", 5,16);

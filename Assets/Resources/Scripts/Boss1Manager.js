@@ -51,7 +51,7 @@ function Start() {
 }
 
 function Update () {
-	if (Input.GetKeyDown("p") == true) {
+	if (Input.GetKeyDown(KeyCode.Escape) == true) {
 		Pause();
 	}
 	if (!boss && !done) {
