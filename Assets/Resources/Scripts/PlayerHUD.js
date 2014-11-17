@@ -196,5 +196,5 @@ function makeBlue(border : GameObject, model : GameObject){
 }
 
 function key(){
-	keyTexture = "Key";
+	keyTexture = "Textures/Key";
 }

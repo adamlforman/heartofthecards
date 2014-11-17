@@ -235,11 +235,12 @@ function chase(location : Vector2) {
 				transform.Translate(Vector2(0,speed*Time.deltaTime));	// and move forward
 			}
 		}
-		/*else {
+		else {
 			if (canMove <= 0) {
 				avoid(target.transform.position);
+				
 			}
-		}*/
+		}
 	}
 	else if ( type.Equals("mage")) {
 		if (archerChase == true) {
@@ -273,7 +274,7 @@ function lineOfSight(location : Vector2) {														// Is there a rock in th
 		var x : float = (position.x - size) + size * i;
 		var y : float = position.y;
 		var rayOrigin : Vector2 = Vector2(x, y);
-		/*var hits : RaycastHit2D[] = (Physics2D.RaycastAll(rayOrigin,location - this.transform.position, Vector2.Distance(location, this.transform.position)));
+		var hits : RaycastHit2D[] = (Physics2D.RaycastAll(rayOrigin,location - this.transform.position, Vector2.Distance(location, this.transform.position)));
 		Debug.DrawRay (rayOrigin, location - this.transform.position, Color.white);
 	    for (var j: RaycastHit2D in hits) {
 	    	if (j) {			// raycast
@@ -283,14 +284,6 @@ function lineOfSight(location : Vector2) {														// Is there a rock in th
 	    	    }
 	   		}
 	   	}
-	   	*/
-	   	var hit : RaycastHit2D = (Physics2D.Raycast(rayOrigin,location - this.transform.position, Vector2.Distance(location, this.transform.position)));
-		Debug.DrawRay (rayOrigin, location - this.transform.position, Color.white);
-		if (hit) {
-		    if (hit.transform.root.name == "Rocks") {
-		    	LoS = false;
-		    }
-		}
 	}
   	return LoS;
 }
