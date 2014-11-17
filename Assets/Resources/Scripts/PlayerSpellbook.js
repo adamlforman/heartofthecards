@@ -59,8 +59,9 @@ function init(classType : String) {
 		deck = NewDeckManager.theDeck;
 	}
 	else{
-		deck = ["blind", "blind", "blind", "blind", "ice", "ice", "ice", "ice", "poison", "poison", "poison", "poison", "leech", "leech", "leech", "leech", "rapid", "rapid", "rapid", "rapid"];
+		deck = ["blind", "blind2", "blind3", "giant", "giant2", "giant3"];
 		cardsOwned = deck;
+		classType = "Triangle";
 	}
 	
 	library = deck;
@@ -172,19 +173,7 @@ function Update () {
 			}
 		}
 		
-		if(swinging  && (isPaused ==false)){
-			if(rapid>0){
-				fistParent.transform.rotation *= Quaternion.Euler(0,0,9.0);
-			}
-			else{
-				fistParent.transform.rotation *= Quaternion.Euler(0,0,4.5);
-			}
-			if(fistParent.transform.rotation == this.transform.rotation * Quaternion.Euler(0,0,180)){
-				fistParent.transform.rotation = this.transform.rotation;
-				swinging = false;
-				fist.GetComponent(PlayerSpell).punchOff();
-			}
-		}
+		
 		if(giant>0){
 			fist.transform.localScale = Vector3(0.7,0.7,1);
 		}
@@ -552,6 +541,22 @@ function Update () {
 		
 
 
+}
+
+function FixedUpdate(){
+	if(swinging  && (isPaused ==false)){
+		if(rapid>0){
+			fistParent.transform.rotation *= Quaternion.Euler(0,0,9.0);
+		}
+		else{
+			fistParent.transform.rotation *= Quaternion.Euler(0,0,4.5);
+		}
+		if(fistParent.transform.rotation == this.transform.rotation * Quaternion.Euler(0,0,180)){
+			fistParent.transform.rotation = this.transform.rotation;
+			swinging = false;
+			fist.GetComponent(PlayerSpell).punchOff();
+		}
+	}
 }
 
 /*	var playerModel = new GameObject(); 						//Create a quad object to hold the tile texture.
