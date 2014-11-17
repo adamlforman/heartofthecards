@@ -246,9 +246,18 @@ function warriorMove(distance : float, LoS : boolean) {
 		if (LoS && distance < aggroRange) {
 			aggro = true;
 		}
+<<<<<<< HEAD
 		else {
 			wander();
 		}
+=======
+		/*else { //Was there something here before it was avoid?
+			if (canMove <= 0) {
+				avoid(target.transform.position);
+				
+			}
+		}*/
+>>>>>>> origin/master
 	}
 	if (aggro) {
 		if (LoS) {
@@ -341,7 +350,7 @@ function lineOfSight(location : Vector2) {														// Is there a rock in th
 		var y : float = position.y;
 		var rayOrigin : Vector2 = Vector2(x, y);
 		var hits : RaycastHit2D[] = (Physics2D.RaycastAll(rayOrigin,location - this.transform.position, Vector2.Distance(location, this.transform.position)));
-		Debug.DrawRay (rayOrigin, location - this.transform.position, Color.white);
+		//Debug.DrawRay (rayOrigin, location - this.transform.position, Color.white);
 	    for (var j: RaycastHit2D in hits) {
 	    	if (j) {			// raycast
 	    		if (j.collider.gameObject.transform.root.name == "Rocks") {													// if we hit a rock
