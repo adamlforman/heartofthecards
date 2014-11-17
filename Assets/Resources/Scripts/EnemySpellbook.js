@@ -76,22 +76,27 @@ function Update(){
 	if(classType=="warrior"){
 		fistParent.transform.localPosition = Vector3(0,0,-1);
 		fist.transform.localPosition = Vector3(0.75,0,0);
-		if(swinging){
-			if(rapid>0){
-				fistParent.transform.rotation *= Quaternion.Euler(0,0,6.0);
-			}
-			else{
-				fistParent.transform.rotation *= Quaternion.Euler(0,0,4.5);
-			}
-			if(fistParent.transform.rotation == this.transform.rotation * Quaternion.Euler(0,0,180)){
-				fistParent.transform.rotation = this.transform.rotation;
-				swinging = false;
-				fist.GetComponent(EnemySpell).punchOff();
-			}
-		}
+		
 	}
 }
 //Circle specific stuff
+
+
+function FixedUpdate(){
+	if(swinging){
+		if(rapid>0){
+			fistParent.transform.rotation *= Quaternion.Euler(0,0,6.0);
+		}
+		else{
+			fistParent.transform.rotation *= Quaternion.Euler(0,0,4.5);
+		}
+		if(fistParent.transform.rotation == this.transform.rotation * Quaternion.Euler(0,0,180)){
+			fistParent.transform.rotation = this.transform.rotation;
+			swinging = false;
+			fist.GetComponent(EnemySpell).punchOff();
+		}
+	}
+}
 
 function swing(){
 	audioS.PlayOneShot(Resources.Load("Sounds/fistattack"));					
