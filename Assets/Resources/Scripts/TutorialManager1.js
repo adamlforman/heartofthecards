@@ -26,6 +26,15 @@ private var enemyWarrior : GameObject;
 private var enemyArcher : GameObject;
 private var doneTut : boolean;
 
+private var tellWASD : GameObject;
+private var tellClick : GameObject;
+private var tellAbilities : GameObject;
+private var tellPause : GameObject;
+private var tellSpecial : GameObject;
+private var tellEnemies : GameObject;
+private var tellEnd : GameObject;
+private var cam : Camera;
+
 
 public static var isPaused : boolean;
 
@@ -50,7 +59,7 @@ function Start() {
 	pressedS = false;
 	pressedD = false;
 	movementLearned = false;
-	pressedClick =false;
+	pressedClick = false;
 	pressedOne = false;
 	pressedTwo = false;
 	pressedThree = false;
@@ -58,7 +67,8 @@ function Start() {
 	abilitiesLearned = false;
 	spawnedEnemies = false;
 	killedEnemies = false;
-	done = false;
+	doneTut = false;
+	cam = Camera.main;
 	world = new Array(); //Initializes the world array
 	
 	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
@@ -76,6 +86,14 @@ function Start() {
 
 	buildWorldScript.bossInit(world, exampleMesh,1);
 	spawnWorldScript.init(world, exampleMesh,0, playerClass);
+	
+	tellWASD = GameObject.CreatePrimitive(PrimitiveType.Quad);
+	tellWASD.transform.parent = cam.transform;															// Makes child of cam
+	tellWASD.transform.localPosition = Vector3(-cam.orthographicSize + 5, cam.orthographicSize*0.5,10);	// Position in top center
+	tellWASD.transform.localScale = Vector3(4,1,1);
+	tellWASD.renderer.material.mainTexture = Resources.Load("Textures/WASD", Texture2D);
+	tellWASD.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+	tellWASD.name = "WASD";	
 	
 	
 }
@@ -107,14 +125,28 @@ function Update () {
 	if (movementLearned == false) {
 		if ((pressedW == true) && (pressedA == true) && (pressedS == true) && (pressedD == true)) {
 			movementLearned = true;
-			//SPAWN SOME TEXT TO TELL to click to shoot
+			Destroy(tellWASD);
+			tellClick = GameObject.CreatePrimitive(PrimitiveType.Quad);
+			tellClick.transform.parent = cam.transform;															// Makes child of cam
+			tellClick.transform.localPosition = Vector3(-cam.orthographicSize + 5, cam.orthographicSize*0.5,10);	// Position in top center
+			tellClick.transform.localScale = Vector3(4,1,1);
+			tellClick.renderer.material.mainTexture = Resources.Load("Textures/mouse", Texture2D);
+			tellClick.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+			tellClick.name = "Click";	
 		}
 	}
 	else if (movementLearned == true) {
 		if (pressedClick == false) {
-			if(Input.GetMouseButtonDown) {
+			if(Input.GetMouseButtonDown(0)) {
 				pressedClick = true;
-				//SPAWN SOME TEXT TO TELL THEM TO CLICK 1, 2, 3
+				Destroy(tellClick);
+				tellAbilities = GameObject.CreatePrimitive(PrimitiveType.Quad);
+				tellAbilities.transform.parent = cam.transform;															// Makes child of cam
+				tellAbilities.transform.localPosition = Vector3(-cam.orthographicSize + 5, cam.orthographicSize*0.5,10);	// Position in top center
+				tellAbilities.transform.localScale = Vector3(8,1,1);
+				tellAbilities.renderer.material.mainTexture = Resources.Load("Textures/abilities", Texture2D);
+				tellAbilities.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+				tellAbilities.name = "Abilities";	
 			}
 		}
 		else if (pressedClick == true) {
@@ -136,22 +168,44 @@ function Update () {
 			if (abilitiesLearned == false) {
 				if ((pressedOne == true) && (pressedTwo == true) && (pressedThree == true)) {
 					abilitiesLearned = true;
-					//SPAWN SOME TEXT TO TELL to pause
+					Destroy(tellAbilities);
+					tellPause = GameObject.CreatePrimitive(PrimitiveType.Quad);
+					tellPause.transform.parent = cam.transform;															// Makes child of cam
+					tellPause.transform.localPosition = Vector3(-cam.orthographicSize + 5, cam.orthographicSize*0.5,10);	// Position in top center
+					tellPause.transform.localScale = Vector3(4,1,1);
+					tellPause.renderer.material.mainTexture = Resources.Load("Textures/pause", Texture2D);
+					tellPause.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+					tellPause.name = "Pause";	
 				}
 			}
 			else if (abilitiesLearned == true) {
 				if(pressedPause == false) {
 					if (Input.GetKeyDown(KeyCode.Escape)) {
 						pressedPause = true;
-						//tell them to pick up the chest, and go over slow tile
+						Destroy(tellPause);
+						tellSpecial = GameObject.CreatePrimitive(PrimitiveType.Quad);
+						tellSpecial.transform.parent = cam.transform;															// Makes child of cam
+						tellSpecial.transform.localPosition = Vector3(-cam.orthographicSize + 5, cam.orthographicSize*0.5,10);	// Position in top center
+						tellSpecial.transform.localScale = Vector3(10,1,1);
+						tellSpecial.renderer.material.mainTexture = Resources.Load("Textures/specialTiles", Texture2D);
+						tellSpecial.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+						tellSpecial.name = "Special Tiles";	
 						buildWorldScript.buildInteractables("Chest", 5,16);
-						buildWorldScript.buildInteractables("Tar", 6,6);
+						buildWorldScript.buildInteractables("Tar", 7,16);
 					}
 				}
 				else if (pressedPause == true) {
 					if (killedEnemies == false) {
 						if(spawnedEnemies == false) {
 							if ((gameObject.GetComponent(PlayerStatus).tutorialHelperTar == true) && (gameObject.GetComponent(PlayerStatus).tutorialHelperChest == true)) {
+								Destroy(tellSpecial);
+								tellEnemies = GameObject.CreatePrimitive(PrimitiveType.Quad);
+								tellEnemies.transform.parent = cam.transform;															// Makes child of cam
+								tellEnemies.transform.localPosition = Vector3(-cam.orthographicSize + 5, cam.orthographicSize*0.5,10);	// Position in top center
+								tellEnemies.transform.localScale = Vector3(10,1.5,1);
+								tellEnemies.renderer.material.mainTexture = Resources.Load("Textures/enemies", Texture2D);
+								tellEnemies.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+								tellEnemies.name = "Enemies";	
 								enemyArcher = spawnWorldScript.spawnEnemy(10, 10, "Enemy Archer", "archer");
 								enemyWarrior = spawnWorldScript.spawnEnemy(12, 12, "Enemy Warrior", "warrior");
 								spawnedEnemies = true;
@@ -160,13 +214,20 @@ function Update () {
 						else if (spawnedEnemies == true) {
 							if (doneTut == false) {
 								if ((!enemyArcher) && (!enemyWarrior)) {
+									Destroy(tellEnemies);
+									tellEnd = GameObject.CreatePrimitive(PrimitiveType.Quad);
+									tellEnd.transform.parent = cam.transform;															// Makes child of cam
+									tellEnd.transform.localPosition = Vector3(-cam.orthographicSize + 5, cam.orthographicSize*0.5,10);	// Position in top center
+									tellEnd.transform.localScale = Vector3(10,2,1);
+									tellEnd.renderer.material.mainTexture = Resources.Load("Textures/keyPortal", Texture2D);
+									tellEnd.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+									tellEnd.name = "End";
 									buildWorldScript.buildInteractables("LevelEnd", 16,16);
 									buildWorldScript.buildInteractables("Key", 16,10);
 									doneTut = true;
 								}
 							}
 						}
-						//HOW TO DETECT IF THEY'VE BEEN KILLED
 					}
 				}
 			}
