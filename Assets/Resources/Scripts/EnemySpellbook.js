@@ -158,7 +158,7 @@ function spawnShot(enemy : GameObject, rotate : Vector3){
 	var x : float = enemy.transform.position.x;								//record the enemy's x position
 	var y : float = enemy.transform.position.y;								//record the enemy's y position
 	projectile.transform.position = Vector3(x,y,-1);							//move the projectile to the enemy's position
-	projectile.transform.Translate(enemy.transform.up);
+	projectile.transform.Translate(enemy.transform.up* 0.5);
 	projectile.transform.eulerAngles = enemy.transform.eulerAngles - rotate;			//set the projectile's angle to the enemy's
 	enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, enemy, gameObject.GetComponent(EnemyMove).getDamage());	//initialize the enemySpellScript
 	enemySpellScript.name = "Enemy Shot";

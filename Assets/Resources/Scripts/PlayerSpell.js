@@ -42,7 +42,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	model = modelObject.AddComponent(SpellModel);				// Add a spellModel script to control visuals of the spell.
 	if(this.name == "Shot"){									//Let's do arrow specific things
 		model.name = "Shot Model";								//Name the Model
-		transform.localScale = Vector3(0.3, 1, 1);
+		transform.localScale = Vector3(0.3, 0.3, 1);
 		readyToPunch = true;
 	}
 	else if (this.name == "Comet") {
@@ -79,7 +79,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	if(giant > 0){
 		this.giant=true;			//Set "giant" boolean to true
 		if(gameObject.name == "Shot"){
-			gameObject.transform.localScale = Vector3(0.6,2,1);
+			gameObject.transform.localScale = Vector3(0.6,0.6,1);
 		}
 	}
 	//check

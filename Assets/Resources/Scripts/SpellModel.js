@@ -12,8 +12,11 @@ function init(o : GameObject) {
 	if(owner.name == "Explosion"){
 		textureName = "Textures/EXPLOSION";
 	}
-	else if(owner.name == "Shot" || owner.name == "Enemy Shot"){
-		textureName = "Textures/ARROW";					//Set the name of the texture path
+	else if(owner.name == "Shot"){
+		textureName = "Textures/Triangle";					//Set the name of the texture path
+	}
+	else if(owner.name == "Enemy Shot"){
+		textureName = "Textures/ARCHER";					//Set the name of the texture path
 	}
 	else if(owner.name == "Sword"){
 		textureName = "Textures/SWORD";					//Set the name of the texture path

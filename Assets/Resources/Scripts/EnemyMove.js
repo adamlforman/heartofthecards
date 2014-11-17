@@ -156,17 +156,8 @@ function setTarget(newTarget : GameObject) {	// In case of mind control powers o
 function Update() {
 	incrementTimers();
 	processDebuffs();
-	
-	var distance : float = Vector2.Distance(this.transform.position,target.transform.position);		// distance from player
-	var LoS : boolean;
-	if (distance <= leashRange) {
-		LoS = lineOfSight(target.transform.position);										// can we see them?
-	}
-	else {
-		LoS = false;
-		runAway = false;
-	}
-	
+
+	/*
 	if (!aggro) {						// if not aggro
 		if (distance <= aggroRange) {	// and are in aggro range
 			if (LoS) {					// and can see them
@@ -210,9 +201,31 @@ function Update() {
 	else {
 		mageRun = false;
 	}
+	*/
 }
 
-function FixedUpdate() {										// Enemy behaviour
+function FixedUpdate() {	
+		
+	var distance : float = Vector2.Distance(this.transform.position,target.transform.position);		// distance from player
+	var LoS : boolean;
+	if (distance <= leashRange) {
+		LoS = lineOfSight(target.transform.position);										// can we see them?
+	}
+	else {
+		LoS = false;
+		runAway = false;
+	}
+	
+	if (type.Equals("archer")){
+		archerMove(distance,LoS);
+	}
+	else if (type.Equals("warrior")){
+		warriorMove(distance,LoS);
+	}
+	else if (type.Equals("mage")){
+		mageMove(distance,LoS);
+	}
+	/*									// Enemy behaviour
 	if (aggro) {													// if we know the player is there	
 		if (inRange && attackTimer <= 0) {								// and we can attack them
 			chase(target.transform.position);
@@ -225,15 +238,16 @@ function FixedUpdate() {										// Enemy behaviour
 	else {															//otherwise
 		wander();														// Idle behaviour
 	}
+	*/
 }
 
-function chase(location : Vector2) {
-	face(location); // face the target
-	if (type.Equals("archer")){
-		if (archerChase == true) {
-			if (canMove <= 0) {
-				transform.Translate(Vector2(0,speed*Time.deltaTime));	// and move forward
-			}
+function warriorMove(distance : float, LoS : boolean) {
+	if (!aggro) {
+		if (LoS && distance < aggroRange) {
+			aggro = true;
+		}
+		else {
+			wander();
 		}
 		/*else { //Was there something here before it was avoid?
 			if (canMove <= 0) {
@@ -242,28 +256,86 @@ function chase(location : Vector2) {
 			}
 		}*/
 	}
-	else if ( type.Equals("mage")) {
-		if (archerChase == true) {
-			if (canMove <= 0) {
-				transform.Translate(Vector2(0,speed*Time.deltaTime));
-			}
+	if (aggro) {
+		if (LoS) {
+			chase(target.transform.position);
 		}
-		else if (mageRun) {
-			if (canMove <= 0) {
-				avoid(location);
-			}
+		if (distance <= attackRange && attackTimer <= 0) {
+			attack();
+		}
+		if (!LoS) {
+			aggro = false;
+			waypoint = target.transform.position;
+			wanderTimer = 3;
+			wander();
 		}
 	}
-	else if(type.Equals("warrior")){						
-		if ((warriorChase == true) && (canMove <= 0)) {
-			transform.Translate(Vector2(0,speed*Time.deltaTime));	// and move forward
+}
+
+function archerMove(distance : float, LoS : boolean) {
+	if (!aggro) {
+		if (LoS && distance < aggroRange) {
+			aggro = true;
 		}
+		else {
+			wander();
+		}
+	}
+	if (aggro) {
+		if (LoS && distance > attackRange) {
+			chase(target.transform.position);
+		}
+		if (LoS && distance <= attackRange && attackTimer <= 0) {
+			face(target.transform.position);
+			attack();
+		}
+		if (!LoS) {
+			aggro = false;
+			waypoint = target.transform.position;
+			wanderTimer = 3;
+			wander();
+		}
+	}
+}
+
+function mageMove(distance : float, LoS : boolean) {
+	if (!aggro) {
+		if (LoS && distance < aggroRange) {
+			aggro = true;
+		}
+		else {
+			wander();
+		}
+	}
+	if (aggro) {
+		if (LoS && distance > attackRange) {
+			chase(target.transform.position);
+		}
+		if (LoS && distance <= attackRange && attackTimer <= 0) {
+			attack();
+		}
+		if (LoS && distance <= attackRange -2) {
+			avoid(target.transform.position);
+		}
+		if (!LoS) {
+			aggro = false;
+			waypoint = target.transform.position;
+			wanderTimer = 3;
+			wander();
+		}
+	}
+}
+
+function chase(location : Vector2) {
+	face(location); // face the target
+	if (canMove <= 0) {
+		transform.Translate(Vector2(0,speed*Time.deltaTime));	// and move forward
 	}
 }
 
 function avoid(location : Vector2) {
 	face(location); // face the target
-	transform.Translate(Vector2(0,-speed*Time.deltaTime));
+	transform.Translate(Vector2(0,-speed*0.7*Time.deltaTime));
 }
 
 
