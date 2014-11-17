@@ -13,6 +13,9 @@ private var armor : int;
 var audioS : AudioSource;
 public static var money : int;
 
+public static var tutorialHelperTar : boolean;
+public static var tutorialHelperChest : boolean;
+
 function init (type : String) {				// Initialization function
 	audioS = this.GetComponent(AudioSource);
 	if(type == "Circle"){
@@ -84,6 +87,7 @@ function OnTriggerEnter2D(other : Collider2D) {
 	}
 	else if (other.name == "Chest") {
 		audioS.PlayOneShot(Resources.Load("Sounds/chest"));
+		tutorialHelperChest = true;
 		chestLoot();
 		Destroy(other.gameObject);
 	}
@@ -94,6 +98,7 @@ function OnTriggerEnter2D(other : Collider2D) {
 	}
 	else if (other.name == "Tar") {
 		audioS.PlayOneShot(Resources.Load("Sounds/slow"));
+		tutorialHelperTar = true;
 		gameObject.GetComponent(PlayerMove).tar = 4;
 	}
 	else if (other.name == "Spikes") {

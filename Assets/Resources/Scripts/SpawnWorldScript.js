@@ -135,6 +135,9 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
     enemyMoveScript.init(circleCol, exampleMesh,type,enemySpellbookScript, prefix, suffix);
     enemyStatusScript.init(exampleMesh,type,enemySpellbookScript, prefix, suffix);
 	enemySpellbookScript.init(type);
+	
+	return enemyObject;
+	
 }
 
 //Spawns a player at a specific location
