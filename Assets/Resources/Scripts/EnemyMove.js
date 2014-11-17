@@ -246,18 +246,15 @@ function warriorMove(distance : float, LoS : boolean) {
 		if (LoS && distance < aggroRange) {
 			aggro = true;
 		}
-<<<<<<< HEAD
 		else {
 			wander();
 		}
-=======
 		/*else { //Was there something here before it was avoid?
 			if (canMove <= 0) {
 				avoid(target.transform.position);
 				
 			}
 		}*/
->>>>>>> origin/master
 	}
 	if (aggro) {
 		if (LoS) {
