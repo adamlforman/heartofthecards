@@ -42,6 +42,9 @@ function iterateLevel() {
 	else if (nextLevel == "shop") {
 		nextLevel = "deckBuilder";
 	}
+	else if (nextLevel == "tutorial1") {
+		nextLevel = "mainMenu";
+	}
 	else if (nextLevel == "shop2") {
 		nextLevel = "deckBuilder";
 	}

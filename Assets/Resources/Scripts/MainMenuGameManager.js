@@ -17,10 +17,10 @@ function OnGUI(){
 		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.35, Screen.width*0.25, Screen.height*0.07), "Play")){
 			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("shop"); //Ideally this would go to a level select sreen.
 		}
-		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Quit")){
-			Application.Quit();
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Tutorial")){
+			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("tutorial1"); //Ideally this would go to a level select sreen.
 		}
-		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.55, Screen.width*0.25, Screen.height*0.07), "Main Menu")){
-			//Pause();
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.55, Screen.width*0.25, Screen.height*0.07), "Quit")){
+			Application.Quit();
 		}
 }

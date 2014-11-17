@@ -92,7 +92,7 @@ function Start() {
 	tellWASD.transform.localPosition = Vector3(-cam.orthographicSize + 5, cam.orthographicSize*0.5,10);	// Position in top center
 	tellWASD.transform.localScale = Vector3(4.5,1,1);
 	tellWASD.renderer.material.mainTexture = Resources.Load("Textures/WASD", Texture2D);
-	//tellWASD.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+	tellWASD.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
 	tellWASD.name = "WASD";	
 	
 	
@@ -131,7 +131,7 @@ function Update () {
 			tellClick.transform.localPosition = Vector3(-cam.orthographicSize + 5, cam.orthographicSize*0.5,10);	// Position in top center
 			tellClick.transform.localScale = Vector3(4,1,1);
 			tellClick.renderer.material.mainTexture = Resources.Load("Textures/mouse", Texture2D);
-			//tellClick.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+			tellClick.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
 			tellClick.name = "Click";	
 		}
 	}
@@ -145,7 +145,7 @@ function Update () {
 				tellAbilities.transform.localPosition = Vector3(-cam.orthographicSize + 5, cam.orthographicSize*0.5,10);	// Position in top center
 				tellAbilities.transform.localScale = Vector3(11,1.2,1);
 				tellAbilities.renderer.material.mainTexture = Resources.Load("Textures/abilities", Texture2D);
-				//tellAbilities.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+				tellAbilities.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
 				tellAbilities.name = "Abilities";	
 			}
 		}
@@ -174,7 +174,7 @@ function Update () {
 					tellPause.transform.localPosition = Vector3(-cam.orthographicSize + 5, cam.orthographicSize*0.5,10);	// Position in top center
 					tellPause.transform.localScale = Vector3(4,1,1);
 					tellPause.renderer.material.mainTexture = Resources.Load("Textures/pause", Texture2D);
-					//tellPause.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+					tellPause.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
 					tellPause.name = "Pause";	
 				}
 			}
@@ -188,7 +188,7 @@ function Update () {
 						tellSpecial.transform.localPosition = Vector3(-cam.orthographicSize + 5, cam.orthographicSize*0.5,10);	// Position in top center
 						tellSpecial.transform.localScale = Vector3(11,1,1);
 						tellSpecial.renderer.material.mainTexture = Resources.Load("Textures/specialTiles", Texture2D);
-						//tellSpecial.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+						tellSpecial.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
 						tellSpecial.name = "Special Tiles";	
 						buildWorldScript.buildInteractables("Chest", 5,16);
 						buildWorldScript.buildInteractables("Tar", 7,16);
@@ -204,7 +204,7 @@ function Update () {
 								tellEnemies.transform.localPosition = Vector3(-cam.orthographicSize + 5, cam.orthographicSize*0.5,10);	// Position in top center
 								tellEnemies.transform.localScale = Vector3(10,1.5,1);
 								tellEnemies.renderer.material.mainTexture = Resources.Load("Textures/enemies", Texture2D);
-								//tellEnemies.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+								tellEnemies.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
 								tellEnemies.name = "Enemies";	
 								enemyArcher = spawnWorldScript.spawnEnemy(10, 10, "Enemy Archer", "archer");
 								enemyWarrior = spawnWorldScript.spawnEnemy(12, 12, "Enemy Warrior", "warrior");
@@ -220,7 +220,7 @@ function Update () {
 									tellEnd.transform.localPosition = Vector3(-cam.orthographicSize + 5, cam.orthographicSize*0.5,10);	// Position in top center
 									tellEnd.transform.localScale = Vector3(10.2,2.2,1);
 									tellEnd.renderer.material.mainTexture = Resources.Load("Textures/keyPortal", Texture2D);
-									//tellEnd.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+									tellEnd.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
 									tellEnd.name = "End";
 									buildWorldScript.buildInteractables("LevelEnd", 16,16);
 									buildWorldScript.buildInteractables("Key", 16,10);
