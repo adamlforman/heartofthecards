@@ -60,7 +60,6 @@ function FixedUpdate (){
 		moveDirection = moveDirection.normalized;
 	}
 	if(moveY!=0 || moveX != 0){
-		print(speed);
 		transform.Translate(speed*Time.deltaTime * moveDirection, Space.World); //moves player
 	}
 	//if(moveX!=0){

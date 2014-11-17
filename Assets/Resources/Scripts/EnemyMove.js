@@ -204,7 +204,7 @@ function Update() {
 	else {
 		archerChase = true;
 	}
-	if ((distance <= 3) && LoS) {
+	if ((distance <= 3) && (LoS == true)) {
 		mageRun = true;
 	}
 	else {
