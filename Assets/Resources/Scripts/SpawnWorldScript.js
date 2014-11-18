@@ -75,27 +75,8 @@ function spawnWorld() {
 
 //Spawns an enemy at a specific location given a name and type;
 function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T THINK WE NEED BOTH NAME AND TYPE, ONE COULD BE THE OTHER
-	
-	var enemyObject = new GameObject(); //Creates a new empty gameObject
-	enemyObject.AddComponent(AudioSource); //Addes an audiosource
-	enemyObject.transform.parent = enemiesParent.transform; //Gives it a parent in hierarchy pane
-	enemyObject.transform.position = Vector3(x, y, -1); //move to spot
-	enemyObject.name = name; //set enemyObject name
-	
-	var enemyModel = new GameObject(); //Create enemyModel
-	var meshFilter = enemyModel.AddComponent(MeshFilter); //Add a meshfilter
-	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
-	enemyModel.AddComponent(MeshRenderer); //Add a renderer for textures
-	enemyModel.SetActive(false); //Turn off the object so its script doesn't do anything until we're ready.
-	var model = enemyModel.AddComponent(CharModel); //Add a CharModel script to control visuals of the Player.
-	model.name = name + " Model"; //Name the Model
-	model.init(enemyObject, type); //Initialize the model
-	enemyModel.transform.parent = enemyObject.transform; //Sets the parent of the model to the enemyObject
-	
-	
-	var enemyMoveScript = enemyObject.AddComponent(EnemyMove);	// attaches the other enemyscript
-	enemyMoveScript.setTarget(player); //Sets the enemies targer to the player
-	var enemyStatusScript = enemyObject.AddComponent(EnemyStatus); //Attaches the enemyScript
+	//THE ORDERING OF ALL THESE THINGS IS VERY IMPORTANT, BECAUSE THEY ARE ALL INTERDEPENDENT IN A SHITTY WAY
+	//CARE
 	
 	//Prefix/Suffix system
 	var prefix = "prefix";
@@ -114,6 +95,13 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 		suffix = "juggernaut";
 	}
 	
+	
+	var enemyObject = new GameObject(); //Creates a new empty gameObject
+	enemyObject.AddComponent(AudioSource); //Addes an audiosource
+	enemyObject.transform.position = Vector3(x, y, -1); //move to spot
+	enemyObject.name = name; //set enemyObject name
+	
+	
 	var circleCol : CircleCollider2D;
 	circleCol = enemyObject.AddComponent(CircleCollider2D);//Add a circle collider
 	circleCol.radius = .3;
@@ -121,12 +109,36 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 	var rigidModel = enemyObject.AddComponent(Rigidbody2D); 	//Add a rigid body for collisions
 	rigidModel.gravityScale = 0; 								//Turn off gravity
 	rigidModel.fixedAngle = true; 								//Set fixed angle to true
+	
+	
+   
+	
+	
+	var enemyModel = new GameObject(); //Create enemyModel
+	enemyModel.SetActive(false); //Turn off the object so its script doesn't do anything until we're ready.
+	var meshFilter = enemyModel.AddComponent(MeshFilter); //Add a meshfilter
+	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+	enemyModel.AddComponent(MeshRenderer); //Add a renderer for textures
+	
+	var model = enemyModel.AddComponent(CharModel); //Add a CharModel script to control visuals of the Player.
+	model.init(enemyObject, type); //Initialize the model
+	model.name = name + " Model"; //Name the Model
+	enemyModel.transform.parent = enemyObject.transform; //Sets the parent of the model to the enemyObject
+	
+	var enemySpellbookScript = enemyObject.AddComponent(EnemySpellbook); //Add the PlayerSpellbook script
+	var enemyMoveScript = enemyObject.AddComponent(EnemyMove);	// attaches the other enemyscript
+	
+	enemyMoveScript.init(circleCol, exampleMesh,type,enemySpellbookScript, prefix, suffix);
+	enemyMoveScript.setTarget(player); //Sets the enemies targer to the player
+	enemySpellbookScript.init(type);
+	
+	var enemyStatusScript = enemyObject.AddComponent(EnemyStatus); //Attaches the enemyScript
+	enemyStatusScript.init(exampleMesh,type,enemySpellbookScript, prefix, suffix);
+	//enemyStatusScript.transform.parent = enemiesParent.transform; //Gives it a parent in hierarchy pane
+	
 	enemyModel.SetActive(true);								//Turn on the object.
 	
-    var enemySpellbookScript = enemyObject.AddComponent(EnemySpellbook); //Add the PlayerSpellbook script
-    enemyMoveScript.init(circleCol, exampleMesh,type,enemySpellbookScript, prefix, suffix);
-    enemyStatusScript.init(exampleMesh,type,enemySpellbookScript, prefix, suffix);
-	enemySpellbookScript.init(type);
+	
 	
 	
 	return enemyObject;

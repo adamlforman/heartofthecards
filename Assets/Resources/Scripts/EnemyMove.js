@@ -342,6 +342,26 @@ function avoid(location : Vector2) {
 function lineOfSight(location : Vector2) {														// Is there a rock in the way from my location to the target?
 	var LoS : boolean = true;
 	var position : Vector2 = transform.position;
+	
+	/*
+	var LoS : boolean = false;
+	var position : Vector2 = transform.position;
+	
+	for (var i : int = 0; i < 3; i++) {
+		var x : float = (position.x - size) + size * i;
+		var y : float = position.y;
+		var rayOrigin : Vector2 = Vector2(x, y);
+		var hit : RaycastHit2D = (Physics2D.Raycast(rayOrigin,location - this.transform.position, Vector2.Distance(location, this.transform.position)));
+		Debug.DrawRay (rayOrigin, location - this.transform.position, Color.white);
+    	if (hit) {			// raycast
+    		if (hit.collider.gameObject.transform.root.name == "Player") {													// if we hit theplayer
+    	         LoS = true;																		// we don't have LoS
+    	    }
+   		}
+	}
+	*/
+	
+	
 	for (var i : int = 0; i < 3; i++) {
 		var x : float = (position.x - size) + size * i;
 		var y : float = position.y;
@@ -357,7 +377,9 @@ function lineOfSight(location : Vector2) {														// Is there a rock in th
 	   		}
 	   	}
 	}
-  	return LoS;
+	
+	return LoS;
+  	
 }
 
 
