@@ -95,11 +95,13 @@ function OnTriggerEnter2D(other : Collider2D) {
 		audioS.PlayOneShot(Resources.Load("Sounds/fast"));
 		
 		gameObject.GetComponent(PlayerMove).vrom = 4;
+		gameObject.GetComponent(PlayerMove).tar = 0;
 	}
 	else if (other.name == "Tar") {
 		audioS.PlayOneShot(Resources.Load("Sounds/slow"));
 		tutorialHelperTar = true;
 		gameObject.GetComponent(PlayerMove).tar = 4;
+		gameObject.GetComponent(PlayerMove).vrom = 0;
 	}
 	else if (other.name == "Spikes") {
 		audioS.PlayOneShot(Resources.Load("Sounds/ow"));
