@@ -98,7 +98,7 @@ function Start () {
 		theDeck = PlayerSpellbook.library;
 	}
 	else if(NewDeckManager.theDeck == null){
-		theDeck = [];
+		theDeck = ["blind", "blind", "blind", "blind", "ice", "ice", "ice", "ice", "poison", "poison", "poison", "poison", "leech", "leech", "leech", "leech", "rapid", "rapid", "rapid", "rapid"];
 	}
 
 	

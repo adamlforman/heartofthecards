@@ -82,6 +82,9 @@ function Start() {
 
 	
 	playerClass = GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).lastArg;
+	if(playerClass == null){
+		playerClass = "Triangle";
+	}
 	
 
 	buildWorldScript.bossInit(world, exampleMesh,1);
