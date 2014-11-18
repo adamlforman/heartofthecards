@@ -1,14 +1,15 @@
-﻿var buildWorldScript : BuildWorldScript; //Script to build environment
-var spawnWorldScript : SpawnWorldScript; //Script to spawn enemies and player and set camera
-var enemySpellbookScript : EnemySpellbook; //Enemy spellbook
-var world : Array; //Array to hold the world
-var player : GameObject;	//The player object
-var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
+﻿private var buildWorldScript : BuildWorldScript; //Script to build environment
+private var spawnWorldScript : SpawnWorldScript; //Script to spawn enemies and player and set camera
+private var enemySpellbookScript : EnemySpellbook; //Enemy spellbook
+private var world : Array; //Array to hold the world
+private var player : GameObject;	//The player object
+private var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 
-public static var isPaused : boolean;
+public static var isPaused : boolean; //Boolean to tell if the game is paused, public for player spellbook so that the player cannot activate abilities while paused
 
-public var playerClass : String;
+private var playerClass : String; //Which class the player is using
 
+//Takes care of player progress
 function Awake () {
 	var levelLoader = new GameObject();
 	if (GameObject.Find("Level Loader")) {
@@ -23,7 +24,7 @@ function Awake () {
 }
 
 function Start() {
-	isPaused = false;
+	isPaused = false; //Game is not paused
 	world = new Array(); //Initializes the world array
 	
 	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
@@ -36,18 +37,15 @@ function Start() {
 	//Spawn World, attaches a script which spawns the player and the enemies
 	spawnWorldScript = gameObject.AddComponent(SpawnWorldScript);
 	
-	//Add the spellbooks to the game manager object
-	//enemySpellbookScript = gameObject.AddComponent(EnemySpellbook); 
-	
+	//Grab the playerclass from the levelloader
 	playerClass = GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).lastArg;
 	
 	// inits the scripts
-	//enemySpellbookScript.init(); //We don't want to do this, the spellbook now takes in a class type
-	world = buildWorldScript.proceduralInit(world, exampleMesh);
-	//buildWorldScript.init(world, exampleMesh);
+	world = buildWorldScript.proceduralInit(world, exampleMesh); //Sets the world array
 	spawnWorldScript.init(world, exampleMesh,25,playerClass);
 }
 
+//Pause if needed
 function Update () {
 	if (Input.GetKeyDown(KeyCode.Escape) == true) {
 		Pause();
@@ -55,6 +53,7 @@ function Update () {
 	
 }
 
+//Main menu
 function OnGUI(){
 	/*if(GUI.Button (Rect (Screen.width*0.85, Screen.height*0.05, Screen.width*0.12, Screen.height*0.07), "Pause")){
 		Pause();
@@ -80,6 +79,7 @@ function OnGUI(){
 	}
 }
 
+//Pauses the game
 function Pause() {
 	if (isPaused == true) {
 		Time.timeScale = 1;

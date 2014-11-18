@@ -1,24 +1,28 @@
 ﻿//Holds characters corresponding to terrain
-var world : Array; //Array to hold the world
-var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
-public var rockParent : GameObject;		//Parent Object for the rocks
-public var groundParent : GameObject;		//Parent Object for the grounds
-private var maxX : int;
-private var maxY : int;
+private var world : Array; //Array to hold the world
+private var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
+private var rockParent : GameObject;		//Parent Object for the rocks
+private var groundParent : GameObject;		//Parent Object for the grounds
+private var interactableParent : GameObject;		//Parent Object for interactables
+private var maxX : int;  //Max X of the world
+private var maxY : int;  //Max Y of the world
 
 function proceduralInit(a : Array, exampleMesh : Mesh){
-	var plg : CreateLevel = gameObject.AddComponent(CreateLevel);
-	world = a;
-	this.exampleMesh = exampleMesh;
+	var plg : CreateLevel = gameObject.AddComponent(CreateLevel); //Something to do with random level generation?
+	world = a; //World array is the array passed in
+	this.exampleMesh = exampleMesh; //assign the exampleMesh
 	
-	rockParent = new GameObject("Rocks");
+	//Object parents for sanity
+	rockParent = new GameObject("Rocks");  
 	groundParent = new GameObject("Grounds");
+	interactableParent = new GameObject("Interactables");
 	
 	maxX = 60; //Max x value of map, explicitely set for now
 	maxY = 50; //Max y value of map, explicitely set for now
 	world.length=maxY;	//world length = maximum Y value
-	world = plg.createLevel(maxX,maxY, world);
+	world = plg.createLevel(maxX,maxY, world); //Create the world
 	
+	//Build the world
 	for(var i = 0; i<maxY;i++){
 		for(var j = 0; j<world[i].length;j++){
 			if(world[i][j]=="R"){
@@ -32,7 +36,9 @@ function proceduralInit(a : Array, exampleMesh : Mesh){
 			}
 		}
 	}
-
+	
+	
+	//Build interactables, and the player
 	var randomGroundXY : Array;
 	var thingsToAdd : Array;
 	var hashNames = new Object();
@@ -59,6 +65,7 @@ function proceduralInit(a : Array, exampleMesh : Mesh){
 		}
 	}
 	
+	return world;
 
 	
 	/*
@@ -94,35 +101,32 @@ function proceduralInit(a : Array, exampleMesh : Mesh){
 	}
 	world[randY][randX] = "P"; //Update the world array to show that there is a player there
 	*/
-	return world;
+	
 }
 
 
 //Start building the world
-function init(a : Array, exampleMesh : Mesh) {
+/*function init(a : Array, exampleMesh : Mesh) {
 	world = a; //Set the world array to reference the array passed in
-	this.exampleMesh = exampleMesh;
-	
-	rockParent = new GameObject("Rocks");
-	groundParent = new GameObject("Grounds");
-	
+	this.exampleMesh = exampleMesh; //exampleMesh for objects
+	rockParent = new GameObject("Rocks"); //parents for sanity
+	groundParent = new GameObject("Grounds"); //parents for sanity
 	buildWorld(); //Builds the world
-	
-}
+}*/
 
+//Builds a boss room
 function bossInit(a : Array, exampleMesh : Mesh, bossNum : int) {
 	world = a; //Set the world array to reference the array passed in
-	this.exampleMesh = exampleMesh;
-	
-	rockParent = new GameObject("Rocks");
-	groundParent = new GameObject("Grounds");
-	
-	if (bossNum == 1) {
-		buildSpiderRoom();
+	this.exampleMesh = exampleMesh; //exampleMesh for objects
+	rockParent = new GameObject("Rocks"); //parents for inspector window
+	groundParent = new GameObject("Grounds"); //parents for inspector window
+	interactableParent = new GameObject("Interactables"); //parents for hierachy pane
+	if (bossNum == 1) { //if the first boss
+		buildSpiderRoom(); //build BOB'S SPIDER ROOM
 	}
 
 }
-
+/*
 //Builds the world
 function buildWorld() {
 	//var maxX = 60; //Max x value of map, explicitely set for now
@@ -207,7 +211,7 @@ function buildWorld() {
 		}
 	}
 	//buildLevelEnd(22, 48); //Builds the level end portal
-}
+}*/
 
 function buildSpiderRoom() {
 	var maxY = 23; //Max y value of map, explicitely set for now (never used atm)
@@ -238,7 +242,7 @@ function buildSpiderRoom() {
 	world[20] = [R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R];
 	world[21] = [R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R];
 	world[22] = [R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R,R];
-	
+	//Actually builds the world
 	for(var i = 0; i<world.length;i++){
 		for(var j = 0; j<world[i].length;j++){
 			if(world[i][j]=="R"){
@@ -253,11 +257,12 @@ function buildSpiderRoom() {
 		}
 	}
 }
-
+//Return a random ground tile
 function getRandomGround() {
-	var randX : int = Random.Range(0, maxX-1);
+	//Random tile within the map
+	var randX : int = Random.Range(0, maxX-1); 
 	var randY : int = Random.Range(0, maxY-1);
-	while(world[randY][randX] != "G") {
+	while(world[randY][randX] != "G") { //grab a new one if its not ground
 		randX = Random.Range(0,maxX-1); //Random variable between 0 and max map X value
 		randY = Random.Range(0,maxY-1); //Random variable between 0 and max map Y value
 	}
@@ -268,24 +273,31 @@ function getRandomGround() {
 function buildRock(x : float, y : float){
 	var terrainObject = new GameObject(); //Create a new empty game object that will hold a terrain.
 	var terrainScript = terrainObject.AddComponent(TerrainScript);  //Add the terrain script to the object.
+	
 	terrainType = "ROCK"; //Setting the terrain type that will be passed to the terrainScript to ROCK
 	terrainScript.transform.position = Vector3(x,y,-1); //Position the terrain at x,y.
-	
 	terrainScript.transform.parent = this.rockParent.transform;	//Sets the parent to be rock parent
 	
 	//add a rigidbody and boxcollider for collisions
-	
 	terrainObject.AddComponent(BoxCollider2D); //Add a box collider
+	
 	var rigidModel = terrainObject.AddComponent(Rigidbody2D); //Add a rigid body for collisions
-	
-	var childCollider = new GameObject();						// 3D colliders needed to raycast through walls
-	childCollider.transform.parent = terrainObject.transform;
-	childCollider.transform.localPosition = Vector3(0,0,0);
-	childCollider.AddComponent(BoxCollider);
-	
 	rigidModel.isKinematic = true; //Set kinematic to true
 	rigidModel.fixedAngle = true; //Set fixed angle to true
-	rigidModel.gravityScale = 0; 								//Turn off gravity
+	rigidModel.gravityScale = 0; 		
+	
+	terrainScript.init(terrainType, exampleMesh); //Initialize the terrain script.
+	terrainScript.name = "ROCK"; //Give the terrain object a name in the Hierarchy pane.
+	
+	
+	
+	
+	/*var childCollider = new GameObject();// 3D colliders needed to raycast through walls
+	childCollider.transform.parent = terrainObject.transform;
+	childCollider.transform.localPosition = Vector3(0,0,0);
+	childCollider.AddComponent(BoxCollider); */
+	
+							//Turn off gravity
 	
 	//TESTTEST
 	
@@ -296,8 +308,7 @@ function buildRock(x : float, y : float){
 	
 	//TESTTEST
 	
-	terrainScript.init(terrainType, exampleMesh); //Initialize the terrain script.
-	terrainScript.name = "ROCK"; //Give the terrain object a name in the Hierarchy pane.
+	
 	
 }
 
@@ -310,7 +321,7 @@ function buildGround(x : float, y : float){
 	terrainScript.transform.position = Vector3(x,y,0); //Position the terrain at x,y.
 	terrainScript.init(terrainType, exampleMesh); //Initialize the terrain script.
 	terrainScript.name = "Ground"; //Give the terrain object a name in the Hierarchy pane.
-	terrainScript.transform.parent = groundParent.transform;
+	terrainScript.transform.parent = groundParent.transform; //Gives it a parent in hierarchy pane
 }
 
 /*
@@ -340,13 +351,13 @@ function buildKey(x: float, y : float) {
 
 function buildInteractables(name : String, x: float, y : float) {
 	var interactableObject = new GameObject(); //Creates a new empty game object that will hold the chest
-	var scriptString = name + "Script"; //String with name + script for clarity
-	var interactableScript = interactableObject.AddComponent(scriptString); //Adds the  script to the object.	
+	var interactableScript = interactableObject.AddComponent(InteractableScript); //Adds the  script to the object.	
 	var boxCollider2D = interactableObject.AddComponent(BoxCollider2D); //Add a box collider
 	boxCollider2D.isTrigger = true; //It is a trigger	
 	interactableScript.transform.position = Vector3(x,y,-1);	// Position the at x,y.
-	interactableScript.init(exampleMesh); //Initialize the script.
+	interactableScript.init(name, exampleMesh); //Initialize the script.
 	interactableScript.name = name;// Give the object a name in the Hierarchy pane.
+	interactableScript.transform.parent = this.interactableParent.transform; //Give parent in heirarchy pane
 }
 
 
