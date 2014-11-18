@@ -122,7 +122,7 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 		
 		aggroRange = 6;
 		leashRange = 8;
-		attackRange = 1.5;
+		attackRange = 1;
 	}
 	else if (type.Equals("mage")) {
 		attack = mageAttack;
@@ -257,7 +257,7 @@ function warriorMove(distance : float, LoS : boolean) {
 		}*/
 	}
 	if (aggro) {
-		if (LoS) {
+		if (LoS && distance > attackRange) {
 			chase(target.transform.position);
 		}
 		if (distance <= attackRange && attackTimer <= 0) {
@@ -426,7 +426,8 @@ function incrementTimers() {			// All of our various timers (there'll be more)
 function warriorAttack() {				// The warrior's attack function
 	if (blindTimer <= 0) {
 		spellbook.swing();
-
+		
+		canMove = 0.5;
 		attackTimer = 3;									// 3 second recharge seems long, but w/e
 	}
 	else {
