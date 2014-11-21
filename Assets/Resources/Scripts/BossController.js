@@ -23,7 +23,6 @@ var chargeSpeed : float;
 
 
 function init(target : GameObject, spellbook : EnemySpellbook) {
-	Debug.Log("Bob init");
 	this.target = target;
 	this.spellbook = spellbook;
 	transform.localScale = Vector2(2,2);

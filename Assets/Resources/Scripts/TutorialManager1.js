@@ -1,14 +1,11 @@
-﻿var buildWorldScript : BuildWorldScript; //Script to build environment
-var spawnWorldScript : SpawnWorldScript; //Script to spawn enemies and player and set camera
-var enemySpellbookScript : EnemySpellbook; //Enemy spellbook
-var world : Array; //Array to hold the world
-var player : GameObject;	//The player object
-var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
+﻿private var buildWorldScript : BuildWorldScript; //Script to build environment
+private var spawnWorldScript : SpawnWorldScript; //Script to spawn enemies and player and set camera
+private var enemySpellbookScript : EnemySpellbook; //Enemy spellbook
+private var world : Array; //Array to hold the world
+private var player : GameObject;	//The player object
+private var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 
-var boss : GameObject;	 // So we can tell when level is done
-var done : boolean = false;
-var playerClass : String;
-
+//These are all flags needed to make sure the player has completed all aspects of the tutorial
 private var pressedW : boolean;
 private var pressedA : boolean;
 private var pressedS : boolean;
@@ -25,7 +22,6 @@ private var killedEnemies : boolean;
 private var enemyWarrior : GameObject;
 private var enemyArcher : GameObject;
 private var doneTut : boolean;
-
 private var tellWASD : GameObject;
 private var tellClick : GameObject;
 private var tellAbilities : GameObject;
@@ -35,9 +31,10 @@ private var tellEnemies : GameObject;
 private var tellEnd : GameObject;
 private var cam : Camera;
 
-
+//Keeps track of whether the game is paused
 public static var isPaused : boolean;
 
+//Save the players stuff
 function Awake () {
 	var levelLoader = new GameObject();
 	if (GameObject.Find("Level Loader")) {
@@ -52,7 +49,7 @@ function Awake () {
 }
 
 function Start() {
-	//SPAWN TEXT TO TELL THEM TO MOVE/HOW
+	//Setting all the tutorial flags to false
 	isPaused = false;
 	pressedW = false;
 	pressedA = false;
@@ -69,27 +66,33 @@ function Start() {
 	killedEnemies = false;
 	doneTut = false;
 	cam = Camera.main;
+	
 	world = new Array(); //Initializes the world array
 	
 	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
 	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
 	Destroy(exampleQuad); //Destroy the primitive quad
 	
+	//Grab the scripts that can build the world + spawn the enemies
 	buildWorldScript = gameObject.AddComponent(BuildWorldScript);
-	
 	spawnWorldScript = gameObject.AddComponent(SpawnWorldScript);
 	
 
-	
+	//Grab the thing adam made to save things
 	playerClass = GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).lastArg;
+	
+	//If we're just testing let us be a triangle, not some wierd square
 	if(playerClass == null){
 		playerClass = "Triangle";
 	}
 	
-
+	//Initialize the build and spawn world scripts
 	buildWorldScript.bossInit(world, exampleMesh,1);
 	spawnWorldScript.init(world, exampleMesh,0, playerClass);
 	
+	
+	
+	//Give the player text to tell them how to move
 	tellWASD = GameObject.CreatePrimitive(PrimitiveType.Quad);
 	tellWASD.transform.parent = cam.transform;															// Makes child of cam
 	tellWASD.transform.localPosition = Vector3(-cam.orthographicSize + 5, cam.orthographicSize*0.5,10);	// Position in top center
@@ -102,9 +105,13 @@ function Start() {
 }
 
 function Update () {
+	//Pause
 	if (Input.GetKeyDown(KeyCode.Escape) == true) {
 		Pause();
 	}
+	//The flags following along with the text is pretty self explanatory.
+	//Text is displayed, if the player completes the stuff outlined in the text
+	//new text appears.
 	if (pressedW == false) {
 		if (Input.GetKeyDown("w") == true) {
 			pressedW = true;
@@ -236,15 +243,10 @@ function Update () {
 			}
 		}
 	}
-	//If click and pressed 1, 2, and 3, then attack learned
-	//If p clicked then pause learned
-	//If picked up a chest/moved over speed up spot then special tiles learned
-	//If killed both enemies then enemies learned
-	
 }
 
 function OnGUI(){
-
+	//The pause menu
 	if(isPaused==true){
 		GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "Menu");
 		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.35, Screen.width*0.25, Screen.height*0.07), "Resume")){
@@ -266,6 +268,7 @@ function OnGUI(){
 	}
 }
 
+//Pause function
 function Pause() {
 	if (isPaused == true) {
 		Time.timeScale = 1;

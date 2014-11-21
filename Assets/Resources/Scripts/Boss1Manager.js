@@ -6,7 +6,7 @@ var player : GameObject;	//The player object
 var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 
 var boss : GameObject;	 // So we can tell when level is done
-var done : boolean = false;
+var done : boolean;
 var playerClass : String;
 
 public static var isPaused : boolean;
@@ -26,6 +26,7 @@ function Awake () {
 
 function Start() {
 	isPaused = false;
+	done = false;
 	world = new Array(); //Initializes the world array
 	
 	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
@@ -38,22 +39,22 @@ function Start() {
 	//Spawn World, attaches a script which spawns the player and the enemies
 	spawnWorldScript = gameObject.AddComponent(SpawnBoss);
 	
-	//Add the spellbooks to the game manager object
-	//enemySpellbookScript = gameObject.AddComponent(EnemySpellbook); 
+ 
 	
 	playerClass = GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).lastArg;
 	
 	// inits the scripts
-	//enemySpellbookScript.init(); //We don't want to do this, the spellbook now takes in a class type
-	//world = buildWorldScript.proceduralInit(world, exampleMesh);
 	buildWorldScript.bossInit(world, exampleMesh,1);
 	boss = spawnWorldScript.init(world, exampleMesh,1, playerClass);
 }
 
 function Update () {
+	//Allows pausing
 	if (Input.GetKeyDown(KeyCode.Escape) == true) {
 		Pause();
 	}
+	//if the boss is destroyed, and we're not done yet
+	//build levelEnd
 	if (!boss && !done) {
 		buildWorldScript.buildInteractables("LevelEnd", 16,16);
 		buildWorldScript.buildInteractables("Key", 16,15);
