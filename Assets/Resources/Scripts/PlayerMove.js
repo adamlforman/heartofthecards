@@ -71,7 +71,6 @@ function FixedUpdate (){
 		else {
 			speed = baseSpeedForward;
 		}
-		print(speed);
 	}
 	else if (moveY < 0 && moveX < 0) {
 		if(transform.eulerAngles.z < 360 && transform.eulerAngles.z > 270) {
