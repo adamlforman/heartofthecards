@@ -135,7 +135,6 @@ function init(cam : Camera, player : GameObject){
 	loadTexture(arrowTexture, arrowOb);																	//Load texture into keyOb.
 	arrowOb.name = "Arrow Indicator";																				// Name the object.
 
-
 }
 
 function Update () {
