@@ -64,75 +64,74 @@ function FixedUpdate (){
 	var moveY : float = Input.GetAxis ("Vertical"); //vertical movespeed
 	var moveX : float = Input.GetAxis ("Horizontal"); //horizontal movespeed
 	//players facing angle is within 90 degrees of their input speed forward, otherwise speed backwards
-	if (moveY > 0 && moveX == 0) {
+	if (moveY < 0 && moveX == 0) {
 		if(transform.eulerAngles.z < 45 || transform.eulerAngles.z > 315) {
-			speed = baseSpeedForward;
-		}
-		else {
 			speed = baseSpeedBackward;
 		}
-		print(speed);
-	}
-	else if (moveY > 0 && moveX > 0) {
-		if(transform.eulerAngles.z < 360 && transform.eulerAngles.z > 270) {
+		else {
 			speed = baseSpeedForward;
 		}
-		else {
-			speed = baseSpeedBackward;
-		}
-		
-	}
-	else if (moveY == 0 && moveX > 0) {
-		if(transform.eulerAngles.z < 315 && transform.eulerAngles.z > 225) {
-			speed = baseSpeedForward;
-		}
-		else {
-			speed = baseSpeedBackward;
-		}
-		
-	}
-	else if (moveY < 0 && moveX > 0) {
-		if(transform.eulerAngles.z < 270 && transform.eulerAngles.z > 180) {
-			speed = baseSpeedForward;
-		}
-		else {
-			speed = baseSpeedBackward;
-		}
-		
-	}
-	else if (moveY < 0 && moveX == 0) {
-		if(transform.eulerAngles.z < 225 && transform.eulerAngles.z > 135) {
-			speed = baseSpeedForward;
-		}
-		else {
-			speed = baseSpeedBackward;
-		}
-		
 	}
 	else if (moveY < 0 && moveX < 0) {
-		if(transform.eulerAngles.z < 180 && transform.eulerAngles.z > 90) {
-			speed = baseSpeedForward;
+		if(transform.eulerAngles.z < 360 && transform.eulerAngles.z > 270) {
+			speed = baseSpeedBackward;
 		}
 		else {
-			speed = baseSpeedBackward;
+			speed = baseSpeedForward;
 		}
 		
 	}
 	else if (moveY == 0 && moveX < 0) {
-		if(transform.eulerAngles.z < 135 && transform.eulerAngles.z > 45) {
-			speed = baseSpeedForward;
+		if(transform.eulerAngles.z < 315 && transform.eulerAngles.z > 225) {
+			speed = baseSpeedBackward;
 		}
 		else {
-			speed = baseSpeedBackward;
+			speed = baseSpeedForward;
 		}
 		
 	}
 	else if (moveY > 0 && moveX < 0) {
-		if(transform.eulerAngles.z < 90 && transform.eulerAngles.z > 0) {
-			speed = baseSpeedForward;
+		if(transform.eulerAngles.z < 270 && transform.eulerAngles.z > 180) {
+			speed = baseSpeedBackward;
 		}
 		else {
+			speed = baseSpeedForward;
+		}
+		
+	}
+	else if (moveY > 0 && moveX == 0) {
+		if(transform.eulerAngles.z < 225 && transform.eulerAngles.z > 135) {
 			speed = baseSpeedBackward;
+		}
+		else {
+			speed = baseSpeedForward;
+		}
+		
+	}
+	else if (moveY > 0 && moveX > 0) {
+		if(transform.eulerAngles.z < 180 && transform.eulerAngles.z > 90) {
+			speed = baseSpeedBackward;
+		}
+		else {
+			speed = baseSpeedForward;
+		}
+		
+	}
+	else if (moveY == 0 && moveX > 0) {
+		if(transform.eulerAngles.z < 135 && transform.eulerAngles.z > 45) {
+			speed = baseSpeedBackward;
+		}
+		else {
+			speed = baseSpeedForward;
+		}
+		
+	}
+	else if (moveY < 0 && moveX > 0) {
+		if(transform.eulerAngles.z < 90 && transform.eulerAngles.z > 0) {
+			speed = baseSpeedBackward;
+		}
+		else {
+			speed = baseSpeedForward;
 		}
 		
 	}
