@@ -99,7 +99,7 @@ function FixedUpdate(){
 }
 
 function swing(){
-	audioS.PlayOneShot(Resources.Load("Sounds/fistattack"));					
+	//audioS.PlayOneShot(Resources.Load("Sounds/fistattack"));					
 	swinging = true;							//Punch that mother fucker
 	fist.GetComponent(EnemySpell).punchOn();
 	fist.GetComponent(EnemySpell).updateBuffs(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing);
@@ -115,7 +115,7 @@ function swing(){
 //Triangle specific stuff
 
 function shot (enemy : GameObject){
-	audioS.PlayOneShot(Resources.Load("Sounds/arrowattack"));
+	//audioS.PlayOneShot(Resources.Load("Sounds/arrowattack"));
 	if(fork>0){
 		spawnShot(enemy, Vector3(0,0,30));
 		spawnShot(enemy, Vector3(0,0,-30));
@@ -129,7 +129,7 @@ function shot (enemy : GameObject){
 // Square specific stuff
 
 function comet (enemy : GameObject, target : GameObject, damage : float) {
-    audioS.PlayOneShot(Resources.Load("Sounds/mageattack"));
+    //audioS.PlayOneShot(Resources.Load("Sounds/mageattack"));
     var location : Vector2 = target.transform.position;
 	spawnComet(enemy,location,damage);
 	// FORK does nothing for mages, yet. find a way to not make OP.
