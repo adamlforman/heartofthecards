@@ -83,7 +83,7 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 		attack = archerAttack;
 
 				
-		baseSpeed = 3f;
+		baseSpeed = 4f;
 		if(hyper){
 			baseSpeed = baseSpeed * 1.2;	//pump up the move speed if hyper
 		}
@@ -104,7 +104,8 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 	else if (type.Equals("warrior")) {		// warrior
 		attack = warriorAttack;
 		
-		baseSpeed = 3.25f;
+		baseSpeed = 4f;
+		//baseSpeed = 3f;
 
 		if(hyper){
 			baseSpeed = baseSpeed * 1.2;	//pump up the move speed if hyper
@@ -127,7 +128,7 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 	else if (type.Equals("mage")) {
 		attack = mageAttack;
 		
-		baseSpeed = 2.5f;
+		baseSpeed = 3.75f;
 		
 		if (hyper) {
 			baseSpeed = baseSpeed*1.2;

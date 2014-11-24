@@ -11,20 +11,20 @@ public var cantMove : float;
 
 
 function init() {
-	speed = 3;
-	baseSpeed = 3;
+	speed = 4;
+	baseSpeed = 4;
 	acceleration = 1;
 	vrom = 0;
 	tar = 0;
 
 	if(gameObject.GetComponent(PlayerSpellbook).getType() == "Circle"){
-		baseSpeed = 3.25;
+		baseSpeed = 4.5;
 	}
 	if(gameObject.GetComponent(PlayerSpellbook).getType() == "Square"){
-		baseSpeed = 2.5;
+		baseSpeed = 3.75;
 	}
 	if(gameObject.GetComponent(PlayerSpellbook).getType() == "Triangle"){
-		baseSpeed = 3;
+		baseSpeed = 4.5;
 	}
 	speed = baseSpeed;
 }
