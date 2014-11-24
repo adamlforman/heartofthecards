@@ -23,7 +23,7 @@ function init() {
 
 	if(gameObject.GetComponent(PlayerSpellbook).getType() == "Circle"){
 		baseSpeedForward = 4.5;
-		baseSpeedBackward = 3.5;
+		baseSpeedBackward = 2.5;
 	}
 	if(gameObject.GetComponent(PlayerSpellbook).getType() == "Square"){
 		baseSpeedForward = 3.75;
@@ -31,7 +31,7 @@ function init() {
 	}
 	if(gameObject.GetComponent(PlayerSpellbook).getType() == "Triangle"){
 		baseSpeedForward = 4.5;
-		baseSpeedBackward = 3.5;
+		baseSpeedBackward = 2.5;
 	}
 }
 
@@ -64,76 +64,75 @@ function FixedUpdate (){
 	var moveY : float = Input.GetAxis ("Vertical"); //vertical movespeed
 	var moveX : float = Input.GetAxis ("Horizontal"); //horizontal movespeed
 	//players facing angle is within 90 degrees of their input speed forward, otherwise speed backwards
-	print(transform.eulerAngles.z);
 	if (moveY > 0 && moveX == 0) {
 		if(transform.eulerAngles.z < 45 || transform.eulerAngles.z > 315) {
-			speed = speedForward * moveY;
+			speed = baseSpeedForward;
 		}
 		else {
-			speed = speedBackward * moveY;
+			speed = baseSpeedBackward;
 		}
-		
+		print(speed);
 	}
 	else if (moveY > 0 && moveX > 0) {
-		if(transform.eulerAngles.z < 0 || transform.eulerAngles.z > 290) {
-			speed = speedForward * moveY;
+		if(transform.eulerAngles.z < 360 && transform.eulerAngles.z > 270) {
+			speed = baseSpeedForward;
 		}
 		else {
-			speed = speedBackward * moveY;
+			speed = baseSpeedBackward;
 		}
 		
 	}
 	else if (moveY == 0 && moveX > 0) {
-		if(transform.eulerAngles.z < -45 || transform.eulerAngles.z > 245) {
-			speed = speedForward * moveY;
+		if(transform.eulerAngles.z < 315 && transform.eulerAngles.z > 225) {
+			speed = baseSpeedForward;
 		}
 		else {
-			speed = speedBackward * moveY;
+			speed = baseSpeedBackward;
 		}
 		
 	}
 	else if (moveY < 0 && moveX > 0) {
-		if(transform.eulerAngles.z < -45 || transform.eulerAngles.z > 245) {
-			speed = speedForward * moveY;
+		if(transform.eulerAngles.z < 270 && transform.eulerAngles.z > 180) {
+			speed = baseSpeedForward;
 		}
 		else {
-			speed = speedBackward * moveY;
+			speed = baseSpeedBackward;
 		}
 		
 	}
 	else if (moveY < 0 && moveX == 0) {
-		if(transform.eulerAngles.z < -90 || transform.eulerAngles.z > 200) {
-			speed = speedForward * moveY;
+		if(transform.eulerAngles.z < 225 && transform.eulerAngles.z > 135) {
+			speed = baseSpeedForward;
 		}
 		else {
-			speed = speedBackward * moveY;
+			speed = baseSpeedBackward;
 		}
 		
 	}
 	else if (moveY < 0 && moveX < 0) {
-		if(transform.eulerAngles.z < -135 || transform.eulerAngles.z > 155) {
-			speed = speedForward * moveY;
+		if(transform.eulerAngles.z < 180 && transform.eulerAngles.z > 90) {
+			speed = baseSpeedForward;
 		}
 		else {
-			speed = speedBackward * moveY;
+			speed = baseSpeedBackward;
 		}
 		
 	}
 	else if (moveY == 0 && moveX < 0) {
-		if(transform.eulerAngles.z < -135 || transform.eulerAngles.z > 155) {
-			speed = speedForward * moveY;
+		if(transform.eulerAngles.z < 135 && transform.eulerAngles.z > 45) {
+			speed = baseSpeedForward;
 		}
 		else {
-			speed = speedBackward * moveY;
+			speed = baseSpeedBackward;
 		}
 		
 	}
 	else if (moveY > 0 && moveX < 0) {
-		if(transform.eulerAngles.z < -180 || transform.eulerAngles.z > 110) {
-			speed = speedForward * moveY;
+		if(transform.eulerAngles.z < 90 && transform.eulerAngles.z > 0) {
+			speed = baseSpeedForward;
 		}
 		else {
-			speed = speedBackward * moveY;
+			speed = baseSpeedBackward;
 		}
 		
 	}
