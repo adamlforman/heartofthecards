@@ -1,7 +1,8 @@
 ﻿var slot1Ob : GameObject;			//The object that will wear the texture of card 1.
 var slot2Ob : GameObject;			//The object that will wear the texture of card 2.
 var slot3Ob : GameObject;			//The object that will wear the texture of card 3.
-var keyOb : GameObject;
+var keyOb : GameObject;				//The object that will wear the texture of the key.
+var arrowOb : GameObject;			//The object that will wear the texture of the arrow.
 
 var slot1Glow : GameObject;		//The object that will make a border around card 1 if it is being used.
 var slot2Glow : GameObject;		//The object that will make a border around card 2 if it is being used.
@@ -10,7 +11,8 @@ var slot3Glow : GameObject;		//The object that will make a border around card 3 
 var slot1Texture : String;		//The name of the texture for the card in slot 1. 
 var slot2Texture : String;		//The name of the texture for the card in slot 2. 
 var slot3Texture : String;		//The name of the texture for the card in slot 3.
-var keyTexture : String;
+var keyTexture : String;        //The name of the texture for the key.
+var arrowTexture : String;        //The name of the texture for the arrow.
 
 var healthbarOb : GameObject;	// The object that is the healthbar
 var healthbarBgOb : GameObject;	// The object that is the healthbar's background
@@ -22,8 +24,13 @@ var player : GameObject;
 var maxHealth : float;		// So we don't have to look it up on update
 var curHealth : float;
 
+public static var arrowIndicator: boolean = false;
 
-function init(cam : Camera, player : GameObject){
+private var keyLocation : Vector2;
+private var location : Vector2;
+private var levelEndLocation : Vector2;
+
+function init(cam : Camera, player : GameObject) {
 	this.cam = cam;
 	this.player = player;
 	this.maxHealth = player.GetComponent(PlayerStatus).maxHealth;
@@ -57,6 +64,7 @@ function init(cam : Camera, player : GameObject){
 	slot2Texture = "Textures/" + PlayerSpellbook.slot2;		//Copies slot 2 from spellbook.
 	slot3Texture = "Textures/" + PlayerSpellbook.slot3;		//Copies slot 3 from spellbook.
 	keyTexture = "Textures/BACK";
+	arrowTexture = "Textures/arrowI";
 	
 	
 	//Makes Slot 1
@@ -76,6 +84,15 @@ function init(cam : Camera, player : GameObject){
 	slot1Glow.renderer.material.color = Color(0,0,0);													// Set the color to black.
 	slot1Glow.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 	
+	//Makes Slot 1 Timer Background
+	slot1Timer = GameObject.CreatePrimitive(PrimitiveType.Quad);											//Create the first game object's border
+	slot1Timer.transform.parent = slot1Ob.transform;														//Parent the border to the slot.
+	slot1Timer.transform.localPosition = Vector3(0.5, -0.5, -1);												//Center it on its parent
+	slot1Timer.transform.localScale = Vector3(0.5, 0.5, 1);												//Scale it up to be bigger than parent
+	slot1Timer.renderer.material.mainTexture = Resources.Load("Textures/BLACK", Texture2D);				// Set the texture.  Must be in Resources folder.
+	slot1Timer.renderer.material.color = Color(0,0,0);													// Set the color to black.
+	slot1Timer.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
+	
 	//Makes Slot 2
 	slot2Ob = GameObject.CreatePrimitive(PrimitiveType.Quad);												//Create the first game object
 	slot2Ob.transform.parent = cam.transform;																//Parent Slot 2 to the camera.
@@ -93,6 +110,15 @@ function init(cam : Camera, player : GameObject){
 	slot2Glow.renderer.material.color = Color(0,0,0);													// Set the color to black.
 	slot2Glow.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 	
+	//Makes Slot 2 Timer Background
+	slot2Timer = GameObject.CreatePrimitive(PrimitiveType.Quad);											//Create the first game object's border
+	slot2Timer.transform.parent = slot2Ob.transform;														//Parent the border to the slot.
+	slot2Timer.transform.localPosition = Vector3(0.5, -0.5, -1);												//Center it on its parent
+	slot2Timer.transform.localScale = Vector3(0.5, 0.5, 1);												//Scale it up to be bigger than parent
+	slot2Timer.renderer.material.mainTexture = Resources.Load("Textures/BLACK", Texture2D);				// Set the texture.  Must be in Resources folder.
+	slot2Timer.renderer.material.color = Color(0,0,0);													// Set the color to black.
+	slot2Timer.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
+	
 	//Makes Slot 3
 	slot3Ob = GameObject.CreatePrimitive(PrimitiveType.Quad);												//Create the first game object
 	slot3Ob.transform.parent = cam.transform;																//Parent Slot 3 to the camera.
@@ -109,6 +135,15 @@ function init(cam : Camera, player : GameObject){
 	slot3Glow.renderer.material.mainTexture = Resources.Load("Textures/BACK", Texture2D);				// Set the texture.  Must be in Resources folder.
 	slot3Glow.renderer.material.color = Color(0,0,0);													// Set the color to black.
 	slot3Glow.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
+	
+	//Makes Slot 2 Timer Background
+	slot3Timer = GameObject.CreatePrimitive(PrimitiveType.Quad);											//Create the first game object's border
+	slot3Timer.transform.parent = slot3Ob.transform;														//Parent the border to the slot.
+	slot3Timer.transform.localPosition = Vector3(0.5, -0.5, -1);												//Center it on its parent
+	slot3Timer.transform.localScale = Vector3(0.5, 0.5, 1);												//Scale it up to be bigger than parent
+	slot3Timer.renderer.material.mainTexture = Resources.Load("Textures/BLACK", Texture2D);				// Set the texture.  Must be in Resources folder.
+	slot3Timer.renderer.material.color = Color(0,0,0);													// Set the color to black.
+	slot3Timer.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 
 	//Makes Key
 	keyOb = GameObject.CreatePrimitive(PrimitiveType.Quad);												//Create the first game object
@@ -116,12 +151,27 @@ function init(cam : Camera, player : GameObject){
 	keyOb.transform.localPosition = Vector3(cam.orthographicSize*1.2, cam.orthographicSize*0.85, 10);	// Position the model in the top right.
 	keyOb.transform.localScale = Vector3(0.75, 0.75, 1);													//Scale down the size
 	loadTexture(keyTexture, keyOb);																	//Load texture into keyOb.
-	keyOb.name = "Key Slot";																				// Name the object.
-
+	keyOb.name = "Key Slot";	
+	
 
 }
 
 function Update () {
+	if (arrowIndicator == true) {
+		//Makes Arrow
+		arrowOb = GameObject.CreatePrimitive(PrimitiveType.Quad);												//Create the first game object
+		//arrowOb.transform.parent = player.transform;																//Parent the arrowIndicator to the player.
+		arrowOb.transform.localPosition = Vector3(0, 0, -5);	// Position the model in the top right.
+		arrowOb.transform.localScale = Vector3(3, 3, 1);													//Scale down the size
+		loadTexture(arrowTexture, arrowOb);																	//Load texture into keyOb.
+		arrowOb.name = "Arrow Indicator";
+		arrowIndicator = false;		
+		
+		keyLocation = BuildWorldScript.keyLocation;
+		location = keyLocation;
+		levelEndLocation = BuildWorldScript.levelEndLocation;
+	}
+
 	slot1Texture = "Textures/" + PlayerSpellbook.slot1;		//Copies slot 1 from spellbook.
 	slot2Texture = "Textures/" + PlayerSpellbook.slot2;		//Copies slot 2 from spellbook.
 	slot3Texture = "Textures/" + PlayerSpellbook.slot3;		//Copies slot 3 from spellbook.
@@ -131,8 +181,10 @@ function Update () {
 	loadTexture(keyTexture, keyOb);
 	
 	
-	
-	
+	if (arrowOb) {
+		arrowOb.transform.position = Vector3(player.transform.position.x, player.transform.position.y, -5);
+		arrowOb.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(location.y - transform.position.y, location.x - transform.position.x) * Mathf.Rad2Deg - 90);
+	}
 	slot1Ob.transform.localPosition = Vector3(-cam.orthographicSize*1.2, cam.orthographicSize*0.85, 10);		//Position the model in the top right.
 	slot2Ob.transform.localPosition = Vector3(-cam.orthographicSize*0.9, cam.orthographicSize*0.85, 10);		// Position the model in the top right.
 	slot3Ob.transform.localPosition = Vector3(-cam.orthographicSize*0.6, cam.orthographicSize*0.85, 10);	// Position the model in the top right.
@@ -197,4 +249,5 @@ function makeBlue(border : GameObject, model : GameObject){
 
 function key(){
 	keyTexture = "Textures/Key";
+	location = levelEndLocation;
 }

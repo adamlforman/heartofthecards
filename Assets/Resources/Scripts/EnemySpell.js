@@ -1,5 +1,5 @@
 ﻿var damage : int;	 // How much damage does the spell do (WILL BE OBSOLETE)
-var movespeed : int = 4;	// How fast is the spell (WILL BE OBSOLETE)
+var movespeed : int = 10;	// How fast is the spell (WILL BE OBSOLETE)
 var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 var enemy : GameObject;	//The enemy
 

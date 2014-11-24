@@ -94,14 +94,14 @@ function fillHoles(tiles : Array) {
 	}
 	var maxFillNum = 0;
 	var maxFillCount = 0;
-	Debug.Log("Level has " + fillCounts.length + " different caverns.");
+//	Debug.Log("Level has " + fillCounts.length + " different caverns.");
 	for (var m : int = 0; m < fillCounts.length; m++) {		// find the biggest cavern
 		if (fillCounts[m] > maxFillCount) {
 			maxFillNum = m;
 			maxFillCount = fillCounts[m];
 		}
 	}
-	Debug.Log("Largest size is cavern " + maxFillNum + " with "+ maxFillCount + " tiles.");
+	//Debug.Log("Largest size is cavern " + maxFillNum + " with "+ maxFillCount + " tiles.");
 	
 	for (var x : int = 0; x < height; x++) {
 		for (var y : int = 0; y < width; y++) {				// replace caverns that aren't the largest with walls
