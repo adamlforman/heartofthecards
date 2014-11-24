@@ -117,7 +117,9 @@ function init(cam : Camera, player : GameObject){
 	keyOb.transform.localScale = Vector3(0.75, 0.75, 1);													//Scale down the size
 	loadTexture(keyTexture, keyOb);																	//Load texture into keyOb.
 	keyOb.name = "Key Slot";																				// Name the object.
-
+	
+	
+	
 
 }
 
