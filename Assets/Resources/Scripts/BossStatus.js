@@ -107,12 +107,15 @@ function damageText(damage : int){
 	damageObject.transform.position = this.transform.position;
 	damageObject.transform.position.z = -2;
 	damageObject.transform.localScale = Vector3(1,1,1); //NOT SURE IF THIS IS NECESSARY
+	
+	var damageScript = damageObject.AddComponent(FloatingText);
+	damageScript.init();
 	var meshFilter = damageObject.AddComponent(MeshFilter); //Add a mesh filter for textures
 	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
 	damageObject.AddComponent(MeshRenderer); //Add a renderer for textures
 	var textureName = "Textures/"+damage; //Get the texture name with texture folder
 	damageObject.renderer.material.mainTexture = Resources.Load(textureName, Texture2D); //Set the texture.  Must be in Resources folder.
-	damageObject.renderer.material.color = Color(1,0,0); //Set the color (easy way to tint things).
+	damageObject.renderer.material.color = Color(1,0,1); //Set the color (easy way to tint things).
 	damageObject.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
 	
 	Destroy(damageObject, 1);
