@@ -84,6 +84,15 @@ function init(cam : Camera, player : GameObject) {
 	slot1Glow.renderer.material.color = Color(0,0,0);													// Set the color to black.
 	slot1Glow.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 	
+	//Makes Slot 1 Timer Background
+	slot1Timer = GameObject.CreatePrimitive(PrimitiveType.Quad);											//Create the first game object's border
+	slot1Timer.transform.parent = slot1Ob.transform;														//Parent the border to the slot.
+	slot1Timer.transform.localPosition = Vector3(0.5, -0.5, -1);												//Center it on its parent
+	slot1Timer.transform.localScale = Vector3(0.5, 0.5, 1);												//Scale it up to be bigger than parent
+	slot1Timer.renderer.material.mainTexture = Resources.Load("Textures/BLACK", Texture2D);				// Set the texture.  Must be in Resources folder.
+	slot1Timer.renderer.material.color = Color(0,0,0);													// Set the color to black.
+	slot1Timer.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
+	
 	//Makes Slot 2
 	slot2Ob = GameObject.CreatePrimitive(PrimitiveType.Quad);												//Create the first game object
 	slot2Ob.transform.parent = cam.transform;																//Parent Slot 2 to the camera.
@@ -101,6 +110,15 @@ function init(cam : Camera, player : GameObject) {
 	slot2Glow.renderer.material.color = Color(0,0,0);													// Set the color to black.
 	slot2Glow.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 	
+	//Makes Slot 2 Timer Background
+	slot2Timer = GameObject.CreatePrimitive(PrimitiveType.Quad);											//Create the first game object's border
+	slot2Timer.transform.parent = slot2Ob.transform;														//Parent the border to the slot.
+	slot2Timer.transform.localPosition = Vector3(0.5, -0.5, -1);												//Center it on its parent
+	slot2Timer.transform.localScale = Vector3(0.5, 0.5, 1);												//Scale it up to be bigger than parent
+	slot2Timer.renderer.material.mainTexture = Resources.Load("Textures/BLACK", Texture2D);				// Set the texture.  Must be in Resources folder.
+	slot2Timer.renderer.material.color = Color(0,0,0);													// Set the color to black.
+	slot2Timer.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
+	
 	//Makes Slot 3
 	slot3Ob = GameObject.CreatePrimitive(PrimitiveType.Quad);												//Create the first game object
 	slot3Ob.transform.parent = cam.transform;																//Parent Slot 3 to the camera.
@@ -117,6 +135,15 @@ function init(cam : Camera, player : GameObject) {
 	slot3Glow.renderer.material.mainTexture = Resources.Load("Textures/BACK", Texture2D);				// Set the texture.  Must be in Resources folder.
 	slot3Glow.renderer.material.color = Color(0,0,0);													// Set the color to black.
 	slot3Glow.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
+	
+	//Makes Slot 2 Timer Background
+	slot3Timer = GameObject.CreatePrimitive(PrimitiveType.Quad);											//Create the first game object's border
+	slot3Timer.transform.parent = slot3Ob.transform;														//Parent the border to the slot.
+	slot3Timer.transform.localPosition = Vector3(0.5, -0.5, -1);												//Center it on its parent
+	slot3Timer.transform.localScale = Vector3(0.5, 0.5, 1);												//Scale it up to be bigger than parent
+	slot3Timer.renderer.material.mainTexture = Resources.Load("Textures/BLACK", Texture2D);				// Set the texture.  Must be in Resources folder.
+	slot3Timer.renderer.material.color = Color(0,0,0);													// Set the color to black.
+	slot3Timer.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 
 	//Makes Key
 	keyOb = GameObject.CreatePrimitive(PrimitiveType.Quad);												//Create the first game object

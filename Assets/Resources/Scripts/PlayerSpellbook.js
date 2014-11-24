@@ -25,16 +25,23 @@ public static var slot1Timer : float;	//The duration of the card in slot 1
 public static var slot2Timer : float;	//The duration of the card in slot 2
 public static var slot3Timer : float;	//The duration of the card in slot 3
 
+public static var slot1TimerInt : int;	//The duration of the card in slot 1 but int
+public static var slot2TimerInt : int;	//The duration of the card in slot 2 but int
+public static var slot3TimerInt : int;	//The duration of the card in slot 3 but int
+
 var slot1Text : GUIText;
 var slot2Text : GUIText;
 var slot3Text : GUIText;
 
 
 public var drawTimer : float;			//The time until your next draw.
+public var drawTimerInt : int;
 
 var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 
 public var classType : String;		//The class of the player (circle, square, triangle)
+
+var slot3TextOb : GameObject;		//Fuck you, our cooldowns are goddamned centered.   
 
 
 //Circle global variables
@@ -85,26 +92,30 @@ function init(classType : String) {
 	slot2Timer = -5;
 	slot3Timer = -5;
 	
+	slot1TimerInt = slot1Timer;
+	slot2TimerInt = slot2Timer;
+	slot3TimerInt = slot3Timer;
+	
 	//Makes slot1 count down
 	var slot1TextOb = new GameObject("slot1Text");
-	slot1TextOb.transform.position = Vector3(.02, .8, -1);
+	slot1TextOb.transform.position = Vector3(.07, .91, -1);
 	slot1Text = slot1TextOb.AddComponent(GUIText); 
-	slot1Text.text = "" + slot1Timer;
-	slot1Text.fontSize = Screen.height/24;
+	slot1Text.text = "" + slot1TimerInt;
+	slot1Text.fontSize = Screen.height/25;
 	
 	//Makes slot2 count down
 	var slot2TextOb = new GameObject("slot2Text");
-	slot2TextOb.transform.position = Vector3(.02, .7, -1);
+	slot2TextOb.transform.position = Vector3(.1825, .91, -1);
 	slot2Text = slot2TextOb.AddComponent(GUIText); 
-	slot2Text.text = "" + slot2Timer;
-	slot2Text.fontSize = Screen.height/24;
+	slot2Text.text = "" + slot2TimerInt;
+	slot2Text.fontSize = Screen.height/25;
 	
 	//Makes slot3 count down
-	var slot3TextOb = new GameObject("slot3Text");
-	slot3TextOb.transform.position = Vector3(.02, .6, -1);
+	slot3TextOb = new GameObject("slot3Text");
+	slot3TextOb.transform.position = Vector3(.295, .91, -1);
 	slot3Text = slot3TextOb.AddComponent(GUIText); 
-	slot3Text.text = "" + slot3Timer;
-	slot3Text.fontSize = Screen.height/24;
+	slot3Text.text = "" + slot3TimerInt;
+	slot3Text.fontSize = Screen.height/25;
 	
 	
 	
@@ -149,9 +160,57 @@ function init(classType : String) {
 function Update () {
 	isPaused = ProceduralGameManager.isPaused;
 	
-	slot1Text.text = "" + slot1Timer;
-	slot2Text.text = "" + slot2Timer;
-	slot3Text.text = "" + slot3Timer;
+	slot1TimerInt = slot1Timer;
+	slot2TimerInt = slot2Timer;
+	slot3TimerInt = slot3Timer;
+	drawTimerInt = drawTimer;
+	
+	if(slot1TimerInt>0){
+		slot1Text.text = "" + slot1TimerInt;
+	}
+	else if(slot1Timer == -10){
+		slot1Text.text = "" + drawTimerInt;
+	}
+	else{
+		slot1Text.text = "";
+	}
+	if(slot2TimerInt>0){
+		slot2Text.text = "" + slot2TimerInt;
+	}
+	else if(slot2Timer == -10){
+		if(slot1Timer == -10){
+			slot2Text.text = "" + (drawTimerInt+5);
+		}
+		else{
+			slot2Text.text = "" + drawTimerInt;
+		}
+	}
+	else{
+		slot2Text.text = "";
+	}
+	if(slot3TimerInt>0){
+		slot3Text.text = "" + slot3TimerInt;
+		slot3TextOb.transform.position = Vector3(.295, .91, -1);
+	}
+	else if(slot3Timer == -10){
+		if(slot1Timer == -10 && slot2Timer == -10){
+			slot3Text.text = "" + (drawTimerInt+10);
+			slot3TextOb.transform.position = Vector3(.285, .91, -1);
+		}
+		else if(slot1Timer == -10 || slot2Timer == -10){
+			slot3Text.text = "" + (drawTimerInt+5);
+			slot3TextOb.transform.position = Vector3(.295, .91, -1);
+		}
+		else{
+			slot3Text.text = "" + drawTimerInt;
+			slot3TextOb.transform.position = Vector3(.295, .91, -1);
+		}
+	}
+	else{
+		slot3Text.text = "";
+		slot3TextOb.transform.position = Vector3(.295, .91, -1);
+	}
+	
 	
 	if(ice > 0){
 		ice-=Time.deltaTime;			//Decrement "ice" buff duration if it is above zero
