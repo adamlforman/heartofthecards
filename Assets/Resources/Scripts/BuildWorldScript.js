@@ -362,6 +362,7 @@ function buildInteractables(name : String, x: float, y : float) {
 	interactableScript.name = name;// Give the object a name in the Hierarchy pane.
 	interactableScript.transform.parent = this.interactableParent.transform; //Give parent in heirarchy pane
 	if (name == "Key") {
+		PlayerHUD.arrowIndicator = true;
 		keyLocation = Vector2(x, y);
 	}
 	else if(name == "LevelEnd") {

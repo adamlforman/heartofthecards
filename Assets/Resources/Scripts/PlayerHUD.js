@@ -24,14 +24,13 @@ var player : GameObject;
 var maxHealth : float;		// So we don't have to look it up on update
 var curHealth : float;
 
+public static var arrowIndicator: boolean = false;
+
 private var keyLocation : Vector2;
 private var location : Vector2;
 private var levelEndLocation : Vector2;
 
-function init(cam : Camera, player : GameObject){
-	keyLocation = BuildWorldScript.keyLocation;
-	location = keyLocation;
-	levelEndLocation = BuildWorldScript.levelEndLocation;
+function init(cam : Camera, player : GameObject) {
 	this.cam = cam;
 	this.player = player;
 	this.maxHealth = player.GetComponent(PlayerStatus).maxHealth;
@@ -127,17 +126,25 @@ function init(cam : Camera, player : GameObject){
 	loadTexture(keyTexture, keyOb);																	//Load texture into keyOb.
 	keyOb.name = "Key Slot";	
 	
-	//Makes Arrow
-	arrowOb = GameObject.CreatePrimitive(PrimitiveType.Quad);												//Create the first game object
-	//arrowOb.transform.parent = player.transform;																//Parent the arrowIndicator to the player.
-	arrowOb.transform.localPosition = Vector3(0, 0, 0);	// Position the model in the top right.
-	arrowOb.transform.localScale = Vector3(1, 1, 1);													//Scale down the size
-	loadTexture(arrowTexture, arrowOb);																	//Load texture into keyOb.
-	arrowOb.name = "Arrow Indicator";																				// Name the object.
 
 }
 
 function Update () {
+	if (arrowIndicator == true) {
+		//Makes Arrow
+		arrowOb = GameObject.CreatePrimitive(PrimitiveType.Quad);												//Create the first game object
+		//arrowOb.transform.parent = player.transform;																//Parent the arrowIndicator to the player.
+		arrowOb.transform.localPosition = Vector3(0, 0, -5);	// Position the model in the top right.
+		arrowOb.transform.localScale = Vector3(3, 3, 1);													//Scale down the size
+		loadTexture(arrowTexture, arrowOb);																	//Load texture into keyOb.
+		arrowOb.name = "Arrow Indicator";
+		arrowIndicator = false;		
+		
+		keyLocation = BuildWorldScript.keyLocation;
+		location = keyLocation;
+		levelEndLocation = BuildWorldScript.levelEndLocation;
+	}
+
 	slot1Texture = "Textures/" + PlayerSpellbook.slot1;		//Copies slot 1 from spellbook.
 	slot2Texture = "Textures/" + PlayerSpellbook.slot2;		//Copies slot 2 from spellbook.
 	slot3Texture = "Textures/" + PlayerSpellbook.slot3;		//Copies slot 3 from spellbook.
@@ -147,10 +154,10 @@ function Update () {
 	loadTexture(keyTexture, keyOb);
 	
 	
-	
-	arrowOb.transform.position = player.transform.position;
-	arrowOb.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(location.y - transform.position.y, location.x - transform.position.x) * Mathf.Rad2Deg - 90);
-	
+	if (arrowOb) {
+		arrowOb.transform.position = Vector3(player.transform.position.x, player.transform.position.y, -5);
+		arrowOb.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(location.y - transform.position.y, location.x - transform.position.x) * Mathf.Rad2Deg - 90);
+	}
 	slot1Ob.transform.localPosition = Vector3(-cam.orthographicSize*1.2, cam.orthographicSize*0.85, 10);		//Position the model in the top right.
 	slot2Ob.transform.localPosition = Vector3(-cam.orthographicSize*0.9, cam.orthographicSize*0.85, 10);		// Position the model in the top right.
 	slot3Ob.transform.localPosition = Vector3(-cam.orthographicSize*0.6, cam.orthographicSize*0.85, 10);	// Position the model in the top right.
