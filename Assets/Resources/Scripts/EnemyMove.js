@@ -291,6 +291,7 @@ function archerMove(distance : float, LoS : boolean) {
 			attack();
 		}
 		if (!LoS) {
+			print("lost line of sight");
 			aggro = false;
 			waypoint = target.transform.position;
 			wanderTimer = 3;
