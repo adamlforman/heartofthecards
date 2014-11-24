@@ -288,7 +288,7 @@ function archerMove(distance : float, LoS : boolean) {
 		}
 		if (LoS && distance <= attackRange && attackTimer <= 0) {
 			face(target.transform.position);
-			attack();
+			attack(); //Got a null reference exception at this line one time, it was a thing
 		}
 		if (!LoS) {
 			aggro = false;

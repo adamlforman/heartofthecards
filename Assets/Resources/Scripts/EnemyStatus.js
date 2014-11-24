@@ -161,16 +161,8 @@ function Update () {
 function OnTriggerEnter2D(other : Collider2D){
 	//print("enemy");
 	if(other.gameObject.name == "Shot") {
-		if(!other.gameObject.GetComponent(PlayerSpell).splash){
-			audioS.PlayOneShot(arrowHit);
-			audioS.PlayOneShot(uugh);
-			other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
-		}
-		else{
-			audioS.PlayOneShot(arrowHit);
-			audioS.PlayOneShot(uugh);
-			other.gameObject.GetComponent(PlayerSpell).hit(gameObject);		//If we splash, dont make damage text yet.
-		}
+		audioS.PlayOneShot(arrowHit);
+		other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
 	}
 	if(other.gameObject.name == "Explosion") {
 		audioS.PlayOneShot(explosion);
@@ -182,12 +174,7 @@ function OnTriggerEnter2D(other : Collider2D){
 function OnTriggerStay2D(other : Collider2D){
 	if(invulnerable<=0){
 		if(other.gameObject.name == "Fist" ) {
-			if(!other.gameObject.GetComponent(PlayerSpell).splash){
-				other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
-			}
-			else{
-				other.gameObject.GetComponent(PlayerSpell).hit(gameObject);		//If we splash, dont make damage text yet.
-			}
+			other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
 		}
 	}
 }

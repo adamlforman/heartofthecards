@@ -12,11 +12,18 @@ public  var tar : float;
 
 public var cantMove : float;
 
+private var mouseScreen : Vector3;
+private var mouse : Vector3;
+private var moveY : float;
+private var moveX : float;
+private var moveDirection : Vector3;
 
 function init() {
 	speed = 4;
 	baseSpeedForward = 4;
 	baseSpeedBackward = 3;
+	speedForward = 4;
+	speedBackward = 3;
 	acceleration = 1;
 	vrom = 0;
 	tar = 0;
@@ -43,101 +50,101 @@ function Update () {
 	}
 	else if (tar > 0) {
 		speedForward = baseSpeedForward - 2;
-		speedBackWard = baseSpeedBackward - 2;
+		speedBackward = baseSpeedBackward - 2;
 		tar -=Time.deltaTime;
 	}
 	else {
-		speedFoward = baseSpeedForward;
+		speedForward = baseSpeedForward;
 		speedBackward = baseSpeedBackward;
 	}
-	cantMove -= Time.deltaTime;
+	/*cantMove -= Time.deltaTime;
 	if (cantMove > 0) {
 		speed = 0;
-	}
-	var mouseScreen : Vector3 = Input.mousePosition;
-    var mouse : Vector3 = Camera.main.ScreenToWorldPoint(mouseScreen);
+	}*/
+	mouseScreen = Input.mousePosition;
+    mouse = Camera.main.ScreenToWorldPoint(mouseScreen);
  	transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(mouse.y - transform.position.y, mouse.x - transform.position.x) * Mathf.Rad2Deg - 90);
  }
 
 function FixedUpdate (){
 	//Version 3.0
-	var moveY : float = Input.GetAxis ("Vertical"); //vertical movespeed
-	var moveX : float = Input.GetAxis ("Horizontal"); //horizontal movespeed
+	moveY = Input.GetAxis ("Vertical"); //vertical movespeed
+	moveX = Input.GetAxis ("Horizontal"); //horizontal movespeed
 	//players facing angle is within 90 degrees of their input speed forward, otherwise speed backwards
 	if (moveY < 0 && moveX == 0) {
 		if(transform.eulerAngles.z < 45 || transform.eulerAngles.z > 315) {
-			speed = baseSpeedBackward;
+			speed = speedBackward;
 		}
 		else {
-			speed = baseSpeedForward;
+			speed = speedForward;
 		}
 	}
 	else if (moveY < 0 && moveX < 0) {
 		if(transform.eulerAngles.z < 360 && transform.eulerAngles.z > 270) {
-			speed = baseSpeedBackward;
+			speed = speedBackward;
 		}
 		else {
-			speed = baseSpeedForward;
+			speed = speedForward;
 		}
 		
 	}
 	else if (moveY == 0 && moveX < 0) {
 		if(transform.eulerAngles.z < 315 && transform.eulerAngles.z > 225) {
-			speed = baseSpeedBackward;
+			speed = speedBackward;
 		}
 		else {
-			speed = baseSpeedForward;
+			speed = speedForward;
 		}
 		
 	}
 	else if (moveY > 0 && moveX < 0) {
 		if(transform.eulerAngles.z < 270 && transform.eulerAngles.z > 180) {
-			speed = baseSpeedBackward;
+			speed = speedBackward;
 		}
 		else {
-			speed = baseSpeedForward;
+			speed = speedForward;
 		}
 		
 	}
 	else if (moveY > 0 && moveX == 0) {
 		if(transform.eulerAngles.z < 225 && transform.eulerAngles.z > 135) {
-			speed = baseSpeedBackward;
+			speed = speedBackward;
 		}
 		else {
-			speed = baseSpeedForward;
+			speed = speedForward;
 		}
 		
 	}
 	else if (moveY > 0 && moveX > 0) {
 		if(transform.eulerAngles.z < 180 && transform.eulerAngles.z > 90) {
-			speed = baseSpeedBackward;
+			speed = speedBackward;
 		}
 		else {
-			speed = baseSpeedForward;
+			speed = speedForward;
 		}
 		
 	}
 	else if (moveY == 0 && moveX > 0) {
 		if(transform.eulerAngles.z < 135 && transform.eulerAngles.z > 45) {
-			speed = baseSpeedBackward;
+			speed = speedBackward;
 		}
 		else {
-			speed = baseSpeedForward;
+			speed = speedForward;
 		}
 		
 	}
 	else if (moveY < 0 && moveX > 0) {
 		if(transform.eulerAngles.z < 90 && transform.eulerAngles.z > 0) {
-			speed = baseSpeedBackward;
+			speed = speedBackward;
 		}
 		else {
-			speed = baseSpeedForward;
+			speed = speedForward;
 		}
 		
 	}
+	print(speed);
 	
-	
-	var moveDirection : Vector3 = Vector3(moveX, moveY, 0);
+	moveDirection = Vector3(moveX, moveY, 0);
 	if (moveDirection.magnitude > 1) {
 		moveDirection = moveDirection.normalized;
 	}

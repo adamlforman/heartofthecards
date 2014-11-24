@@ -169,7 +169,7 @@ function hit(other : GameObject){		// how to hit something
 				applyStatus(other);				//apply status debuffs to the enemy we hit
 				if (name == "Enemy Fist") {
 					audioS.PlayOneShot(Resources.Load("Sounds/fisthit"));
-					audioS.PlayOneShot(Resources.Load("Sounds/uugh"));
+					audioS.PlayOneShot(Resources.Load("Sounds/ow"));
 				}
 				if(!pierce){
 					if(name == "Enemy Shot"){
