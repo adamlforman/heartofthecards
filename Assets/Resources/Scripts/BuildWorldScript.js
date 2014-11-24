@@ -7,6 +7,9 @@ private var interactableParent : GameObject;		//Parent Object for interactables
 private var maxX : int;  //Max X of the world
 private var maxY : int;  //Max Y of the world
 
+public static var keyLocation : Vector2;
+public static var levelEndLocation : Vector2;
+
 function proceduralInit(a : Array, exampleMesh : Mesh){
 	var plg : CreateLevel = gameObject.AddComponent(CreateLevel); //Something to do with random level generation?
 	world = a; //World array is the array passed in
@@ -358,6 +361,12 @@ function buildInteractables(name : String, x: float, y : float) {
 	interactableScript.init(name, exampleMesh); //Initialize the script.
 	interactableScript.name = name;// Give the object a name in the Hierarchy pane.
 	interactableScript.transform.parent = this.interactableParent.transform; //Give parent in heirarchy pane
+	if (name == "Key") {
+		keyLocation = Vector2(x, y);
+	}
+	else if(name == "LevelEnd") {
+		levelEndLocation = Vector2(x, y);
+	}
 }
 
 

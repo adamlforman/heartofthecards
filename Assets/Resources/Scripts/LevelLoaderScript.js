@@ -30,7 +30,7 @@ function loadNextLevel(arg : String) {
 	if (arg != null) {
 		lastArg = arg;
 	}
-	Debug.Log("Loaded level: "+nextLevel);
+//	Debug.Log("Loaded level: "+nextLevel);
 	Application.LoadLevel(nextLevel);
 	iterateLevel();
 }

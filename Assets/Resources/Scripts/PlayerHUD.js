@@ -1,7 +1,8 @@
 ﻿var slot1Ob : GameObject;			//The object that will wear the texture of card 1.
 var slot2Ob : GameObject;			//The object that will wear the texture of card 2.
 var slot3Ob : GameObject;			//The object that will wear the texture of card 3.
-var keyOb : GameObject;
+var keyOb : GameObject;				//The object that will wear the texture of the key.
+var arrowOb : GameObject;			//The object that will wear the texture of the arrow.
 
 var slot1Glow : GameObject;		//The object that will make a border around card 1 if it is being used.
 var slot2Glow : GameObject;		//The object that will make a border around card 2 if it is being used.
@@ -10,7 +11,8 @@ var slot3Glow : GameObject;		//The object that will make a border around card 3 
 var slot1Texture : String;		//The name of the texture for the card in slot 1. 
 var slot2Texture : String;		//The name of the texture for the card in slot 2. 
 var slot3Texture : String;		//The name of the texture for the card in slot 3.
-var keyTexture : String;
+var keyTexture : String;        //The name of the texture for the key.
+var arrowTexture : String;        //The name of the texture for the arrow.
 
 var healthbarOb : GameObject;	// The object that is the healthbar
 var healthbarBgOb : GameObject;	// The object that is the healthbar's background
@@ -22,8 +24,14 @@ var player : GameObject;
 var maxHealth : float;		// So we don't have to look it up on update
 var curHealth : float;
 
+private var keyLocation : Vector2;
+private var location : Vector2;
+private var levelEndLocation : Vector2;
 
 function init(cam : Camera, player : GameObject){
+	keyLocation = BuildWorldScript.keyLocation;
+	location = keyLocation;
+	levelEndLocation = BuildWorldScript.levelEndLocation;
 	this.cam = cam;
 	this.player = player;
 	this.maxHealth = player.GetComponent(PlayerStatus).maxHealth;
@@ -57,6 +65,7 @@ function init(cam : Camera, player : GameObject){
 	slot2Texture = "Textures/" + PlayerSpellbook.slot2;		//Copies slot 2 from spellbook.
 	slot3Texture = "Textures/" + PlayerSpellbook.slot3;		//Copies slot 3 from spellbook.
 	keyTexture = "Textures/BACK";
+	arrowTexture = "Textures/arrowI";
 	
 	
 	//Makes Slot 1
@@ -116,7 +125,15 @@ function init(cam : Camera, player : GameObject){
 	keyOb.transform.localPosition = Vector3(cam.orthographicSize*1.2, cam.orthographicSize*0.85, 10);	// Position the model in the top right.
 	keyOb.transform.localScale = Vector3(0.75, 0.75, 1);													//Scale down the size
 	loadTexture(keyTexture, keyOb);																	//Load texture into keyOb.
-	keyOb.name = "Key Slot";																				// Name the object.
+	keyOb.name = "Key Slot";	
+	
+	//Makes Arrow
+	arrowOb = GameObject.CreatePrimitive(PrimitiveType.Quad);												//Create the first game object
+	//arrowOb.transform.parent = player.transform;																//Parent the arrowIndicator to the player.
+	arrowOb.transform.localPosition = Vector3(0, 0, 0);	// Position the model in the top right.
+	arrowOb.transform.localScale = Vector3(1, 1, 1);													//Scale down the size
+	loadTexture(arrowTexture, arrowOb);																	//Load texture into keyOb.
+	arrowOb.name = "Arrow Indicator";																				// Name the object.
 
 
 }
@@ -132,6 +149,8 @@ function Update () {
 	
 	
 	
+	arrowOb.transform.position = player.transform.position;
+	arrowOb.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(location.y - transform.position.y, location.x - transform.position.x) * Mathf.Rad2Deg - 90);
 	
 	slot1Ob.transform.localPosition = Vector3(-cam.orthographicSize*1.2, cam.orthographicSize*0.85, 10);		//Position the model in the top right.
 	slot2Ob.transform.localPosition = Vector3(-cam.orthographicSize*0.9, cam.orthographicSize*0.85, 10);		// Position the model in the top right.
@@ -197,4 +216,5 @@ function makeBlue(border : GameObject, model : GameObject){
 
 function key(){
 	keyTexture = "Textures/Key";
+	location = levelEndLocation;
 }
