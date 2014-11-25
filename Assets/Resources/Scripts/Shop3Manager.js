@@ -3,16 +3,23 @@ var reminder : GUIText;
 var ice3 : GUIText;
 var poison3 : GUIText;
 var fork3 : GUIText;
-var reflect : GUIText;
 var pierce3 : GUIText;
 var giant3 : GUIText;
 var splash3 : GUIText;
 var leech3 : GUIText;
-var sword : GUIText;
 var blind3 : GUIText;
 var rapid3 : GUIText;
-var homing : GUIText;
-var meteor : GUIText;
+
+var ice3Texture : Texture2D;
+var poison3Texture : Texture2D;
+var fork3Texture : Texture2D;
+var pierce3Texture : Texture2D;
+var giant3Texture : Texture2D;
+var splash3Texture : Texture2D;
+var leech3Texture : Texture2D;
+var blind3Texture : Texture2D;
+var rapid3Texture : Texture2D;
+var shopTexture : Texture2D;
 
 //Counters for all of the cards
 public static var ice3Count : int;
@@ -50,6 +57,11 @@ function Awake () {
 
 function Start () {
     
+    var background = new GameObject().CreatePrimitive(PrimitiveType.Quad);
+	background.renderer.material.mainTexture = Resources.Load("Textures/shop",Texture2D); //Set the texture.  Must be in Resources folder
+	background.renderer.material.shader = Shader.Find ("Diffuse");	
+	background.transform.localScale = Vector3(13.8,10,1);					// Tell the renderer that our textures have transparency. 
+    
     audioS = gameObject.AddComponent(AudioSource);
     audioS.clip = Resources.Load("Sounds/shopmusic");
  	audioS.Play();
@@ -73,6 +85,18 @@ function Start () {
 	rapid3Count = 0;
 	homingCount = 0;
 	meteorCount = 0;
+	
+	ice3Texture = Resources.Load("Textures/ice3",Texture2D);
+	poison3Texture = Resources.Load("Textures/poison3",Texture2D);
+	fork3Texture = Resources.Load("Textures/fork3",Texture2D);
+	pierce3Texture = Resources.Load("Textures/pierce3",Texture2D);
+	giant3Texture = Resources.Load("Textures/giant3",Texture2D);
+	splash3Texture = Resources.Load("Textures/splash3",Texture2D);
+	leech3Texture = Resources.Load("Textures/leech3",Texture2D);
+	blind3Texture = Resources.Load("Textures/blind3",Texture2D);
+	rapid3Texture = Resources.Load("Textures/rapid3",Texture2D);
+	shopTexture = Resources.Load("Textures/shop",Texture2D);
+
 
 
 	
@@ -275,96 +299,112 @@ public static function AutoResize(screenWidth:int, screenHeight:int):void
     GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3(resizeRatio.x, resizeRatio.y, 1.0));
 }*/
 function OnGUI() {
+
+
+
+	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.8,Screen.height/15,Screen.height/15),ice3Texture);
+	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.72,Screen.height/15,Screen.height/15),poison3Texture);
+	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.64,Screen.height/15,Screen.height/15),fork3Texture);
+	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.48,Screen.height/15,Screen.height/15),pierce3Texture);
+	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.40,Screen.height/15,Screen.height/15),giant3Texture);
+	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.32,Screen.height/15,Screen.height/15),splash3Texture);
+	GUI.Box(Rect(Screen.width/1.45+1.05*Screen.width/5,Screen.height-Screen.height*0.8,Screen.height/15,Screen.height/15),leech3Texture);
+	GUI.Box(Rect(Screen.width/1.45+1.05*Screen.width/5,Screen.height-Screen.height*0.64,Screen.height/15,Screen.height/15),blind3Texture);
+	GUI.Box(Rect(Screen.width/1.45+1.05*Screen.width/5,Screen.height-Screen.height*0.56,Screen.height/15,Screen.height/15),rapid3Texture);
+
+	
+
+
 	var customButton: GUIStyle = new GUIStyle("button");
 	customButton.fontSize = 36;
 	//AutoResize(1024, 768);
 	//GUI.Text(Rect(150,25,400,40),"Build Your theDeck!");
 	
-	if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.8,Screen.width/5,Screen.height/15),"Buy, $400")) {
+	if (GUI.Button(Rect(Screen.width/5,Screen.height-Screen.height*0.8,Screen.width/5,Screen.height/15),"Buy, $400")) {
 		if ((ice3Count < 4) && (PlayerStatus.money >= 400)) {
 			ice3Count++;
 			PlayerStatus.money -=400;
 			add("ice3");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.72,Screen.width/5,Screen.height/15),"Buy, $400")) {
+	else if (GUI.Button(Rect(Screen.width/5,Screen.height-Screen.height*0.72,Screen.width/5,Screen.height/15),"Buy, $400")) {
 		if ((poison3Count < 4)  && (PlayerStatus.money >= 400)) {
 			poison3Count++;
 			PlayerStatus.money -=400;
 			add("poison3");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.64,Screen.width/5,Screen.height/15),"Buy, $400")) {
+	else if (GUI.Button(Rect(Screen.width/5,Screen.height-Screen.height*0.64,Screen.width/5,Screen.height/15),"Buy, $400")) {
 		if ((fork3Count < 4)  && (PlayerStatus.money >= 400)) {
 			fork3Count++;
 			PlayerStatus.money -=400;
 			add("fork3");
 		}
 	}
-	/*else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.56,Screen.width/5,Screen.height/15),"Buy, $400")) {
+	/*else if (GUI.Button(Rect(Screen.width/5,Screen.height-Screen.height*0.56,Screen.width/5,Screen.height/15),"Buy, $400")) {
 		if ((reflectCount < 0)  && (PlayerStatus.money >= 400)) {
 			//reflectCount++;
 			//PlayerStatus.money -=400;
 			//add("REFLECT");
 		}
 	}*/
-	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.48,Screen.width/5,Screen.height/15),"Buy, $400")) {
+	else if (GUI.Button(Rect(Screen.width/5,Screen.height-Screen.height*0.48,Screen.width/5,Screen.height/15),"Buy, $400")) {
 		if ((pierce3Count < 4)  && (PlayerStatus.money >= 400)) {
 			pierce3Count++;
 			PlayerStatus.money -=400;
 			add("pierce3");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.40,Screen.width/5,Screen.height/15),"Buy, $400")) {
+	else if (GUI.Button(Rect(Screen.width/5,Screen.height-Screen.height*0.40,Screen.width/5,Screen.height/15),"Buy, $400")) {
 		if ((giant3Count < 4)  && (PlayerStatus.money >= 400)) {
 			giant3Count++;
 			PlayerStatus.money -=400;
 			add("giant3");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.32,Screen.width/5,Screen.height/15),"Buy, $400")) {
+	else if (GUI.Button(Rect(Screen.width/5,Screen.height-Screen.height*0.32,Screen.width/5,Screen.height/15),"Buy, $400")) {
 		if ((splash3Count < 4) && (PlayerStatus.money >= 400)) {
 			splash3Count++;
 			PlayerStatus.money -=400;
 			add("splash3");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.8,Screen.width/5,Screen.height/15),"Buy, $400")) {
+	else if (GUI.Button(Rect(Screen.width/1.45,Screen.height-Screen.height*0.8,Screen.width/5,Screen.height/15),"Buy, $400")) {
 		if ((leech3Count < 4)  && (PlayerStatus.money >= 400)) {
 			leech3Count++;
 			PlayerStatus.money -=400;
 			add("leech3");
 		}
 	}
-	/*else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.72,Screen.width/5,Screen.height/15),"Buy, $400")) {
+	/*else if (GUI.Button(Rect(Screen.width/1.45,Screen.height-Screen.height*0.72,Screen.width/5,Screen.height/15),"Buy, $400")) {
 		if ((swordCount < 0)  && (PlayerStatus.money >= 400)) {
 			//swordCount++;
 			//PlayerStatus.money -=400;
 			//add("SWORD");
 		}
 	}*/
-	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.64,Screen.width/5,Screen.height/15),"Buy, $400")) {
+	else if (GUI.Button(Rect(Screen.width/1.45,Screen.height-Screen.height*0.64,Screen.width/5,Screen.height/15),"Buy, $400")) {
 		if ((blind3Count < 4)  && (PlayerStatus.money >= 400)) {
 			blind3Count++;
 			PlayerStatus.money -=400;
 			add("blind3");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.56,Screen.width/5,Screen.height/15),"Buy, $400")) {
+	else if (GUI.Button(Rect(Screen.width/1.45,Screen.height-Screen.height*0.56,Screen.width/5,Screen.height/15),"Buy, $400")) {
 		if ((rapid3Count < 4)  && (PlayerStatus.money >= 400)) {
 			rapid3Count++;
 			PlayerStatus.money -=400;
 			add("rapid3");
 		}
 	}
-	/*else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.48,Screen.width/5,Screen.height/15),"Buy, $400")) {
+	/*else if (GUI.Button(Rect(Screen.width/1.45,Screen.height-Screen.height*0.48,Screen.width/5,Screen.height/15),"Buy, $400")) {
 		if ((homingCount < 0)  && (PlayerStatus.money >= 400)) {
 			homingCount++;
 			PlayerStatus.money -=400;
 			add("HOMING");
 		}
 	}
-	else if (GUI.Button(Rect(Screen.width/1.3,Screen.height-Screen.height*0.40,Screen.width/5,Screen.height/15),"Buy, $400")) {
+	else if (GUI.Button(Rect(Screen.width/1.45,Screen.height-Screen.height*0.40,Screen.width/5,Screen.height/15),"Buy, $400")) {
 		if ((meteorCount < 0)  && (PlayerStatus.money >= 400)) {
 			//meteorCount++;
 			//PlayerStatus.money -=400;
