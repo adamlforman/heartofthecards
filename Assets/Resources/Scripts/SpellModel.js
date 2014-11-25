@@ -43,6 +43,9 @@ function init(o : GameObject) {
 		textureName = "Textures/Comet";
 		renderer.material.color = Color(0.8,0.1,0.1);
 	}
+	else if (owner.name == "Enemy Web Shot") {
+		textureName = "Textures/WEB";
+	}
 	renderer.material.mainTexture = Resources.Load(textureName, Texture2D);				// Set the texture.  Must be in Resources folder.
 }
 

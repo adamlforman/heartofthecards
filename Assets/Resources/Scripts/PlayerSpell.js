@@ -203,7 +203,7 @@ function applyStatus(target : GameObject){
 			target.GetComponent(BossStatus).takeDamage(10,true);
 		}
 		if(poison){
-			target.GetComponent(EnemyStatus).poisonCounter = 5;						//Apply poison
+			target.GetComponent(BossStatus).poisonCounter = 5;						//Apply poison
 		}
 	}
 

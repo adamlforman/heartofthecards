@@ -38,6 +38,8 @@ function loadLevel(level : String, arg : String) {
 }
 
 function reloadLevel() {
+	Time.timeScale = 1;
+	curHealth = 100;
 	nextLevel = Application.loadedLevelName;
 	loadNextLevel();
 }

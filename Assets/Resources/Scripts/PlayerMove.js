@@ -13,6 +13,7 @@ public  var tar : float;
 public var cantMove : float;
 public var knockbackTimer : float;
 public var knockbackPos : Vector2;
+public var stunned : boolean;
 
 private var mouseScreen : Vector3;
 private var mouse : Vector3;
@@ -45,6 +46,12 @@ function init() {
 }
 
 function Update () {
+	if (gameObject.GetComponent(PlayerStatus).stunned > 0) {
+		stunned = true;
+	}
+	else {
+		stunned = false;
+	}
 	if (vrom > 0) {
 		speedForward = baseSpeedForward + 2;
 		speedBackward = baseSpeedBackward + 2;
@@ -63,9 +70,11 @@ function Update () {
 	if (cantMove > 0) {
 		speed = 0;
 	}
-	mouseScreen = Input.mousePosition;
-    mouse = Camera.main.ScreenToWorldPoint(mouseScreen);
- 	transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(mouse.y - transform.position.y, mouse.x - transform.position.x) * Mathf.Rad2Deg - 90);
+	if (!stunned) {
+		mouseScreen = Input.mousePosition;
+    	mouse = Camera.main.ScreenToWorldPoint(mouseScreen);
+ 		transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(mouse.y - transform.position.y, mouse.x - transform.position.x) * Mathf.Rad2Deg - 90);
+ 	}
  }
 
 function FixedUpdate (){
@@ -152,7 +161,7 @@ function FixedUpdate (){
 	if (knockbackTimer > 0) {
 		transform.Translate(10*Time.deltaTime*(transform.position - knockbackPos), Space.World);
 	}
-	else {
+	else if (!stunned) {
 		moveDirection = Vector3(moveX, moveY, 0);
 		if (moveDirection.magnitude > 1) {
 			moveDirection = moveDirection.normalized;

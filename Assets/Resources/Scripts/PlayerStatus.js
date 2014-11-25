@@ -7,6 +7,8 @@ private var invulnerable : float;
 var healthTickDelay : float;
 var healthTickTimer : float;
 
+var stunned : float;
+
 public var HUD : PlayerHUD;		// HUD script
 
 private var armor : int;
@@ -50,6 +52,7 @@ function Update () {			// If you have 0 or less health you die
 	}
 	healthTickTimer -= Time.deltaTime;
 	invulnerable -= Time.deltaTime;
+	stunned -= Time.deltaTime;
 	
 	if (healthTickTimer <= 0) {
 		addHealth(1);
@@ -148,6 +151,10 @@ function OnTriggerEnter2D(other : Collider2D) {
 			audioS.PlayOneShot(Resources.Load("Sounds/ow"));
 			other.gameObject.GetComponent(EnemySpell).hit(gameObject);		// WHY DO WE HAVE DUPLICATE CODE?  Question seconded by Connor.  Suspects answer is because Adam blindly copied my code for the player.
 		}
+	}
+	else if (other.gameObject.name == "Enemy Web Shot") {
+		stunned = 3;
+		other.gameObject.GetComponent(EnemySpell).hit(gameObject);
 	}
 	else if (other.gameObject.name == "Enemy Lava") {
 		other.gameObject.GetComponent(EnemySpell).hit(gameObject);

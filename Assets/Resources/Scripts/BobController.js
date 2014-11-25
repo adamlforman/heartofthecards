@@ -2,16 +2,17 @@
 
 var spellbook : EnemySpellbook;
 
-var dancing : boolean;
 var growing : boolean;
 var charging : boolean;
+var shooting : boolean;
+var shrinking : boolean;
 var tired : boolean;
 var targetInRange : boolean;	// True if player is in boss's trigger Collider (slightly larger than boss)
 
 var tiredTimer : float;
-var danceTimer : float;
 var growTimer : float;
-var cometTimer : float;
+var shrinkTimer : float;
+var shootTimer : float;
 
 var baseSize : Vector2;
 var goalSize : Vector2;
@@ -33,15 +34,15 @@ function init(target : GameObject, spellbook : EnemySpellbook) {
 
 	chargeSpeed = 5;
 	
-	dancing = false;
 	charging = false;
+	shooting = false;
 	growing = false;
+	shrinking = false;
 	tired = true;
 	
-	danceTimer = 0;
-	cometTimer = 0;
-	tiredTimer = 3;
+	tiredTimer = 2;
 	growTimer = 0;
+	shootTimer = 0;
 }
 
 function Update() {
@@ -74,17 +75,16 @@ function Update() {
 function FixedUpdate() {
 
 	if (target) {
-		if (dancing) {
-			if (cometTimer <= 0) {
-				spellbook.comet(gameObject,target,20);
-				cometTimer = 0.3;
-			}
-		}
 		
 		if (growing) {
 			face(target.transform.position);
 		}
-		
+		if (shooting) {
+			var randX = Random.value * 2 -1;
+			var randY = Random.value *2 - 1;
+			face(Vector2(target.transform.position.x + randX, target.transform.position.y + randY));
+			spellbook.webShot(gameObject);
+		}
 		if (charging) {
 			transform.Translate(Vector2(0,1)*chargeSpeed*Time.deltaTime);
 		}
@@ -133,18 +133,33 @@ function face(location : Vector2) {						// THIS IS A USEFUL FUNCTION
 }
 
 function newAttack() {
-	var rand : float;
-	rand = Random.value;
-	if (rand < 0.5) {
-		growing = true;
-		goalSize = bigSize;
-		growTimer = 3;
+
+	if (Vector2.Distance(transform.position,target.transform.position)) {
+		if (target.GetComponent(PlayerStatus).stunned > 0) {
+			growing = true;
+			goalSize = bigSize;
+			growTimer = 2;
+		}
+		else {
+			face(target.transform.position);
+			spellbook.webshot(gameObject);
+			tired = true;
+			tiredTimer = 1;
+		}
 	}
-	else { 
-		dancing = true;
-		danceTimer = 5;
-		cometTimer = 1;
-		goalSize = smallSize;
+	else {
+		var rand : float;
+		rand = Random.value;
+		if (rand < 0.5) {
+			growing = true;
+			goalSize = bigSize;
+			growTimer = 3;
+		}
+		else {
+			goalSize = smallSize;
+			shrinking = true;
+			shrinkTimer = 2;
+		}
 	}
 }
 
@@ -152,19 +167,13 @@ function newAttack() {
 
 function incrementTimers() {
 	var tick : float = Time.deltaTime;
-	danceTimer -= tick;
-	cometTimer -= tick;
+	shrinkTimer -= tick;
 	growTimer -= tick;
 	tiredTimer -= tick;
+	shootTimer -= tick;
 }
 
 function triggerStuff() {
-	if (danceTimer <= 0 && dancing) {
-		dancing = false;
-		tired = true;
-		tiredTimer = 3;
-		goalSize = baseSize;
-	}
 	if (growTimer <= 0 && growing) {
 		growing = false;
 		charging = true;
@@ -173,6 +182,10 @@ function triggerStuff() {
 				target.gameObject.GetComponent(PlayerStatus).takeDamage(25,false);
 			}
 		}
+	}
+	if (shrinkTimer <= 0 && shrinking) {
+		shrinking = false;
+		shooting = true;
 	}
 	if (tiredTimer <= 0 && tired) {
 		tired = false;

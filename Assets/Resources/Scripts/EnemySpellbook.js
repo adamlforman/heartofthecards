@@ -126,6 +126,10 @@ function shot (enemy : GameObject){
 	}
 }
 
+function webshot (enemy : GameObject){
+		spawnWebShot(enemy, Vector3(0,0,0));
+}
+
 // Square specific stuff
 
 function comet (enemy : GameObject, target : GameObject, damage : float) {
@@ -172,6 +176,33 @@ function spawnShot(enemy : GameObject, rotate : Vector3){
 	projectile.transform.eulerAngles = enemy.transform.eulerAngles - rotate;			//set the projectile's angle to the enemy's
 	enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, condemn, exampleMesh, enemy, gameObject.GetComponent(EnemyMove).getDamage());	//initialize the enemySpellScript
 	enemySpellScript.name = "Enemy Shot";
+	projectile.SetActive(true);
+}
+
+function spawnWebShot(enemy : GameObject, rotate : Vector3){
+	var projectile = new GameObject();											//create a projectile
+	projectile.name = "Enemy Web Shot";
+	//var meshFilter = projectile.AddComponent(MeshFilter); 						//Add a mesh filter for textures
+	//meshFilter.mesh = exampleMesh; 												//Give the mesh filter a quadmesh
+	//projectile.AddComponent(MeshRenderer); 										//Add a renderer for textures
+	projectile.SetActive(false); 												//Turn off the object so its script doesn't do anything until we're ready.
+	var boxCollider2D = projectile.AddComponent(BoxCollider2D);					//Add a box collider
+	boxCollider2D.isTrigger = true;
+	var rigidModel = projectile.AddComponent(Rigidbody2D); 						//Add a rigid body for collisions
+	rigidModel.gravityScale = 0; 												//Turn off gravity
+	rigidModel.fixedAngle = true; 												//Set fixed angle to true
+	rigidModel.isKinematic = true;
+	
+	var tempScript : Temporary = projectile.AddComponent(Temporary);			//make the projectile temporary (add script)
+	tempScript.life = 5;														//set it's life to 5 seconds
+	var enemySpellScript : EnemySpell = projectile.AddComponent(EnemySpell);	//add the enemySpell script
+	var x : float = enemy.transform.position.x;								//record the enemy's x position
+	var y : float = enemy.transform.position.y;								//record the enemy's y position
+	projectile.transform.position = Vector3(x,y,-1);							//move the projectile to the enemy's position
+	projectile.transform.Translate(enemy.transform.up* 0.5);
+	projectile.transform.eulerAngles = enemy.transform.eulerAngles - rotate;			//set the projectile's angle to the enemy's
+	enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, condemn, exampleMesh, enemy, 8);	//initialize the enemySpellScript
+	enemySpellScript.name = "Enemy Web Shot";
 	projectile.SetActive(true);
 }
 

@@ -60,6 +60,11 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 		readyToPunch = true;
 		model.name = "Enemy Magma Model";
 	}
+	else if (this.name == "Enemy Web Shot") {
+		model.name = "Enemy Web Shot Model";
+		readyToPunch = true;
+		movespeed = 5;
+	}
 	this.enemy = enemy;
 	
 	
@@ -135,7 +140,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 
 
 function FixedUpdate() {
-	if(name == "Enemy Shot"){
+	if(name == "Enemy Shot"  || name == "Enemy Web Shot"){
 		transform.Translate(Vector2.up * movespeed * Time.deltaTime);
 	}
 	if(name == "Enemy Comet") {
