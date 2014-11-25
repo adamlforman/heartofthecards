@@ -234,6 +234,8 @@ function Update () {
 									tellEnd.name = "End";
 									buildWorldScript.buildInteractables("LevelEnd", 16,16);
 									buildWorldScript.buildInteractables("Key", 16,10);
+									gameObject.GetComponent(PlayerStatus).tutorialHelperTar = false;
+									gameObject.GetComponent(PlayerStatus).tutorialHelperChest = false;
 									doneTut = true;
 								}
 							}
