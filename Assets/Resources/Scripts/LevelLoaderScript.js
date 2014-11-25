@@ -83,9 +83,12 @@ function iterateLevel() {
 	else if (nextLevel == "deckBuilder3") {
 		nextLevel = "charSelect";
 	}
+	else if (nextLevel == "levelSelect") {
+		nextLevel = "procedural";
+	}
 	else if (nextLevel == "charSelect") {
 		curHealth = 100;
-		nextLevel = "procedural";
+		nextLevel = "levelSelect";
 		if (bossCounter == 0) {
 			hyper = .5;
 			juggernaut = .05;
@@ -115,6 +118,9 @@ function iterateLevel() {
 			else if (bossCounter == 1) {
 				nextLevel = "Fire";
 			}
+			else if (bossCounter == 2) {
+				nextLevel = "Joe";
+			}
 			else {
 				nextLevel = "mainMenu";
 			}
@@ -129,6 +135,11 @@ function iterateLevel() {
 		nextLevel = "shop";
 	}
 	else if (nextLevel == "Fire") {
+		floorCounter = 0;
+		bossCounter++;
+		nextLevel = "shop";
+	}
+	else if (nextLevel == "Joe") {
 		floorCounter = 0;
 		bossCounter++;
 		nextLevel = "shop";

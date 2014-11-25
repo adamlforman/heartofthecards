@@ -32,11 +32,11 @@ var lavaThreshold : float;
 function init(target : GameObject, spellbook : EnemySpellbook) {
 	this.target = target;
 	this.spellbook = spellbook;
-	transform.localScale = Vector2(2,2);
+	transform.localScale = Vector2(3,3);
 	this.baseSize = transform.localScale;
 	this.goalSize = baseSize;
-	this.bigSize = Vector2(3,3);
-	this.smallSize = Vector2(1.5,1.5);
+	this.bigSize = Vector2(4,4);
+	this.smallSize = Vector2(2,2);
 	
 	movespeed = 0.8;
 	
