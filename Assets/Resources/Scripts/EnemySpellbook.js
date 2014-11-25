@@ -136,6 +136,16 @@ function comet (enemy : GameObject, target : GameObject, damage : float) {
 
 }
 
+function lava(enemy : GameObject, target : GameObject, damage : float) {
+	var location : Vector2 = target.transform.position;
+	spawnLava(enemy,location,damage);
+}
+
+function magma(enemy : GameObject, target : GameObject, damage : float) {
+	var location : Vector2 = target.transform.position;
+	spawnMagma(enemy,location,damage);
+}
+
 
 
 function spawnShot(enemy : GameObject, rotate : Vector3){
@@ -180,6 +190,49 @@ function spawnComet(enemy : GameObject,location : Vector2, damage : float) {
 	comet.SetActive(true);
 }
 
+function spawnLava(enemy : GameObject, target : Vector2, damage : float){
+	var projectile = new GameObject();											//create a projectile
+	projectile.name = "Enemy Lava";
+	//var meshFilter = projectile.AddComponent(MeshFilter); 						//Add a mesh filter for textures
+	//meshFilter.mesh = exampleMesh; 												//Give the mesh filter a quadmesh
+	//projectile.AddComponent(MeshRenderer); 										//Add a renderer for textures
+	projectile.SetActive(false); 												//Turn off the object so its script doesn't do anything until we're ready.
+	var boxCollider2D = projectile.AddComponent(CircleCollider2D);					//Add a box collider
+	boxCollider2D.isTrigger = true;
+	
+	var tempScript : Temporary = projectile.AddComponent(Temporary);			//make the projectile temporary (add script)
+	tempScript.life = 20;														//set it's life to 5 seconds
+	var enemySpellScript : EnemySpell = projectile.AddComponent(EnemySpell);	//add the enemySpell script
+	var x : float = enemy.transform.position.x;								//record the enemy's x position
+	var y : float = enemy.transform.position.y;								//record the enemy's y position
+	var randX : float = Random.value*2 - 1;
+	var randY : float = Random.value*2 - 1;
+	projectile.transform.position = Vector3(x + randX,y + randY,-1);							//move the projectile to the enemy's position, ish.
+	enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, condemn, exampleMesh, enemy, damage);	//initialize the enemySpellScript
+	enemySpellScript.name = "Enemy Lava";
+	projectile.SetActive(true);
+}
+
+function spawnMagma(enemy : GameObject, target : Vector2, damage : float){
+	var projectile = new GameObject();											//create a projectile
+	projectile.name = "Enemy Magma";
+	//var meshFilter = projectile.AddComponent(MeshFilter); 						//Add a mesh filter for textures
+	//meshFilter.mesh = exampleMesh; 												//Give the mesh filter a quadmesh
+	//projectile.AddComponent(MeshRenderer); 										//Add a renderer for textures
+	projectile.SetActive(false); 												//Turn off the object so its script doesn't do anything until we're ready.
+	var boxCollider2D = projectile.AddComponent(CircleCollider2D);					//Add a box collider
+	boxCollider2D.isTrigger = true;
+														//set it's life to 5 seconds
+	var enemySpellScript : EnemySpell = projectile.AddComponent(EnemySpell);	//add the enemySpell script
+	var x : float = enemy.transform.position.x;								//record the enemy's x position
+	var y : float = enemy.transform.position.y;								//record the enemy's y position
+	var randX : float = Random.value*3 - 1.5;
+	var randY : float = Random.value*3 - 1.5;
+	projectile.transform.position = Vector3(x + randX,y + randY,-1);							//move the projectile to the enemy's position, ish.
+	enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, condemn, exampleMesh, enemy, damage);	//initialize the enemySpellScript
+	enemySpellScript.name = "Enemy Magma";
+	projectile.SetActive(true);
+}
 
 
 

@@ -1,5 +1,5 @@
 ﻿var damage : int;	 // How much damage does the spell do (WILL BE OBSOLETE)
-var movespeed : int = 10;	// How fast is the spell (WILL BE OBSOLETE)
+var movespeed : float;	// How fast is the spell (WILL BE OBSOLETE)
 var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 var enemy : GameObject;	//The enemy
 
@@ -41,6 +41,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 		model.name = "Enemy Shot Model";								//Name the Model
 		transform.localScale = Vector3(0.3, 0.3, 1);
 		readyToPunch = true;
+		movespeed = 10;
 	}
 	else if(this.name == "Enemy Fist"){
 		model.name = "Enemy Fist Model";
@@ -50,6 +51,14 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 		readyToPunch = true;
 		model.name = "Enemy Comet Model";
 		transform.localPosition.z = -2;
+	}
+	else if (this.name == "Enemy Lava") {
+		readyToPunch = true;
+		model.name = "Enemy Lava Model";
+	}
+	else if (this.name == "Enemy Magma") {
+		readyToPunch = true;
+		model.name = "Enemy Magma Model";
 	}
 	this.enemy = enemy;
 	
@@ -125,7 +134,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 
 
 
-function Update() {
+function FixedUpdate() {
 	if(name == "Enemy Shot"){
 		transform.Translate(Vector2.up * movespeed * Time.deltaTime);
 	}
@@ -142,6 +151,15 @@ function Update() {
 			Destroy(gameObject);
 		}
 	}
+	if (name == "Enemy Lava") {
+		movespeed = (gameObject.GetComponent(Temporary).life - 17)*0.5;
+		if (movespeed < 0) {
+			movespeed = 0;
+		}
+		var target : Vector2 = GameObject.Find("Player").transform.position;
+		transform.Translate((target - transform.position)*movespeed*Time.deltaTime);
+	}
+	
 }
 
 function hit(other : GameObject){		// how to hit something

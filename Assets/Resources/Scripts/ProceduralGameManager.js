@@ -14,6 +14,10 @@ var juggernaut : float;
 var raging : float;
 var armored : float;
 
+var victory = false;
+var defeat = false;
+var loaded = false;
+
 var curHealth : float;
 
 //Takes care of player progress
@@ -52,6 +56,8 @@ function Start() {
 	// inits the scripts
 	world = buildWorldScript.proceduralInit(world, exampleMesh); //Sets the world array
 	spawnWorldScript.init(world, exampleMesh,25,playerClass,hyper,juggernaut,raging,armored,curHealth);
+	player = GameObject.Find("Player");
+	loaded = true;
 }
 
 function getPrefixWeights() {
@@ -71,7 +77,12 @@ function Update () {
 	if (Input.GetKeyDown(KeyCode.Escape) == true) {
 		Pause();
 	}
-	
+	if (loaded) {
+		if (!player && !defeat) {
+			Time.timeScale = 0;
+			defeat = true;
+		}
+	}
 }
 
 //Main menu
@@ -79,12 +90,43 @@ function OnGUI(){
 	/*if(GUI.Button (Rect (Screen.width*0.85, Screen.height*0.05, Screen.width*0.12, Screen.height*0.07), "Pause")){
 		Pause();
 	}*/
+
+	
 	if(isPaused==true){
 		GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "Menu");
 		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.35, Screen.width*0.25, Screen.height*0.07), "Resume")){
 			Pause();
 		}
 		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Restart")){
+			if (isPaused) {
+			
+				Pause();
+			}
+			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("shop");
+		}
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.55, Screen.width*0.25, Screen.height*0.07), "Main Menu")){
+			if(isPaused) {
+				Pause();
+			}
+			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("mainMenu");
+		}
+	}
+	if (victory == true) {
+		GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "VICTORY!");
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Continue")){
+			Time.timeScale = 1;
+			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("shop");
+		}
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.55, Screen.width*0.25, Screen.height*0.07), "Main Menu")){
+			if(isPaused) {
+				Pause();
+			}
+			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("mainMenu");
+		}
+	}
+	if (defeat == true) {
+		GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "Defeat");
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Shop")){
 			if (isPaused) {
 			
 				Pause();

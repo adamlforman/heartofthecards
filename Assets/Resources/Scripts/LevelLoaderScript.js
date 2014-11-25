@@ -37,6 +37,10 @@ function loadLevel(level : String, arg : String) {
 	loadNextLevel(arg);
 }
 
+function reloadLevel() {
+	nextLevel = Application.loadedLevelName;
+	loadNextLevel();
+}
 
 function loadNextLevel() {
 	loadNextLevel(null);

@@ -8,6 +8,7 @@ public var type : String;
 public var iceTimer : float;
 public var blindTimer : float;		// }
 var chargeTimer : float;
+var condemnTimer : float;
 
 var target : GameObject;
 var spellbook : EnemySpellbook; // functions for spells, called from attack functions
@@ -237,6 +238,7 @@ function warriorMove(distance : float, LoS : boolean) {
 }
 
 function startCharging() {
+	AudioSource.PlayClipAtPoint(Resources.Load("Sounds/charge",AudioClip),transform.position);
 	chargeTimer = 2;
 	windup = true;
 	charging = true;
@@ -254,11 +256,15 @@ function archerMove(distance : float, LoS : boolean) {
 		if (LoS && distance > attackRange) {
 			chase(target.transform.position);
 		}
-		if (LoS && distance <= attackRange && attackTimer <= 0) {
+		else if (LoS && distance <= 1.5 && condemnTimer <= 0) {
 			face(target.transform.position);
 			condemn();
 		}
-		if (!LoS) {
+		else if (LoS && distance <= attackRange && attackTimer <= 0) {
+			face(target.transform.position);
+			attack();
+		}
+		else if (!LoS) {
 			aggro = false;
 			waypoint = target.transform.position;
 			wanderTimer = 3;
@@ -393,6 +399,7 @@ function incrementTimers() {			// All of our various timers (there'll be more)
 	blindTimer -= tick;
 	canMove -= tick;
 	chargeTimer -= tick;
+	condemnTimer -= tick;
 }
 
 function warriorAttack() {				// The warrior's attack function
@@ -423,6 +430,7 @@ function condemn() {
 		spellbook.shot(gameObject);			// shoot the thing
 		canMove = .5;
 		attackTimer = 2;
+		condemnTimer = 4;
 		spellbook.condemn = false;
 }
 

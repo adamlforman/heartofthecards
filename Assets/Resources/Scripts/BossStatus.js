@@ -40,6 +40,26 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 		curHealth = 150;
 		armor = 6;
 	}
+	else if (type.Equals("Fire")) {
+		curHealth = 100;
+		armor = 0;
+	}
+	else if (type.Equals("Huey")) {
+		curHealth = 50;
+		armor = 4;
+	}
+	else if (type.Equals("Dewey")) {
+		curHealth = 50;
+		armor = 1;
+	}
+	else if (type.Equals("Louie")) {
+		curHealth = 50;
+		armor = 0;
+	}
+	else {
+		maxHealth = 1;
+		armor = 0;
+	}
 	maxHealth = curHealth;					// this will always happen (..... right?)
 }
 

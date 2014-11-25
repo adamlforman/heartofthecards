@@ -149,6 +149,12 @@ function OnTriggerEnter2D(other : Collider2D) {
 			other.gameObject.GetComponent(EnemySpell).hit(gameObject);		// WHY DO WE HAVE DUPLICATE CODE?  Question seconded by Connor.  Suspects answer is because Adam blindly copied my code for the player.
 		}
 	}
+	else if (other.gameObject.name == "Enemy Lava") {
+		other.gameObject.GetComponent(EnemySpell).hit(gameObject);
+	}
+	else if (other.gameObject.name == "Enemy Magma") {
+		other.gameObject.GetComponent(EnemySpell).hit(gameObject);
+	}
 }
 
 function OnTriggerStay2D(other : Collider2D){
@@ -167,6 +173,7 @@ function OnTriggerStay2D(other : Collider2D){
 }
 
 function die() {						// Death function
-	audioS.PlayOneShot(Resources.Load("Sounds/death"));
-	Application.LoadLevel("shop"); //move to the deckbuilding interface
+	audioS.PlayClipAtPoint(Resources.Load("Sounds/death"),transform.position);
+	Destroy(gameObject,0.5);
+	//Application.LoadLevel("shop"); //move to the deckbuilding interface
 }

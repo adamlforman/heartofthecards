@@ -10,8 +10,13 @@ var done : boolean;
 var playerClass : String;
 
 var curHealth : float;
+var loaded : boolean = false;
 
 public static var isPaused : boolean;
+public static var victory : boolean;
+public static var defeat : boolean;
+public var buttonStyle : GUIStyle;
+public var boxStyle : GUIStyle;
 
 function Awake () {
 	var levelLoader = new GameObject();
@@ -28,8 +33,10 @@ function Awake () {
 
 function Start() {
 	isPaused = false;
-	done = false;
+	victory = false;
+	defeat = false;
 	world = new Array(); //Initializes the world array
+	
 	
 	getPrefixWeights();
 	
@@ -49,7 +56,9 @@ function Start() {
 	
 	// inits the scripts
 	buildWorldScript.bossInit(world, exampleMesh,1);
-	boss = spawnWorldScript.init(world, exampleMesh,1, playerClass, curHealth);
+	boss = spawnWorldScript.init(world, exampleMesh, playerClass, curHealth,"Bob");
+	player = GameObject.Find("Player");
+	loaded = true;
 }
 
 function Update () {
@@ -58,11 +67,15 @@ function Update () {
 		Pause();
 	}
 	//if the boss is destroyed, and we're not done yet
-	//build levelEnd
-	if (!boss && !done) {
-		buildWorldScript.buildInteractables("LevelEnd", 16,16);
-		buildWorldScript.buildInteractables("Key", 16,15);
-		done = true;
+	if (loaded) {
+		if (!boss && !victory) {
+			Time.timeScale = 0;
+			victory = true;
+		}
+		if (!player && !defeat) {
+			Time.timeScale = 0;
+			defeat = true;
+		}
 	}
 	
 }
@@ -71,19 +84,57 @@ function OnGUI(){
 	/*if(GUI.Button (Rect (Screen.width*0.85, Screen.height*0.05, Screen.width*0.12, Screen.height*0.07), "Pause")){
 		Pause();
 	}*/
+
+	
 	if(isPaused==true){
-		GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "Menu");
-		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.35, Screen.width*0.25, Screen.height*0.07), "Resume")){
+		GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "Menu", boxStyle);
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.35, Screen.width*0.25, Screen.height*0.07), "Resume", buttonStyle)){
 			Pause();
 		}
-		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Restart")){
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Restart", buttonStyle)){
 			if (isPaused) {
 			
 				Pause();
 			}
 			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("shop");
 		}
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.55, Screen.width*0.25, Screen.height*0.07), "Main Menu", buttonStyle)){
+			if(isPaused) {
+				Pause();
+			}
+			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("mainMenu");
+		}
+	}
+	if (victory == true) {
+		GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "VICTORY!");
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Continue")){
+			Time.timeScale = 1;
+			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("shop");
+		}
 		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.55, Screen.width*0.25, Screen.height*0.07), "Main Menu")){
+			if(isPaused) {
+				Pause();
+			}
+			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("mainMenu");
+		}
+	}
+	if (defeat == true) {
+		GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "Defeat", boxStyle);
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.35, Screen.width*0.25, Screen.height*0.07), "Try Again", buttonStyle)){
+			if (isPaused) {
+			
+				Pause();
+			}
+			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).reloadLevel();
+		}
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Replay Level", buttonStyle)){
+			if (isPaused) {
+			
+				Pause();
+			}
+			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("shop");
+		}
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.55, Screen.width*0.25, Screen.height*0.07), "Main Menu", buttonStyle)){
 			if(isPaused) {
 				Pause();
 			}
@@ -109,33 +160,6 @@ function Pause() {
 		isPaused = true;
 	}
 }
-/*function buildPlayer(name : String) {
-	var playerMoveScript = player.AddComponent(PlayerMove);
-	
-	var playerModel = new GameObject(); 						//Create a quad object to hold the tile texture.
-	var meshFilter = playerModel.AddComponent(MeshFilter); 		//Add a mesh filter for textures
-	meshFilter.mesh = quadMesh; 								//Give the mesh filter a quadmesh
-	playerModel.AddComponent(MeshRenderer); 					//Add a renderer for textures
-	playerModel.SetActive(false); 								//Turn off the object so its script doesn't do anything until we're ready.
-	model = playerModel.AddComponent(CharModel); 				//Add a PlayerModel script to control visuals of the Player.
-	model.init(this, "FACE"); 									//Initialize the PlayerModel.
-
-
-	
-}
-	
-	
-
-	//If it is a rock, add a rigidbody and boxcollider for collisions
-	if (terrainType == "ROCK") {
-		var boxCollider2D = playerModel.AddComponent(BoxCollider2D); //Add a box collider
-		var rigidModel = playerModel.AddComponent(Rigidbody2D); //Add a rigid body for collisions
-		rigidModel.isKinematic = true; //Set kinematic to true
-		rigidModel.fixedAngle = true; //Set fixed angle to true
-	}
-	playerModel.SetActive(true); //Turn on the object (the Update function will start being called).
-*/	
-
 
 
 

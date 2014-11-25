@@ -18,6 +18,13 @@ function Awake () {
 }
 
 function OnGUI(){
+	
+	var buttonStyle = GUI.skin.button;
+	var boxStyle = GUI.skin.box;
+	buttonStyle.fontSize = 24;
+	buttonStyle.hover.textColor = Color.cyan;
+	boxStyle.fontSize = 48;
+
 	GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "Main Menu");
 		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.35, Screen.width*0.25, Screen.height*0.07), "Play")){
 			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("shop"); //Ideally this would go to a level select sreen.
