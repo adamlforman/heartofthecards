@@ -133,7 +133,9 @@ function OnTriggerEnter2D(other : Collider2D) {
 	else if (other.name == "LevelEnd" && haveKey) { //If it is the door
 		money +=9000;
 		audioS.PlayOneShot(Resources.Load("Sounds/levelend2"));
-		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel(); //move to the shop interface
+		var levelLoader : LevelLoaderScript = GameObject.Find("Level Loader").GetComponent(LevelLoaderScript); //move to the shop interface
+		levelLoader.curHealth = this.curHealth;
+		levelLoader.loadNextLevel();
 	}
 	else if(other.gameObject.name == "Enemy Shot") {	// If it is an enemy arrow
 		if(!other.gameObject.GetComponent(EnemySpell).splash){

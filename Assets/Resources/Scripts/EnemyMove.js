@@ -7,6 +7,7 @@ public var type : String;
 
 public var iceTimer : float;
 public var blindTimer : float;		// }
+var chargeTimer : float;
 
 var target : GameObject;
 var spellbook : EnemySpellbook; // functions for spells, called from attack functions
@@ -25,6 +26,7 @@ var attackRange : float;	// Enemy's attack range
 var baseSpeed : float;			// enemy's speed
 var speed : float;
 var damage : int;
+var windup : boolean;
 
 
 var attack : function();
@@ -32,7 +34,8 @@ var attack : function();
 // internal
 var wanderTimer : float;	// wandering finds a new point every wanderTimer seconds, and moves there.
 var attackTimer : float;	// delay between attacks -- set durin attack function
-var psychicTimer : float;
+
+var charging : boolean;
 
 var archerChase : boolean;
 var warriorChase : boolean;
@@ -66,6 +69,7 @@ function init (circCol : CircleCollider2D, quadMesh : Mesh, inType : String, spe
 	
 	aggro = false;					// enemies start de-aggroed
 	inRange = false;				// and assume they're not in range
+	charging = false;
 	waypoint = transform.position;	// and aren't going anywhere in particular
 	
 	type = inType;					// set the enemy type
@@ -125,6 +129,9 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 		aggroRange = 6;
 		leashRange = 8;
 		attackRange = 1;
+		
+		windup = false;
+		
 	}
 	else if (type.Equals("mage")) {
 		attack = mageAttack;
@@ -188,29 +195,52 @@ function warriorMove(distance : float, LoS : boolean) {
 		if (LoS && distance < aggroRange) {
 			aggro = true;
 		}
-		else if (psychicTimer > 0) {
-			chase(target.transform.position);
-		}
 		else {
 			wander();
 		}
 	}
 	if (aggro) {
-		if (LoS && distance > attackRange) {
+		if (distance > (attackRange+1) && chargeTimer < 0 && !charging) {
+			startCharging();
+		}
+		if (windup) {
+			face(target.transform.position);
+			if (chargeTimer <= 0) {
+				windup = false;
+				chargeTimer = 1.5;
+			}
+		}
+		else if (charging) {
+			if (chargeTimer > 0) {	
+				charge(target.transform.position);
+				if (distance <= attackRange) {
+					chargeAttack();
+				}
+			}
+			else {
+				charging = false;
+				chargeTimer = 4;
+			}
+		}
+		else if (LoS && distance > attackRange) {
 			chase(target.transform.position);
 		}
-		if (distance <= attackRange && attackTimer <= 0) {
+		else if (distance <= attackRange && attackTimer <= 0) {
 			attack();
 		}
-		if (!LoS) {
+		else if (!LoS) {
 			aggro = false;
 			waypoint = target.transform.position;
-			psychicTimer = 3;
-			chase(target.transform.position);
+			wander();
 		}
 	}
 }
 
+function startCharging() {
+	chargeTimer = 2;
+	windup = true;
+	charging = true;
+}
 function archerMove(distance : float, LoS : boolean) {
 	if (!aggro) {
 		if (LoS && distance < aggroRange) {
@@ -267,51 +297,29 @@ function mageMove(distance : float, LoS : boolean) {
 
 function chase(location : Vector2) {
 	face(location); // face the target
-	moveForward();
+	moveForward(1);
 }
 
-function moveForward() {
+function moveForward(multiplier : float) {
 	if (canMove <= 0) {
-		transform.Translate(Vector2(0,speed*Time.deltaTime));	// and move forward
+		transform.Translate(Vector2(0,speed*multiplier*Time.deltaTime));	// and move forward
 	}
 }
 
 function avoid(location : Vector2) {
 	face(location); // face the target
-	moveBackward();
+	moveBackward(0.7);
 }
 
-function moveBackward() {
+function moveBackward(multiplier : float) {
 	if (canMove <= 0) {
-		transform.Translate(Vector2(0,-speed*0.7*Time.deltaTime));
+		transform.Translate(Vector2(0,-speed*multiplier*0.7*Time.deltaTime));
 	}
 }
 
 
 function lineOfSight(location : Vector2) {														// Is there a rock in the way from my location to the target?
 
-	
-	/*
-	var LoS : boolean = false;
-	var position : Vector2 = transform.position;
-	
-	for (var i : int = 0; i < 3; i++) {
-		var x : float = (position.x - size) + size * i;
-		var y : float = position.y;
-		var rayOrigin : Vector2 = Vector2(x, y);
-		var hit : RaycastHit2D = (Physics2D.Raycast(rayOrigin,location - rayOrigin, Vector2.Distance(location, this.transform.position)));
-		Debug.DrawRay (rayOrigin, location - this.transform.position, Color.green);
-    	if (hit) {			// raycast
-    		if (hit.collider.gameObject.transform.root.name == "Player") {													// if we hit theplayer
-    	         LoS = true;																		// we don't have LoS
-    	    }
-    	    else {
-    	    	//Debug.Log(hit.collider.gameObject.transform.root.name);
-    	    }
-   		}
-	}
-	
-	*/
 	var LoS : boolean = true;
 	var position : Vector2 = transform.position;
 	
@@ -336,14 +344,26 @@ function lineOfSight(location : Vector2) {														// Is there a rock in th
   	
 }
 
+function charge(location : Vector2) {
+	slowFace(location);
+	moveForward(2.5);
+}
 
 function face(location : Vector2) {						// THIS IS A USEFUL FUNCTION
 	transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(location.y - transform.position.y, location.x - transform.position.x) * Mathf.Rad2Deg - 90);
+	//slowFace(location);
+}
+
+function slowFace(location : Vector2) {
+	var curRotation = transform.rotation;
+	var newRotation = Quaternion.Euler(0, 0, Mathf.Atan2(location.y - transform.position.y, location.x - transform.position.x) * Mathf.Rad2Deg - 90);
+	
+	transform.rotation = Quaternion.Lerp(curRotation,newRotation,Time.deltaTime*3f);
 }
 
 function wander() {																				// Idle movement for enemies
 	if (wanderTimer > 0) {
-		moveForward();
+		moveForward(0.5);
 	}
 	else {		
 		var randX = Random.Range(-2,2);
@@ -359,7 +379,6 @@ function wander() {																				// Idle movement for enemies
 
 function processDebuffs() {
 	speed = baseSpeed;
-
 	if (iceTimer > 0 && !juggernaut) {
 
 		speed = speed*0.5;
@@ -370,18 +389,17 @@ function incrementTimers() {			// All of our various timers (there'll be more)
 	var tick : float = Time.deltaTime;
 	wanderTimer -= tick;
 	attackTimer -= tick;
-	psychicTimer -= tick;
 	iceTimer -= tick;
 	blindTimer -= tick;
 	canMove -= tick;
+	chargeTimer -= tick;
 }
 
 function warriorAttack() {				// The warrior's attack function
 	if (blindTimer <= 0) {
 		spellbook.swing();
 		
-		canMove = 0.5;
-		attackTimer = 3;									// 3 second recharge seems long, but w/e
+		attackTimer = 2;									// 3 second recharge seems long, but w/e
 	}
 	else {
 		attackTimer = 1;
@@ -392,7 +410,7 @@ function archerAttack() {				// the archer's attack function
 	if (blindTimer <= 0) {
 		spellbook.shot(gameObject);			// shoot the thing
 		canMove = .5;
-		attackTimer = 3;
+		attackTimer = 2;
 	}
 	else {
 		attackTimer = 1;
@@ -403,9 +421,16 @@ function archerAttack() {				// the archer's attack function
 function mageAttack() {
 	// MAGES can't be blinded, so no blindTimer
 	spellbook.comet(gameObject,target,damage);
-	canMove =  1;	// LONG attack lag
+	canMove =  1;	// LONG attack lagf
 	attackTimer = 4.5;	// Long attack delat
 	
+}
+
+function chargeAttack() {
+	target.GetComponent(PlayerStatus).takeDamage(damage+2,false);
+	charging = false;
+	chargeTimer = 4;
+	attackTimer = 1;
 }
 
 function getDamage(){
