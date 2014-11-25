@@ -112,7 +112,10 @@ function Start () {
 	rapidTexture = Resources.Load("Textures/rapid",Texture2D);
 	shopTexture = Resources.Load("Textures/shop",Texture2D);
 	
-	if (ShopManager.cardsOwned != null) {
+	if(this.cardsOwned != null){
+	
+	}
+	else if (ShopManager.cardsOwned != null) {
 		cardsOwned = ShopManager.cardsOwned;
 	}
 	else{
@@ -120,8 +123,10 @@ function Start () {
 	}
 	
 
+	if(this.theDeck != null){
 	
-	if (PlayerSpellbook.deck != null) {
+	}
+	else if (PlayerSpellbook.deck != null) {
 		theDeck = PlayerSpellbook.library;
 	}
 	else if(NewDeckManager.theDeck == null){

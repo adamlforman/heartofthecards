@@ -105,8 +105,10 @@ function Start () {
 	rapidTexture = Resources.Load("Textures/rapid",Texture2D);
 	shopTexture = Resources.Load("Textures/shop",Texture2D);
 
-
-	if (PlayerSpellbook.cardsOwned != null) {
+	if(this.cardsOwned != null){
+		
+	}
+	else if (PlayerSpellbook.cardsOwned != null) {
 		cardsOwned = PlayerSpellbook.cardsOwned;
 	}
 	else {
