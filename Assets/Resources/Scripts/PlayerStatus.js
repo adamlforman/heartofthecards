@@ -21,6 +21,11 @@ public static var money : int;
 public static var tutorialHelperTar : boolean;
 public static var tutorialHelperChest : boolean;
 
+private var classType : String;
+
+public var isBlocking : boolean;
+public var blockCooldown : float;
+
 private var exampleMesh : Mesh;
 
 function init (type : String, curHealth : float) {				// Initialization function
@@ -28,6 +33,8 @@ function init (type : String, curHealth : float) {				// Initialization function
 	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
 	Destroy(exampleQuad); //Destroy the primitive quad
 	audioS = this.GetComponent(AudioSource);
+	this.classType = type;
+	blockCooldown = 0;
 	if(type == "Circle"){
 		healthTickDelay = 1;
 		armor = 2;
@@ -47,11 +54,19 @@ function init (type : String, curHealth : float) {				// Initialization function
 		money = 0;
 	}
 	invulnerable =0;
+	isBlocking = false;
 }
 
 function Update () {			// If you have 0 or less health you die
 	if (curHealth <= 0) {
 		die();
+	}
+	if(blockCooldown > 0){
+		blockCooldown -= Time.deltaTime;
+	}
+	if(blockCooldown < 0){
+		blockCooldown = 0;
+		isBlocking = false;
 	}
 	poisonTickTimer -= Time.deltaTime;
 	healthTickTimer -= Time.deltaTime;
@@ -65,6 +80,13 @@ function Update () {			// If you have 0 or less health you die
 	if (poisonTickTimer <= 0 && poisonCounter > 0) {
 		takeDamage(2,true);
 		poisonTickTimer = 1;
+	}
+	
+	if(classType == "circle"){
+		var block : float = Input.GetAxis("Fire2");		//variable that checks if you are trying to attack
+		if(block>0 && blockCooldown==0){
+			isBlocking = true;
+		}
 	}
 }
 

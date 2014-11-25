@@ -344,7 +344,7 @@ function lineOfSight(location : Vector2) {														// Is there a rock in th
 		var y : float = position.y;
 		var rayOrigin : Vector2 = Vector2(x, y);
 		var hits : RaycastHit2D[] = (Physics2D.RaycastAll(rayOrigin,location - rayOrigin, Vector2.Distance(location, this.transform.position)));
-		Debug.DrawRay (rayOrigin, location - this.transform.position, Color.green);
+		//Debug.DrawRay (rayOrigin, location - this.transform.position, Color.green);
 	    for (var j: RaycastHit2D in hits) {
 	    	if (j) {			// raycast
 	    		if (j.collider.gameObject.transform.root.name == "Rocks") {													// if we hit a rock
