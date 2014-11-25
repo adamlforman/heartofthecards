@@ -211,8 +211,11 @@ function warriorMove(distance : float, LoS : boolean) {
 			face(target.transform.position);
 			if (chargeTimer <= 0) {
 				windup = false;
-				chargeTimer = 1.5;
-	gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(1,0,0));
+
+				gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(1,0,0));
+
+				chargeTimer = 0.8;
+	
 			}
 		}
 		else if (charging) {
@@ -268,6 +271,7 @@ function archerMove(distance : float, LoS : boolean) {
 		else if (LoS && distance <= 1.5 && condemning) {
 			if (countdown < 0) {
 				condemn();
+				condemning = false;
 			}
 		}
 		else if (LoS && distance <= attackRange && attackTimer <= 0) {
