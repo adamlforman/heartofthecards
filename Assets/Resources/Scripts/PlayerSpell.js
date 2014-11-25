@@ -108,7 +108,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	}
 	
 	
-	visualEffects();
+	//visualEffects();
 }
 
 
@@ -367,7 +367,7 @@ function updateBuffs(ice : float, poison : float, fork : float, reflect : float,
 		this.meteor = false;
 	}
 	
-	visualEffects();
+	//visualEffects();
 }
 
 
