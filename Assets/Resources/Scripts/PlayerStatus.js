@@ -131,7 +131,7 @@ function OnTriggerEnter2D(other : Collider2D) {
 		takeDamage(6, false);
 	}
 	else if (other.name == "LevelEnd" && haveKey) { //If it is the door
-		money +=100;
+		money +=9000;
 		audioS.PlayOneShot(Resources.Load("Sounds/levelend2"));
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel(); //move to the shop interface
 	}

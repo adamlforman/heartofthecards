@@ -233,8 +233,23 @@ function incrementTimers() {			// All of our various timers (there'll be more)
 }
 
 function die() {						// How to die: a manual
-	PlayerStatus.money +=10;
+	PlayerStatus.money +=20;
+	/*var moneyObject = new GameObject("ChestText");
+	//damageObject.transform.parent = this.transform;
+	moneyObject.transform.position = this.transform.position;
+	moneyObject.transform.position.z = -2;
+	moneyObject.transform.localScale = Vector3(1,1,1); //NOT SURE IF THIS IS NECESSARY
+	
+	
+	var meshFilter = moneyObject.AddComponent(MeshFilter); //Add a mesh filter for textures
+	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+	moneyObject.AddComponent(MeshRenderer); //Add a renderer for textures
+	var textureName = "Textures/money"; //Get the texture name with texture folder
+	moneyObject.renderer.material.mainTexture = Resources.Load(textureName, Texture2D); //Set the texture.  Must be in Resources folder.
+	moneyObject.renderer.material.color = Color(1,1,1); //Set the color (easy way to tint things).
+	moneyObject.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
 	GameObject.Destroy(gameObject);		// Stop existing. the end.
+	Destroy(moneyObject, .5);*/
 }
 
 function getRaging(){
