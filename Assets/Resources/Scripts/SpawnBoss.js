@@ -124,7 +124,7 @@ function spawnPlayer(x : int, y : int) {
 	playerModel.SetActive(false); 								//Turn off the object so its script doesn't do anything until we're ready.
 	var model = playerModel.AddComponent(CharModel); 				//Add a CharModel script to control visuals of the Player.
 	model.name = "Player Model";								//Name the PlayerModel
-	model.init(playerObject, "FACE"); 							//Initialize the PlayerModel.
+	model.init(playerObject, playerClass); 							//Initialize the PlayerModel.
 	playerModel.transform.parent = playerObject.transform;
 	
 	//var playerScript = playerObject.AddComponent(PlayerScript); //Attaches the playerScript

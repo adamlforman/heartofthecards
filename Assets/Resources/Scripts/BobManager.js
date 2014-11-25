@@ -87,18 +87,18 @@ function OnGUI(){
 
 	
 	if(isPaused==true){
-		GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "Menu", boxStyle);
-		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.35, Screen.width*0.25, Screen.height*0.07), "Resume", buttonStyle)){
+		GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "Menu");
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.35, Screen.width*0.25, Screen.height*0.07), "Resume")){
 			Pause();
 		}
-		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Restart", buttonStyle)){
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Restart")){
 			if (isPaused) {
 			
 				Pause();
 			}
 			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("shop");
 		}
-		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.55, Screen.width*0.25, Screen.height*0.07), "Main Menu", buttonStyle)){
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.55, Screen.width*0.25, Screen.height*0.07), "Main Menu")){
 			if(isPaused) {
 				Pause();
 			}
@@ -119,22 +119,22 @@ function OnGUI(){
 		}
 	}
 	if (defeat == true) {
-		GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "Defeat", boxStyle);
-		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.35, Screen.width*0.25, Screen.height*0.07), "Try Again", buttonStyle)){
+		GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "Defeat");
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.35, Screen.width*0.25, Screen.height*0.07), "Try Again")){
 			if (isPaused) {
 			
 				Pause();
 			}
 			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).reloadLevel();
 		}
-		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Replay Level", buttonStyle)){
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Replay Level")){
 			if (isPaused) {
 			
 				Pause();
 			}
 			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("shop");
 		}
-		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.55, Screen.width*0.25, Screen.height*0.07), "Main Menu", buttonStyle)){
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.55, Screen.width*0.25, Screen.height*0.07), "Main Menu")){
 			if(isPaused) {
 				Pause();
 			}
