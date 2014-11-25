@@ -230,7 +230,9 @@ function applyStatus(target : GameObject){
 	if(condemn){
 		//target.transform.Translate(enemy.transform.rotation * Vector2(0,1), Space.World);
 		//target.rigidbody2D.AddForce(enemy.transform.rotation*Vector2(0,1)*10);
-		target.GetComponent(PlayerMove).knockback(2,transform.position);
+		if(!(target.GetComponent(PlayerStatus).getBlock())){
+			target.GetComponent(PlayerMove).knockback(2,transform.position);
+		}
 	}
 }
 

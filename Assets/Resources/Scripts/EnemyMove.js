@@ -212,7 +212,7 @@ function warriorMove(distance : float, LoS : boolean) {
 			if (chargeTimer <= 0) {
 				windup = false;
 				chargeTimer = 1.5;
-	gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color.white);
+	gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(1,0,0));
 			}
 		}
 		else if (charging) {
@@ -443,7 +443,7 @@ function startCondemn() {
 }
 
 function condemn() {
-		gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color.white);
+		gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(1,0,0));
 		spellbook.condemn = true;
 		spellbook.shot(gameObject, damage - 2);			// shoot the thing
 		canMove = .5;

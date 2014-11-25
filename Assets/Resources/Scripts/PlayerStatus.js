@@ -21,7 +21,7 @@ public static var money : int;
 public static var tutorialHelperTar : boolean;
 public static var tutorialHelperChest : boolean;
 
-private var classType : String;
+public var classType : String;
 
 public var isBlocking : boolean;
 public var blockCooldown : float;
@@ -34,7 +34,7 @@ function init (type : String, curHealth : float) {				// Initialization function
 	Destroy(exampleQuad); //Destroy the primitive quad
 	audioS = this.GetComponent(AudioSource);
 	this.classType = type;
-	blockCooldown = 0;
+	blockCooldown = -3;
 	if(type == "Circle"){
 		healthTickDelay = 1;
 		armor = 2;
@@ -61,12 +61,15 @@ function Update () {			// If you have 0 or less health you die
 	if (curHealth <= 0) {
 		die();
 	}
-	if(blockCooldown > 0){
+	if(blockCooldown > -3){
 		blockCooldown -= Time.deltaTime;
 	}
-	if(blockCooldown < 0){
-		blockCooldown = 0;
+	if(isBlocking && blockCooldown < 0){
 		isBlocking = false;
+		transform.GetChild(0).GetComponent(CharModel).changeColor(Color.white);
+	}
+	if(blockCooldown <-3){
+		blockCooldown = -3;
 	}
 	poisonTickTimer -= Time.deltaTime;
 	healthTickTimer -= Time.deltaTime;
@@ -82,10 +85,12 @@ function Update () {			// If you have 0 or less health you die
 		poisonTickTimer = 1;
 	}
 	
-	if(classType == "circle"){
+	if(classType == "Circle"){
 		var block : float = Input.GetAxis("Fire2");		//variable that checks if you are trying to attack
-		if(block>0 && blockCooldown==0){
+		if(block>0 && blockCooldown==-3){
 			isBlocking = true;
+			blockCooldown = 1;
+			transform.GetChild(0).GetComponent(CharModel).changeColor(Color(0.812,0.809,0.827));
 		}
 	}
 }
@@ -101,13 +106,16 @@ function addHealth(heal : int){		// Function to gain health
 }
 
 function takeDamage(damage : float, magic : boolean){	// Take damage function
-	
-	curHealth -= damage;				// take the damage
-	invulnerable = 0.5;
-	if (HUD) {
-		HUD.curHealth = curHealth;		// tell the HUD
+	if(isBlocking){
+		//PLAY A COOL SOUND
 	}
-	
+	else{
+		curHealth -= damage;				// take the damage
+		invulnerable = 0.5;
+		if (HUD) {
+			HUD.curHealth = curHealth;		// tell the HUD
+		}
+	}
 }
 
 function chestLoot() {
@@ -213,4 +221,8 @@ function die() {						// Death function
 	audioS.PlayClipAtPoint(Resources.Load("Sounds/death"),transform.position);
 	Destroy(gameObject,0.5);
 	//Application.LoadLevel("shop"); //move to the deckbuilding interface
+}
+
+function getBlock(){
+	return isBlocking;
 }
