@@ -44,6 +44,16 @@ var rapid3Max : int;
 var homingMax : int;
 var meteorMax : int;
 
+var ice3Texture : Texture2D;
+var poison3Texture : Texture2D;
+var fork3Texture : Texture2D;
+var pierce3Texture : Texture2D;
+var giant3Texture : Texture2D;
+var splash3Texture : Texture2D;
+var leech3Texture : Texture2D;
+var blind3Texture : Texture2D;
+var rapid3Texture : Texture2D;
+var shopTexture : Texture2D;
 
 var normalSpell : String;
 var badSpell : String;
@@ -62,6 +72,12 @@ function Awake () {
 }
 
 function Start () {
+
+	var background = new GameObject().CreatePrimitive(PrimitiveType.Quad);
+	background.renderer.material.mainTexture = Resources.Load("Textures/shop",Texture2D); //Set the texture.  Must be in Resources folder
+	background.renderer.material.shader = Shader.Find ("Diffuse");	
+	background.transform.localScale = Vector3(13.8,10,1);					// Tell the renderer that our textures have transparency. 
+	
 	normalSpell = "/4";
 	badSpell = "/0";
 	
@@ -79,6 +95,17 @@ function Start () {
 	rapid3Count = 0;
 	homingCount = 0;
 	meteorCount = 0;
+	
+	ice3Texture = Resources.Load("Textures/ice3",Texture2D);
+	poison3Texture = Resources.Load("Textures/poison3",Texture2D);
+	fork3Texture = Resources.Load("Textures/fork3",Texture2D);
+	pierce3Texture = Resources.Load("Textures/pierce3",Texture2D);
+	giant3Texture = Resources.Load("Textures/giant3",Texture2D);
+	splash3Texture = Resources.Load("Textures/splash3",Texture2D);
+	leech3Texture = Resources.Load("Textures/leech3",Texture2D);
+	blind3Texture = Resources.Load("Textures/blind3",Texture2D);
+	rapid3Texture = Resources.Load("Textures/rapid3",Texture2D);
+	shopTexture = Resources.Load("Textures/shop",Texture2D);
 
 	
 	//Goes through the deck and increments the card count variables
@@ -324,6 +351,19 @@ public static function AutoResize(screenWidth:int, screenHeight:int):void
 }*/
 
 function OnGUI() {
+
+	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.8,Screen.height/15,Screen.height/15),ice3Texture);
+	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.72,Screen.height/15,Screen.height/15),poison3Texture);
+	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.64,Screen.height/15,Screen.height/15),fork3Texture);
+	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.48,Screen.height/15,Screen.height/15),pierce3Texture);
+	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.40,Screen.height/15,Screen.height/15),giant3Texture);
+	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.32,Screen.height/15,Screen.height/15),splash3Texture);
+	GUI.Box(Rect(Screen.width/1.45+1.05*Screen.width/5,Screen.height-Screen.height*0.8,Screen.height/15,Screen.height/15),leech3Texture);
+	GUI.Box(Rect(Screen.width/1.45+1.05*Screen.width/5,Screen.height-Screen.height*0.64,Screen.height/15,Screen.height/15),blind3Texture);
+	GUI.Box(Rect(Screen.width/1.45+1.05*Screen.width/5,Screen.height-Screen.height*0.56,Screen.height/15,Screen.height/15),rapid3Texture);
+
+	
+	
 	var customButton: GUIStyle = new GUIStyle("button");
 	customButton.fontSize = 36;
 	//AutoResize(1024, 768);
