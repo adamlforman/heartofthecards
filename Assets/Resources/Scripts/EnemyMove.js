@@ -17,12 +17,15 @@ var spellbook : EnemySpellbook; // functions for spells, called from attack func
 var aggro : boolean;		// currently attempting to chase?
 var runAway : boolean;
 var inRange : boolean;
+var condemning : boolean;
 var waypoint : Vector2;		// waypoint -- used for wandering randomly or if loses LoS of target
 var canMove : float;
 
 var aggroRange : float;		// Range at which enemy detects player
 var leashRange : float;		// Range at which enemy gives up on player
 var attackRange : float;	// Enemy's attack range
+
+var countdown : float = 0;
 
 var baseSpeed : float;			// enemy's speed
 var speed : float;
@@ -209,6 +212,7 @@ function warriorMove(distance : float, LoS : boolean) {
 			if (chargeTimer <= 0) {
 				windup = false;
 				chargeTimer = 1.5;
+	gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color.white);
 			}
 		}
 		else if (charging) {
@@ -238,8 +242,9 @@ function warriorMove(distance : float, LoS : boolean) {
 }
 
 function startCharging() {
-	AudioSource.PlayClipAtPoint(Resources.Load("Sounds/charge",AudioClip),transform.position);
+	//AudioSource.PlayClipAtPoint(Resources.Load("Sounds/charge",AudioClip),transform.position);
 	chargeTimer = 2;
+	gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color.blue);
 	windup = true;
 	charging = true;
 }
@@ -256,9 +261,14 @@ function archerMove(distance : float, LoS : boolean) {
 		if (LoS && distance > attackRange) {
 			chase(target.transform.position);
 		}
-		else if (LoS && distance <= 1.5 && condemnTimer <= 0) {
+		else if (LoS && distance <= 1.5 && condemnTimer <= 0 && !condemning) {
 			face(target.transform.position);
-			condemn();
+			startCondemn();
+		}
+		else if (LoS && distance <= 1.5 && condemning) {
+			if (countdown < 0) {
+				condemn();
+			}
 		}
 		else if (LoS && distance <= attackRange && attackTimer <= 0) {
 			face(target.transform.position);
@@ -400,6 +410,7 @@ function incrementTimers() {			// All of our various timers (there'll be more)
 	canMove -= tick;
 	chargeTimer -= tick;
 	condemnTimer -= tick;
+	countdown -= tick;
 }
 
 function warriorAttack() {				// The warrior's attack function
@@ -425,7 +436,14 @@ function archerAttack() {				// the archer's attack function
 
 }
 
+function startCondemn() {
+	gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color.blue);
+	countdown = 1;
+	condemning = true;
+}
+
 function condemn() {
+		gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color.white);
 		spellbook.condemn = true;
 		spellbook.shot(gameObject, damage - 2);			// shoot the thing
 		canMove = .5;

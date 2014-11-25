@@ -145,3 +145,21 @@ function iterateLevel() {
 		nextLevel = "shop";
 	}
 }
+
+function loadNextBoss() {
+	loadNextBoss(lastArg);
+}
+
+function loadNextBoss(arg : String) {
+	lastArg = arg;
+	if (bossCounter == 0) {
+		nextLevel = "Bob";
+	}
+	else if (bossCounter == 1) {
+		nextLevel = "Fire";
+	}
+	else if (bossCounter == 2) {
+		nextLevel = "Joe";
+	}
+	loadNextLevel();
+}

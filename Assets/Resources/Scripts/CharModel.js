@@ -10,6 +10,10 @@ function init(owner : GameObject, texture : String) {
 	renderer.material.shader = Shader.Find("Sprites/Default"); //Tell the renderer that our textures have transparency.
 }
 
+function changeColor(color : Color) {
+	renderer.material.color = color;
+}
+
 /*function Update(){
 	//transform.localPosition = Vector3(0,0,0);
 	//IF SOMETHIGN WHEN HORRIBLY WRONG, I COMMENTED THIS OUT, LOBSTER

@@ -16,10 +16,8 @@ function Awake () {
 	var titleO = new GameObject("AnnounceText");
 	titleO.transform.position = Vector3(.3, .95, -1);
 	title = titleO.AddComponent(GUIText); 
-	title.text = "CHOOSE YOUR LEVEL";
+	title.text = "CHOOSE YOUR CLASS";
 	title.fontSize = Screen.height/19;
-	
-	
 	var levelLoader = new GameObject();
 	if (GameObject.Find("Level Loader")) {
 		Destroy(levelLoader);
@@ -49,29 +47,10 @@ function OnGUI(){
 */
 
 function OnGUI() {
-	if(GUI.Button (Rect (Screen.width*0.1, Screen.height*0.3, Screen.width*0.2, Screen.height*0.1), "Level 1")) {
-		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).bossCounter = 0;
-		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel();
+	if(GUI.Button (Rect (Screen.width*0.1, Screen.height*0.3, Screen.width*0.3, Screen.height*0.4), circle)) {
+		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextBoss("Circle");
 	}
-	if(GUI.Button (Rect (Screen.width*0.4, Screen.height*0.3, Screen.width*0.2, Screen.height*0.1), "Level 2")) {
-		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).bossCounter = 1;
-		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel();
-	}
-	if(GUI.Button (Rect (Screen.width*0.7, Screen.height*0.3, Screen.width*0.2, Screen.height*0.1), "Level 3")) {
-		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).bossCounter = 2;
-		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel();
-	}
-	
-		if(GUI.Button (Rect (Screen.width*0.1, Screen.height*0.7, Screen.width*0.2, Screen.height*0.1), "Bob")) {
-		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).bossCounter = 0;
-		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextBoss();
-	}
-	if(GUI.Button (Rect (Screen.width*0.4, Screen.height*0.7, Screen.width*0.2, Screen.height*0.1), "Faiur")) {
-		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).bossCounter = 1;
-		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextBoss();
-	}
-	if(GUI.Button (Rect (Screen.width*0.7, Screen.height*0.7, Screen.width*0.2, Screen.height*0.1), "Joe")) {
-		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).bossCounter = 2;
-		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextBoss();
+	if(GUI.Button (Rect (Screen.width*0.6, Screen.height*0.3, Screen.width*0.3, Screen.height*0.4), triangle)) {
+		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextBoss("Triangle");
 	}
 }
