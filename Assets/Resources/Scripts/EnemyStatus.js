@@ -184,7 +184,6 @@ function OnTriggerStay2D(other : Collider2D){
 
 function takeDamage(damage : float, magic : boolean){ 
 	if(invulnerable<=0){
-		adjustHealth();
 		if(magic){
 			curHealth -= (damage);
 			damageText(damage);
@@ -194,6 +193,7 @@ function takeDamage(damage : float, magic : boolean){
 			damageText(damage-armor);
 			invulnerable = 0.5;
 		}
+		adjustHealth();
 	}
 }
 
