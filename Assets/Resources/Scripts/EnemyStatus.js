@@ -1,4 +1,4 @@
-var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
+private var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 public var curHealth : float;	// remaining health
 public var maxHealth : float;
 public var armor : float;

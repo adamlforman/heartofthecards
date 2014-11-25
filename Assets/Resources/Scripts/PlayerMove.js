@@ -142,7 +142,6 @@ function FixedUpdate (){
 		}
 		
 	}
-	print(speed);
 	
 	moveDirection = Vector3(moveX, moveY, 0);
 	if (moveDirection.magnitude > 1) {

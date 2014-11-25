@@ -16,7 +16,12 @@ public static var money : int;
 public static var tutorialHelperTar : boolean;
 public static var tutorialHelperChest : boolean;
 
+private var exampleMesh : Mesh;
+
 function init (type : String) {				// Initialization function
+	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
+	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
+	Destroy(exampleQuad); //Destroy the primitive quad
 	audioS = this.GetComponent(AudioSource);
 	if(type == "Circle"){
 		healthTickDelay = 1;
@@ -73,7 +78,7 @@ function takeDamage(damage : float, magic : boolean){	// Take damage function
 }
 
 function chestLoot() {
-	money+=50;
+	money+=100;
 }
 
 
@@ -89,7 +94,25 @@ function OnTriggerEnter2D(other : Collider2D) {
 		audioS.PlayOneShot(Resources.Load("Sounds/chest"));
 		tutorialHelperChest = true;
 		chestLoot();
+		var moneyObject = new GameObject("ChestText");
+		//damageObject.transform.parent = this.transform;
+		moneyObject.transform.position = other.transform.position;
+		moneyObject.transform.position.z = -2;
+		moneyObject.transform.localScale = Vector3(1,1,1); //NOT SURE IF THIS IS NECESSARY
+		
+		var moneyScript = moneyObject.AddComponent(FloatingText);
+		moneyScript.init();
+		var meshFilter = moneyObject.AddComponent(MeshFilter); //Add a mesh filter for textures
+		meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+		moneyObject.AddComponent(MeshRenderer); //Add a renderer for textures
+		var textureName = "Textures/money"; //Get the texture name with texture folder
+		moneyObject.renderer.material.mainTexture = Resources.Load(textureName, Texture2D); //Set the texture.  Must be in Resources folder.
+		//moneyObject.renderer.material.color = Color(0,0,0); //Set the color (easy way to tint things).
+		moneyObject.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+	
+		
 		Destroy(other.gameObject);
+		Destroy(moneyObject, 1);
 	}
 	else if (other.name == "Vrom") {
 		audioS.PlayOneShot(Resources.Load("Sounds/fast"));
