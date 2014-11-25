@@ -62,6 +62,7 @@ function iterateLevel() {
 		nextLevel = "deckBuilder";
 	}
 	else if (nextLevel == "shop") {
+		curHealth = 100;
 		nextLevel = "deckBuilder";
 	}
 	else if (nextLevel == "tutorial1") {
@@ -83,6 +84,7 @@ function iterateLevel() {
 		nextLevel = "charSelect";
 	}
 	else if (nextLevel == "charSelect") {
+		curHealth = 100;
 		nextLevel = "procedural";
 		if (bossCounter == 0) {
 			hyper = .5;
@@ -111,9 +113,6 @@ function iterateLevel() {
 				nextLevel = "Bob";
 			}
 			else if (bossCounter == 1) {
-				nextLevel = "Trio";
-			}
-			else if (bossCounter == 2) {
 				nextLevel = "Fire";
 			}
 			else {
@@ -124,7 +123,12 @@ function iterateLevel() {
 			nextLevel = "procedural";
 		}
 	}
-	else if (nextLevel == "boss1") {
+	else if (nextLevel == "Bob") {
+		floorCounter = 0;
+		bossCounter++;
+		nextLevel = "shop";
+	}
+	else if (nextLevel == "Fire") {
 		floorCounter = 0;
 		bossCounter++;
 		nextLevel = "shop";

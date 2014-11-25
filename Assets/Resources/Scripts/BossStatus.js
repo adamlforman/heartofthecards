@@ -26,6 +26,7 @@ function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook) {
 	healthBar.transform.parent = transform;							// We're going to override the position updates, but this makes the hierarchy not look terrifying
 	healthBar.renderer.material.color = Color(0.8,0,0);				// enemy health bars are red
 	healthBar.transform.localPosition = Vector2(0,transform.localScale.y*1.2);				// and are slightly above their characters' heads
+	healthBar.renderer.material.shader = Shader.Find("Sprites/Default");
 	healthBar.name = "Health Bar";
 	
 	
@@ -41,8 +42,8 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 		armor = 6;
 	}
 	else if (type.Equals("Fire")) {
-		curHealth = 100;
-		armor = 0;
+		curHealth = 150;
+		armor = 3;
 	}
 	else if (type.Equals("Huey")) {
 		curHealth = 50;
@@ -55,6 +56,10 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 	else if (type.Equals("Louie")) {
 		curHealth = 50;
 		armor = 0;
+	}
+	else if (type.Equals("Joe")) {
+		curHealth = 100;
+		armor = 2;
 	}
 	else {
 		maxHealth = 1;
@@ -118,6 +123,13 @@ function takeDamage(damage : float, magic : boolean){
 			damageText(damage-armor);
 			invulnerable = 0.5;
 		}
+	}
+}
+
+function addHealth(health : float) {
+	curHealth += health;
+	if (curHealth > maxHealth) {
+		curHealth = maxHealth;
 	}
 }
 

@@ -38,7 +38,17 @@ function spawnWorld() {
 	cam.init(player,0,0,maxX-1,maxY-1);
 	cam.setZoom(7);
 	
-	return spawnBoss(10,10,bossType);
+	var x = 10;
+	var y = 10;
+	if (bossType == "Bob") {
+		x = 15;
+		y = 15;
+	}
+	else if (bossType == "Joe") {
+		x = 7;
+		y = 12;
+	}
+	return spawnBoss(x,y,bossType);
 	
 }
 
@@ -71,13 +81,16 @@ function spawnBoss(x : int, y : int, type : String) {
 		bossMoveScript = bossObject.AddComponent(FireController);
 	}
 	else if (type == "Warrior") {
-		bossMoveScript = bossObject.AddComponent(HueyController);
+		//bossMoveScript = bossObject.AddComponent(HueyController);
 	}
 	else if (type == "Archer") {
-		bossMoveScript = bossObject.AddComponent(DeweyController);
+		//bossMoveScript = bossObject.AddComponent(DeweyController);
 	}
 	else if (type == "Mage") {
-		bossMoveScript = bossObject.AddComponent(LouieController);
+		//bossMoveScript = bossObject.AddComponent(LouieController);
+	}
+	else if (type == "Joe") {
+		bossMoveScript = bossObject.AddComponent(JoeController);
 	}
 	var bossStatusScript = bossObject.AddComponent(BossStatus);
 	var bossSpellbookScript = bossObject.AddComponent(EnemySpellbook);

@@ -64,7 +64,8 @@ function init(cam : Camera, player : GameObject) {
 	
 	healthTextOb = new GameObject();									// health text object
 	healthTextOb.name = "Player Health Text";							// named
-	healthTextOb.transform.position = Vector2(0.5,0.95);				// positioned directly over healthbar (window position)
+	healthTextOb.transform.parent = cam.transform;
+	healthTextOb.transform.localPosition = Vector3(0, cam.orthographicSize*0.95,10);				// positioned directly over healthbar (window position)
 	healthTextOb.AddComponent(GUIText);									// add GUIText
 	healthTextOb.guiText.anchor = TextAnchor.MiddleCenter;				// which is centered
 	healthTextOb.guiText.fontSize = 24;									// legibly large
@@ -253,7 +254,7 @@ function Update () {
 	healthbarOb.transform.localScale = Vector3(healthPercent*4f, 0.5,1);														// Shrink the healthbar with lost health
 	healthbarOb.transform.localPosition = Vector3(-(1-healthPercent)*2, cam.orthographicSize*0.9, 10);	// And reposition it so it appears to be shrinking straight left
 	healthbarBgOb.transform.localPosition = Vector3(0, cam.orthographicSize*0.9, 11);											// Make sure the background tracks the camera
-	
+	healthTextOb.transform.localPosition = Vector3(0, cam.orthographicSize*0.95,9);
 	healthTextOb.guiText.text = curHealth + " / " + maxHealth;			// update health text
 	
 	if(PlayerSpellbook.slot1Timer>0){									

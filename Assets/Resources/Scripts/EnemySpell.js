@@ -211,16 +211,21 @@ function hit(other : GameObject){		// how to hit something
 function applyStatus(target : GameObject){
 	target.GetComponent(PlayerStatus).takeDamage(damage, false);
 	if(ice){
-		target.GetComponent(PlayerStatus).ice = 5;							//Apply ice if arrow is iced
+		target.GetComponent(PlayerMove).tar = 3;							//Apply ice if arrow is iced
 	}
 	if(poison){
-		target.GetComponent(PlayerStatus).poison = 5;						//Apply poison
+		target.GetComponent(PlayerStatus).poisonCounter = 5;						//Apply poison
 	}
 	if(blind){
 		target.GetComponent(PlayerStatus).blind = 5;						//Apply blind
 	}
 	if(leech){
-		enemy.GetComponent(EnemyStatus).addHealth(5);
+		if (enemy.GetComponent(EnemyStatus)) {
+			enemy.GetComponent(EnemyStatus).addHealth(5);
+		}
+		else {
+			enemy.GetComponent(BossStatus).addHealth(10);
+		}
 	}
 	if(condemn){
 		//target.transform.Translate(enemy.transform.rotation * Vector2(0,1), Space.World);

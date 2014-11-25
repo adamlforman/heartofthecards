@@ -7,6 +7,9 @@ private var invulnerable : float;
 var healthTickDelay : float;
 var healthTickTimer : float;
 
+var poisonCounter : int;
+var poisonTickTimer : float;
+
 var stunned : float;
 
 public var HUD : PlayerHUD;		// HUD script
@@ -50,6 +53,7 @@ function Update () {			// If you have 0 or less health you die
 	if (curHealth <= 0) {
 		die();
 	}
+	poisonTickTimer -= Time.deltaTime;
 	healthTickTimer -= Time.deltaTime;
 	invulnerable -= Time.deltaTime;
 	stunned -= Time.deltaTime;
@@ -57,6 +61,10 @@ function Update () {			// If you have 0 or less health you die
 	if (healthTickTimer <= 0) {
 		addHealth(1);
 		healthTickTimer = healthTickDelay;
+	}
+	if (poisonTickTimer <= 0 && poisonCounter > 0) {
+		takeDamage(2,true);
+		poisonTickTimer = 1;
 	}
 }
 
@@ -181,6 +189,10 @@ function OnTriggerStay2D(other : Collider2D){
 
 function die() {						// Death function
 	audioS.PlayClipAtPoint(Resources.Load("Sounds/death"),transform.position);
+	var camera : Transform = GameObject.Find("Main Camera").transform;
+	for (child in camera) {
+		Destroy(child.gameObject);
+	}
 	Destroy(gameObject,0.5);
 	//Application.LoadLevel("shop"); //move to the deckbuilding interface
 }

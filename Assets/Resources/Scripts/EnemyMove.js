@@ -415,7 +415,7 @@ function warriorAttack() {				// The warrior's attack function
 
 function archerAttack() {				// the archer's attack function
 	if (blindTimer <= 0) {
-		spellbook.shot(gameObject);			// shoot the thing
+		spellbook.shot(gameObject, damage);			// shoot the thing
 		canMove = .5;
 		attackTimer = 2;
 	}
@@ -427,7 +427,7 @@ function archerAttack() {				// the archer's attack function
 
 function condemn() {
 		spellbook.condemn = true;
-		spellbook.shot(gameObject);			// shoot the thing
+		spellbook.shot(gameObject, damage - 2);			// shoot the thing
 		canMove = .5;
 		attackTimer = 2;
 		condemnTimer = 4;

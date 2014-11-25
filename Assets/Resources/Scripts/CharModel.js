@@ -7,7 +7,7 @@ function init(owner : GameObject, texture : String) {
 	transform.localPosition = Vector3(0,0,0);
 	renderer.material.mainTexture = Resources.Load("Textures/"+texture,Texture2D); //Set the texture.  Must be in Resources folder
 	renderer.material.color = Color(1,1,1);	//Set the color (easy way to tint things).
-	renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency.
+	renderer.material.shader = Shader.Find("Sprites/Default"); //Tell the renderer that our textures have transparency.
 }
 
 /*function Update(){

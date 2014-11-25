@@ -114,15 +114,15 @@ function swing(){
 	
 //Triangle specific stuff
 
-function shot (enemy : GameObject){
+function shot (enemy : GameObject, damage : float){
 	//audioS.PlayOneShot(Resources.Load("Sounds/arrowattack"));
 	if(fork>0){
-		spawnShot(enemy, Vector3(0,0,30));
-		spawnShot(enemy, Vector3(0,0,-30));
+		spawnShot(enemy, Vector3(0,0,30), damage);
+		spawnShot(enemy, Vector3(0,0,-30), damage);
 	}
 	
 	else{
-		spawnShot(enemy, Vector3(0,0,0));
+		spawnShot(enemy, Vector3(0,0,0), damage);
 	}
 }
 
@@ -152,7 +152,7 @@ function magma(enemy : GameObject, target : GameObject, damage : float) {
 
 
 
-function spawnShot(enemy : GameObject, rotate : Vector3){
+function spawnShot(enemy : GameObject, rotate : Vector3, damage : float){
 	var projectile = new GameObject();											//create a projectile
 	projectile.name = "Enemy Shot";
 	//var meshFilter = projectile.AddComponent(MeshFilter); 						//Add a mesh filter for textures
@@ -174,7 +174,7 @@ function spawnShot(enemy : GameObject, rotate : Vector3){
 	projectile.transform.position = Vector3(x,y,-1);							//move the projectile to the enemy's position
 	projectile.transform.Translate(enemy.transform.up* 0.5);
 	projectile.transform.eulerAngles = enemy.transform.eulerAngles - rotate;			//set the projectile's angle to the enemy's
-	enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, condemn, exampleMesh, enemy, gameObject.GetComponent(EnemyMove).getDamage());	//initialize the enemySpellScript
+	enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, condemn, exampleMesh, enemy, damage);	//initialize the enemySpellScript
 	enemySpellScript.name = "Enemy Shot";
 	projectile.SetActive(true);
 }
