@@ -256,7 +256,7 @@ function archerMove(distance : float, LoS : boolean) {
 		}
 		if (LoS && distance <= attackRange && attackTimer <= 0) {
 			face(target.transform.position);
-			attack(); //Got a null reference exception at this line one time, it was a thing
+			condemn();
 		}
 		if (!LoS) {
 			aggro = false;
@@ -416,6 +416,14 @@ function archerAttack() {				// the archer's attack function
 		attackTimer = 1;
 	}
 
+}
+
+function condemn() {
+		spellbook.condemn = true;
+		spellbook.shot(gameObject);			// shoot the thing
+		canMove = .5;
+		attackTimer = 2;
+		spellbook.condemn = false;
 }
 
 function mageAttack() {

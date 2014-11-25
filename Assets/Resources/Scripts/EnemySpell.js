@@ -16,7 +16,7 @@ public var blind : boolean = false;				//Does the shot have the "blind" buff
 public var meteor : boolean = false;			//Does the shot have the "meteor" buff
 public var rapid : boolean = false;				//Does the shot have the "rapid" buff
 public var homing : boolean = false;			//Does the shot have the "homing" buff
-public var condemn : boolean = true;			//Does the shot have the "homing" buff
+public var condemn : boolean = false;			//Does the shot have the "homing" buff
 
 //Circle Specific Things.
 public var readyToPunch : boolean;
@@ -26,7 +26,7 @@ public var delayTimer : float;
 
 var audioS : AudioSource;
 
-function init(ice : float, poison : float, fork : float, reflect : float, pierce : float, giant : float, splash : float, leech : float, blind : float, meteor : float, rapid : float, homing : float, exampleMesh : Mesh, enemy : GameObject, damage : int) {
+function init(ice : float, poison : float, fork : float, reflect : float, pierce : float, giant : float, splash : float, leech : float, blind : float, meteor : float, rapid : float, homing : float, condemn : boolean, exampleMesh : Mesh, enemy : GameObject, damage : int) {
 	audioS = gameObject.AddComponent(AudioSource);
 	this.exampleMesh = exampleMesh;					// Bitches love meshes
 	this.damage = damage;
@@ -65,7 +65,9 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	
 	
 	
-	
+	if (condemn) {
+		this.condemn = true;
+	}
 	
 	//check
 	if(ice > 0){
@@ -197,9 +199,11 @@ function applyStatus(target : GameObject){
 	if(leech){
 		enemy.GetComponent(EnemyStatus).addHealth(5);
 	}
-	/*if(condemn){
-		target.transform.Translate(1000 * enemy.transform.eulerAngles, Space.World);
-	}*/
+	if(condemn){
+		//target.transform.Translate(enemy.transform.rotation * Vector2(0,1), Space.World);
+		//target.rigidbody2D.AddForce(enemy.transform.rotation*Vector2(0,1)*10);
+		target.GetComponent(PlayerMove).knockback(2,transform.position);
+	}
 }
 
 function splashSpawn(x :float, y:float, size:int){

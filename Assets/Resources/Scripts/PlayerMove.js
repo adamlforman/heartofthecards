@@ -11,6 +11,8 @@ public  var vrom : float;
 public  var tar : float;
 
 public var cantMove : float;
+public var knockbackTimer : float;
+public var knockbackPos : Vector2;
 
 private var mouseScreen : Vector3;
 private var mouse : Vector3;
@@ -57,16 +59,21 @@ function Update () {
 		speedForward = baseSpeedForward;
 		speedBackward = baseSpeedBackward;
 	}
-	/*cantMove -= Time.deltaTime;
+	cantMove -= Time.deltaTime;
 	if (cantMove > 0) {
 		speed = 0;
-	}*/
+	}
 	mouseScreen = Input.mousePosition;
     mouse = Camera.main.ScreenToWorldPoint(mouseScreen);
  	transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(mouse.y - transform.position.y, mouse.x - transform.position.x) * Mathf.Rad2Deg - 90);
  }
 
 function FixedUpdate (){
+	knockbackTimer -= Time.deltaTime;
+	
+	if (transform.position.z != -1) {
+		transform.position.z = -1;
+	}
 	//Version 3.0
 	moveY = Input.GetAxis ("Vertical"); //vertical movespeed
 	moveX = Input.GetAxis ("Horizontal"); //horizontal movespeed
@@ -142,57 +149,21 @@ function FixedUpdate (){
 		}
 		
 	}
-	
-	moveDirection = Vector3(moveX, moveY, 0);
-	if (moveDirection.magnitude > 1) {
-		moveDirection = moveDirection.normalized;
-	}
-	if(moveY!=0 || moveX != 0){
-		transform.Translate(speed*Time.deltaTime * moveDirection, Space.World); //moves player
-	}
-	
-	//Version 2.0
-	/*
-    var moveY : float = Input.GetAxis ("Vertical"); //vertical movespeed
-	var moveX : float = Input.GetAxis ("Horizontal"); //horizontal movespeed
-	
-	var moveDirection : Vector3 = Vector3(moveX, moveY, 0);
-	if (moveDirection.magnitude > 1) {
-		moveDirection = moveDirection.normalized;
-	}
-	if(moveY!=0 || moveX != 0){
-		transform.Translate(speed*Time.deltaTime * moveDirection, Space.World); //moves player
-	}*/
-	
-	
-	
-	
-	//Version 1.0
-	//if(moveX!=0){
-	//	transform.Translate(Vector3(moveX * Time.deltaTime, 0, 0), Space.World); //moves player horizontally
-	//}
-    /*targetSpeedx = Input.GetAxisRaw("Horizontal") * speed;
-	currentSpeedx = incrementTowards(currentSpeedx, targetSpeedx, acceleration);
-	targetSpeedy = Input.GetAxisRaw("Vertical") * speed;
-	currentSpeedy = incrementTowards(currentSpeedy, targetSpeedy, acceleration);
-	amountToMove.x = currentSpeedx;
-	amountToMove.y = currentSpeedy;
-	transform.Translate(amountToMove,Space.World);
-	*/
-
-}
-/*private function incrementTowards(currentSpeedTemp : float, targetSpeedTemp : float, accelerationTemp : float) {
-	if (currentSpeedTemp == targetSpeedTemp) {
-		return currentSpeedTemp;
+	if (knockbackTimer > 0) {
+		transform.Translate(10*Time.deltaTime*(transform.position - knockbackPos), Space.World);
 	}
 	else {
-		var direction : float = Mathf.Sign(targetSpeedTemp - currentSpeedTemp);
-		currentSpeedTemp = currentSpeedTemp + accelerationTemp * Time.deltaTime * direction;
-		if (direction == Mathf.Sign(targetSpeedTemp - currentSpeedTemp)) {
-			return currentSpeedTemp;
+		moveDirection = Vector3(moveX, moveY, 0);
+		if (moveDirection.magnitude > 1) {
+			moveDirection = moveDirection.normalized;
 		}
-		else {
-			return targetSpeedTemp;
+		if(moveY!=0 || moveX != 0){
+			transform.Translate(speed*Time.deltaTime * moveDirection, Space.World); //moves player
 		}
 	}
-}*/
+}
+
+function knockback(distance : float, location : Vector2) {
+	knockbackTimer = distance * 0.1;
+	knockbackPos = location;
+}

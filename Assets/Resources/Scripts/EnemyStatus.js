@@ -234,7 +234,7 @@ function incrementTimers() {			// All of our various timers (there'll be more)
 
 function die() {						// How to die: a manual
 	PlayerStatus.money +=20;
-	/*var moneyObject = new GameObject("ChestText");
+	var moneyObject = new GameObject("ChestText");
 	//damageObject.transform.parent = this.transform;
 	moneyObject.transform.position = this.transform.position;
 	moneyObject.transform.position.z = -2;
@@ -249,7 +249,7 @@ function die() {						// How to die: a manual
 	moneyObject.renderer.material.color = Color(1,1,1); //Set the color (easy way to tint things).
 	moneyObject.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
 	GameObject.Destroy(gameObject);		// Stop existing. the end.
-	Destroy(moneyObject, .5);*/
+	Destroy(moneyObject, .5);
 }
 
 function getRaging(){

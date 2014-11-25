@@ -10,6 +10,7 @@ public var blind : float = 0;			//Amount of time that attacks have "blind" buff
 public var meteor : float = 0;			//Amount of time that attacks have "meteor" buff
 public var rapid : float = 0;			//Amount of time that attacks have "rapid" buff
 public var homing : float = 0;			//Amount of time that attacks have "homing" buff
+public var condemn : boolean = false;
 
 private var cooldown : float = 0;		//Cannot attack if it is above 0
 
@@ -65,7 +66,7 @@ function init(classType : String) {
 		fist.transform.parent = fistParent.transform;							//Parent fistParent to fist
 		fist.transform.localPosition = Vector3(1, 0, 0);							//move the fist to the enemy's position
 		fist.transform.localScale = Vector3(0.35, 0.35, 1);
-		enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, gameObject, gameObject.GetComponent(EnemyMove).getDamage());	//initialize the enemySpellScript
+		enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, condemn, exampleMesh, gameObject, gameObject.GetComponent(EnemyMove).getDamage());	//initialize the enemySpellScript
 		enemySpellScript.name = "Enemy Fist";
 		fist.SetActive(true);
 	}
@@ -159,7 +160,7 @@ function spawnShot(enemy : GameObject, rotate : Vector3){
 	projectile.transform.position = Vector3(x,y,-1);							//move the projectile to the enemy's position
 	projectile.transform.Translate(enemy.transform.up* 0.5);
 	projectile.transform.eulerAngles = enemy.transform.eulerAngles - rotate;			//set the projectile's angle to the enemy's
-	enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, enemy, gameObject.GetComponent(EnemyMove).getDamage());	//initialize the enemySpellScript
+	enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, condemn, exampleMesh, enemy, gameObject.GetComponent(EnemyMove).getDamage());	//initialize the enemySpellScript
 	enemySpellScript.name = "Enemy Shot";
 	projectile.SetActive(true);
 }
@@ -174,7 +175,7 @@ function spawnComet(enemy : GameObject,location : Vector2, damage : float) {
 	
 	
 	var enemySpellScript : EnemySpell = comet.AddComponent(EnemySpell);
-	enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, enemy, damage);	//initialize the enemySpellScript
+	enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, condemn, exampleMesh, enemy, damage);	//initialize the enemySpellScript
 	
 	comet.SetActive(true);
 }
