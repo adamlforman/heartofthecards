@@ -16,6 +16,7 @@ public var blind : boolean = false;				//Does the shot have the "blind" buff
 public var meteor : boolean = false;			//Does the shot have the "meteor" buff
 public var rapid : boolean = false;				//Does the shot have the "rapid" buff
 public var homing : boolean = false;			//Does the shot have the "homing" buff
+public var condemn : boolean = true;			//Does the shot have the "homing" buff
 
 //Circle Specific Things.
 public var readyToPunch : boolean;
@@ -196,6 +197,9 @@ function applyStatus(target : GameObject){
 	if(leech){
 		enemy.GetComponent(EnemyStatus).addHealth(5);
 	}
+	/*if(condemn){
+		target.transform.Translate(1000 * enemy.transform.eulerAngles, Space.World);
+	}*/
 }
 
 function splashSpawn(x :float, y:float, size:int){
@@ -230,6 +234,8 @@ function punchOn(){
 function punchOff(){
 	readyToPunch = false;
 }
+
+
 
 function updateBuffs(ice : float, poison : float, fork : float, reflect : float, pierce : float, giant : float, splash : float, leech : float, blind : float, meteor : float, rapid : float, homing : float){
 	//check

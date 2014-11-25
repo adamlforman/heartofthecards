@@ -98,7 +98,7 @@ function OnTriggerEnter2D(other : Collider2D) {
 		//damageObject.transform.parent = this.transform;
 		moneyObject.transform.position = other.transform.position;
 		moneyObject.transform.position.z = -2;
-		moneyObject.transform.localScale = Vector3(1,1,1); //NOT SURE IF THIS IS NECESSARY
+		moneyObject.transform.localScale = Vector3(.75,.75,1); //NOT SURE IF THIS IS NECESSARY
 		
 		var moneyScript = moneyObject.AddComponent(FloatingText);
 		moneyScript.init();
