@@ -9,6 +9,13 @@ public static var isPaused : boolean; //Boolean to tell if the game is paused, p
 
 private var playerClass : String; //Which class the player is using
 
+var hyper : float;
+var juggernaut : float;
+var raging : float;
+var armored : float;
+
+var curHealth : float;
+
 //Takes care of player progress
 function Awake () {
 	var levelLoader = new GameObject();
@@ -27,6 +34,8 @@ function Start() {
 	isPaused = false; //Game is not paused
 	world = new Array(); //Initializes the world array
 	
+	getPrefixWeights();
+	
 	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
 	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
 	Destroy(exampleQuad); //Destroy the primitive quad
@@ -42,7 +51,19 @@ function Start() {
 	
 	// inits the scripts
 	world = buildWorldScript.proceduralInit(world, exampleMesh); //Sets the world array
-	spawnWorldScript.init(world, exampleMesh,25,playerClass);
+	spawnWorldScript.init(world, exampleMesh,25,playerClass,hyper,juggernaut,raging,armored,curHealth);
+}
+
+function getPrefixWeights() {
+	var levelLoader : LevelLoaderScript = GameObject.Find("Level Loader").GetComponent(LevelLoaderScript);
+	if (levelLoader) {
+		this.hyper = levelLoader.hyper;
+		this.juggernaut = levelLoader.juggernaut;
+		this.raging = levelLoader.raging;
+		this.armored = levelLoader.armored;
+		
+		this.curHealth = levelLoader.curHealth;
+	}
 }
 
 //Pause if needed

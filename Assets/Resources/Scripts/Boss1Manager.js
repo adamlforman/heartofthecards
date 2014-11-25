@@ -9,6 +9,8 @@ var boss : GameObject;	 // So we can tell when level is done
 var done : boolean;
 var playerClass : String;
 
+var curHealth : float;
+
 public static var isPaused : boolean;
 
 function Awake () {
@@ -29,6 +31,8 @@ function Start() {
 	done = false;
 	world = new Array(); //Initializes the world array
 	
+	getPrefixWeights();
+	
 	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
 	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
 	Destroy(exampleQuad); //Destroy the primitive quad
@@ -45,7 +49,7 @@ function Start() {
 	
 	// inits the scripts
 	buildWorldScript.bossInit(world, exampleMesh,1);
-	boss = spawnWorldScript.init(world, exampleMesh,1, playerClass);
+	boss = spawnWorldScript.init(world, exampleMesh,1, playerClass, curHealth);
 }
 
 function Update () {
@@ -85,6 +89,13 @@ function OnGUI(){
 			}
 			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("mainMenu");
 		}
+	}
+}
+
+function getPrefixWeights() {
+	var levelLoader : LevelLoaderScript = GameObject.Find("Level Loader").GetComponent(LevelLoaderScript);
+	if (levelLoader) {
+		this.curHealth = levelLoader.curHealth;
 	}
 }
 

@@ -2,11 +2,27 @@
 public var lastShop : String;
 public var lastArg : String;
 
-var proceduralCounter : int;
+public var hyper : float;
+public var juggernaut : float;
+public var raging : float;
+public var armored : float;
+
+public var curHealth : float;
+
+var floorCounter : int;
 var bossCounter : int;
 
 function init() {
-	proceduralCounter = 0;
+	hyper = 0;
+	juggernaut = 0;
+	raging = 0;
+	armored = 0;
+	
+	floorCounter = 0;
+	bossCounter = 0;
+	
+	curHealth = 100;
+	
 	nextLevel = Application.loadedLevelName;
 	iterateLevel();
 }
@@ -62,17 +78,49 @@ function iterateLevel() {
 	}
 	else if (nextLevel == "charSelect") {
 		nextLevel = "procedural";
+		if (bossCounter == 0) {
+			hyper = .5;
+			juggernaut = .05;
+			raging = .05;
+			armored = .05;
+		}
+		if (bossCounter == 1) {
+			hyper = .05;
+			juggernaut = .05;
+			raging = .5;
+			armored = .05;
+		}
+		if (bossCounter == 2) {
+			hyper = .05;
+			juggernaut = .05;
+			raging = .05;
+			armored = .5;
+		}
+		
 	}
 	else if (nextLevel == "procedural") {
-		proceduralCounter++;
-		if (proceduralCounter == 3) {
-			nextLevel = "boss1";
+		floorCounter++;
+		if (floorCounter == 3) {
+			if (bossCounter == 0) {
+				nextLevel = "Bob";
+			}
+			else if (bossCounter == 1) {
+				nextLevel = "Trio";
+			}
+			else if (bossCounter == 2) {
+				nextLevel = "Fire";
+			}
+			else {
+				nextLevel = "mainMenu";
+			}
 		}
 		else {
 			nextLevel = "procedural";
 		}
 	}
 	else if (nextLevel == "boss1") {
+		floorCounter = 0;
+		bossCounter++;
 		nextLevel = "shop";
 	}
 }

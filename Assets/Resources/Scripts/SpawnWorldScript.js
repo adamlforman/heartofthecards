@@ -11,8 +11,15 @@ private var playerClass : String; //Player class
 
 private var enemiesParent : GameObject; //enemies parent for hierachy pane
 
+var hyper : float;
+var juggernaut : float;
+var raging : float;
+var armored : float;
+
+var curHealth : float;
+
 //Start spawning the world
-function init(a : Array, exampleMesh : Mesh, maxEnemies : int, playerClass : String) {
+function init(a : Array, exampleMesh : Mesh, maxEnemies : int, playerClass : String, hyper : float, juggernaut : float, raging : float, armored : float, curHealth : float) {
 	enemiesParent = new GameObject("Enemies"); //initialize parent
 	world = a; //Set the world array to reference the array passed in
 	maxY = world.length; //Sets the max Y value of the map to be the length of the world array
@@ -20,6 +27,14 @@ function init(a : Array, exampleMesh : Mesh, maxEnemies : int, playerClass : Str
 	this.maxEnemies = maxEnemies; //Set the maxenemies
 	this.exampleMesh = exampleMesh; //Set the exampleMesh
 	this.playerClass = playerClass; //Set the playerClass
+	
+	this.hyper = hyper;
+	this.juggernaut = juggernaut;
+	this.raging = raging;
+	this.armored = armored;
+	
+	this.curHealth = curHealth;
+	
 	spawnWorld(); //Spawns the world
 }
 
@@ -81,17 +96,21 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 	//Prefix/Suffix system
 	var prefix = "prefix";
 	var suffix = "suffix";
-	randTest = Random.Range(0,10);
-	if(randTest==1){
+	var hyperThreshold = hyper;
+	var juggernautThreshold = hyperThreshold + juggernaut;
+	var ragingThreshold = juggernautThreshold + raging;
+	var armoredThreshold = ragingThreshold + armored;
+	var randTest = Random.value;
+	if(randTest < hyperThreshold){
 		prefix = "hyper";
 	}
-	if(randTest==2){
+	else if(randTest < juggernautThreshold){
 		prefix = "armored";
 	}
-	if(randTest==3){
+	else if(randTest < ragingThreshold){
 		prefix = "raging";
 	}
-	if(randTest==4){
+	else if(randTest < armoredThreshold){
 		suffix = "juggernaut";
 	}
 	
@@ -184,7 +203,7 @@ function spawnPlayer(x : int, y : int) {
 	
 	var playerMoveScript = playerObject.AddComponent(PlayerMove);			//Add the PlayerMove Script
 	var playerStatusScript = playerObject.AddComponent(PlayerStatus);		//Add the PlayerStatus Script
-	playerStatusScript.init(playerClass);
+	playerStatusScript.init(playerClass,curHealth);
 	
 	var playerSpellbookScript = playerObject.AddComponent(PlayerSpellbook); //Add the PlayerSpellbook script
 	playerSpellbookScript.init(playerClass);

@@ -8,12 +8,15 @@ var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold t
 
 var playerClass : String;
 
-function init(a : Array, exampleMesh : Mesh, bossNum : int, playerClass : String) {
+var curHealth : float;
+
+function init(a : Array, exampleMesh : Mesh, bossNum : int, playerClass : String, curHealth : float) {
 	world = a; //Set the world array to reference the array passed in
 	maxY = world.length; //Sets the max Y value of the map to be the length of the world array
 	maxX = world[0].length; //Sets the max X value of the map to be the length of the first array within the world array;
 	this.exampleMesh = exampleMesh;
 	this.playerClass = playerClass;
+	this.curHealth = curHealth;
 	return spawnWorld(); //Spawns the world
 	
 }
@@ -101,7 +104,7 @@ function spawnPlayer(x : int, y : int) {
 	
 
 	var playerStatusScript = playerObject.AddComponent(PlayerStatus);		//Add the PlayerStatus Script
-	playerStatusScript.init(playerClass);
+	playerStatusScript.init(playerClass,curHealth);
 	var playerSpellbookScript = playerObject.AddComponent(PlayerSpellbook); //Add the PlayerSpellbook script
 	playerSpellbookScript.init(playerClass);
 	var playerHUDScript = playerObject.AddComponent(PlayerHUD);				//Add the PlayerHUD Script

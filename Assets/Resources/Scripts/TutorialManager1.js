@@ -88,7 +88,7 @@ function Start() {
 	
 	//Initialize the build and spawn world scripts
 	buildWorldScript.bossInit(world, exampleMesh,1);
-	spawnWorldScript.init(world, exampleMesh,0, playerClass);
+	spawnWorldScript.init(world, exampleMesh,0, playerClass,0,0,0,0,100f);
 	
 	
 	
