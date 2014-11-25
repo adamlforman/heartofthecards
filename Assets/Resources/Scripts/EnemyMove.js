@@ -32,6 +32,7 @@ var attack : function();
 // internal
 var wanderTimer : float;	// wandering finds a new point every wanderTimer seconds, and moves there.
 var attackTimer : float;	// delay between attacks -- set durin attack function
+var psychicTimer : float;
 
 var archerChase : boolean;
 var warriorChase : boolean;
@@ -157,52 +158,6 @@ function setTarget(newTarget : GameObject) {	// In case of mind control powers o
 function Update() {
 	incrementTimers();
 	processDebuffs();
-
-	/*
-	if (!aggro) {						// if not aggro
-		if (distance <= aggroRange) {	// and are in aggro range
-			if (LoS) {					// and can see them
-				aggro = true;			// BATTLE
-			}
-		}
-	}
-	if (aggro) {											// if aggro
-		if ((distance <= attackRange) && LoS) {		// if we're close and can see them
-			inRange = true;							// we may attack
-		}
-		else {										//else not
-			inRange = false;
-		}
-		
-		if (distance > leashRange) {				// if we're too far away
-			aggro = false;							// forget about player
-		}
-		else if (!LoS) {							// if we have aggro, can't see them but aren't too far away
-			waypoint = target.transform.position;	// go to where they were
-			aggro = false;							// but forget about them
-			wanderTimer = 3;						// and be ready to restart idling
-		}
-		
-	}
-	if ((distance <= 1) && (LoS == true)) {
-		warriorChase = false;
-	}
-	else {
-		warriorChase = true;
-	}
-	if ((distance <= 4) && (LoS == true)) {
-		archerChase = false;
-	}
-	else {
-		archerChase = true;
-	}
-	if ((distance <= 3) && (LoS == true)) {
-		mageRun = true;
-	}
-	else {
-		mageRun = false;
-	}
-	*/
 }
 
 function FixedUpdate() {	
@@ -226,20 +181,6 @@ function FixedUpdate() {
 	else if (type.Equals("mage")){
 		mageMove(distance,LoS);
 	}
-	/*									// Enemy behaviour
-	if (aggro) {													// if we know the player is there	
-		if (inRange && attackTimer <= 0) {								// and we can attack them
-			chase(target.transform.position);
-			attack();														// do so
-		}
-		else {
-			chase(target.transform.position);
-		}	
-	}
-	else {															//otherwise
-		wander();														// Idle behaviour
-	}
-	*/
 }
 
 function warriorMove(distance : float, LoS : boolean) {
@@ -247,15 +188,12 @@ function warriorMove(distance : float, LoS : boolean) {
 		if (LoS && distance < aggroRange) {
 			aggro = true;
 		}
+		else if (psychicTimer > 0) {
+			chase(target.transform.position);
+		}
 		else {
 			wander();
 		}
-		/*else { //Was there something here before it was avoid?
-			if (canMove <= 0) {
-				avoid(target.transform.position);
-				
-			}
-		}*/
 	}
 	if (aggro) {
 		if (LoS && distance > attackRange) {
@@ -267,8 +205,8 @@ function warriorMove(distance : float, LoS : boolean) {
 		if (!LoS) {
 			aggro = false;
 			waypoint = target.transform.position;
-			wanderTimer = 3;
-			wander();
+			psychicTimer = 3;
+			chase(target.transform.position);
 		}
 	}
 }
@@ -329,6 +267,10 @@ function mageMove(distance : float, LoS : boolean) {
 
 function chase(location : Vector2) {
 	face(location); // face the target
+	moveForward();
+}
+
+function moveForward() {
 	if (canMove <= 0) {
 		transform.Translate(Vector2(0,speed*Time.deltaTime));	// and move forward
 	}
@@ -336,13 +278,18 @@ function chase(location : Vector2) {
 
 function avoid(location : Vector2) {
 	face(location); // face the target
-	transform.Translate(Vector2(0,-speed*0.7*Time.deltaTime));
+	moveBackward();
+}
+
+function moveBackward() {
+	if (canMove <= 0) {
+		transform.Translate(Vector2(0,-speed*0.7*Time.deltaTime));
+	}
 }
 
 
 function lineOfSight(location : Vector2) {														// Is there a rock in the way from my location to the target?
-	var LoS : boolean = true;
-	var position : Vector2 = transform.position;
+
 	
 	/*
 	var LoS : boolean = false;
@@ -352,23 +299,28 @@ function lineOfSight(location : Vector2) {														// Is there a rock in th
 		var x : float = (position.x - size) + size * i;
 		var y : float = position.y;
 		var rayOrigin : Vector2 = Vector2(x, y);
-		var hit : RaycastHit2D = (Physics2D.Raycast(rayOrigin,location - this.transform.position, Vector2.Distance(location, this.transform.position)));
-		Debug.DrawRay (rayOrigin, location - this.transform.position, Color.white);
+		var hit : RaycastHit2D = (Physics2D.Raycast(rayOrigin,location - rayOrigin, Vector2.Distance(location, this.transform.position)));
+		Debug.DrawRay (rayOrigin, location - this.transform.position, Color.green);
     	if (hit) {			// raycast
     		if (hit.collider.gameObject.transform.root.name == "Player") {													// if we hit theplayer
     	         LoS = true;																		// we don't have LoS
     	    }
+    	    else {
+    	    	//Debug.Log(hit.collider.gameObject.transform.root.name);
+    	    }
    		}
 	}
-	*/
 	
+	*/
+	var LoS : boolean = true;
+	var position : Vector2 = transform.position;
 	
 	for (var i : int = 0; i < 3; i++) {
 		var x : float = (position.x - size) + size * i;
 		var y : float = position.y;
 		var rayOrigin : Vector2 = Vector2(x, y);
-		var hits : RaycastHit2D[] = (Physics2D.RaycastAll(rayOrigin,location - this.transform.position, Vector2.Distance(location, this.transform.position)));
-		//Debug.DrawRay (rayOrigin, location - this.transform.position, Color.white);
+		var hits : RaycastHit2D[] = (Physics2D.RaycastAll(rayOrigin,location - rayOrigin, Vector2.Distance(location, this.transform.position)));
+		Debug.DrawRay (rayOrigin, location - this.transform.position, Color.green);
 	    for (var j: RaycastHit2D in hits) {
 	    	if (j) {			// raycast
 	    		if (j.collider.gameObject.transform.root.name == "Rocks") {													// if we hit a rock
@@ -378,6 +330,7 @@ function lineOfSight(location : Vector2) {														// Is there a rock in th
 	   		}
 	   	}
 	}
+	
 	
 	return LoS;
   	
@@ -389,18 +342,16 @@ function face(location : Vector2) {						// THIS IS A USEFUL FUNCTION
 }
 
 function wander() {																				// Idle movement for enemies
-	if (Vector2.Distance(this.transform.position,waypoint) > 0.1 && wanderTimer > -2) {			// If we're not at our waypoint or clearly not going to get there
-		chase(waypoint);
+	if (wanderTimer > 0) {
+		moveForward();
 	}
-	else if (wanderTimer <= 0) {																// If we're there
-		do {
-			var randX = Random.Range(-2,2);
-			var randY = Random.Range(-2,2);
+	else {		
+		var randX = Random.Range(-2,2);
+		var randY = Random.Range(-2,2);
 		
-			waypoint = Vector2(transform.position.x + randX, transform.position.y + randY);		// Find a new random waypoint close by
-		}
-		while (!lineOfSight(waypoint));															// that isn't inside a wall
+		waypoint = Vector2(transform.position.x + randX, transform.position.y + randY);		// Find a new random waypoint close by
 		wanderTimer = 3 + Random.Range(-1,1);													// and give yourself some time to get there
+		face(waypoint);
 	}
 	
 	
@@ -419,6 +370,7 @@ function incrementTimers() {			// All of our various timers (there'll be more)
 	var tick : float = Time.deltaTime;
 	wanderTimer -= tick;
 	attackTimer -= tick;
+	psychicTimer -= tick;
 	iceTimer -= tick;
 	blindTimer -= tick;
 	canMove -= tick;
