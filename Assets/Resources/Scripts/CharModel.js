@@ -1,4 +1,4 @@
-﻿var owner : GameObject; //SCOPE TOOTH PASTE
+var owner : GameObject; //SCOPE TOOTH PASTE
 
 function init(owner : GameObject, texture : String) {
 	this.owner = owner; //Set up a pointer to the object containing this model.
@@ -10,7 +10,7 @@ function init(owner : GameObject, texture : String) {
 	renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency.
 }
 
-function Update(){
+/*function Update(){
 	//transform.localPosition = Vector3(0,0,0);
 	//IF SOMETHIGN WHEN HORRIBLY WRONG, I COMMENTED THIS OUT, LOBSTER
-}
+}*/

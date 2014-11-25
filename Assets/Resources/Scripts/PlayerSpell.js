@@ -295,7 +295,7 @@ function updateBuffs(ice : float, poison : float, fork : float, reflect : float,
 		this.poison=true;			//Set "poison" boolean to true
 	}
 	else{
-		this.ice = false;
+		this.poison = false;
 	}
 	//check
 	if(fork > 0){
