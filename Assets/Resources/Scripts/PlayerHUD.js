@@ -29,21 +29,33 @@ public static var arrowIndicator: boolean = false;
 private var keyLocation : Vector2;
 private var location : Vector2;
 private var levelEndLocation : Vector2;
+private var healthPercent : float;
+private var exampleMesh : Mesh;
+
 
 function init(cam : Camera, player : GameObject) {
+	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
+	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
+	Destroy(exampleQuad); //Destroy the primitive quad
 	this.cam = cam;
 	this.player = player;
 	this.maxHealth = player.GetComponent(PlayerStatus).maxHealth;
 	this.curHealth = player.GetComponent(PlayerStatus).curHealth;
 	
 	// Makes the healthbar
-	healthbarOb = GameObject.CreatePrimitive(PrimitiveType.Quad);
+	healthbarOb = new GameObject();
+	var meshFilter = healthbarOb.AddComponent(MeshFilter); //Add a mesh filter for textures
+	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+	healthbarOb.AddComponent(MeshRenderer); //Add a renderer for textures
 	healthbarOb.transform.parent = cam.transform;															// makes child of cam
 	healthbarOb.transform.localPosition = Vector3(-cam.orthographicSize, cam.orthographicSize*0.9,10);		// Position in top center
 	healthbarOb.name = "Health Bar";																		// we like names
 	
 	// Makes the healthbar's background
-	healthbarBgOb = GameObject.CreatePrimitive(PrimitiveType.Quad);
+	healthbarBgOb = new GameObject();
+	meshFilter = healthbarBgOb.AddComponent(MeshFilter); //Add a mesh filter for textures
+	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+	healthbarBgOb.AddComponent(MeshRenderer); //Add a renderer for textures
 	healthbarBgOb.transform.parent = cam.transform;															// Makes child of cam
 	healthbarBgOb.transform.localPosition = Vector3(-cam.orthographicSize, cam.orthographicSize*0.9,10);	// Position in top center
 	healthbarBgOb.transform.localScale = Vector3(4.2,0.7,1);
@@ -68,7 +80,10 @@ function init(cam : Camera, player : GameObject) {
 	
 	
 	//Makes Slot 1
-	slot1Ob = GameObject.CreatePrimitive(PrimitiveType.Quad);												//Create the first game object
+	slot1Ob = new GameObject();											//Create the first game object
+	meshFilter = slot1Ob.AddComponent(MeshFilter); //Add a mesh filter for textures
+	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+	slot1Ob.AddComponent(MeshRenderer); //Add a renderer for textures
 	slot1Ob.transform.parent = cam.transform;																//Parent Slot 1 to the camera.
 	slot1Ob.transform.localPosition = Vector3(-cam.orthographicSize*1.2, cam.orthographicSize*0.85, 10);	//Position the model in the top right.
 	slot1Ob.transform.localScale = Vector3(0.75, 0.75, 1);													//Scale down the size
@@ -76,7 +91,10 @@ function init(cam : Camera, player : GameObject) {
 	slot1Ob.name = "Slot 1";																				// Name the object.
 	
 	//Makes Slot 1 Border
-	slot1Glow = GameObject.CreatePrimitive(PrimitiveType.Quad);											//Create the first game object's border
+	slot1Glow = new GameObject();									//Create the first game object's border
+	meshFilter = slot1Glow.AddComponent(MeshFilter); //Add a mesh filter for textures
+	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+	slot1Glow.AddComponent(MeshRenderer); //Add a renderer for textures
 	slot1Glow.transform.parent = slot1Ob.transform;														//Parent the border to the slot.
 	slot1Glow.transform.localPosition = Vector3(0, 0, 1);												//Center it on its parent
 	slot1Glow.transform.localScale = Vector3(1.5, 1.5, 1);												//Scale it up to be bigger than parent
@@ -85,7 +103,10 @@ function init(cam : Camera, player : GameObject) {
 	slot1Glow.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 	
 	//Makes Slot 1 Timer Background
-	slot1Timer = GameObject.CreatePrimitive(PrimitiveType.Quad);											//Create the first game object's border
+	slot1Timer = new GameObject();										//Create the first game object's border
+	meshFilter = slot1Timer.AddComponent(MeshFilter); //Add a mesh filter for textures
+	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+	slot1Timer.AddComponent(MeshRenderer); //Add a renderer for textures
 	slot1Timer.transform.parent = slot1Ob.transform;														//Parent the border to the slot.
 	slot1Timer.transform.localPosition = Vector3(0.5, -0.5, -1);												//Center it on its parent
 	slot1Timer.transform.localScale = Vector3(0.5, 0.5, 1);												//Scale it up to be bigger than parent
@@ -94,7 +115,10 @@ function init(cam : Camera, player : GameObject) {
 	slot1Timer.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 	
 	//Makes Slot 2
-	slot2Ob = GameObject.CreatePrimitive(PrimitiveType.Quad);												//Create the first game object
+	slot2Ob = new GameObject();												//Create the first game object
+	meshFilter = slot2Ob.AddComponent(MeshFilter); //Add a mesh filter for textures
+	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+	slot2Ob.AddComponent(MeshRenderer); //Add a renderer for textures
 	slot2Ob.transform.parent = cam.transform;																//Parent Slot 2 to the camera.
 	slot2Ob.transform.localPosition = Vector3(-cam.orthographicSize*0.9, cam.orthographicSize*0.85, 10);		// Position the model in the top right.
 	slot2Ob.transform.localScale = Vector3(0.75, 0.75, 1);													//Scale down the size
@@ -102,7 +126,10 @@ function init(cam : Camera, player : GameObject) {
 	slot2Ob.name = "Slot 2";																				// Name the object.
 	
 	//Makes Slot 2 Border
-	slot2Glow = GameObject.CreatePrimitive(PrimitiveType.Quad);											//Create the first game object's border
+	slot2Glow = new GameObject();
+	meshFilter = slot2Glow.AddComponent(MeshFilter); //Add a mesh filter for textures
+	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+	slot2Glow.AddComponent(MeshRenderer); //Add a renderer for textures												//Create the first game object's border
 	slot2Glow.transform.parent = slot2Ob.transform;														//Parent the border to the slot.
 	slot2Glow.transform.localPosition = Vector3(0, 0, 1);												//Center it on its parent
 	slot2Glow.transform.localScale = Vector3(1.5, 1.5, 1);												//Scale it up to be bigger than parent
@@ -111,7 +138,10 @@ function init(cam : Camera, player : GameObject) {
 	slot2Glow.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 	
 	//Makes Slot 2 Timer Background
-	slot2Timer = GameObject.CreatePrimitive(PrimitiveType.Quad);											//Create the first game object's border
+	slot2Timer = new GameObject();	
+	meshFilter = slot2Timer.AddComponent(MeshFilter); //Add a mesh filter for textures
+	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+	slot2Timer.AddComponent(MeshRenderer); //Add a renderer for textures											//Create the first game object's border
 	slot2Timer.transform.parent = slot2Ob.transform;														//Parent the border to the slot.
 	slot2Timer.transform.localPosition = Vector3(0.5, -0.5, -1);												//Center it on its parent
 	slot2Timer.transform.localScale = Vector3(0.5, 0.5, 1);												//Scale it up to be bigger than parent
@@ -120,7 +150,10 @@ function init(cam : Camera, player : GameObject) {
 	slot2Timer.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 	
 	//Makes Slot 3
-	slot3Ob = GameObject.CreatePrimitive(PrimitiveType.Quad);												//Create the first game object
+	slot3Ob = new GameObject();													//Create the first game object
+	meshFilter = slot3Ob.AddComponent(MeshFilter); //Add a mesh filter for textures
+	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+	slot3Ob.AddComponent(MeshRenderer); //Add a renderer for textures
 	slot3Ob.transform.parent = cam.transform;																//Parent Slot 3 to the camera.
 	slot3Ob.transform.localPosition = Vector3(-cam.orthographicSize*0.6, cam.orthographicSize*0.85, 10);	// Position the model in the top right.
 	slot3Ob.transform.localScale = Vector3(0.75, 0.75, 1);													//Scale down the size
@@ -128,7 +161,10 @@ function init(cam : Camera, player : GameObject) {
 	slot3Ob.name = "Slot 3";																				// Name the object.
 
 	//Makes Slot 3 Border
-	slot3Glow = GameObject.CreatePrimitive(PrimitiveType.Quad);											//Create the first game object's border
+	slot3Glow = new GameObject();												//Create the first game object's border
+	meshFilter = slot3Glow.AddComponent(MeshFilter); //Add a mesh filter for textures
+	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+	slot3Glow.AddComponent(MeshRenderer); //Add a renderer for textures
 	slot3Glow.transform.parent = slot3Ob.transform;														//Parent the border to the slot.
 	slot3Glow.transform.localPosition = Vector3(0, 0, 1);												//Center it on its parent
 	slot3Glow.transform.localScale = Vector3(1.5, 1.5, 1);												//Scale it up to be bigger than parent
@@ -137,7 +173,10 @@ function init(cam : Camera, player : GameObject) {
 	slot3Glow.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 	
 	//Makes Slot 2 Timer Background
-	slot3Timer = GameObject.CreatePrimitive(PrimitiveType.Quad);											//Create the first game object's border
+	slot3Timer = new GameObject();												//Create the first game object's border
+	meshFilter = slot3Timer.AddComponent(MeshFilter); //Add a mesh filter for textures
+	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+	slot3Timer.AddComponent(MeshRenderer); //Add a renderer for textures
 	slot3Timer.transform.parent = slot3Ob.transform;														//Parent the border to the slot.
 	slot3Timer.transform.localPosition = Vector3(0.5, -0.5, -1);												//Center it on its parent
 	slot3Timer.transform.localScale = Vector3(0.5, 0.5, 1);												//Scale it up to be bigger than parent
@@ -146,7 +185,10 @@ function init(cam : Camera, player : GameObject) {
 	slot3Timer.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 
 	//Makes Key
-	keyOb = GameObject.CreatePrimitive(PrimitiveType.Quad);												//Create the first game object
+	keyOb = new GameObject();													//Create the first game object
+	meshFilter = keyOb.AddComponent(MeshFilter); //Add a mesh filter for textures
+	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+	keyOb.AddComponent(MeshRenderer); //Add a renderer for textures
 	keyOb.transform.parent = cam.transform;																//Parent Slot 3 to the camera.
 	keyOb.transform.localPosition = Vector3(cam.orthographicSize*1.2, cam.orthographicSize*0.85, 10);	// Position the model in the top right.
 	keyOb.transform.localScale = Vector3(0.75, 0.75, 1);													//Scale down the size
@@ -159,8 +201,10 @@ function init(cam : Camera, player : GameObject) {
 function Update () {
 	if (arrowIndicator == true) {
 		//Makes Arrow
-		arrowOb = GameObject.CreatePrimitive(PrimitiveType.Quad);												//Create the first game object
-		//arrowOb.transform.parent = player.transform;																//Parent the arrowIndicator to the player.
+		arrowOb = new GameObject();												//Create the first game object
+		var meshFilter = arrowOb.AddComponent(MeshFilter); //Add a mesh filter for textures
+		meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
+		arrowOb.AddComponent(MeshRenderer); //Add a renderer for textures
 		arrowOb.transform.localPosition = Vector3(0, 0, -5);	// Position the model in the top right.
 		arrowOb.transform.localScale = Vector3(3, 3, 1);													//Scale down the size
 		loadTexture(arrowTexture, arrowOb);																	//Load texture into keyOb.
@@ -191,7 +235,6 @@ function Update () {
 	keyOb.transform.localPosition = Vector3(cam.orthographicSize*1.2, cam.orthographicSize*0.85, 10);	// Position the model in the top right.
 	
 	// calculate current health %
-	var healthPercent : float;
 	if (maxHealth != 0) {
 		healthPercent = curHealth / maxHealth;
 	}

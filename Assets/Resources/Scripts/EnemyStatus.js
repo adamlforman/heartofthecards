@@ -19,7 +19,7 @@ var arrowHit: AudioClip;
 var uugh : AudioClip;
 var explosion : AudioClip;
 var fistHit : AudioClip;
-
+var healthPercent : float;
 //If the player can move
 //var canMove : float = 0;
 
@@ -90,6 +90,7 @@ function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook, pre
 	
 	//this.spellbook = spellbook;		// learn magic
 	visualEffects();
+	adjustHealth();
 }
 
 function setValues (type : String) {		// ENEMY STATS BY CLASS
@@ -150,12 +151,13 @@ function Update () {
 	if (curHealth <= 0) {	// how to die
 		die();
 	}
-	var healthPercent = curHealth / maxHealth;																								// update health %
-	healthBar.transform.localScale = Vector3(healthPercent,0.15,1);																			// rescale healthbar
 	healthBar.transform.position = Vector3((1-healthPercent)/2 + transform.position.x,0.7 + transform.position.y,transform.position.z);		// and update the transform
 	healthBar.transform.rotation = Quaternion.identity;
-	
-	
+}
+
+function adjustHealth (){
+	healthPercent = curHealth / maxHealth;																								// update health %
+	healthBar.transform.localScale = Vector3(healthPercent,0.15,1);																			// rescale healthbar
 }
 
 function OnTriggerEnter2D(other : Collider2D){
@@ -182,6 +184,7 @@ function OnTriggerStay2D(other : Collider2D){
 
 function takeDamage(damage : float, magic : boolean){ 
 	if(invulnerable<=0){
+		adjustHealth();
 		if(magic){
 			curHealth -= (damage);
 			damageText(damage);

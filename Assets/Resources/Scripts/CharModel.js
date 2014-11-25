@@ -11,5 +11,6 @@ function init(owner : GameObject, texture : String) {
 }
 
 function Update(){
-	transform.localPosition = Vector3(0,0,0);
+	//transform.localPosition = Vector3(0,0,0);
+	//IF SOMETHIGN WHEN HORRIBLY WRONG, I COMMENTED THIS OUT, LOBSTER
 }

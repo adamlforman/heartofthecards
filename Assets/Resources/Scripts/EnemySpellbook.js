@@ -76,7 +76,6 @@ function Update(){
 	if(classType=="warrior"){
 		fistParent.transform.localPosition = Vector3(0,0,-1);
 		fist.transform.localPosition = Vector3(0.75,0,0);
-		
 	}
 }
 //Circle specific stuff
