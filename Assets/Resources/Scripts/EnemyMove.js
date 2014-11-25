@@ -247,7 +247,7 @@ function warriorMove(distance : float, LoS : boolean) {
 function startCharging() {
 	//AudioSource.PlayClipAtPoint(Resources.Load("Sounds/charge",AudioClip),transform.position);
 	chargeTimer = 2;
-	gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color.blue);
+	gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(0,0,1));
 	windup = true;
 	charging = true;
 }
@@ -441,7 +441,7 @@ function archerAttack() {				// the archer's attack function
 }
 
 function startCondemn() {
-	gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color.blue);
+	gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(0,0,1));
 	countdown = 1;
 	condemning = true;
 }

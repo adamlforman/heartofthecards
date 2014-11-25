@@ -20,6 +20,7 @@ function init(o : GameObject) {
 	}
 	else if(owner.name == "Enemy Shot"){
 		textureName = "Textures/ARCHER";					//Set the name of the texture path
+		renderer.material.color = Color(1,0,0);												// Set the color (easy way to tint things).
 	}
 	else if(owner.name == "Sword"){
 		textureName = "Textures/SWORD";					//Set the name of the texture path
@@ -28,7 +29,9 @@ function init(o : GameObject) {
 		textureName = "Textures/FIST";					//Set the name of the texture path
 	}
 	else if(owner.name == "Enemy Fist"){
-		textureName = "Textures/Enemy Fist";					//Set the name of the texture path
+		textureName = "Textures/Fist";					//Set the name of the texture path
+		renderer.material.color = Color(1,0,0);												// Set the color (easy way to tint things).
+
 	}
 	else if(owner.name == "Enemy Comet"){
 		textureName = "Textures/Comet";

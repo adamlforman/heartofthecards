@@ -1,8 +1,9 @@
 fileFormatVersion: 2
-guid: a8a281cc0222e54498be3e93632aa4b8
+guid: 6897ae012aa67fe42bf2a49380ef08e6
 TextureImporter:
   fileIDToRecycleName:
-    21300000: ARCHER
+    21300000: triangle 1
+    21300002: archer
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

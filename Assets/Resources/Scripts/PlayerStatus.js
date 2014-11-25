@@ -107,6 +107,7 @@ function addHealth(heal : int){		// Function to gain health
 
 function takeDamage(damage : float, magic : boolean){	// Take damage function
 	if(isBlocking){
+		invulnerable = 0.5;
 		//PLAY A COOL SOUND
 	}
 	else{
