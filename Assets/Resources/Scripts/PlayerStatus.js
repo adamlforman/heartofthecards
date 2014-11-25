@@ -18,7 +18,7 @@ public static var tutorialHelperChest : boolean;
 
 private var exampleMesh : Mesh;
 
-function init (type : String) {				// Initialization function
+function init (type : String, curHealth : float) {				// Initialization function
 	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
 	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
 	Destroy(exampleQuad); //Destroy the primitive quad
@@ -36,8 +36,8 @@ function init (type : String) {				// Initialization function
 		armor = 0;
 	}
 	haveKey = false;
-	curHealth = 100;
-	maxHealth = curHealth;
+	maxHealth = 100;
+	this.curHealth = curHealth;
 	if (money != null) {
 		money = 0;
 	}
