@@ -195,12 +195,18 @@ function hit(other : GameObject){		// how to hit something
 				
 				if (name == "Enemy Fist") {
 					applyStatus(other);				//apply status debuffs to the enemy we hit
-					audioS.PlayOneShot(Resources.Load("Sounds/fisthit"));
-					audioS.PlayOneShot(Resources.Load("Sounds/ow"));
+					if(other.GetComponent(PlayerStatus).getBlock()){
+						audioS.PlayOneShot(Resources.Load("Sounds/blocked"));
+					}
+					else{
+						audioS.PlayOneShot(Resources.Load("Sounds/fisthit"));
+						audioS.PlayOneShot(Resources.Load("Sounds/ow"));
+					}
 				}
 				if(!pierce){
 					if(name == "Enemy Shot"){
 						if(other.GetComponent(PlayerStatus).getBlock()){
+							audioS.PlayOneShot(Resources.Load("Sounds/blocked"));
 							transform.Rotate(0,0,180);
 							name = "My shot now bitch";
 						}
