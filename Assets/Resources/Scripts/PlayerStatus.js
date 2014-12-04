@@ -16,7 +16,6 @@ public var HUD : PlayerHUD;		// HUD script
 
 private var armor : int;
 var audioS : AudioSource;
-public static var money : int;
 
 public static var tutorialHelperTar : boolean;
 public static var tutorialHelperChest : boolean;
@@ -50,9 +49,6 @@ function init (type : String, curHealth : float) {				// Initialization function
 	haveKey = false;
 	maxHealth = 100;
 	this.curHealth = curHealth;
-	if (money != null) {
-		money = 0;
-	}
 	invulnerable =0;
 	isBlocking = false;
 }
@@ -120,7 +116,7 @@ function takeDamage(damage : float, magic : boolean){	// Take damage function
 }
 
 function chestLoot() {
-	money+=100;
+	ShopManager.money+=100;
 }
 
 
@@ -173,7 +169,7 @@ function OnTriggerEnter2D(other : Collider2D) {
 		takeDamage(6, false);
 	}
 	else if (other.name == "LevelEnd" && haveKey) { //If it is the door
-		money +=9000;
+		ShopManager.money +=200;
 		audioS.PlayOneShot(Resources.Load("Sounds/levelend2"));
 		var levelLoader : LevelLoaderScript = GameObject.Find("Level Loader").GetComponent(LevelLoaderScript); //move to the shop interface
 		levelLoader.curHealth = this.curHealth;

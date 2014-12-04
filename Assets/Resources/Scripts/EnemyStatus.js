@@ -11,6 +11,7 @@ public var poisonCounter : int; 		// }
 //public var blindTimer : float;		// }
 private var invulnerable : float;
 private var isStunned : boolean;
+private var stunTime : float = 0;
 
 var hyper : boolean;
 var raging : boolean;
@@ -152,6 +153,10 @@ function Update () {
 	if (curHealth <= 0) {	// how to die
 		die();
 	}
+	if(stunTime<0 && isStunned){
+		isStunned = false;
+		gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(1,0,0));
+	}
 	healthBar.transform.position = Vector3((1-healthPercent)/2 + transform.position.x,0.7 + transform.position.y,transform.position.z);		// and update the transform
 	healthBar.transform.rotation = Quaternion.identity;
 }
@@ -166,6 +171,11 @@ function OnTriggerEnter2D(other : Collider2D){
 	if(other.gameObject.name == "Shot") {
 		audioS.PlayOneShot(arrowHit);
 		other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
+	}
+	if(other.gameObject.name == "My shot now bitch") {
+		print("BUTTS");
+		audioS.PlayOneShot(arrowHit);
+		other.gameObject.GetComponent(EnemySpell).hit(gameObject);
 	}
 	if(other.gameObject.name == "Explosion") {
 		audioS.PlayOneShot(explosion);
@@ -231,10 +241,11 @@ function incrementTimers() {			// All of our various timers (there'll be more)
 	var tick : float = Time.deltaTime;
 	poisonTimer -= tick;
 	invulnerable -= tick;
+	stunTime -= tick;
 }
 
 function die() {						// How to die: a manual
-	PlayerStatus.money +=50;
+	ShopManager.money +=50;
 	var moneyObject = new GameObject("ChestText");
 	//damageObject.transform.parent = this.transform;
 	moneyObject.transform.position = this.transform.position;
@@ -285,6 +296,14 @@ function attachEffect(name : String){
 	model.name = name;									//Name the PlayerModel
 	model.init(this.gameObject, name);								// Initialize the spellModel.
 	effectObject.SetActive(true);								// Turn on the object (the Update function will start being called).
+}
+
+function setStun(val : boolean){
+	isStunned = val;
+	if(isStunned){
+		stunTime = 2;
+		gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color.yellow);
+	}
 }
 
 function getStun(){

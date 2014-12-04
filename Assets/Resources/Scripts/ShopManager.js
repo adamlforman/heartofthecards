@@ -38,6 +38,9 @@ public static var rapidCount : int;
 public static var homingCount : int; //does not exist
 public static var meteorCount : int; //does not exist
 
+public static var money : int;
+
+
 var normalSpell : String;
 var specialSpell : String;
 var badSpell : String;
@@ -61,7 +64,9 @@ function Awake () {
 }
 
 function Start () {
-
+	if (money == null) {
+		money = 0;
+	}
 
 	var background = new GameObject().CreatePrimitive(PrimitiveType.Quad);
 	background.renderer.material.mainTexture = Resources.Load("Textures/shop",Texture2D); //Set the texture.  Must be in Resources folder
@@ -168,7 +173,7 @@ function Start () {
 	var reminderO = new GameObject("TitleText");
 	reminderO.transform.position = Vector3(.38, .23, -1);
 	reminder = reminderO.AddComponent(GUIText); 
-	reminder.text = "You have $" + PlayerStatus.money + ".";
+	reminder.text = "You have $" + ShopManager.money + ".";
 	reminder.fontSize = Screen.height/22;
 	
 	var iceO = new GameObject("iceText");
@@ -264,7 +269,7 @@ function Update () {
 	rapid.text = "Rapid"  + " " + rapidCount + normalSpell;
 	//homing.text = "Homing" + " " + homingCount + badSpell;
 	//meteor.text = "Meteor" + " " + meteorCount + badSpell;
-	reminder.text = "You have $" + PlayerStatus.money + ".";
+	reminder.text = "You have $" + ShopManager.money + ".";
 	
 	ice.fontSize = Screen.height/24;
 	poison.fontSize = Screen.height/24;
@@ -333,93 +338,93 @@ function OnGUI() {
 	//GUI.Text(Rect(150,25,200,40),"Build Your theDeck!");
 	
 	if (GUI.Button(Rect(Screen.width/5,Screen.height-Screen.height*0.8,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((iceCount < 4) && (PlayerStatus.money >= 50)) {
+		if ((iceCount < 4) && (ShopManager.money >= 50)) {
 			iceCount++;
-			PlayerStatus.money -=50;
+			ShopManager.money -=50;
 			add("ice");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/5,Screen.height-Screen.height*0.72,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((poisonCount < 4)  && (PlayerStatus.money >= 50)) {
+		if ((poisonCount < 4)  && (ShopManager.money >= 50)) {
 			poisonCount++;
-			PlayerStatus.money -=50;
+			ShopManager.money -=50;
 			add("poison");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/5,Screen.height-Screen.height*0.64,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((forkCount < 4)  && (PlayerStatus.money >= 50)) {
+		if ((forkCount < 4)  && (ShopManager.money >= 50)) {
 			forkCount++;
-			PlayerStatus.money -=50;
+			ShopManager.money -=50;
 			add("fork");
 		}
 	}
 	/*else if (GUI.Button(Rect(Screen.width/5,Screen.height-Screen.height*0.56,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((reflectCount < 0)  && (PlayerStatus.money >= 50)) {
+		if ((reflectCount < 0)  && (ShopManager.money >= 50)) {
 			//reflectCount++;
-			//PlayerStatus.money -=50;
+			//ShopManager.money -=50;
 			//add("REFLECT");
 		}
 	}*/
 	else if (GUI.Button(Rect(Screen.width/5,Screen.height-Screen.height*0.48,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((pierceCount < 4)  && (PlayerStatus.money >= 50)) {
+		if ((pierceCount < 4)  && (ShopManager.money >= 50)) {
 			pierceCount++;
-			PlayerStatus.money -=50;
+			ShopManager.money -=50;
 			add("pierce");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/5,Screen.height-Screen.height*0.40,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((giantCount < 4)  && (PlayerStatus.money >= 50)) {
+		if ((giantCount < 4)  && (ShopManager.money >= 50)) {
 			giantCount++;
-			PlayerStatus.money -=50;
+			ShopManager.money -=50;
 			add("giant");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/5,Screen.height-Screen.height*0.32,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((splashCount < 4) && (PlayerStatus.money >= 50)) {
+		if ((splashCount < 4) && (ShopManager.money >= 50)) {
 			splashCount++;
-			PlayerStatus.money -=50;
+			ShopManager.money -=50;
 			add("splash");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/1.45,Screen.height-Screen.height*0.8,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((leechCount < 4)  && (PlayerStatus.money >= 50)) {
+		if ((leechCount < 4)  && (ShopManager.money >= 50)) {
 			leechCount++;
-			PlayerStatus.money -=50;
+			ShopManager.money -=50;
 			add("leech");
 		}
 	}
 	/*else if (GUI.Button(Rect(Screen.width/1.45,Screen.height-Screen.height*0.72,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((swordCount < 0)  && (PlayerStatus.money >= 50)) {
+		if ((swordCount < 0)  && (ShopManager.money >= 50)) {
 			//swordCount++;
-			//PlayerStatus.money -=50;
+			//ShopManager.money -=50;
 			//add("SWORD");
 		}
 	}*/
 	else if (GUI.Button(Rect(Screen.width/1.45,Screen.height-Screen.height*0.64,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((blindCount < 4)  && (PlayerStatus.money >= 50)) {
+		if ((blindCount < 4)  && (ShopManager.money >= 50)) {
 			blindCount++;
-			PlayerStatus.money -=50;
+			ShopManager.money -=50;
 			add("blind");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/1.45,Screen.height-Screen.height*0.56,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((rapidCount < 4)  && (PlayerStatus.money >= 50)) {
+		if ((rapidCount < 4)  && (ShopManager.money >= 50)) {
 			rapidCount++;
-			PlayerStatus.money -=50;
+			ShopManager.money -=50;
 			add("rapid");
 		}
 	}
 	/*else if (GUI.Button(Rect(Screen.width/1.45,Screen.height-Screen.height*0.48,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((homingCount < 0)  && (PlayerStatus.money >= 50)) {
+		if ((homingCount < 0)  && (ShopManager.money >= 50)) {
 			homingCount++;
-			PlayerStatus.money -=50;
+			ShopManager.money -=50;
 			add("HOMING");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/1.45,Screen.height-Screen.height*0.40,Screen.width/5,Screen.height/15),"Buy, $50")) {
-		if ((meteorCount < 0)  && (PlayerStatus.money >= 50)) {
+		if ((meteorCount < 0)  && (ShopManager.money >= 50)) {
 			//meteorCount++;
-			//PlayerStatus.money -=50;
+			//ShopManager.money -=50;
 			//add("METEOR");
 		}
 	}*/
