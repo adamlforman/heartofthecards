@@ -10,6 +10,7 @@ public var poisonTimer : float;		// } Debuff timers
 public var poisonCounter : int; 		// }
 //public var blindTimer : float;		// }
 private var invulnerable : float;
+private var isStunned : boolean;
 
 var hyper : boolean;
 var raging : boolean;
@@ -233,7 +234,7 @@ function incrementTimers() {			// All of our various timers (there'll be more)
 }
 
 function die() {						// How to die: a manual
-	PlayerStatus.money +=20;
+	PlayerStatus.money +=50;
 	var moneyObject = new GameObject("ChestText");
 	//damageObject.transform.parent = this.transform;
 	moneyObject.transform.position = this.transform.position;
@@ -244,7 +245,7 @@ function die() {						// How to die: a manual
 	var meshFilter = moneyObject.AddComponent(MeshFilter); //Add a mesh filter for textures
 	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
 	moneyObject.AddComponent(MeshRenderer); //Add a renderer for textures
-	var textureName = "Textures/money"; //Get the texture name with texture folder
+	var textureName = "Textures/money50"; //Get the texture name with texture folder
 	moneyObject.renderer.material.mainTexture = Resources.Load(textureName, Texture2D); //Set the texture.  Must be in Resources folder.
 	moneyObject.renderer.material.color = Color(1,1,1); //Set the color (easy way to tint things).
 	moneyObject.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
@@ -284,6 +285,10 @@ function attachEffect(name : String){
 	model.name = name;									//Name the PlayerModel
 	model.init(this.gameObject, name);								// Initialize the spellModel.
 	effectObject.SetActive(true);								// Turn on the object (the Update function will start being called).
+}
+
+function getStun(){
+	return isStunned;
 }
 
 

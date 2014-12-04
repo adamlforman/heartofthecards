@@ -469,6 +469,9 @@ function chargeAttack() {
 	charging = false;
 	chargeTimer = 4;
 	attackTimer = 1;
+	if(target.GetComponent(PlayerStatus).getBlock()){
+		
+	}
 }
 
 function getDamage(){
