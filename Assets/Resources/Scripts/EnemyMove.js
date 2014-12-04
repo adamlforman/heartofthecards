@@ -182,15 +182,16 @@ function FixedUpdate() {
 		LoS = false;
 		runAway = false;
 	}
-	
-	if (type.Equals("archer")){
-		archerMove(distance,LoS);
-	}
-	else if (type.Equals("warrior")){
-		warriorMove(distance,LoS);
-	}
-	else if (type.Equals("mage")){
-		mageMove(distance,LoS);
+	if(!gameObject.GetComponent(EnemyStatus).getStun()){
+		if (type.Equals("archer")){
+			archerMove(distance,LoS);
+		}
+		else if (type.Equals("warrior")){
+			warriorMove(distance,LoS);
+		}
+		else if (type.Equals("mage")){
+			mageMove(distance,LoS);
+		}
 	}
 }
 
@@ -470,7 +471,7 @@ function chargeAttack() {
 	chargeTimer = 4;
 	attackTimer = 1;
 	if(target.GetComponent(PlayerStatus).getBlock()){
-		
+		gameObject.GetComponent(EnemyStatus).setStun(true);
 	}
 }
 
