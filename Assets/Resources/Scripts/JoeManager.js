@@ -1,26 +1,23 @@
-﻿private var buildWorldScript : BuildWorldScript; //Script to build environment
-private var spawnWorldScript : SpawnWorldScript; //Script to spawn enemies and player and set camera
-private var enemySpellbookScript : EnemySpellbook; //Enemy spellbook
-private var world : Array; //Array to hold the world
-private var player : GameObject;	//The player object
-private var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
+﻿var buildWorldScript : BuildWorldScript; //Script to build environment
+var spawnWorldScript : SpawnBoss; //Script to spawn enemies and player and set camera
+var enemySpellbookScript : EnemySpellbook; //Enemy spellbook
+var world : Array; //Array to hold the world
+var player : GameObject;	//The player object
+var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 
-public static var isPaused : boolean; //Boolean to tell if the game is paused, public for player spellbook so that the player cannot activate abilities while paused
-
-private var playerClass : String; //Which class the player is using
-
-var hyper : float;
-var juggernaut : float;
-var raging : float;
-var armored : float;
-
-var victory = false;
-var defeat = false;
-var loaded = false;
+var boss : GameObject;	 // So we can tell when level is done
+var done : boolean;
+var playerClass : String;
 
 var curHealth : float;
+var loaded : boolean = false;
 
-//Takes care of player progress
+public static var isPaused : boolean;
+public static var victory : boolean;
+public static var defeat : boolean;
+public var buttonStyle : GUIStyle;
+public var boxStyle : GUIStyle;
+
 function Awake () {
 	var levelLoader = new GameObject();
 	if (GameObject.Find("Level Loader")) {
@@ -35,8 +32,11 @@ function Awake () {
 }
 
 function Start() {
-	isPaused = false; //Game is not paused
+	isPaused = false;
+	victory = false;
+	defeat = false;
 	world = new Array(); //Initializes the world array
+	
 	
 	getPrefixWeights();
 	
@@ -48,44 +48,38 @@ function Start() {
 	buildWorldScript = gameObject.AddComponent(BuildWorldScript);
 	
 	//Spawn World, attaches a script which spawns the player and the enemies
-	spawnWorldScript = gameObject.AddComponent(SpawnWorldScript);
+	spawnWorldScript = gameObject.AddComponent(SpawnBoss);
 	
-	//Grab the playerclass from the levelloader
+ 
+	
 	playerClass = GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).lastArg;
 	
 	// inits the scripts
-	world = buildWorldScript.proceduralInit(world, exampleMesh); //Sets the world array
-	spawnWorldScript.init(world, exampleMesh,25,playerClass,hyper,juggernaut,raging,armored,curHealth);
+	buildWorldScript.bossInit(world, exampleMesh,1);
+	boss = spawnWorldScript.init(world, exampleMesh, playerClass, curHealth,"Joe");
 	player = GameObject.Find("Player");
 	loaded = true;
 }
 
-function getPrefixWeights() {
-	var levelLoader : LevelLoaderScript = GameObject.Find("Level Loader").GetComponent(LevelLoaderScript);
-	if (levelLoader) {
-		this.hyper = levelLoader.hyper;
-		this.juggernaut = levelLoader.juggernaut;
-		this.raging = levelLoader.raging;
-		this.armored = levelLoader.armored;
-		
-		this.curHealth = levelLoader.curHealth;
-	}
-}
-
-//Pause if needed
 function Update () {
+	//Allows pausing
 	if (Input.GetKeyDown(KeyCode.Escape) == true) {
 		Pause();
 	}
+	//if the boss is destroyed, and we're not done yet
 	if (loaded) {
+		if (!boss && !victory) {
+			Time.timeScale = 0;
+			victory = true;
+		}
 		if (!player && !defeat) {
 			Time.timeScale = 0;
 			defeat = true;
 		}
 	}
+	
 }
 
-//Main menu
 function OnGUI(){
 	/*if(GUI.Button (Rect (Screen.width*0.85, Screen.height*0.05, Screen.width*0.12, Screen.height*0.07), "Pause")){
 		Pause();
@@ -125,8 +119,15 @@ function OnGUI(){
 		}
 	}
 	if (defeat == true) {
-		GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "Defeat");
-		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Shop")){
+		GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "Defeat", boxStyle);
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.35, Screen.width*0.25, Screen.height*0.07), "Try Again")){
+			if (isPaused) {
+			
+				Pause();
+			}
+			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).reloadLevel();
+		}
+		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Replay Level")){
 			if (isPaused) {
 			
 				Pause();
@@ -142,7 +143,13 @@ function OnGUI(){
 	}
 }
 
-//Pauses the game
+function getPrefixWeights() {
+	var levelLoader : LevelLoaderScript = GameObject.Find("Level Loader").GetComponent(LevelLoaderScript);
+	if (levelLoader) {
+		this.curHealth = levelLoader.curHealth;
+	}
+}
+
 function Pause() {
 	if (isPaused == true) {
 		Time.timeScale = 1;
@@ -153,33 +160,6 @@ function Pause() {
 		isPaused = true;
 	}
 }
-/*function buildPlayer(name : String) {
-	var playerMoveScript = player.AddComponent(PlayerMove);
-	
-	var playerModel = new GameObject(); 						//Create a quad object to hold the tile texture.
-	var meshFilter = playerModel.AddComponent(MeshFilter); 		//Add a mesh filter for textures
-	meshFilter.mesh = quadMesh; 								//Give the mesh filter a quadmesh
-	playerModel.AddComponent(MeshRenderer); 					//Add a renderer for textures
-	playerModel.SetActive(false); 								//Turn off the object so its script doesn't do anything until we're ready.
-	model = playerModel.AddComponent(CharModel); 				//Add a PlayerModel script to control visuals of the Player.
-	model.init(this, "FACE"); 									//Initialize the PlayerModel.
-
-
-	
-}
-	
-	
-
-	//If it is a rock, add a rigidbody and boxcollider for collisions
-	if (terrainType == "ROCK") {
-		var boxCollider2D = playerModel.AddComponent(BoxCollider2D); //Add a box collider
-		var rigidModel = playerModel.AddComponent(Rigidbody2D); //Add a rigid body for collisions
-		rigidModel.isKinematic = true; //Set kinematic to true
-		rigidModel.fixedAngle = true; //Set fixed angle to true
-	}
-	playerModel.SetActive(true); //Turn on the object (the Update function will start being called).
-*/	
-
 
 
 

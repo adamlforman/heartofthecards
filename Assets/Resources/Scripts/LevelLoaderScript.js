@@ -37,6 +37,12 @@ function loadLevel(level : String, arg : String) {
 	loadNextLevel(arg);
 }
 
+function reloadLevel() {
+	Time.timeScale = 1;
+	curHealth = 100;
+	nextLevel = Application.loadedLevelName;
+	loadNextLevel();
+}
 
 function loadNextLevel() {
 	loadNextLevel(null);
@@ -56,6 +62,7 @@ function iterateLevel() {
 		nextLevel = "deckBuilder";
 	}
 	else if (nextLevel == "shop") {
+		curHealth = 100;
 		nextLevel = "deckBuilder";
 	}
 	else if (nextLevel == "tutorial1") {
@@ -76,8 +83,12 @@ function iterateLevel() {
 	else if (nextLevel == "deckBuilder3") {
 		nextLevel = "charSelect";
 	}
-	else if (nextLevel == "charSelect") {
+	else if (nextLevel == "levelSelect") {
 		nextLevel = "procedural";
+	}
+	else if (nextLevel == "charSelect") {
+		curHealth = 100;
+		nextLevel = "levelSelect";
 		if (bossCounter == 0) {
 			hyper = .5;
 			juggernaut = .05;
@@ -105,10 +116,10 @@ function iterateLevel() {
 				nextLevel = "Bob";
 			}
 			else if (bossCounter == 1) {
-				nextLevel = "Trio";
+				nextLevel = "Fire";
 			}
 			else if (bossCounter == 2) {
-				nextLevel = "Fire";
+				nextLevel = "Joe";
 			}
 			else {
 				nextLevel = "mainMenu";
@@ -118,9 +129,38 @@ function iterateLevel() {
 			nextLevel = "procedural";
 		}
 	}
-	else if (nextLevel == "Bob") {  //I changed this, im sorry -G
+
+	else if (nextLevel == "Bob") {
 		floorCounter = 0;
 		bossCounter++;
 		nextLevel = "shop";
 	}
+	else if (nextLevel == "Fire") {
+		floorCounter = 0;
+		bossCounter++;
+		nextLevel = "shop";
+	}
+	else if (nextLevel == "Joe") {
+		floorCounter = 0;
+		bossCounter++;
+		nextLevel = "shop";
+	}
+}
+
+function loadNextBoss() {
+	loadNextBoss(lastArg);
+}
+
+function loadNextBoss(arg : String) {
+	lastArg = arg;
+	if (bossCounter == 0) {
+		nextLevel = "Bob";
+	}
+	else if (bossCounter == 1) {
+		nextLevel = "Fire";
+	}
+	else if (bossCounter == 2) {
+		nextLevel = "Joe";
+	}
+	loadNextLevel();
 }

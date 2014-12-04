@@ -7,6 +7,11 @@ private var invulnerable : float;
 var healthTickDelay : float;
 var healthTickTimer : float;
 
+var poisonCounter : int;
+var poisonTickTimer : float;
+
+var stunned : float;
+
 public var HUD : PlayerHUD;		// HUD script
 
 private var armor : int;
@@ -16,6 +21,11 @@ public static var money : int;
 public static var tutorialHelperTar : boolean;
 public static var tutorialHelperChest : boolean;
 
+public var classType : String;
+
+public var isBlocking : boolean;
+public var blockCooldown : float;
+
 private var exampleMesh : Mesh;
 
 function init (type : String, curHealth : float) {				// Initialization function
@@ -23,6 +33,8 @@ function init (type : String, curHealth : float) {				// Initialization function
 	exampleMesh = exampleQuad.GetComponent(MeshFilter).mesh; //grab the quad mesh
 	Destroy(exampleQuad); //Destroy the primitive quad
 	audioS = this.GetComponent(AudioSource);
+	this.classType = type;
+	blockCooldown = -3;
 	if(type == "Circle"){
 		healthTickDelay = 1;
 		armor = 2;
@@ -42,18 +54,44 @@ function init (type : String, curHealth : float) {				// Initialization function
 		money = 0;
 	}
 	invulnerable =0;
+	isBlocking = false;
 }
 
 function Update () {			// If you have 0 or less health you die
 	if (curHealth <= 0) {
 		die();
 	}
+	if(blockCooldown > -3){
+		blockCooldown -= Time.deltaTime;
+	}
+	if(isBlocking && blockCooldown < 0){
+		isBlocking = false;
+		transform.GetChild(0).GetComponent(CharModel).changeColor(Color.white);
+	}
+	if(blockCooldown <-3){
+		blockCooldown = -3;
+	}
+	poisonTickTimer -= Time.deltaTime;
 	healthTickTimer -= Time.deltaTime;
 	invulnerable -= Time.deltaTime;
+	stunned -= Time.deltaTime;
 	
 	if (healthTickTimer <= 0) {
 		addHealth(1);
 		healthTickTimer = healthTickDelay;
+	}
+	if (poisonTickTimer <= 0 && poisonCounter > 0) {
+		takeDamage(2,true);
+		poisonTickTimer = 1;
+	}
+	
+	if(classType == "Circle"){
+		var block : float = Input.GetAxis("Fire2");		//variable that checks if you are trying to attack
+		if(block>0 && blockCooldown==-3){
+			isBlocking = true;
+			blockCooldown = 1;
+			transform.GetChild(0).GetComponent(CharModel).changeColor(Color(0.812,0.809,0.827));
+		}
 	}
 }
 
@@ -68,13 +106,17 @@ function addHealth(heal : int){		// Function to gain health
 }
 
 function takeDamage(damage : float, magic : boolean){	// Take damage function
-	
-	curHealth -= damage;				// take the damage
-	invulnerable = 0.5;
-	if (HUD) {
-		HUD.curHealth = curHealth;		// tell the HUD
+	if(isBlocking){
+		invulnerable = 0.5;
+		//PLAY A COOL SOUND
 	}
-	
+	else{
+		curHealth -= damage;				// take the damage
+		invulnerable = 0.5;
+		if (HUD) {
+			HUD.curHealth = curHealth;		// tell the HUD
+		}
+	}
 }
 
 function chestLoot() {
@@ -133,7 +175,9 @@ function OnTriggerEnter2D(other : Collider2D) {
 	else if (other.name == "LevelEnd" && haveKey) { //If it is the door
 		money +=9000;
 		audioS.PlayOneShot(Resources.Load("Sounds/levelend2"));
-		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel(); //move to the shop interface
+		var levelLoader : LevelLoaderScript = GameObject.Find("Level Loader").GetComponent(LevelLoaderScript); //move to the shop interface
+		levelLoader.curHealth = this.curHealth;
+		levelLoader.loadNextLevel();
 	}
 	else if(other.gameObject.name == "Enemy Shot") {	// If it is an enemy arrow
 		if(!other.gameObject.GetComponent(EnemySpell).splash){
@@ -146,6 +190,16 @@ function OnTriggerEnter2D(other : Collider2D) {
 			audioS.PlayOneShot(Resources.Load("Sounds/ow"));
 			other.gameObject.GetComponent(EnemySpell).hit(gameObject);		// WHY DO WE HAVE DUPLICATE CODE?  Question seconded by Connor.  Suspects answer is because Adam blindly copied my code for the player.
 		}
+	}
+	else if (other.gameObject.name == "Enemy Web Shot") {
+		stunned = 3;
+		other.gameObject.GetComponent(EnemySpell).hit(gameObject);
+	}
+	else if (other.gameObject.name == "Enemy Lava") {
+		other.gameObject.GetComponent(EnemySpell).hit(gameObject);
+	}
+	else if (other.gameObject.name == "Enemy Magma") {
+		other.gameObject.GetComponent(EnemySpell).hit(gameObject);
 	}
 }
 
@@ -165,6 +219,11 @@ function OnTriggerStay2D(other : Collider2D){
 }
 
 function die() {						// Death function
-	audioS.PlayOneShot(Resources.Load("Sounds/death"));
-	Application.LoadLevel("shop"); //move to the deckbuilding interface
+	audioS.PlayClipAtPoint(Resources.Load("Sounds/death"),transform.position);
+	Destroy(gameObject,0.5);
+	//Application.LoadLevel("shop"); //move to the deckbuilding interface
+}
+
+function getBlock(){
+	return isBlocking;
 }

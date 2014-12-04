@@ -1,5 +1,5 @@
 ﻿var damage : int;	 // How much damage does the spell do (WILL BE OBSOLETE)
-var movespeed : int = 10;	// How fast is the spell (WILL BE OBSOLETE)
+var movespeed : float;	// How fast is the spell (WILL BE OBSOLETE)
 var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 var enemy : GameObject;	//The enemy
 
@@ -16,7 +16,7 @@ public var blind : boolean = false;				//Does the shot have the "blind" buff
 public var meteor : boolean = false;			//Does the shot have the "meteor" buff
 public var rapid : boolean = false;				//Does the shot have the "rapid" buff
 public var homing : boolean = false;			//Does the shot have the "homing" buff
-public var condemn : boolean = true;			//Does the shot have the "homing" buff
+public var condemn : boolean = false;			//Does the shot have the "homing" buff
 
 //Circle Specific Things.
 public var readyToPunch : boolean;
@@ -26,7 +26,7 @@ public var delayTimer : float;
 
 var audioS : AudioSource;
 
-function init(ice : float, poison : float, fork : float, reflect : float, pierce : float, giant : float, splash : float, leech : float, blind : float, meteor : float, rapid : float, homing : float, exampleMesh : Mesh, enemy : GameObject, damage : int) {
+function init(ice : float, poison : float, fork : float, reflect : float, pierce : float, giant : float, splash : float, leech : float, blind : float, meteor : float, rapid : float, homing : float, condemn : boolean, exampleMesh : Mesh, enemy : GameObject, damage : int) {
 	audioS = gameObject.AddComponent(AudioSource);
 	this.exampleMesh = exampleMesh;					// Bitches love meshes
 	this.damage = damage;
@@ -41,6 +41,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 		model.name = "Enemy Shot Model";								//Name the Model
 		transform.localScale = Vector3(0.3, 0.3, 1);
 		readyToPunch = true;
+		movespeed = 10;
 	}
 	else if(this.name == "Enemy Fist"){
 		model.name = "Enemy Fist Model";
@@ -50,6 +51,19 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 		readyToPunch = true;
 		model.name = "Enemy Comet Model";
 		transform.localPosition.z = -2;
+	}
+	else if (this.name == "Enemy Lava") {
+		readyToPunch = true;
+		model.name = "Enemy Lava Model";
+	}
+	else if (this.name == "Enemy Magma") {
+		readyToPunch = true;
+		model.name = "Enemy Magma Model";
+	}
+	else if (this.name == "Enemy Web Shot") {
+		model.name = "Enemy Web Shot Model";
+		readyToPunch = true;
+		movespeed = 5;
 	}
 	this.enemy = enemy;
 	
@@ -65,7 +79,9 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 	
 	
 	
-	
+	if (condemn) {
+		this.condemn = true;
+	}
 	
 	//check
 	if(ice > 0){
@@ -123,8 +139,8 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 
 
 
-function Update() {
-	if(name == "Enemy Shot"){
+function FixedUpdate() {
+	if(name == "Enemy Shot"  || name == "Enemy Web Shot"){
 		transform.Translate(Vector2.up * movespeed * Time.deltaTime);
 	}
 	if(name == "Enemy Comet") {
@@ -140,6 +156,15 @@ function Update() {
 			Destroy(gameObject);
 		}
 	}
+	if (name == "Enemy Lava") {
+		movespeed = (gameObject.GetComponent(Temporary).life - 17)*0.5;
+		if (movespeed < 0) {
+			movespeed = 0;
+		}
+		var target : Vector2 = GameObject.Find("Player").transform.position;
+		transform.Translate((target - transform.position)*movespeed*Time.deltaTime);
+	}
+	
 }
 
 function hit(other : GameObject){		// how to hit something
@@ -186,20 +211,29 @@ function hit(other : GameObject){		// how to hit something
 function applyStatus(target : GameObject){
 	target.GetComponent(PlayerStatus).takeDamage(damage, false);
 	if(ice){
-		target.GetComponent(PlayerStatus).ice = 5;							//Apply ice if arrow is iced
+		target.GetComponent(PlayerMove).tar = 3;							//Apply ice if arrow is iced
 	}
 	if(poison){
-		target.GetComponent(PlayerStatus).poison = 5;						//Apply poison
+		target.GetComponent(PlayerStatus).poisonCounter = 5;						//Apply poison
 	}
 	if(blind){
 		target.GetComponent(PlayerStatus).blind = 5;						//Apply blind
 	}
 	if(leech){
-		enemy.GetComponent(EnemyStatus).addHealth(5);
+		if (enemy.GetComponent(EnemyStatus)) {
+			enemy.GetComponent(EnemyStatus).addHealth(5);
+		}
+		else {
+			enemy.GetComponent(BossStatus).addHealth(10);
+		}
 	}
-	/*if(condemn){
-		target.transform.Translate(1000 * enemy.transform.eulerAngles, Space.World);
-	}*/
+	if(condemn){
+		//target.transform.Translate(enemy.transform.rotation * Vector2(0,1), Space.World);
+		//target.rigidbody2D.AddForce(enemy.transform.rotation*Vector2(0,1)*10);
+		if(!(target.GetComponent(PlayerStatus).getBlock())){
+			target.GetComponent(PlayerMove).knockback(2,transform.position);
+		}
+	}
 }
 
 function splashSpawn(x :float, y:float, size:int){

@@ -184,26 +184,27 @@ function applyStatus(target : GameObject){
 		}
 	}
 	if (target.GetComponent(EnemyStatus)) {
-		if (player.GetComponent(PlayerSpellbook).classType != "Square") {
-			target.GetComponent(EnemyStatus).takeDamage(10,false);
+		if (pierce && player.GetComponent(PlayerSpellbook).classType == "Circle") {
+			target.GetComponent(EnemyStatus).takeDamage(10,true);
 		}
 		else {
-			target.GetComponent(EnemyStatus).takeDamage(10,true);
-		};
+			target.GetComponent(EnemyStatus).takeDamage(10,false);
+		}
 	
 		if(poison){
 			target.GetComponent(EnemyStatus).poisonCounter = 5;						//Apply poison
 		}
 	}
-	else if (target.GetComponent(BossStatus)) {
-		if (player.GetComponent(PlayerSpellbook).classType != "Square") {
-			target.GetComponent(BossStatus).takeDamage(10,false);
-		}
-		else {
+	if (target.GetComponent(BossStatus)) {
+		if (pierce && player.GetComponent(PlayerSpellbook).classType == "Circle") {
 			target.GetComponent(BossStatus).takeDamage(10,true);
 		}
+		else {
+			target.GetComponent(BossStatus).takeDamage(10,false);
+		}
+	
 		if(poison){
-			target.GetComponent(EnemyStatus).poisonCounter = 5;						//Apply poison
+			target.GetComponent(BossStatus).poisonCounter = 5;						//Apply poison
 		}
 	}
 

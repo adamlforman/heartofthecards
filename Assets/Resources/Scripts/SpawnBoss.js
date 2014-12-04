@@ -7,16 +7,18 @@ var cam : GameCamera; //Forgot what type, will fix later
 var exampleMesh : Mesh;  //Mesh so we can not create primitive objects to hold things, before we switch to sprites
 
 var playerClass : String;
+var bossType : String;
 
 var curHealth : float;
 
-function init(a : Array, exampleMesh : Mesh, bossNum : int, playerClass : String, curHealth : float) {
+function init(a : Array, exampleMesh : Mesh, playerClass : String, curHealth : float, bossType : String) {
 	world = a; //Set the world array to reference the array passed in
 	maxY = world.length; //Sets the max Y value of the map to be the length of the world array
 	maxX = world[0].length; //Sets the max X value of the map to be the length of the first array within the world array;
 	this.exampleMesh = exampleMesh;
 	this.playerClass = playerClass;
 	this.curHealth = curHealth;
+	this.bossType = bossType;
 	return spawnWorld(); //Spawns the world
 	
 }
@@ -36,7 +38,17 @@ function spawnWorld() {
 	cam.init(player,0,0,maxX-1,maxY-1);
 	cam.setZoom(7);
 	
-	return spawnBoss(15,15,"Bob");
+	var x = 10;
+	var y = 10;
+	if (bossType == "Bob") {
+		x = 15;
+		y = 15;
+	}
+	else if (bossType == "Joe") {
+		x = 7;
+		y = 12;
+	}
+	return spawnBoss(x,y,bossType);
 	
 }
 
@@ -61,7 +73,25 @@ function spawnBoss(x : int, y : int, type : String) {
 	model.init(bossObject, type);
 	bossModel.transform.parent = bossObject.transform;
 	
-	var bossMoveScript = bossObject.AddComponent(BossController);
+	var bossMoveScript;
+	if (type == "Bob") {
+		bossMoveScript = bossObject.AddComponent(BobController);
+	}
+	else if (type == "Fire") {
+		bossMoveScript = bossObject.AddComponent(FireController);
+	}
+	else if (type == "Warrior") {
+		//bossMoveScript = bossObject.AddComponent(HueyController);
+	}
+	else if (type == "Archer") {
+		//bossMoveScript = bossObject.AddComponent(DeweyController);
+	}
+	else if (type == "Mage") {
+		//bossMoveScript = bossObject.AddComponent(LouieController);
+	}
+	else if (type == "Joe") {
+		bossMoveScript = bossObject.AddComponent(JoeController);
+	}
 	var bossStatusScript = bossObject.AddComponent(BossStatus);
 	var bossSpellbookScript = bossObject.AddComponent(EnemySpellbook);
 	bossSpellbookScript.init(type);
@@ -94,7 +124,7 @@ function spawnPlayer(x : int, y : int) {
 	playerModel.SetActive(false); 								//Turn off the object so its script doesn't do anything until we're ready.
 	var model = playerModel.AddComponent(CharModel); 				//Add a CharModel script to control visuals of the Player.
 	model.name = "Player Model";								//Name the PlayerModel
-	model.init(playerObject, "FACE"); 							//Initialize the PlayerModel.
+	model.init(playerObject, playerClass); 							//Initialize the PlayerModel.
 	playerModel.transform.parent = playerObject.transform;
 	
 	//var playerScript = playerObject.AddComponent(PlayerScript); //Attaches the playerScript
