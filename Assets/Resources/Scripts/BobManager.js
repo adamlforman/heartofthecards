@@ -32,6 +32,7 @@ function Awake () {
 }
 
 function Start() {
+	Time.timeScale = 1;
 	isPaused = false;
 	victory = false;
 	defeat = false;
