@@ -118,7 +118,7 @@ function iterateLevel() {
 			nextLevel = "procedural";
 		}
 	}
-	else if (nextLevel == "boss1") {
+	else if (nextLevel == "Bob") {  //I changed this, im sorry -G
 		floorCounter = 0;
 		bossCounter++;
 		nextLevel = "shop";
