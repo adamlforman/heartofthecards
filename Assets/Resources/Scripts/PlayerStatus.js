@@ -221,6 +221,7 @@ function OnTriggerStay2D(other : Collider2D){
 function die() {						// Death function
 	audioS.PlayClipAtPoint(Resources.Load("Sounds/death"),transform.position);
 	Destroy(gameObject,0.5);
+	//gameObject.SetActive(false);
 	//Application.LoadLevel("shop"); //move to the deckbuilding interface
 }
 
