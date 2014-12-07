@@ -173,7 +173,6 @@ function OnTriggerEnter2D(other : Collider2D){
 		other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
 	}
 	if(other.gameObject.name == "My shot now bitch") {
-		print("BUTTS");
 		audioS.PlayOneShot(arrowHit);
 		other.gameObject.GetComponent(EnemySpell).hit(gameObject);
 	}
@@ -249,9 +248,10 @@ function die() {						// How to die: a manual
 	var moneyObject = new GameObject("ChestText");
 	//damageObject.transform.parent = this.transform;
 	moneyObject.transform.position = this.transform.position;
-	moneyObject.transform.position.z = -2;
-	moneyObject.transform.localScale = Vector3(1,1,1); //NOT SURE IF THIS IS NECESSARY
-	
+	moneyObject.transform.position.z = -5;
+	moneyObject.transform.localScale = Vector3(2,2,1); //NOT SURE IF THIS IS NECESSARY
+	var moneyScript = moneyObject.AddComponent(FloatingText);
+	moneyScript.init();
 	
 	var meshFilter = moneyObject.AddComponent(MeshFilter); //Add a mesh filter for textures
 	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh

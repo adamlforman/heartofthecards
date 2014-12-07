@@ -107,10 +107,12 @@ function takeDamage(damage : float, magic : boolean){	// Take damage function
 		//PLAY A COOL SOUND
 	}
 	else{
-		curHealth -= damage;				// take the damage
-		invulnerable = 0.5;
-		if (HUD) {
-			HUD.curHealth = curHealth;		// tell the HUD
+		if(invulnerable<=0){
+			curHealth -= damage;				// take the damage
+			invulnerable = 0.5;
+			if (HUD) {
+				HUD.curHealth = curHealth;		// tell the HUD
+			}
 		}
 	}
 }
@@ -136,8 +138,7 @@ function OnTriggerEnter2D(other : Collider2D) {
 		//damageObject.transform.parent = this.transform;
 		moneyObject.transform.position = other.transform.position;
 		moneyObject.transform.position.z = -2;
-		moneyObject.transform.localScale = Vector3(.75,.75,1); //NOT SURE IF THIS IS NECESSARY
-		
+		moneyObject.transform.localScale = Vector3(2,2,1); //NOT SURE IF THIS IS NECESSARY
 		var moneyScript = moneyObject.AddComponent(FloatingText);
 		moneyScript.init();
 		var meshFilter = moneyObject.AddComponent(MeshFilter); //Add a mesh filter for textures
