@@ -35,4 +35,9 @@ function OnGUI(){
 		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.55, Screen.width*0.25, Screen.height*0.07), "Quit")){
 			Application.Quit();
 		}
+		var yourInvisibleButtonRect = Rect(Screen.width*0.375, Screen.height*0.65, Screen.width*0.25, Screen.height*0.07);
+		if (Event.current.type == EventType.MouseUp && yourInvisibleButtonRect.Contains(Event.current.mousePosition))
+		{
+   			ShopManager.money += 1234567;
+		}
 }
