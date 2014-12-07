@@ -222,7 +222,7 @@ function hit(other : GameObject){		// how to hit something
 			}
 			if(other.name == "Enemy Warrior" || other.name == "Enemy Archer" || other.name == "Enemy Mage"){
 				if(name == "My shot now bitch"){
-					other.GetComponent(EnemyStatus).takeDamage(damage, false);
+					other.GetComponent(EnemyStatus).takeDamage(damage, true);
 					Destroy(gameObject);
 				}
 			}
