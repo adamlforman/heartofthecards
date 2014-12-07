@@ -1,7 +1,7 @@
 ﻿public var ice : float = 0;				//Amount of time that attacks have "ice" buff
 public var poison : float = 0;			//Amount of time that attacks have "poison" buff
 public var fork : float = 0;			//Amount of time that attacks have "fork" buff
-public var reflect : float = 0;			//Amount of time that attacks have "reflect" buff
+public var boost : float = 0;
 public var pierce : float = 0;			//Amount of time that attacks have "pierce" buff
 public var giant : float = 0;			//Amount of time that attacks have "giant" buff
 public var splash : float = 0;			//Amount of time that attacks have "splash" buff
@@ -58,7 +58,7 @@ var audioS : AudioSource;
 
 
 function init(classType : String) {
-	allCards = ["ice", "poison", "fork", "reflect", "pierce", "giant", "splash", "leech", "blind", "rapid", "homing", "meteor"];
+	allCards = ["ice", "poison", "fork", "boost", "pierce", "giant", "splash", "leech", "blind", "rapid", "homing", "meteor"];
 	isPaused = ProceduralGameManager.isPaused;
 	audioS = this.GetComponent(AudioSource);
 	var exampleQuad = GameObject.CreatePrimitive(PrimitiveType.Quad); //Only way to grab unity's prebuilt meshes is to create a primitive?
@@ -148,7 +148,7 @@ function init(classType : String) {
 		fist.transform.parent = fistParent.transform;							//Parent fistParent to fist
 		fist.transform.localPosition = Vector3(1, 0, 0);							//move the fist to the player's position
 		fist.transform.localScale = Vector3(0.35, 0.35, 1);
-		playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, gameObject);	//initialize the playerSpellScript
+		playerSpellScript.init(ice, poison, fork, boost, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, gameObject);	//initialize the playerSpellScript
 		playerSpellScript.name = "Fist";
 		fist.SetActive(true);
 	}
@@ -221,8 +221,8 @@ function Update () {
 	if(fork > 0){
 		fork-=Time.deltaTime;			//Decrement "fork" buff duration if it is above zero
 	}
-	if(reflect > 0){
-		reflect-=Time.deltaTime;		//Decrement "reflect" buff duration if it is above zero
+	if(boost > 0){
+		boost-=Time.deltaTime;		//Decrement "boost" buff duration if it is above zero
 	}
 	if(pierce > 0){
 		pierce-=Time.deltaTime;			//Decrement "pierce" buff duration if it is above zero
@@ -258,7 +258,7 @@ function Update () {
 		if(cast1> 0 && cooldown<=0 && classType=="Circle"){					//if you are trying to shoot and can shoot
 			swing();							//Punch that mother fucker
 			fist.GetComponent(PlayerSpell).punchOn();
-			fist.GetComponent(PlayerSpell).updateBuffs(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing);
+			fist.GetComponent(PlayerSpell).updateBuffs(ice, poison, fork, boost, pierce, giant, splash, leech, blind, meteor, rapid, homing);
 			cooldown+=1;								//increment cooldown
 			if(rapid>0){
 				cooldown-=0.5;
@@ -334,6 +334,21 @@ function Update () {
 		if(slot1=="poison3"){
 			poison=15;
 			slot1Timer = 15;
+		}
+		if(slot1=="boost"){
+			boost=5;
+			slot1Timer = 5;
+			gameObject.GetComponent(PlayerMove).vrom = 5;
+		}
+		if(slot1=="boost2"){
+			boost=10;
+			slot1Timer = 10;
+			gameObject.GetComponent(PlayerMove).vrom = 10;
+		}
+		if(slot1=="boost3"){
+			boost=15;
+			slot1Timer = 15;
+			gameObject.GetComponent(PlayerMove).vrom = 15;
 		}
 		if(slot1=="fork"){
 			fork=5;
@@ -448,6 +463,21 @@ function Update () {
 			poison=15;
 			slot2Timer = 15;
 		}
+		if(slot2=="boost"){
+			boost=5;
+			slot1Timer = 5;
+			gameObject.GetComponent(PlayerMove).vrom = 5;
+		}
+		if(slot2=="boost2"){
+			boost=10;
+			slot1Timer = 10;
+			gameObject.GetComponent(PlayerMove).vrom = 10;
+		}
+		if(slot2=="boost3"){
+			boost=15;
+			slot1Timer = 15;
+			gameObject.GetComponent(PlayerMove).vrom = 15;
+		}
 		if(slot2=="fork"){
 			fork=5;
 			slot2Timer = 5;
@@ -560,6 +590,21 @@ function Update () {
 		if(slot3=="poison3"){
 			poison=15;
 			slot3Timer = 15;
+		}
+		if(slot3=="boost"){
+			boost=5;
+			slot1Timer = 5;
+			gameObject.GetComponent(PlayerMove).vrom = 5;
+		}
+		if(slot3=="boost2"){
+			boost=10;
+			slot1Timer = 10;
+			gameObject.GetComponent(PlayerMove).vrom = 10;
+		}
+		if(slot3=="boost3"){
+			boost=15;
+			slot1Timer = 15;
+			gameObject.GetComponent(PlayerMove).vrom = 15;
 		}
 		if(slot3=="fork"){
 			fork=5;
@@ -789,7 +834,7 @@ function spawnShot(player : GameObject, rotate : Vector3){
 	projectile.transform.position = Vector3(x,y,-1);							//move the projectile to the player's position
 	projectile.transform.Translate(player.transform.up* 0.5);
 	projectile.transform.eulerAngles = player.transform.eulerAngles - rotate;			//set the projectile's angle to the player's
-	playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, gameObject);	//initialize the playerSpellScript
+	playerSpellScript.init(ice, poison, fork, boost, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, gameObject);	//initialize the playerSpellScript
 	playerSpellScript.name = "Shot";
 	projectile.SetActive(true);
 }
@@ -804,7 +849,7 @@ function spawnComet(player : GameObject,location : Vector2) {
 	
 	
 	var playerSpellScript : PlayerSpell = comet.AddComponent(PlayerSpell);
-	playerSpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, player);	//initialize the enemySpellScript
+	playerSpellScript.init(ice, poison, fork, boost, pierce, giant, splash, leech, blind, meteor, rapid, homing, exampleMesh, player);	//initialize the enemySpellScript
 	
 	comet.SetActive(true);
 }

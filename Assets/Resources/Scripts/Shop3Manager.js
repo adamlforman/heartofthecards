@@ -3,6 +3,7 @@ var reminder : GUIText;
 var ice3 : GUIText;
 var poison3 : GUIText;
 var fork3 : GUIText;
+var boost3 : GUIText;
 var pierce3 : GUIText;
 var giant3 : GUIText;
 var splash3 : GUIText;
@@ -13,6 +14,7 @@ var rapid3 : GUIText;
 var ice3Texture : Texture2D;
 var poison3Texture : Texture2D;
 var fork3Texture : Texture2D;
+var boost3Texture : Texture2D;
 var pierce3Texture : Texture2D;
 var giant3Texture : Texture2D;
 var splash3Texture : Texture2D;
@@ -25,7 +27,7 @@ var shopTexture : Texture2D;
 public static var ice3Count : int;
 public static var poison3Count : int;
 public static var fork3Count : int;
-public static var reflectCount : int;
+public static var boost3Count : int;
 public static var pierce3Count : int;
 public static var giant3Count : int;
 public static var splash3Count : int;
@@ -75,7 +77,7 @@ function Start () {
 	ice3Count = 0;
 	poison3Count = 0;
 	fork3Count = 0;
-	reflectCount = 0;
+	boost3Count = 0;
 	pierce3Count = 0;
 	giant3Count = 0;
 	splash3Count = 0;
@@ -89,6 +91,7 @@ function Start () {
 	ice3Texture = Resources.Load("Textures/ice3",Texture2D);
 	poison3Texture = Resources.Load("Textures/poison3",Texture2D);
 	fork3Texture = Resources.Load("Textures/fork3",Texture2D);
+	boost3Texture = Resources.Load("Textures/boost3",Texture2D);
 	pierce3Texture = Resources.Load("Textures/pierce3",Texture2D);
 	giant3Texture = Resources.Load("Textures/giant3",Texture2D);
 	splash3Texture = Resources.Load("Textures/splash3",Texture2D);
@@ -111,8 +114,8 @@ function Start () {
 		if (ShopManager.cardsOwned[i] == "fork3") {
 			fork3Count++;
 		}
-		if (ShopManager.cardsOwned[i] == "REFLECT") {
-			reflectCount++;
+		if (ShopManager.cardsOwned[i] == "boost3") {
+			boost3Count++;
 		}
 		if (ShopManager.cardsOwned[i] == "pierce3") {
 			pierce3Count++;
@@ -175,11 +178,11 @@ function Start () {
 	fork3.text = "Fork3" + " " + fork3Count + normalSpell;
 	fork3.fontSize = Screen.height/24;
 	
-	/*var reflectO = new GameObject("reflectText");
-	reflectO.transform.position = Vector3(.02, .56, -1);
-	reflect = reflectO.AddComponent(GUIText); 
-	reflect.text = "Reflect" + " " + reflectCount + badSpell;
-	reflect.fontSize = Screen.height/24;*/
+	var boost3O = new GameObject("boostText");
+	boost3O.transform.position = Vector3(.02, .56, -1);
+	boost3 = boost3O.AddComponent(GUIText); 
+	boost3.text = "Boost3" + " " + boost3Count + normalSpell;
+	boost3.fontSize = Screen.height/24;
 	
 	var pierce3O = new GameObject("pierce3Text");
 	pierce3O.transform.position = Vector3(.02, .48, -1);
@@ -240,7 +243,7 @@ function Update () {
 	ice3.text = "Ice3" + " " + ice3Count + normalSpell;
 	poison3.text = "Poison3" + " " + poison3Count + normalSpell;
 	fork3.text = "Fork3" + " " + fork3Count + normalSpell;
-	//reflect.text = "Reflect" + " " + reflectCount + badSpell;
+	boost3.text = "Boost3" + " " + boost3Count + normalSpell;
 	pierce3.text = "Pierce3" + " " + pierce3Count + normalSpell;
 	giant3.text = "Giant3" + " " + giant3Count + normalSpell;
 	splash3.text = "Splash3"  + " " + splash3Count + normalSpell;
@@ -255,7 +258,7 @@ function Update () {
 	ice3.fontSize = Screen.height/24;
 	poison3.fontSize = Screen.height/24;
 	fork3.fontSize = Screen.height/24;
-	//reflect.fontSize = Screen.height/24;
+	boost3.fontSize = Screen.height/24;
 	pierce3.fontSize = Screen.height/24;
 	giant3.fontSize = Screen.height/24;
 	splash3.fontSize = Screen.height/24;
@@ -305,6 +308,7 @@ function OnGUI() {
 	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.8,Screen.height/15,Screen.height/15),ice3Texture);
 	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.72,Screen.height/15,Screen.height/15),poison3Texture);
 	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.64,Screen.height/15,Screen.height/15),fork3Texture);
+	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.56,Screen.height/15,Screen.height/15),boost3Texture);
 	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.48,Screen.height/15,Screen.height/15),pierce3Texture);
 	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.40,Screen.height/15,Screen.height/15),giant3Texture);
 	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.32,Screen.height/15,Screen.height/15),splash3Texture);
@@ -341,13 +345,13 @@ function OnGUI() {
 			add("fork3");
 		}
 	}
-	/*else if (GUI.Button(Rect(Screen.width/5,Screen.height-Screen.height*0.56,Screen.width/5,Screen.height/15),"Buy, $400")) {
-		if ((reflectCount < 0)  && (ShopManager.money >= 400)) {
-			//reflectCount++;
-			//ShopManager.money -=400;
-			//add("REFLECT");
+	else if (GUI.Button(Rect(Screen.width/5,Screen.height-Screen.height*0.56,Screen.width/5,Screen.height/15),"Buy, $400")) {
+		if ((boost3Count < 4)  && (ShopManager.money >= 400)) {
+			boost3Count++;
+			ShopManager.money -=400;
+			add("boost3");
 		}
-	}*/
+	}
 	else if (GUI.Button(Rect(Screen.width/5,Screen.height-Screen.height*0.48,Screen.width/5,Screen.height/15),"Buy, $400")) {
 		if ((pierce3Count < 4)  && (ShopManager.money >= 400)) {
 			pierce3Count++;

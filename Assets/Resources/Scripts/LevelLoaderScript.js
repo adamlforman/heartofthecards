@@ -54,6 +54,7 @@ function loadNextLevel(arg : String) {
 	}
 //	Debug.Log("Loaded level: "+nextLevel);
 	Application.LoadLevel(nextLevel);
+	Time.timeScale = 1;
 	iterateLevel();
 }
 
@@ -62,6 +63,7 @@ function iterateLevel() {
 		nextLevel = "deckBuilder";
 	}
 	else if (nextLevel == "shop") {
+		floorCounter = 0;
 		curHealth = 100;
 		nextLevel = "deckBuilder";
 	}
@@ -111,7 +113,8 @@ function iterateLevel() {
 	}
 	else if (nextLevel == "procedural") {
 		floorCounter++;
-		if (floorCounter == 3) {
+		Debug.Log("Floor Counter incremented to " + floorCounter);
+		if (floorCounter == 4) {
 			if (bossCounter == 0) {
 				nextLevel = "Bob";
 			}

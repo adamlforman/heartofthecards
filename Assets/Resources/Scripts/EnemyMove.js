@@ -449,6 +449,7 @@ function archerAttack() {				// the archer's attack function
 		}
 		canMove = .5;
 		attackTimer = 2;
+
 	}
 	else {
 		attackTimer = 1;
