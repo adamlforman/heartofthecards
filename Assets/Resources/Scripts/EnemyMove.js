@@ -272,7 +272,7 @@ function archerMove(distance : float, LoS : boolean) {
 		}
 		else if ((LoS == true) && (distance <= 1.5) && (condemning == true)) {
 			face(target.transform.position);
-			if (countdown < 0 && attackTimer < 0) {
+			if (countdown <= 0 && attackTimer <= 0) {
 				condemn();
 				condemning = false;
 			}
@@ -282,6 +282,7 @@ function archerMove(distance : float, LoS : boolean) {
 			attack();
 		}
 		else if (!LoS) {
+			Debug.Log(gameObject + " lost sight of player");
 			gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(1,0,0)); //things gabriel added without really knowing how this works
 			condemning = false; //things gabriel added without really knowing how this works
 			shotNumber = 0;
