@@ -35,6 +35,7 @@ function Awake () {
 }
 
 function Start() {
+	Time.timeScale = 1;
 	isPaused = false; //Game is not paused
 	world = new Array(); //Initializes the world array
 	

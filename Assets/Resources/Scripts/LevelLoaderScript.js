@@ -129,6 +129,7 @@ function iterateLevel() {
 			nextLevel = "procedural";
 		}
 	}
+
 	else if (nextLevel == "Bob") {
 		floorCounter = 0;
 		bossCounter++;

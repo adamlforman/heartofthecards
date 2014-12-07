@@ -161,7 +161,7 @@ function FixedUpdate (){
 	if (knockbackTimer > 0) {
 		transform.Translate(10*Time.deltaTime*(transform.position - knockbackPos), Space.World);
 	}
-	else if (!stunned) {
+	else if (!stunned && !gameObject.GetComponent(PlayerStatus).getBlock()) {
 		moveDirection = Vector3(moveX, moveY, 0);
 		if (moveDirection.magnitude > 1) {
 			moveDirection = moveDirection.normalized;

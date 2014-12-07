@@ -140,7 +140,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 
 
 function FixedUpdate() {
-	if(name == "Enemy Shot"  || name == "Enemy Web Shot"){
+	if(name == "Enemy Shot"  || name == "Enemy Web Shot" || name == "My shot now bitch"){
 		transform.Translate(Vector2.up * movespeed * Time.deltaTime);
 	}
 	if(name == "Enemy Comet") {
@@ -192,15 +192,35 @@ function hit(other : GameObject){		// how to hit something
 				}
 			}
 			if(other.name == "Player"){
-				applyStatus(other);				//apply status debuffs to the enemy we hit
+				
 				if (name == "Enemy Fist") {
-					audioS.PlayOneShot(Resources.Load("Sounds/fisthit"));
-					audioS.PlayOneShot(Resources.Load("Sounds/ow"));
+					applyStatus(other);				//apply status debuffs to the enemy we hit
+					if(other.GetComponent(PlayerStatus).getBlock()){
+						audioS.PlayOneShot(Resources.Load("Sounds/blocked"));
+					}
+					else{
+						audioS.PlayOneShot(Resources.Load("Sounds/fisthit"));
+						audioS.PlayOneShot(Resources.Load("Sounds/ow"));
+					}
 				}
 				if(!pierce){
 					if(name == "Enemy Shot"){
-						Destroy(gameObject); 		
+						if(other.GetComponent(PlayerStatus).getBlock()){
+							audioS.PlayOneShot(Resources.Load("Sounds/blocked"));
+							transform.Rotate(0,0,180);
+							name = "My shot now bitch";
+						}
+						else{
+							applyStatus(other);				//apply status debuffs to the enemy we hit
+							Destroy(gameObject); 		
+						}
 					}
+				}
+			}
+			if(other.name == "Enemy Warrior" || other.name == "Enemy Archer" || other.name == "Enemy Mage"){
+				if(name == "My shot now bitch"){
+					other.GetComponent(EnemyStatus).takeDamage(damage, false);
+					Destroy(gameObject);
 				}
 			}
 		}
@@ -235,6 +255,8 @@ function applyStatus(target : GameObject){
 		}
 	}
 }
+
+
 
 function splashSpawn(x :float, y:float, size:int){
 	var explosion = new GameObject();											//create the explosion

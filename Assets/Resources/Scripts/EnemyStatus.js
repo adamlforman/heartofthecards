@@ -10,6 +10,8 @@ public var poisonTimer : float;		// } Debuff timers
 public var poisonCounter : int; 		// }
 //public var blindTimer : float;		// }
 private var invulnerable : float;
+private var isStunned : boolean;
+private var stunTime : float = 0;
 
 var hyper : boolean;
 var raging : boolean;
@@ -151,6 +153,10 @@ function Update () {
 	if (curHealth <= 0) {	// how to die
 		die();
 	}
+	if(stunTime<0 && isStunned){
+		isStunned = false;
+		gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(1,0,0));
+	}
 	healthBar.transform.position = Vector3((1-healthPercent)/2 + transform.position.x,0.7 + transform.position.y,transform.position.z);		// and update the transform
 	healthBar.transform.rotation = Quaternion.identity;
 }
@@ -165,6 +171,10 @@ function OnTriggerEnter2D(other : Collider2D){
 	if(other.gameObject.name == "Shot") {
 		audioS.PlayOneShot(arrowHit);
 		other.gameObject.GetComponent(PlayerSpell).hit(gameObject);
+	}
+	if(other.gameObject.name == "My shot now bitch") {
+		audioS.PlayOneShot(arrowHit);
+		other.gameObject.GetComponent(EnemySpell).hit(gameObject);
 	}
 	if(other.gameObject.name == "Explosion") {
 		audioS.PlayOneShot(explosion);
@@ -230,21 +240,23 @@ function incrementTimers() {			// All of our various timers (there'll be more)
 	var tick : float = Time.deltaTime;
 	poisonTimer -= tick;
 	invulnerable -= tick;
+	stunTime -= tick;
 }
 
 function die() {						// How to die: a manual
-	PlayerStatus.money +=20;
+	ShopManager.money +=50;
 	var moneyObject = new GameObject("ChestText");
 	//damageObject.transform.parent = this.transform;
 	moneyObject.transform.position = this.transform.position;
-	moneyObject.transform.position.z = -2;
-	moneyObject.transform.localScale = Vector3(1,1,1); //NOT SURE IF THIS IS NECESSARY
-	
+	moneyObject.transform.position.z = -5;
+	moneyObject.transform.localScale = Vector3(2,2,1); //NOT SURE IF THIS IS NECESSARY
+	var moneyScript = moneyObject.AddComponent(FloatingText);
+	moneyScript.init();
 	
 	var meshFilter = moneyObject.AddComponent(MeshFilter); //Add a mesh filter for textures
 	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
 	moneyObject.AddComponent(MeshRenderer); //Add a renderer for textures
-	var textureName = "Textures/money"; //Get the texture name with texture folder
+	var textureName = "Textures/money50"; //Get the texture name with texture folder
 	moneyObject.renderer.material.mainTexture = Resources.Load(textureName, Texture2D); //Set the texture.  Must be in Resources folder.
 	moneyObject.renderer.material.color = Color(1,1,1); //Set the color (easy way to tint things).
 	moneyObject.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
@@ -284,6 +296,18 @@ function attachEffect(name : String){
 	model.name = name;									//Name the PlayerModel
 	model.init(this.gameObject, name);								// Initialize the spellModel.
 	effectObject.SetActive(true);								// Turn on the object (the Update function will start being called).
+}
+
+function setStun(val : boolean){
+	isStunned = val;
+	if(isStunned){
+		stunTime = 2;
+		gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color.yellow);
+	}
+}
+
+function getStun(){
+	return isStunned;
 }
 
 

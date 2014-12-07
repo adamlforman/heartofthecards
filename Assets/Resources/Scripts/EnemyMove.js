@@ -182,15 +182,16 @@ function FixedUpdate() {
 		LoS = false;
 		runAway = false;
 	}
-	
-	if (type.Equals("archer")){
-		archerMove(distance,LoS);
-	}
-	else if (type.Equals("warrior")){
-		warriorMove(distance,LoS);
-	}
-	else if (type.Equals("mage")){
-		mageMove(distance,LoS);
+	if(!gameObject.GetComponent(EnemyStatus).getStun()){
+		if (type.Equals("archer")){
+			archerMove(distance,LoS);
+		}
+		else if (type.Equals("warrior")){
+			warriorMove(distance,LoS);
+		}
+		else if (type.Equals("mage")){
+			mageMove(distance,LoS);
+		}
 	}
 }
 
@@ -269,6 +270,7 @@ function archerMove(distance : float, LoS : boolean) {
 			startCondemn();
 		}
 		else if (LoS && distance <= 1.5 && condemning) {
+			face(target.transform.position);
 			if (countdown < 0) {
 				condemn();
 				condemning = false;
@@ -279,6 +281,8 @@ function archerMove(distance : float, LoS : boolean) {
 			attack();
 		}
 		else if (!LoS) {
+			gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(1,0,0)); //things gabriel added without really knowing how this works
+			condeming = false; //things gabriel added without really knowing how this works
 			aggro = false;
 			waypoint = target.transform.position;
 			wanderTimer = 3;
@@ -469,6 +473,9 @@ function chargeAttack() {
 	charging = false;
 	chargeTimer = 4;
 	attackTimer = 1;
+	if(target.GetComponent(PlayerStatus).getBlock()){
+		gameObject.GetComponent(EnemyStatus).setStun(true);
+	}
 }
 
 function getDamage(){

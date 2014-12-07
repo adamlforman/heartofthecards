@@ -10,6 +10,7 @@ private var pressedW : boolean;
 private var pressedA : boolean;
 private var pressedS : boolean;
 private var pressedD : boolean;
+private var pressedDB : boolean; //dodge, block
 private var movementLearned : boolean;
 private var pressedClick : boolean;
 private var pressedOne : boolean;
@@ -96,7 +97,7 @@ function Start() {
 	tellWASD = GameObject.CreatePrimitive(PrimitiveType.Quad);
 	tellWASD.transform.parent = cam.transform;															// Makes child of cam
 	tellWASD.transform.localPosition = Vector3(-cam.orthographicSize + 5, cam.orthographicSize*0.5,10);	// Position in top center
-	tellWASD.transform.localScale = Vector3(4.5,1,1);
+	tellWASD.transform.localScale = Vector3(6,1,1);
 	tellWASD.renderer.material.mainTexture = Resources.Load("Textures/WASD", Texture2D);
 	tellWASD.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
 	tellWASD.name = "WASD";	
@@ -132,14 +133,19 @@ function Update () {
 			pressedD = true;
 		}
 	}
+	if (pressedDB == false) {
+		if (Input.GetMouseButtonDown(1) == true) {
+			pressedDB = true;
+		}
+	}
 	if (movementLearned == false) {
-		if ((pressedW == true) && (pressedA == true) && (pressedS == true) && (pressedD == true)) {
+		if ((pressedW == true) && (pressedA == true) && (pressedS == true) && (pressedD == true) && (pressedDB == true)) {
 			movementLearned = true;
 			Destroy(tellWASD);
 			tellClick = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			tellClick.transform.parent = cam.transform;															// Makes child of cam
 			tellClick.transform.localPosition = Vector3(-cam.orthographicSize + 5, cam.orthographicSize*0.5,10);	// Position in top center
-			tellClick.transform.localScale = Vector3(4,1,1);
+			tellClick.transform.localScale = Vector3(3,1,1);
 			tellClick.renderer.material.mainTexture = Resources.Load("Textures/mouse", Texture2D);
 			tellClick.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
 			tellClick.name = "Click";	

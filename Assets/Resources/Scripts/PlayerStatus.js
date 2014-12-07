@@ -16,7 +16,6 @@ public var HUD : PlayerHUD;		// HUD script
 
 private var armor : int;
 var audioS : AudioSource;
-public static var money : int;
 
 public static var tutorialHelperTar : boolean;
 public static var tutorialHelperChest : boolean;
@@ -50,9 +49,6 @@ function init (type : String, curHealth : float) {				// Initialization function
 	haveKey = false;
 	maxHealth = 100;
 	this.curHealth = curHealth;
-	if (money != null) {
-		money = 0;
-	}
 	invulnerable =0;
 	isBlocking = false;
 }
@@ -111,16 +107,18 @@ function takeDamage(damage : float, magic : boolean){	// Take damage function
 		//PLAY A COOL SOUND
 	}
 	else{
-		curHealth -= damage;				// take the damage
-		invulnerable = 0.5;
-		if (HUD) {
-			HUD.curHealth = curHealth;		// tell the HUD
+		if(invulnerable<=0){
+			curHealth -= damage;				// take the damage
+			invulnerable = 0.5;
+			if (HUD) {
+				HUD.curHealth = curHealth;		// tell the HUD
+			}
 		}
 	}
 }
 
 function chestLoot() {
-	money+=100;
+	ShopManager.money+=100;
 }
 
 
@@ -140,8 +138,7 @@ function OnTriggerEnter2D(other : Collider2D) {
 		//damageObject.transform.parent = this.transform;
 		moneyObject.transform.position = other.transform.position;
 		moneyObject.transform.position.z = -2;
-		moneyObject.transform.localScale = Vector3(.75,.75,1); //NOT SURE IF THIS IS NECESSARY
-		
+		moneyObject.transform.localScale = Vector3(2,2,1); //NOT SURE IF THIS IS NECESSARY
 		var moneyScript = moneyObject.AddComponent(FloatingText);
 		moneyScript.init();
 		var meshFilter = moneyObject.AddComponent(MeshFilter); //Add a mesh filter for textures
@@ -173,7 +170,7 @@ function OnTriggerEnter2D(other : Collider2D) {
 		takeDamage(6, false);
 	}
 	else if (other.name == "LevelEnd" && haveKey) { //If it is the door
-		money +=9000;
+		ShopManager.money +=200;
 		audioS.PlayOneShot(Resources.Load("Sounds/levelend2"));
 		var levelLoader : LevelLoaderScript = GameObject.Find("Level Loader").GetComponent(LevelLoaderScript); //move to the shop interface
 		levelLoader.curHealth = this.curHealth;
@@ -221,6 +218,7 @@ function OnTriggerStay2D(other : Collider2D){
 function die() {						// Death function
 	audioS.PlayClipAtPoint(Resources.Load("Sounds/death"),transform.position);
 	Destroy(gameObject,0.5);
+	//gameObject.SetActive(false);
 	//Application.LoadLevel("shop"); //move to the deckbuilding interface
 }
 
