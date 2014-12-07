@@ -270,7 +270,7 @@ function archerMove(distance : float, LoS : boolean) {
 			face(target.transform.position);
 			startCondemn();
 		}
-		else if (LoS && distance <= 1.5 && condemning) {
+		else if ((LoS == true) && (distance <= 1.5) && (condemning == true)) {
 			face(target.transform.position);
 			if (countdown < 0 && attackTimer < 0) {
 				condemn();
@@ -465,7 +465,6 @@ function archerAttack() {				// the archer's attack function
 
 function startCondemn() {
 	gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(0,0,1));
-	print("it has turned blue for a second");
 	countdown = 1;
 	condemning = true;
 }

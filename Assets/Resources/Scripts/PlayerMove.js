@@ -23,8 +23,8 @@ private var moveDirection : Vector3;
 
 function init() {
 	speed = 4;
-	baseSpeedForward = 20; //4 
-	baseSpeedBackward = 20; //3
+	baseSpeedForward = 4;
+	baseSpeedBackward = 3; 
 	speedForward = 4;
 	speedBackward = 3;
 	acceleration = 1;
@@ -43,8 +43,7 @@ function init() {
 		baseSpeedForward = 4.5;
 		baseSpeedBackward = 2.5;
 	}
-	baseSpeedForward = 20; //4 
-	baseSpeedBackward = 20; //3
+
 }
 
 function Update () {
