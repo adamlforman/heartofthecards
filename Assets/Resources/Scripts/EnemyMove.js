@@ -284,6 +284,7 @@ function archerMove(distance : float, LoS : boolean) {
 		else if (!LoS) {
 			gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(1,0,0)); //things gabriel added without really knowing how this works
 			condeming = false; //things gabriel added without really knowing how this works
+			shotNumber = 0;
 			aggro = false;
 			waypoint = target.transform.position;
 			wanderTimer = 3;
