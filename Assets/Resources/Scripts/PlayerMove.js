@@ -53,8 +53,8 @@ function Update () {
 		stunned = false;
 	}
 	if (vrom > 0) {
-		speedForward = baseSpeedForward + 2;
-		speedBackward = baseSpeedBackward + 2;
+		speedForward = baseSpeedForward + 1;
+		speedBackward = baseSpeedBackward + 1;
 		vrom -=Time.deltaTime;
 	}
 	else if (tar > 0) {

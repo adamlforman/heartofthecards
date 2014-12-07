@@ -3,7 +3,7 @@ var reminder : GUIText;
 var ice2 : GUIText;
 var poison2 : GUIText;
 var fork2 : GUIText;
-var reflect : GUIText;
+var boost2 : GUIText;
 var pierce2 : GUIText;
 var giant2 : GUIText;
 var splash2 : GUIText;
@@ -18,7 +18,7 @@ var meteor : GUIText;
 var ice2Count : int;
 var poison2Count : int;
 var fork2Count : int;
-var reflectCount : int;
+var boost2Count : int;
 var pierce2Count : int;
 var giant2Count : int;
 var splash2Count : int;
@@ -33,7 +33,7 @@ var meteorCount : int;
 var ice2Max : int;
 var poison2Max : int;
 var fork2Max : int;
-var reflectMax : int;
+var boost2Max : int;
 var pierce2Max : int;
 var giant2Max : int;
 var splash2Max : int;
@@ -47,6 +47,7 @@ var meteorMax : int;
 var ice2Texture : Texture2D;
 var poison2Texture : Texture2D;
 var fork2Texture : Texture2D;
+var boost2Texture : Texture2D;
 var pierce2Texture : Texture2D;
 var giant2Texture : Texture2D;
 var splash2Texture : Texture2D;
@@ -86,7 +87,7 @@ function Start () {
 	ice2Count = 0;
 	poison2Count = 0;
 	fork2Count = 0;
-	reflectCount = 0;
+	boostCount = 0;
 	pierce2Count = 0;
 	giant2Count = 0;
 	splash2Count = 0;
@@ -100,6 +101,7 @@ function Start () {
 	ice2Texture = Resources.Load("Textures/ice2",Texture2D);
 	poison2Texture = Resources.Load("Textures/poison2",Texture2D);
 	fork2Texture = Resources.Load("Textures/fork2",Texture2D);
+	boost2Texture = Resources.Load("Textures/boost2",Texture2D);
 	pierce2Texture = Resources.Load("Textures/pierce2",Texture2D);
 	giant2Texture = Resources.Load("Textures/giant2",Texture2D);
 	splash2Texture = Resources.Load("Textures/splash2",Texture2D);
@@ -120,8 +122,8 @@ function Start () {
 		if (NewDeckManager.theDeck[i] == "fork2") {
 			fork2Count++;
 		}
-		if (NewDeckManager.theDeck[i] == "REFLECT") {
-			reflectCount++;
+		if (NewDeckManager.theDeck[i] == "boost2") {
+			boost2Count++;
 		}
 		if (NewDeckManager.theDeck[i] == "pierce2") {
 			pierce2Count++;
@@ -162,8 +164,8 @@ function Start () {
 		if (ShopManager.cardsOwned[i] == "fork2") {
 			fork2Max++;
 		}
-		if (ShopManager.cardsOwned[i] == "REFLECT") {
-			reflectMax++;
+		if (ShopManager.cardsOwned[i] == "boost2") {
+			boost2Max++;
 		}
 		if (ShopManager.cardsOwned[i] == "pierce2") {
 			pierce2Max++;
@@ -226,11 +228,11 @@ function Start () {
 	fork2.text = "Fork2" + " " + fork2Count + "/" + fork2Max;
 	fork2.fontSize = Screen.height/24;
 	
-	/*var reflectO = new GameObject("reflectText");
-	reflectO.transform.position = Vector3(.02, .56, -1);
-	reflect = reflectO.AddComponent(GUIText); 
-	reflect.text = "Reflect" + " " + reflectCount + badSpell;
-	reflect.fontSize = Screen.height/24;*/
+	var boost2O = new GameObject("boost2Text");
+	boost2O.transform.position = Vector3(.02, .56, -1);
+	boost2 = boost2O.AddComponent(GUIText); 
+	boost2.text = "Boost2" + " " + boost2Count + "/" + boost2Max;
+	boost2.fontSize = Screen.height/24;
 	
 	var pierce2O = new GameObject("pierce2Text");
 	pierce2O.transform.position = Vector3(.02, .48, -1);
@@ -291,7 +293,7 @@ function Update () {
 	ice2.text = "Ice2" + " " + ice2Count + "/" + ice2Max;
 	poison2.text = "Poison2" + " " + poison2Count + "/" + poison2Max;
 	fork2.text = "Fork2" + " " + fork2Count + "/" + fork2Max;
-	//reflect.text = "Reflect" + " " + reflectCount + badSpell;
+	boost2.text = "Boost2" + " " + boost2Count + "/" + boost2Max;
 	pierce2.text = "Pierce2" + " " + pierce2Count + "/" + pierce2Max;
 	giant2.text = "Giant2" + " " + giant2Count + "/" + giant2Max;
 	splash2.text = "Splash2"  + " " + splash2Count + "/" + splash2Max;
@@ -306,7 +308,7 @@ function Update () {
 	ice2.fontSize = Screen.height/24;
 	poison2.fontSize = Screen.height/24;
 	fork2.fontSize = Screen.height/24;
-	//reflect.fontSize = Screen.height/24;
+	boost2.fontSize = Screen.height/24;
 	pierce2.fontSize = Screen.height/24;
 	giant2.fontSize = Screen.height/24;
 	splash2.fontSize = Screen.height/24;
@@ -356,6 +358,7 @@ function OnGUI() {
 	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.8,Screen.height/15,Screen.height/15),ice2Texture);
 	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.72,Screen.height/15,Screen.height/15),poison2Texture);
 	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.64,Screen.height/15,Screen.height/15),fork2Texture);
+	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.56,Screen.height/15,Screen.height/15),boost2Texture);
 	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.48,Screen.height/15,Screen.height/15),pierce2Texture);
 	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.40,Screen.height/15,Screen.height/15),giant2Texture);
 	GUI.Box(Rect(2.1*Screen.width/5,Screen.height-Screen.height*0.32,Screen.height/15,Screen.height/15),splash2Texture);
@@ -408,18 +411,18 @@ function OnGUI() {
 		}
 	}
 	
-	/*else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.56,Screen.width/20,Screen.height/20),"+")) {
-		if ((reflectCount < 0) && (NewDeckManager.theDeck.length < 20) && (reflectCount < Shop2Manager.reflectCount)) {
-			reflectCount++;
-			add("REFLECT");
+	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.56,Screen.width/20,Screen.height/20),"+")) {
+		if ((boost2Count < 4) && (NewDeckManager.theDeck.length < 20) && (boost2Count < Shop2Manager.boost2Count)) {
+			boost2Count++;
+			add("boost2");
 		}
 	}
 	else if (GUI.Button(Rect(Screen.width/4 +Screen.width/20,Screen.height-Screen.height*0.56,Screen.width/20,Screen.height/20),"-")) {
-		if (reflectCount > 0) {
-			reflectCount--;
-			remove("REFLECT");
+		if (boost2Count > 0) {
+			boost2Count--;
+			remove("boost2");
 		}
-	}*/
+	}
 	
 	else if (GUI.Button(Rect(Screen.width/4,Screen.height-Screen.height*0.48,Screen.width/20,Screen.height/20),"+")) {
 		if ((pierce2Count < 4) && (NewDeckManager.theDeck.length < 20) && (pierce2Count < Shop2Manager.pierce2Count)) {
