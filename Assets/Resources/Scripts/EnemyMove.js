@@ -272,7 +272,7 @@ function archerMove(distance : float, LoS : boolean) {
 		}
 		else if (LoS && distance <= 1.5 && condemning) {
 			face(target.transform.position);
-			if (countdown < 0) {
+			if (countdown < 0 && attackTimer < 0) {
 				condemn();
 				condemning = false;
 			}
@@ -437,7 +437,12 @@ function archerAttack() {				// the archer's attack function
 	if (blindTimer <= 0) {
 		if (shotNumber >= 2) {
 			spellbook.scatterShot(gameObject, damage);
-			gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(1,0,0));
+			if (!condemning) {
+				gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(1,0,0));
+			}
+			else {
+				gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(0,0,1));	
+			}
 			shotNumber = 0;
 		}
 		else {
