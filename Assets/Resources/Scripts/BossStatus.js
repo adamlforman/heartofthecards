@@ -48,7 +48,7 @@ function setValues (type : String) {		// ENEMY STATS BY CLASS
 		armor = 6;
 	}
 	else if (type.Equals("Fire")) {
-		curHealth = 150;
+		curHealth = 300;
 		armor = 3;
 	}
 	else if (type.Equals("Huey")) {

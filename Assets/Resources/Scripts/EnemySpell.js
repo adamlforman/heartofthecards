@@ -215,6 +215,9 @@ function hit(other : GameObject){		// how to hit something
 							Destroy(gameObject); 		
 						}
 					}
+					else {
+						applyStatus(other);
+					}
 				}
 			}
 			if(other.name == "Enemy Warrior" || other.name == "Enemy Archer" || other.name == "Enemy Mage"){

@@ -194,12 +194,6 @@ function OnTriggerEnter2D(other : Collider2D) {
 		stunned = 3;
 		other.gameObject.GetComponent(EnemySpell).hit(gameObject);
 	}
-	else if (other.gameObject.name == "Enemy Lava") {
-		other.gameObject.GetComponent(EnemySpell).hit(gameObject);
-	}
-	else if (other.gameObject.name == "Enemy Magma") {
-		other.gameObject.GetComponent(EnemySpell).hit(gameObject);
-	}
 }
 
 function OnTriggerStay2D(other : Collider2D){
@@ -213,6 +207,12 @@ function OnTriggerStay2D(other : Collider2D){
 
 				other.gameObject.GetComponent(EnemySpell).hit(gameObject);		//If we splash, dont make damage text yet.
 			}
+		}
+		else if (other.gameObject.name == "Enemy Lava") {
+			other.gameObject.GetComponent(EnemySpell).hit(gameObject);
+		}
+		else if (other.gameObject.name == "Enemy Magma") {
+			other.gameObject.GetComponent(EnemySpell).hit(gameObject);
 		}
 	}
 }

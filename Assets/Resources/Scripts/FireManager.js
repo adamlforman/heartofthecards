@@ -120,7 +120,7 @@ function OnGUI(){
 		}
 	}
 	if (defeat == true) {
-		GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "Defeat", boxStyle);
+		GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "Defeat");
 		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.35, Screen.width*0.25, Screen.height*0.07), "Try Again")){
 			if (isPaused) {
 			
