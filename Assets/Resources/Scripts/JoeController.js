@@ -2,16 +2,26 @@
 
 var spellbook : EnemySpellbook;
 
-var movespeed : float;
+var baseSpeed : float;
+
+var ranged : boolean;
 
 var strafeSwitch : float;
 var movingLeft : boolean;
+var paused : boolean;
+var pauseTimer : float;
 var newAttackTimer : float;
 
 var attackTimer : float;
 
 function init(target : GameObject, spellbook : EnemySpellbook) {
-	transform.localScale = Vector2(1,1);
+	if (PlayerStatus.classType == "Circle") {
+		ranged = false;
+	}
+	else {
+		ranged = true;
+	}
+	transform.localScale = Vector3(1,1,1);
 	this.target = target;
 	this.spellbook = spellbook;
 	
@@ -20,7 +30,7 @@ function init(target : GameObject, spellbook : EnemySpellbook) {
 	movingLeft = false;
 	strafeSwitch = 3;
 	
-	movespeed = 3.5;
+	baseSpeed = 3.5;
 	
 	spellbook.giant = 1;
 	spellbook.leech = 1;
@@ -29,6 +39,18 @@ function init(target : GameObject, spellbook : EnemySpellbook) {
 function Update() {
 	incrementTimers();
 	if (target) {
+		if (paused) {
+			if (pauseTimer <= 0) {
+				paused = false;
+				pauseTimer = 5;
+			}
+		}
+		else if (!paused) {
+			if (pauseTimer <= 0) {
+				paused = true;
+				pauseTimer = 3;
+			}
+		}
 		face(target.transform.position);
 		if (strafeSwitch <= 0) {
 			movingLeft = !movingLeft;
@@ -57,7 +79,14 @@ function newAttack() {
 }
 
 function FixedUpdate() {
-	if (attackTimer <= 0) {
+	var movespeed : float = baseSpeed;
+	if (paused) {
+		movespeed = 0;
+	}
+	if (attackTimer <= 0 && ranged) {
+		attack();
+	}
+	if (attackTimer <= 0 && !ranged && Vector2.Distance(transform.position,target.transform.position)) {
 		attack();
 	}
 	var xMove : float = 0;
@@ -68,8 +97,13 @@ function FixedUpdate() {
 	else {
 		xMove = 1;
 	}
-	if (Vector2.Distance(transform.position,target.transform.position) > 5) {
-		yMove = 1;
+	if (target) {
+		if (Vector2.Distance(transform.position,target.transform.position) > 5 && ranged) {
+			yMove = 1;
+		}
+		if (!ranged && Vector2.Distance(transform.position,target.transform.position) > 1.5) {
+			yMove = 1;
+		}
 	}
 	transform.Translate(Vector2(xMove,yMove)*Time.deltaTime*movespeed,Space.Self);
 }
@@ -79,16 +113,35 @@ function incrementTimers() {
 	strafeSwitch -= tick;
 	attackTimer -= tick;
 	newAttackTimer -= tick;
+	pauseTimer -= tick;
 }
 
 function attack() {
-	face(target.transform.position);
-	spellbook.shot(gameObject, 10);
-	if (spellbook.rapid > 0) {
-		attackTimer = 0.2;
+	if (ranged) {
+		face(target.transform.position);
+		spellbook.shot(gameObject, 10);
+		if (spellbook.rapid > 0) {
+			attackTimer = 0.2;
+		}
+		else {
+			attackTimer = 0.5;
+		}
+		if (paused) {
+			attackTimer = attackTimer*2;
+		}
 	}
 	else {
-		attackTimer = 0.5;
+		face(target.transform.position);
+		spellbook.swing();
+		if (spellbook.rapid > 0) {
+			attackTimer = 0.2;
+		}
+		else {
+			attackTimer = 0.5;
+		}
+		if (paused) {
+			attackTimer = attackTimer*2;
+		}
 	}
 }
 

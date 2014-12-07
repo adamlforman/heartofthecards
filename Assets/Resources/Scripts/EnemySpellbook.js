@@ -66,8 +66,8 @@ function init(classType : String) {
 		fist.transform.parent = fistParent.transform;							//Parent fistParent to fist
 		fist.transform.localPosition = Vector3(1, 0, 0);							//move the fist to the enemy's position
 		fist.transform.localScale = Vector3(0.35, 0.35, 1);
-		enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, condemn, exampleMesh, gameObject, gameObject.GetComponent(EnemyMove).getDamage());	//initialize the enemySpellScript
 		enemySpellScript.name = "Enemy Fist";
+		enemySpellScript.init(ice, poison, fork, reflect, pierce, giant, splash, leech, blind, meteor, rapid, homing, condemn, exampleMesh, gameObject, 10);	//initialize the enemySpellScript
 		fist.SetActive(true);
 	}
 }

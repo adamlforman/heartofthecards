@@ -224,7 +224,7 @@ function applyStatus(target : GameObject){
 			enemy.GetComponent(EnemyStatus).addHealth(5);
 		}
 		else {
-			enemy.GetComponent(BossStatus).addHealth(10);
+			enemy.GetComponent(BossStatus).addHealth(5);
 		}
 	}
 	if(condemn){

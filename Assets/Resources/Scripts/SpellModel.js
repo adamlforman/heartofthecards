@@ -49,6 +49,9 @@ function init(o : GameObject) {
 	else if (owner.name == "Enemy Web Shot") {
 		textureName = "Textures/WEB";
 	}
+	else {
+		Debug.Log("Invalid Spell Model Owner name: " + owner.name);
+	}
 	renderer.material.mainTexture = Resources.Load(textureName, Texture2D);				// Set the texture.  Must be in Resources folder.
 }
 

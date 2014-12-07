@@ -22,6 +22,12 @@ function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook) {
 	exampleMesh = quadMesh;
 	invulnerable = 0;
 	
+	Debug.Log(inType);
+	Debug.Log(PlayerStatus.classType);
+	if (inType == "Joe" && PlayerStatus.classType == "Circle"){
+		spellbook.init("warrior");
+	}
+	
 	healthBar = GameObject.CreatePrimitive(PrimitiveType.Quad);		// Enemies have healthbars
 	healthBar.transform.parent = transform;							// We're going to override the position updates, but this makes the hierarchy not look terrifying
 	healthBar.renderer.material.color = Color(0.8,0,0);				// enemy health bars are red

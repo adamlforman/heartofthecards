@@ -21,7 +21,7 @@ public static var money : int;
 public static var tutorialHelperTar : boolean;
 public static var tutorialHelperChest : boolean;
 
-public var classType : String;
+public static var classType : String;
 
 public var isBlocking : boolean;
 public var blockCooldown : float;
