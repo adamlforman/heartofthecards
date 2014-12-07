@@ -32,6 +32,7 @@ var speed : float;
 var damage : int;
 var windup : boolean;
 
+var shotNumber : int;  //Keeps track of how many times an archer has shot, every 3rd attack is a scatter shot.
 
 var attack : function();
 
@@ -56,7 +57,7 @@ function init (circCol : CircleCollider2D, quadMesh : Mesh, inType : String, spe
 	
 	
 	
-	
+	shotNumber = 0; //has not attacked yet
 	archerChase = false;
 	warriorChase = false;
 	canMove = 0;
@@ -434,7 +435,18 @@ function warriorAttack() {				// The warrior's attack function
 
 function archerAttack() {				// the archer's attack function
 	if (blindTimer <= 0) {
-		spellbook.shot(gameObject, damage);			// shoot the thing
+		if (shotNumber >= 2) {
+			spellbook.scatterShot(gameObject, damage);
+			gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(1,0,0));
+			shotNumber = 0;
+		}
+		else {
+			spellbook.shot(gameObject, damage);			// shoot the thing
+			shotNumber++;
+			if (shotNumber >=2) {
+				gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(0,1,1));
+			}
+		}
 		canMove = .5;
 		attackTimer = 2;
 	}

@@ -126,6 +126,13 @@ function shot (enemy : GameObject, damage : float){
 	}
 }
 
+function scatterShot (enemy : GameObject, damage : float){
+	//audioS.PlayOneShot(Resources.Load("Sounds/arrowattack"));
+	for(var i : int = -3; i < 3; i++) {
+		spawnShot(enemy, Vector3(0,0,6*i), damage);
+	}
+}
+
 function webshot (enemy : GameObject){
 		spawnWebShot(enemy, Vector3(0,0,0));
 }
