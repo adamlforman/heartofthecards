@@ -465,6 +465,7 @@ function archerAttack() {				// the archer's attack function
 
 function startCondemn() {
 	gameObject.transform.GetChild(0).GetComponent(CharModel).changeColor(Color(0,0,1));
+	print("it has turned blue for a second");
 	countdown = 1;
 	condemning = true;
 }
