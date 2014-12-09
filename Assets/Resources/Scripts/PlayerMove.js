@@ -178,7 +178,7 @@ function FixedUpdate (){
 		}
 		
 	}
-	if (dodge > 0 && dodgeCooldown <= 0 && dodgeTimer <= 0) {
+	if (dodge > 0 && dodgeCooldown <= 0 && dodgeTimer <= 0 && cantMove <= 0 && !stunned) {
 		dodgeCooldown = 1;
 		dodgeTimer = 0.2;
 		if (Mathf.Abs(moveY) > 0.1 || Mathf.Abs(moveX) > 0.1) {
