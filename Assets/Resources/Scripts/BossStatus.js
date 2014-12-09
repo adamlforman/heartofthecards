@@ -162,7 +162,7 @@ function damageText(damage : int){
 
 function processDebuffs() {
 	if (poisonCounter > 0 && poisonTimer <= 0) {
-		takeDamage(2, true);
+		takeDamage(5, true);
 		poisonCounter--;
 		poisonTimer = 1;
 	}

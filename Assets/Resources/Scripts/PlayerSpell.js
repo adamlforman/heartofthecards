@@ -81,6 +81,7 @@ function init(ice : float, poison : float, fork : float, reflect : float, pierce
 		if(gameObject.name == "Shot"){
 			gameObject.transform.localScale = Vector3(0.6,0.6,1);
 		}
+		damage = damage*1.5;
 	}
 	//check
 	if(splash > 0){
@@ -185,10 +186,10 @@ function applyStatus(target : GameObject){
 	}
 	if (target.GetComponent(EnemyStatus)) {
 		if (pierce && player.GetComponent(PlayerSpellbook).classType == "Circle") {
-			target.GetComponent(EnemyStatus).takeDamage(10,true);
+			target.GetComponent(EnemyStatus).takeDamage(damage,true);
 		}
 		else {
-			target.GetComponent(EnemyStatus).takeDamage(10,false);
+			target.GetComponent(EnemyStatus).takeDamage(damage,false);
 		}
 	
 		if(poison){
@@ -197,10 +198,10 @@ function applyStatus(target : GameObject){
 	}
 	if (target.GetComponent(BossStatus)) {
 		if (pierce && player.GetComponent(PlayerSpellbook).classType == "Circle") {
-			target.GetComponent(BossStatus).takeDamage(10,true);
+			target.GetComponent(BossStatus).takeDamage(damage,true);
 		}
 		else {
-			target.GetComponent(BossStatus).takeDamage(10,false);
+			target.GetComponent(BossStatus).takeDamage(damage,false);
 		}
 	
 		if(poison){
