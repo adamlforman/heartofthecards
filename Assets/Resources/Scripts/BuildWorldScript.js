@@ -14,7 +14,6 @@ public static var levelEndLocation : Vector2;
 function proceduralInit(a : Array, exampleMesh : Mesh){
 	var plg : CreateLevel = gameObject.AddComponent(CreateLevel); //Something to do with random level generation?
 	world = a; //World array is the array passed in
-	models = new Array();
 	this.exampleMesh = exampleMesh; //assign the exampleMesh
 	
 	//Object parents for sanity
@@ -25,6 +24,7 @@ function proceduralInit(a : Array, exampleMesh : Mesh){
 	maxX = 60; //Max x value of map, explicitely set for now
 	maxY = 50; //Max y value of map, explicitely set for now
 	world.length=maxY;	//world length = maximum Y value
+	models = new Array();
 	models.length=maxY;
 	for(var i = 0; i<models.length;i++){
 		models[i] = new Array();
@@ -76,9 +76,9 @@ function proceduralInit(a : Array, exampleMesh : Mesh){
 	}
 	
 	seeds = new Array();
-	seeds.length = 50;
+	seeds.length = maxY;
 	
-	for(i = 0;i<50;i++){
+	for(i = 0;i<maxY;i++){
 		randX = Random.Range(0, maxX-1);
 		randY = Random.Range(0, maxY-1);
 		models[randY][randX].transform.GetChild(0).renderer.material.color = Color(1-(Random.value/2), 1-(Random.value/2), 1-(Random.value/2));
@@ -137,8 +137,8 @@ function myRoundY(i : int){
 	if(i<0){
 		return 0;
 	}
-	if(i>49){
-		return 49;
+	if(i>maxY-1){
+		return maxY-1;
 	}
 	return i;
 }
@@ -147,8 +147,8 @@ function myRoundX(i : int){
 	if(i<0){
 		return 0;
 	}
-	if(i>59){
-		return 59;
+	if(i>maxX-1){
+		return maxX-1;
 	}
 	return i;
 }
@@ -156,20 +156,40 @@ function myRoundX(i : int){
 
 //Builds a boss room
 function bossInit(a : Array, exampleMesh : Mesh, bossNum : int) {
+	maxY = 23;
+	maxX = 23;
 	world = a; //Set the world array to reference the array passed in
 	this.exampleMesh = exampleMesh; //exampleMesh for objects
+	models = new Array();
+	models.length=maxY;
+	for(var i = 0; i<models.length;i++){
+		models[i] = new Array();
+		models[i].length = maxX;
+	}
 	rockParent = new GameObject("Rocks"); //parents for inspector window
 	groundParent = new GameObject("Grounds"); //parents for inspector window
 	interactableParent = new GameObject("Interactables"); //parents for hierachy pane
 	if (bossNum == 1) { //if the first boss
 		buildSpiderRoom(); //build BOB'S SPIDER ROOM
 	}
+	seeds = new Array();
+	seeds.length = maxY;
+	
+	for(i = 0;i<maxY;i++){
+		randX = Random.Range(0, maxX-1);
+		randY = Random.Range(0, maxY-1);
+		models[randY][randX].transform.GetChild(0).renderer.material.color = Color(1-(Random.value/2), 1-(Random.value/2), 1-(Random.value/2));
+		seeds[i] = [randY, randX];
+	}
+	
+	spreadColor(seeds);
 
 }
 
 
 function buildSpiderRoom() {
-	var maxY = 23; //Max y value of map, explicitely set for now (never used atm)
+	maxY = 23; //Max y value of map, explicitely set for now (never used atm)
+	maxX = 23;
 	var R : String = "R"; //Represents a tile of rock in the environment
 	var G : String = "G"; //Represents a tile of ground in the environment
 	var P : String = "P"; // Represents the player's starting location
@@ -244,7 +264,7 @@ function buildRock(x : float, y : float){
 	terrainScript.init(terrainType, exampleMesh); //Initialize the terrain script.
 	terrainScript.name = "ROCK"; //Give the terrain object a name in the Hierarchy pane.
 
-	models[y][x] = terrainObject;
+	models[y-1][x] = terrainObject;
 }
 
 //Builds a ground object
@@ -258,7 +278,7 @@ function buildGround(x : float, y : float){
 	terrainScript.name = "Ground"; //Give the terrain object a name in the Hierarchy pane.
 	terrainScript.transform.parent = groundParent.transform; //Gives it a parent in hierarchy pane
 	
-	models[y][x] = terrainObject;
+	models[y-1][x] = terrainObject;
 }
 
 /*
