@@ -213,49 +213,49 @@ function Start () {
 	var ice2O = new GameObject("ice2Text");
 	ice2O.transform.position = Vector3(.02, .8, -1);
 	ice2 = ice2O.AddComponent(GUIText); 
-	ice2.text = "Ice2" + " " + ice2Count + "/" + ice2Max;
+	ice2.text = "Ice 2" + " " + ice2Count + "/" + ice2Max;
 	ice2.fontSize = Screen.height/24;
 	
 	var poison2O = new GameObject("poison2Text");
 	poison2O.transform.position = Vector3(.02, .72, -1);
 	poison2 = poison2O.AddComponent(GUIText); 
-	poison2.text = "Poison2" + " " + poison2Count + "/" + poison2Max;
+	poison2.text = "Poison 2" + " " + poison2Count + "/" + poison2Max;
 	poison2.fontSize = Screen.height/24;
 	
 	var fork2O = new GameObject("fork2Text");
 	fork2O.transform.position = Vector3(.02, .64, -1);
 	fork2 = fork2O.AddComponent(GUIText); 
-	fork2.text = "Fork2" + " " + fork2Count + "/" + fork2Max;
+	fork2.text = "Fork 2" + " " + fork2Count + "/" + fork2Max;
 	fork2.fontSize = Screen.height/24;
 	
 	var boost2O = new GameObject("boost2Text");
 	boost2O.transform.position = Vector3(.02, .56, -1);
 	boost2 = boost2O.AddComponent(GUIText); 
-	boost2.text = "Boost2" + " " + boost2Count + "/" + boost2Max;
+	boost2.text = "Boost 2" + " " + boost2Count + "/" + boost2Max;
 	boost2.fontSize = Screen.height/24;
 	
 	var pierce2O = new GameObject("pierce2Text");
 	pierce2O.transform.position = Vector3(.02, .48, -1);
 	pierce2 = pierce2O.AddComponent(GUIText); 
-	pierce2.text = "Pierce2" + " " + pierce2Count + "/" + pierce2Max;
+	pierce2.text = "Pierce 2" + " " + pierce2Count + "/" + pierce2Max;
 	pierce2.fontSize = Screen.height/24;
 	
 	var giant2O = new GameObject("giant2Text");
 	giant2O.transform.position = Vector3(.02, .40, -1);
 	giant2 = giant2O.AddComponent(GUIText); 
-	giant2.text = "Giant2" + " " + giant2Count + "/" + giant2Max;
+	giant2.text = "Giant 2" + " " + giant2Count + "/" + giant2Max;
 	giant2.fontSize = Screen.height/24;
 	
 	var splash2O = new GameObject("splash2Text");
 	splash2O.transform.position = Vector3(.02, .32, -1);
 	splash2 = splash2O.AddComponent(GUIText); 
-	splash2.text = "Splash2"  + " " + splash2Count + "/" + splash2Max;
+	splash2.text = "Splash 2"  + " " + splash2Count + "/" + splash2Max;
 	splash2.fontSize = Screen.height/24;
 	
 	var leech2O = new GameObject("leech2Text");
 	leech2O.transform.position = Vector3(.52, .8, -1);
 	leech2 = leech2O.AddComponent(GUIText); 
-	leech2.text = "Leech2"  + " " + leech2Count + "/" + leech2Max;
+	leech2.text = "Leech 2"  + " " + leech2Count + "/" + leech2Max;
 	leech2.fontSize = Screen.height/24;
 	
 	/*var swordO = new GameObject("swordText");
@@ -267,13 +267,13 @@ function Start () {
 	var blind2O = new GameObject("blind2Text");
 	blind2O.transform.position = Vector3(.52, .64, -1);
 	blind2 = blind2O.AddComponent(GUIText); 
-	blind2.text = "Blind2" + " " + blind2Count + "/" + blind2Max;
+	blind2.text = "Blind 2" + " " + blind2Count + "/" + blind2Max;
 	blind2.fontSize = Screen.height/24;
 	
 	var rapid2O = new GameObject("rapid2Text");
 	rapid2O.transform.position = Vector3(.52, .56, -1);
 	rapid2 = rapid2O.AddComponent(GUIText); 
-	rapid2.text = "Rapid2" + " " + rapid2Count + "/" + rapid2Max;
+	rapid2.text = "Rapid 2" + " " + rapid2Count + "/" + rapid2Max;
 	rapid2.fontSize = Screen.height/24;
 	
 	/*var homingO = new GameObject("homingText");
@@ -290,17 +290,17 @@ function Start () {
 }
 
 function Update () {
-	ice2.text = "Ice2" + " " + ice2Count + "/" + ice2Max;
-	poison2.text = "Poison2" + " " + poison2Count + "/" + poison2Max;
-	fork2.text = "Fork2" + " " + fork2Count + "/" + fork2Max;
-	boost2.text = "Boost2" + " " + boost2Count + "/" + boost2Max;
-	pierce2.text = "Pierce2" + " " + pierce2Count + "/" + pierce2Max;
-	giant2.text = "Giant2" + " " + giant2Count + "/" + giant2Max;
-	splash2.text = "Splash2"  + " " + splash2Count + "/" + splash2Max;
-	leech2.text = "Leech2"  + " " + leech2Count + "/" + leech2Max;
+	ice2.text = "Ice 2" + " " + ice2Count + "/" + ice2Max;
+	poison2.text = "Poison 2" + " " + poison2Count + "/" + poison2Max;
+	fork2.text = "Fork 2" + " " + fork2Count + "/" + fork2Max;
+	boost2.text = "Boost 2" + " " + boost2Count + "/" + boost2Max;
+	pierce2.text = "Pierce 2" + " " + pierce2Count + "/" + pierce2Max;
+	giant2.text = "Giant 2" + " " + giant2Count + "/" + giant2Max;
+	splash2.text = "Splash 2"  + " " + splash2Count + "/" + splash2Max;
+	leech2.text = "Leech 2"  + " " + leech2Count + "/" + leech2Max;
 	//sword.text = "Sword" + " " + swordCount + badSpell;
-	blind2.text = "Blind2" + " " + blind2Count + "/" + blind2Max;
-	rapid2.text = "Rapid2"  + " " + rapid2Count + "/" + rapid2Max;
+	blind2.text = "Blind 2" + " " + blind2Count + "/" + blind2Max;
+	rapid2.text = "Rapid 2"  + " " + rapid2Count + "/" + rapid2Max;
 	//homing.text = "Homing" + " " + homingCount + badSpell;
 	//meteor.text = "Meteor" + " " + meteorCount + badSpell;
 	reminder.text = "You have " + NewDeckManager.theDeck.length + " card out of 20 needed.";

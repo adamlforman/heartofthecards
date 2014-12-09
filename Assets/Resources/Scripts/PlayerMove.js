@@ -1,18 +1,28 @@
 public var speed : float;
+
+private var acceleration : float;
 private var baseSpeedForward : float;
 private var baseSpeedBackward : float;
+
 private var speedForward : float;
 private var speedBackward : float;
 private var currentSpeedx : float;
 private var currentSpeedy : float;
-private var acceleration : float;
+
 private var amountToMove : Vector2;
+
 public  var vrom : float;
 public  var tar : float;
 
-public var cantMove : float;
+
 public var knockbackTimer : float;
 public var knockbackPos : Vector2;
+
+public var dodgeTimer : float;
+public var dodgePos : Vector2;
+public var dodgeCooldown : float;
+
+public var cantMove : float;
 public var stunned : boolean;
 
 private var mouseScreen : Vector3;
@@ -80,6 +90,8 @@ function Update () {
 
 function FixedUpdate (){
 	knockbackTimer -= Time.deltaTime;
+	dodgeTimer -= Time.deltaTime;
+	dodgeCooldown -= Time.deltaTime;
 	
 	if (transform.position.z != -1) {
 		transform.position.z = -1;
@@ -87,6 +99,13 @@ function FixedUpdate (){
 	//Version 3.0
 	moveY = Input.GetAxis ("Vertical"); //vertical movespeed
 	moveX = Input.GetAxis ("Horizontal"); //horizontal movespeed
+	var dodge : float;
+	if (gameObject.GetComponent(PlayerSpellbook).getType() == "Triangle") {
+		dodge = Input.GetAxis ("Fire2");//Is right mouse down?
+	}
+	else {
+		dodge = 0;
+	}
 	//players facing angle is within 90 degrees of their input speed forward, otherwise speed backwards
 	if (moveY < 0 && moveX == 0) {
 		if(transform.eulerAngles.z < 45 || transform.eulerAngles.z > 315) {
@@ -159,8 +178,26 @@ function FixedUpdate (){
 		}
 		
 	}
+	if (dodge > 0 && dodgeCooldown <= 0 && dodgeTimer <= 0) {
+		dodgeCooldown = 1;
+		dodgeTimer = 0.2;
+		if (Mathf.Abs(moveY) > 0.1 || Mathf.Abs(moveX) > 0.1) {
+			dodgePos = Vector3(moveX, moveY, 0);
+			dodgePos = dodgePos.normalized;
+			Debug.Log("Input-converted dodge Vector :" +dodgePos);	// Dodge towards movement
+		}
+		else {
+			Debug.Log("MoveX: " + moveX + ", MoveY: " + moveY);
+			dodgePos = -1*aToV(transform.eulerAngles.z);	// If no input, dodge backwards
+			Debug.Log("Angle-converted dodge Vector :" + dodgePos);
+		}
+	}
 	if (knockbackTimer > 0) {
 		transform.Translate(10*Time.deltaTime*(transform.position - knockbackPos), Space.World);
+	}
+	else if (dodgeTimer > 0) {
+		//Debug.Log("Translating towards "+ (dodgePos));
+		transform.Translate(12*Time.deltaTime*(dodgePos), Space.World);
 	}
 	else if (!stunned && !gameObject.GetComponent(PlayerStatus).getBlock()) {
 		moveDirection = Vector3(moveX, moveY, 0);
@@ -176,4 +213,10 @@ function FixedUpdate (){
 function knockback(distance : float, location : Vector2) {
 	knockbackTimer = distance * 0.1;
 	knockbackPos = location;
+}
+
+function aToV(angle : float) {
+	var angleRad = 3.14159*(angle / 180);
+	var vector : Vector3 = Vector3(-Mathf.Sin(angleRad),Mathf.Cos(angleRad),0);
+	return vector;
 }
