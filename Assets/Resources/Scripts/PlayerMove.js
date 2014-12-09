@@ -184,12 +184,12 @@ function FixedUpdate (){
 		if (Mathf.Abs(moveY) > 0.1 || Mathf.Abs(moveX) > 0.1) {
 			dodgePos = Vector3(moveX, moveY, 0);
 			dodgePos = dodgePos.normalized;
-			Debug.Log("Input-converted dodge Vector :" +dodgePos);	// Dodge towards movement
+			//Debug.Log("Input-converted dodge Vector :" +dodgePos);	// Dodge towards movement
 		}
 		else {
-			Debug.Log("MoveX: " + moveX + ", MoveY: " + moveY);
+			//Debug.Log("MoveX: " + moveX + ", MoveY: " + moveY);
 			dodgePos = -1*aToV(transform.eulerAngles.z);	// If no input, dodge backwards
-			Debug.Log("Angle-converted dodge Vector :" + dodgePos);
+			//Debug.Log("Angle-converted dodge Vector :" + dodgePos);
 		}
 	}
 	if (knockbackTimer > 0) {

@@ -18,4 +18,8 @@ function init(o : TerrainScript, t : String) {
 	renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
 }
 
+function setColor(newColor : Color) {
+	renderer.material.color = newColor;
+}
+
 
