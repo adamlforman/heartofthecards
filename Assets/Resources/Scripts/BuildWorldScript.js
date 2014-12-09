@@ -81,7 +81,8 @@ function proceduralInit(a : Array, exampleMesh : Mesh){
 	for(i = 0;i<maxY;i++){
 		randX = Random.Range(0, maxX-1);
 		randY = Random.Range(0, maxY-1);
-		models[randY][randX].transform.GetChild(0).renderer.material.color = Color(1-(Random.value/2), 1-(Random.value/2), 1-(Random.value/2));
+		//models[randY][randX].transform.GetChild(0).renderer.material.color = Color(1-(Random.value/2), 1-(Random.value/2), 1-(Random.value/2));
+		models[randY][randX].transform.GetChild(0).renderer.material.color = seedColor();// Color(Random.value,Random.value,Random.value);
 		seeds[i] = [randY, randX];
 	}
 	
@@ -93,6 +94,28 @@ function proceduralInit(a : Array, exampleMesh : Mesh){
 	
 	
 }
+function seedColor() {
+	var newColor : Color;
+	
+	var newRed : float = Random.value;
+	var newGreen : float = Random.value;
+	var newBlue : float = Random.value;
+	
+	if (newRed + newGreen + newBlue < 1.5) {
+		newRed += 0.2;
+		newGreen += 0.2;
+		newBlue += 0.2;
+	}
+	else if (newRed + newGreen + newBlue > 2.4) {
+		newRed -= 0.1;
+		newGreen -= 0.1;
+		newBlue -= 0.1;
+	}
+	
+	newColor = Color(newRed,newGreen,newBlue);
+	//var newColor : Color = Color(1-(Random.value/2), 1-(Random.value/2), 1-(Random.value/2));
+	return newColor;
+}
 
 function spreadColor(seeds : Array){
 	for(i =0; i<seeds.length;i++){
@@ -100,7 +123,7 @@ function spreadColor(seeds : Array){
 			for(k=-1;k<=1;k++){
 				if(models[myRoundY(seeds[i][0]+j)][myRoundX(seeds[i][1]+k)].transform.GetChild(0).renderer.material.color == Color(1, 1, 1)){
 					//WILL BE CHANGED
-					models[myRoundY(seeds[i][0]+j)][myRoundX(seeds[i][1]+k)].transform.GetChild(0).renderer.material.color = models[seeds[i][0]][seeds[i][1]].transform.GetChild(0).renderer.material.color;
+					models[myRoundY(seeds[i][0]+j)][myRoundX(seeds[i][1]+k)].transform.GetChild(0).renderer.material.color = similarColor(models[seeds[i][0]][seeds[i][1]].transform.GetChild(0).renderer.material.color);
 					seeds.Add([myRoundY(seeds[i][0]+j), myRoundX(seeds[i][1]+k)]);
 				}
 			}
@@ -178,7 +201,7 @@ function bossInit(a : Array, exampleMesh : Mesh, bossNum : int) {
 	for(i = 0;i<maxY;i++){
 		randX = Random.Range(0, maxX-1);
 		randY = Random.Range(0, maxY-1);
-		models[randY][randX].transform.GetChild(0).renderer.material.color = Color(1-(Random.value/2), 1-(Random.value/2), 1-(Random.value/2));
+		models[randY][randX].transform.GetChild(0).renderer.material.color = seedColor();// Color(1-(Random.value/2), 1-(Random.value/2), 1-(Random.value/2));
 		seeds[i] = [randY, randX];
 	}
 	
@@ -221,13 +244,13 @@ function buildSpiderRoom() {
 	for(var i = 0; i<world.length;i++){
 		for(var j = 0; j<world[i].length;j++){
 			if(world[i][j]=="R"){
-				buildRock(j, world.length-i);
+				buildRock(j, world.length-i-1);
 			}
 			if(world[i][j]=="G"){
-				buildGround(j, world.length-i);
+				buildGround(j, world.length-i-1);
 			}
 			if (world[i][j] == "P") {
-				buildGround(j,world.length-i);
+				buildGround(j,world.length-i-1);
 			}
 		}
 	}
@@ -264,7 +287,8 @@ function buildRock(x : float, y : float){
 	terrainScript.init(terrainType, exampleMesh); //Initialize the terrain script.
 	terrainScript.name = "ROCK"; //Give the terrain object a name in the Hierarchy pane.
 
-	models[y-1][x] = terrainObject;
+	//Debug.Log("X: "+x+", Y: "+y);
+	models[y][x] = terrainObject;
 }
 
 //Builds a ground object
@@ -278,7 +302,7 @@ function buildGround(x : float, y : float){
 	terrainScript.name = "Ground"; //Give the terrain object a name in the Hierarchy pane.
 	terrainScript.transform.parent = groundParent.transform; //Gives it a parent in hierarchy pane
 	
-	models[y-1][x] = terrainObject;
+	models[y][x] = terrainObject;
 }
 
 /*
@@ -324,5 +348,19 @@ function buildInteractables(name : String, x: float, y : float) {
 	}
 }
 
+function similarColor(oldColor : Color) {
+	var newColor : Color;
+	var amount : float = 0.1;
+	var randR : float = Random.Range(-amount,amount);
+	var randB : float = Random.Range(-amount,amount);
+	var randG : float = Random.Range(-amount,amount);
+	
+	var newR = Mathf.Min(oldColor.r + randR,1);
+	var newG = Mathf.Min(oldColor.g + randG,1);
+	var newB = Mathf.Min(oldColor.b + randB,1);
+	
+	newColor = Color(newR,newG,newB);
+	return newColor;
+}
 
 //COMMENTS ARE FUN!
