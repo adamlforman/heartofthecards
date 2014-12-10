@@ -27,7 +27,7 @@ function OnGUI(){
 
 	GUI.Box(Rect(Screen.width*0.25, Screen.height*0.25, Screen.width*0.5, Screen.height*0.6), "Main Menu");
 		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.35, Screen.width*0.25, Screen.height*0.07), "Play")){
-			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("shop"); //Ideally this would go to a level select sreen.
+			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel(); //Ideally this would go to a level select sreen.
 		}
 		if(GUI.Button (Rect (Screen.width*0.375, Screen.height*0.45, Screen.width*0.25, Screen.height*0.07), "Tutorial")){
 			GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("tutorial1"); //Ideally this would go to a level select sreen.

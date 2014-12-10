@@ -60,7 +60,11 @@ function loadNextLevel(arg : String) {
 
 function iterateLevel() {
 	if (nextLevel == "mainMenu") {
-		nextLevel = "deckBuilder";
+		curHealth = 100;
+		nextLevel = "levelSelect";
+	}
+	else if (nextLevel == "levelSelect") {
+		nextLevel = "shop";
 	}
 	else if (nextLevel == "shop") {
 		floorCounter = 0;
@@ -85,17 +89,13 @@ function iterateLevel() {
 	else if (nextLevel == "deckBuilder3") {
 		nextLevel = "charSelect";
 	}
-	else if (nextLevel == "levelSelect") {
-		nextLevel = "procedural";
-	}
 	else if (nextLevel == "charSelect") {
-		curHealth = 100;
-		nextLevel = "levelSelect";
+		nextLevel = "procedural";
 		if (bossCounter == 0) {
-			hyper = .5;
+			hyper = .05;
 			juggernaut = .05;
 			raging = .05;
-			armored = .05;
+			armored = .5;
 		}
 		if (bossCounter == 1) {
 			hyper = .05;
@@ -104,10 +104,10 @@ function iterateLevel() {
 			armored = .05;
 		}
 		if (bossCounter == 2) {
-			hyper = .05;
+			hyper = .5;
 			juggernaut = .05;
 			raging = .05;
-			armored = .5;
+			armored = .05;
 		}
 		
 	}
