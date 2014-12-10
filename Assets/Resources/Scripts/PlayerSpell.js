@@ -185,7 +185,7 @@ function applyStatus(target : GameObject){
 		}
 	}
 	if (target.GetComponent(EnemyStatus)) {
-		if (pierce && player.GetComponent(PlayerSpellbook).classType == "Circle") {
+		if (pierce) {
 			target.GetComponent(EnemyStatus).takeDamage(damage,true);
 		}
 		else {
@@ -197,7 +197,7 @@ function applyStatus(target : GameObject){
 		}
 	}
 	if (target.GetComponent(BossStatus)) {
-		if (pierce && player.GetComponent(PlayerSpellbook).classType == "Circle") {
+		if (pierce) {
 			target.GetComponent(BossStatus).takeDamage(damage,true);
 		}
 		else {

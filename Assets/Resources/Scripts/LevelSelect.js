@@ -49,20 +49,23 @@ function OnGUI(){
 */
 
 function OnGUI() {
-	if(GUI.Button (Rect (Screen.width*0.1, Screen.height*0.3, Screen.width*0.2, Screen.height*0.1), "Level 1")) {
+	GUI.Box(Rect(Screen.width*0.1, Screen.height*0.6, Screen.width*0.2, Screen.height*0.3), "Many enemies will be tougher than normal.  Recommend using Piercing and Poison to ignore their armor.");
+	GUI.Box(Rect(Screen.width*0.4, Screen.height*0.6, Screen.width*0.2, Screen.height*0.3), "Many enemies will be stronger than normal.  Recommend using Leech and Blind to counteract their strength.");
+	GUI.Box(Rect(Screen.width*0.7, Screen.height*0.6, Screen.width*0.2, Screen.height*0.3), "Many enemies will be quicker than normal.  Recommend using Ice and Boost to keep up qith their speed.");
+	if(GUI.Button (Rect (Screen.width*0.1, Screen.height*0.3, Screen.width*0.2, Screen.height*0.1), "Speed Level")) {
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).bossCounter = 0;
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel();
 	}
-	if(GUI.Button (Rect (Screen.width*0.4, Screen.height*0.3, Screen.width*0.2, Screen.height*0.1), "Level 2")) {
+	if(GUI.Button (Rect (Screen.width*0.4, Screen.height*0.3, Screen.width*0.2, Screen.height*0.1), "Strength Level")) {
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).bossCounter = 1;
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel();
 	}
-	if(GUI.Button (Rect (Screen.width*0.7, Screen.height*0.3, Screen.width*0.2, Screen.height*0.1), "Level 3")) {
+	if(GUI.Button (Rect (Screen.width*0.7, Screen.height*0.3, Screen.width*0.2, Screen.height*0.1), "Armor Level")) {
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).bossCounter = 2;
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel();
 	}
 	
-		if(GUI.Button (Rect (Screen.width*0.1, Screen.height*0.7, Screen.width*0.2, Screen.height*0.1), "Bob")) {
+	/*if(GUI.Button (Rect (Screen.width*0.1, Screen.height*0.7, Screen.width*0.2, Screen.height*0.1), "Bob")) {
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).bossCounter = 0;
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextBoss();
 	}
@@ -73,5 +76,5 @@ function OnGUI() {
 	if(GUI.Button (Rect (Screen.width*0.7, Screen.height*0.7, Screen.width*0.2, Screen.height*0.1), "Joe")) {
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).bossCounter = 2;
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextBoss();
-	}
+	}*/
 }
