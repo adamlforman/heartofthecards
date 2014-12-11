@@ -135,6 +135,19 @@ function takeDamage(damage : float, magic : boolean){
 	}
 }
 
+function takePeriodicDamage(damage : float, magic : boolean){ 	// Periodic damage doesn't interact with invulnerability
+	if(invulnerable<=0){
+		if(magic){
+			curHealth -= (damage);
+			damageText(damage);
+		}
+		else {
+			curHealth -= (damage-armor);
+			damageText(damage-armor);
+		}
+	}
+}
+
 function addHealth(health : float) {
 	curHealth += health;
 	if (curHealth > maxHealth) {
@@ -165,7 +178,7 @@ function damageText(damage : int){
 
 function processDebuffs() {
 	if (poisonCounter > 0 && poisonTimer <= 0) {
-		takeDamage(5, true);
+		takePeriodicDamage(5, true);
 		poisonCounter--;
 		poisonTimer = 1;
 	}

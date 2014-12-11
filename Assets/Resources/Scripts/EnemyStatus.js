@@ -206,6 +206,19 @@ function takeDamage(damage : float, magic : boolean){
 	adjustHealth();
 }
 
+function takePeriodicDamage(damage : float, magic : boolean){ 	// Periodic damage doesn't interact with invulnerability
+	if(invulnerable<=0){
+		if(magic){
+			curHealth -= (damage);
+			damageText(damage);
+		}
+		else {
+			curHealth -= (damage-armor);
+			damageText(damage-armor);
+		}
+	}
+}
+
 function damageText(damage : int){
 	var damageObject = new GameObject("DamageText");
 	//damageObject.transform.parent = this.transform;
@@ -229,7 +242,7 @@ function damageText(damage : int){
 
 function processDebuffs() {
 	if (poisonCounter > 0 && poisonTimer <= 0) {
-		takeDamage(5, true);
+		takePeriodicDamage(5, true);
 		poisonCounter--;
 		poisonTimer = 1;
 	}
