@@ -7,17 +7,23 @@ var charging : boolean;
 var shooting : boolean;
 var shrinking : boolean;
 var tired : boolean;
+var puffing : boolean;
+var megaPuff : boolean;
+var knockedAlready : boolean;
 var targetInRange : boolean;	// True if player is in boss's trigger Collider (slightly larger than boss)
 
 var tiredTimer : float;
 var growTimer : float;
 var shrinkTimer : float;
 var shootTimer : float;
+var puffTimer : float;
+var megaTimer : float;
 
 var baseSize : Vector2;
 var goalSize : Vector2;
 var bigSize : Vector2;
 var smallSize : Vector2;
+var biggerSize : Vector2;
 
 var chargeSpeed : float;
 
@@ -31,6 +37,7 @@ function init(target : GameObject, spellbook : EnemySpellbook) {
 	this.goalSize = baseSize;
 	this.bigSize = Vector2(3,3);
 	this.smallSize = Vector2(1.5,1.5);
+	this.biggerSize = Vector2(5,5);
 
 	chargeSpeed = 5;
 	
@@ -88,6 +95,9 @@ function FixedUpdate() {
 		if (charging) {
 			transform.Translate(Vector2(0,1)*chargeSpeed*Time.deltaTime);
 		}
+		if (megaPuff) {
+		
+		}
 	}
 }
 
@@ -104,6 +114,18 @@ function OnTriggerEnter2D(other : Collider2D) {
 			tired = true;
 			tiredTimer = 5;
 			goalSize = baseSize;
+		}
+	}
+	else if (megaPuff) {
+		if (other.name == "Player") {
+			targetInRange = true;
+			if (other.gameObject.GetComponent(PlayerStatus)) {
+				if(!(other.GetComponent(PlayerStatus).getBlock())){
+					other.gameObject.GetComponent(PlayerStatus).takeDamage(20,false);
+					other.GetComponent(PlayerMove).knockback(2,transform.position);
+					knockedAlready = true;
+				}
+			}
 		}
 	}
 	else {
@@ -134,7 +156,7 @@ function face(location : Vector2) {						// THIS IS A USEFUL FUNCTION
 
 function newAttack() {
 
-	if (Vector2.Distance(transform.position,target.transform.position)) {
+	if (Vector2.Distance(transform.position,target.transform.position) > 3) {
 		if (target.GetComponent(PlayerStatus).stunned > 0) {
 			growing = true;
 			goalSize = bigSize;
@@ -157,8 +179,8 @@ function newAttack() {
 		}
 		else {
 			goalSize = smallSize;
-			shrinking = true;
-			shrinkTimer = 2;
+			puffing = true;
+			puffTimer = 2;
 		}
 	}
 }
@@ -171,6 +193,8 @@ function incrementTimers() {
 	growTimer -= tick;
 	tiredTimer -= tick;
 	shootTimer -= tick;
+	puffTimer -= tick;
+	megaTimer -= tick;
 }
 
 function triggerStuff() {
@@ -179,13 +203,44 @@ function triggerStuff() {
 		charging = true;
 		if (targetInRange) {
 			if (target.gameObject.GetComponent(PlayerStatus)) {
-				target.gameObject.GetComponent(PlayerStatus).takeDamage(25,false);
+				if(!(target.GetComponent(PlayerStatus).getBlock())){
+					target.gameObject.GetComponent(PlayerStatus).takeDamage(20,false);
+					if (!knockedAlready) {
+						target.GetComponent(PlayerMove).knockback(2,transform.position);
+						knockedAlready = true;
+					}
+				}
 			}
 		}
 	}
 	if (shrinkTimer <= 0 && shrinking) {
 		shrinking = false;
 		shooting = true;
+	}
+	if (puffTimer <= 0 && puffing) {
+		gameObject.GetComponentInChildren(BossModel).renderer.material.color = Color(1,0.5,0.5);
+		puffing = false;
+		goalSize = biggerSize;
+		megaPuff = true;
+		megaTimer = 4;
+		if (targetInRange) {
+			if (target.gameObject.GetComponent(PlayerStatus)) {
+				target.gameObject.GetComponent(PlayerStatus).takeDamage(20,false);
+			}
+			if(!(target.GetComponent(PlayerStatus).getBlock())){
+				if (!knockedAlready) {
+					target.GetComponent(PlayerMove).knockback(2,transform.position);
+					knockedAlready = true;
+				}
+			}
+		}
+	}
+	if (megaTimer <= 0 && megaPuff) {
+		tired = true;
+		tiredTimer = 1;
+		goalSize = baseSize;
+		knockedAlready = false;
+		gameObject.GetComponentInChildren(BossModel).renderer.material.color = Color(1,1,1);
 	}
 	if (tiredTimer <= 0 && tired) {
 		tired = false;

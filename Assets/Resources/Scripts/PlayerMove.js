@@ -194,7 +194,8 @@ function FixedUpdate (){
 		}
 	}
 	if (knockbackTimer > 0) {
-		transform.Translate(10*Time.deltaTime*(transform.position - knockbackPos), Space.World);
+		//Debug.Log("knockback on. remaining knockback time: "+knockbackTimer);
+		transform.Translate(10*Time.deltaTime*(transform.position - knockbackPos).normalized, Space.World);
 	}
 	else if (dodgeTimer > 0) {
 		//Debug.Log("Translating towards "+ (dodgePos));
@@ -212,6 +213,7 @@ function FixedUpdate (){
 }
 
 function knockback(distance : float, location : Vector2) {
+	//Debug.Log("Called PlayerMove.knockback("+distance+","+location+").");
 	knockbackTimer = distance * 0.1;
 	knockbackPos = location;
 }

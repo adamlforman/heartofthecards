@@ -184,13 +184,15 @@ function loadNextBoss() {
 function loadNextBoss(arg : String) {
 	lastArg = arg;
 	if (bossCounter == 0) {
+		loadLevel("charSelect");
 		nextLevel = "Bob";
 	}
 	else if (bossCounter == 1) {
+		loadLevel("charSelect");
 		nextLevel = "Fire";
 	}
 	else if (bossCounter == 2) {
+		loadLevel("charSelect");
 		nextLevel = "Joe";
 	}
-	loadNextLevel();
 }

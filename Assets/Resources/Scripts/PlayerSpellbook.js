@@ -75,7 +75,7 @@ function init(classType : String) {
 	else{
 		deck = ["blind", "blind", "blind", "pierce", "ice", "ice", "ice", "pierce", "poison", "poison", "poison", "poison", "leech", "leech", "leech", "leech", "rapid", "rapid", "rapid", "pierce"];
 		cardsOwned = deck;
-		classType = "Triangle";
+		//classType = "Triangle";
 	}
 	
 	library = deck;

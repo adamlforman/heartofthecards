@@ -22,6 +22,8 @@ function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook) {
 	exampleMesh = quadMesh;
 	invulnerable = 0;
 	
+	rigidbody2D.mass = 1000;
+	
 	Debug.Log(inType);
 	Debug.Log(PlayerStatus.classType);
 	if (inType == "Joe" && PlayerStatus.classType == "Circle"){

@@ -70,7 +70,6 @@ function spawnBoss(x : int, y : int, type : String) {
 	bossModel.SetActive(false);
 	var model = bossModel.AddComponent(BossModel);
 	model.name = "Boss Model";
-	model.init(bossObject, type);
 	bossModel.transform.parent = bossObject.transform;
 	
 	var bossMoveScript;
@@ -94,13 +93,16 @@ function spawnBoss(x : int, y : int, type : String) {
 	}
 	var bossStatusScript = bossObject.AddComponent(BossStatus);
 	var bossSpellbookScript = bossObject.AddComponent(EnemySpellbook);
-	bossSpellbookScript.init(type);
-	bossMoveScript.init(player,bossSpellbookScript);
-	bossStatusScript.init(exampleMesh,type,bossSpellbookScript);
 	
 	var rigidModel = bossObject.AddComponent(Rigidbody2D);
 	rigidModel.gravityScale = 0;
 	rigidModel.fixedAngle = true;
+	
+	
+	model.init(bossObject, type);
+	bossSpellbookScript.init(type);
+	bossMoveScript.init(player,bossSpellbookScript);
+	bossStatusScript.init(exampleMesh,type,bossSpellbookScript);
 	
 	bossModel.SetActive(true);
 	
