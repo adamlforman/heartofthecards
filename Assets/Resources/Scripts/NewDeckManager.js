@@ -121,7 +121,7 @@ function Start () {
 		cardsOwned = ShopManager.cardsOwned;
 	}
 	else{
-		cardsOwned = ["blind", "blind", "blind", "blind", "ice", "ice", "ice", "ice", "poison", "poison", "poison", "poison", "leech", "leech", "leech", "leech", "rapid", "rapid", "rapid", "rapid"];
+		cardsOwned = ["blind", "blind", "blind", "pierce", "ice", "ice", "ice", "pierce", "poison", "poison", "poison", "poison", "leech", "leech", "leech", "leech", "pierce", "rapid", "rapid", "rapid"];
 	}
 	
 
@@ -132,7 +132,7 @@ function Start () {
 		theDeck = PlayerSpellbook.library;
 	}
 	else if(NewDeckManager.theDeck == null){
-		theDeck = ["blind", "blind", "blind", "blind", "ice", "ice", "ice", "ice", "poison", "poison", "poison", "poison", "leech", "leech", "leech", "leech", "rapid", "rapid", "rapid", "rapid"];
+		theDeck = ["blind", "blind", "blind", "pierce", "pierce", "ice", "ice", "ice", "poison", "poison", "poison", "poison", "leech", "leech", "leech", "leech", "pierce", "rapid", "rapid", "rapid"];
 	}
 
 	

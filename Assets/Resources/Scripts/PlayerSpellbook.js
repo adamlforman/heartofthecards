@@ -41,6 +41,8 @@ var exampleMesh : Mesh; //Mesh so we can not create primitive objects to hold th
 
 public var classType : String;		//The class of the player (circle, square, triangle)
 
+var slot1TextOb : GameObject;		//Fuck you, our cooldowns are goddamned centered.
+var slot2TextOb : GameObject;		//Fuck you, our cooldowns are goddamned centered.
 var slot3TextOb : GameObject;		//Fuck you, our cooldowns are goddamned centered.   
 
 
@@ -71,7 +73,7 @@ function init(classType : String) {
 		deck = NewDeckManager.theDeck;
 	}
 	else{
-		deck = ["blind", "blind", "blind", "blind", "ice", "ice", "ice", "ice", "poison", "poison", "poison", "poison", "leech", "leech", "leech", "leech", "rapid", "rapid", "rapid", "rapid"];
+		deck = ["blind", "blind", "blind", "pierce", "ice", "ice", "ice", "pierce", "poison", "poison", "poison", "poison", "leech", "leech", "leech", "leech", "rapid", "rapid", "rapid", "pierce"];
 		cardsOwned = deck;
 		classType = "Triangle";
 	}
@@ -97,14 +99,14 @@ function init(classType : String) {
 	slot3TimerInt = slot3Timer;
 	
 	//Makes slot1 count down
-	var slot1TextOb = new GameObject("slot1Text");
+	slot1TextOb = new GameObject("slot1Text");
 	slot1TextOb.transform.position = Vector3(.07, .91, -1);
 	slot1Text = slot1TextOb.AddComponent(GUIText); 
 	slot1Text.text = "" + slot1TimerInt;
 	slot1Text.fontSize = Screen.height/25;
 	
 	//Makes slot2 count down
-	var slot2TextOb = new GameObject("slot2Text");
+	slot2TextOb = new GameObject("slot2Text");
 	slot2TextOb.transform.position = Vector3(.1825, .91, -1);
 	slot2Text = slot2TextOb.AddComponent(GUIText); 
 	slot2Text.text = "" + slot2TimerInt;
@@ -167,6 +169,10 @@ function Update () {
 	
 	if(slot1TimerInt>0){
 		slot1Text.text = "" + slot1TimerInt;
+		slot1TextOb.transform.position = Vector3(.07, .91, -1);
+		if(slot1TimerInt>=10){
+			slot1TextOb.transform.position = Vector3(.06, .91, -1);
+		}
 	}
 	else if(slot1Timer == -10){
 		slot1Text.text = "" + drawTimerInt;
@@ -176,6 +182,10 @@ function Update () {
 	}
 	if(slot2TimerInt>0){
 		slot2Text.text = "" + slot2TimerInt;
+		slot2TextOb.transform.position = Vector3(.1825, .91, -1);
+		if(slot2TimerInt>=10){
+			slot2TextOb.transform.position = Vector3(.1725, .91, -1);
+		}
 	}
 	else if(slot2Timer == -10){
 		if(slot1Timer == -10){
@@ -191,6 +201,9 @@ function Update () {
 	if(slot3TimerInt>0){
 		slot3Text.text = "" + slot3TimerInt;
 		slot3TextOb.transform.position = Vector3(.295, .91, -1);
+		if(slot3TimerInt>=10){
+			slot3TextOb.transform.position = Vector3(.285, .91, -1);
+		}
 	}
 	else if(slot3Timer == -10){
 		if(slot1Timer == -10 && slot2Timer == -10){
@@ -465,17 +478,17 @@ function Update () {
 		}
 		if(slot2=="boost"){
 			boost=5;
-			slot1Timer = 5;
+			slot2Timer = 5;
 			gameObject.GetComponent(PlayerMove).vrom = 5;
 		}
 		if(slot2=="boost2"){
 			boost=10;
-			slot1Timer = 10;
+			slot2Timer = 10;
 			gameObject.GetComponent(PlayerMove).vrom = 10;
 		}
 		if(slot2=="boost3"){
 			boost=15;
-			slot1Timer = 15;
+			slot2Timer = 15;
 			gameObject.GetComponent(PlayerMove).vrom = 15;
 		}
 		if(slot2=="fork"){
@@ -593,17 +606,17 @@ function Update () {
 		}
 		if(slot3=="boost"){
 			boost=5;
-			slot1Timer = 5;
+			slot3Timer = 5;
 			gameObject.GetComponent(PlayerMove).vrom = 5;
 		}
 		if(slot3=="boost2"){
 			boost=10;
-			slot1Timer = 10;
+			slot3Timer = 10;
 			gameObject.GetComponent(PlayerMove).vrom = 10;
 		}
 		if(slot3=="boost3"){
 			boost=15;
-			slot1Timer = 15;
+			slot3Timer = 15;
 			gameObject.GetComponent(PlayerMove).vrom = 15;
 		}
 		if(slot3=="fork"){
