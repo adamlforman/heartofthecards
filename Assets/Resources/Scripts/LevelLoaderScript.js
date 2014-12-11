@@ -114,7 +114,7 @@ function iterateLevel() {
 	else if (nextLevel == "procedural") {
 		floorCounter++;
 		Debug.Log("Floor Counter incremented to " + floorCounter);
-		if (floorCounter == 4) {
+		if (floorCounter == 3) {
 			if (bossCounter == 0) {
 				nextLevel = "Bob";
 			}

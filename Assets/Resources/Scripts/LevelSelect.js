@@ -49,21 +49,23 @@ function OnGUI(){
 */
 
 function OnGUI() {
-	GUI.Box(Rect(Screen.width*0.1, Screen.height*0.6, Screen.width*0.2, Screen.height*0.3), "Many enemies will be tougher than normal.  Recommend using Piercing and Poison to ignore their armor.");
-	GUI.Box(Rect(Screen.width*0.4, Screen.height*0.6, Screen.width*0.2, Screen.height*0.3), "Many enemies will be stronger than normal.  Recommend using Leech and Blind to counteract their strength.");
-	GUI.Box(Rect(Screen.width*0.7, Screen.height*0.6, Screen.width*0.2, Screen.height*0.3), "Many enemies will be quicker than normal.  Recommend using Ice and Boost to keep up qith their speed.");
-	if(GUI.Button (Rect (Screen.width*0.1, Screen.height*0.3, Screen.width*0.2, Screen.height*0.1), "Speed Level")) {
+	//GUI.Box(Rect(Screen.width*0.1, Screen.height*0.6, Screen.width*0.2, Screen.height*0.3), "Many enemies will be tougher than normal.  Recommend using Piercing and Poison to ignore their armor.");
+	//GUI.Box(Rect(Screen.width*0.4, Screen.height*0.6, Screen.width*0.2, Screen.height*0.3), "Many enemies will be stronger than normal.  Recommend using Leech and Blind to counteract their strength.");
+	//GUI.Box(Rect(Screen.width*0.7, Screen.height*0.6, Screen.width*0.2, Screen.height*0.3), "Many enemies will be quicker than normal.  Recommend using Ice and Boost to keep up qith their speed.");
+	if(GUI.Button (Rect (Screen.width*0.1, Screen.height*0.3, Screen.width*0.2, Screen.height*0.1), GUIContent("Speed Level","Many enemies will be quicker than normal.\nRecommend using Ice and Boost to keep up with their speed."))) {
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).bossCounter = 0;
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel();
 	}
-	if(GUI.Button (Rect (Screen.width*0.4, Screen.height*0.3, Screen.width*0.2, Screen.height*0.1), "Strength Level")) {
+	if(GUI.Button (Rect (Screen.width*0.4, Screen.height*0.3, Screen.width*0.2, Screen.height*0.1), GUIContent("Strength Level","Many enemies will be stronger than normal.\nRecommend using Leech and Blind to counteract their strength."))) {
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).bossCounter = 1;
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel();
 	}
-	if(GUI.Button (Rect (Screen.width*0.7, Screen.height*0.3, Screen.width*0.2, Screen.height*0.1), "Armor Level")) {
+	if(GUI.Button (Rect (Screen.width*0.7, Screen.height*0.3, Screen.width*0.2, Screen.height*0.1), GUIContent("Armor Level","Many enemies will be tougher than normal.\nRecommend using Piercing and Poison to ignore their armor."))) {
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).bossCounter = 2;
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel();
 	}
+	GUI.Box( Rect(Screen.width*0.08, Screen.height*0.575, Screen.width*0.84, Screen.height*0.2),"");
+	GUI.Label (Rect(Screen.width*0.1, Screen.height*0.6, Screen.width*0.8, Screen.height*0.3), GUI.tooltip);
 	
 	/*if(GUI.Button (Rect (Screen.width*0.1, Screen.height*0.7, Screen.width*0.2, Screen.height*0.1), "Bob")) {
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).bossCounter = 0;
