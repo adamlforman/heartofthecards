@@ -68,7 +68,7 @@ function getPrefixWeights() {
 		this.juggernaut = levelLoader.juggernaut;
 		this.raging = levelLoader.raging;
 		this.armored = levelLoader.armored;
-		
+		//print("HYPER: " + hyper + ", JUGGERNAUT: " + juggernaut + ", RAGING: " + raging + ", ARMORED: " + armored); 
 		this.curHealth = levelLoader.curHealth;
 	}
 }

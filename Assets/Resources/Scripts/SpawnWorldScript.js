@@ -105,13 +105,13 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 		prefix = "hyper";
 	}
 	else if(randTest < juggernautThreshold){
-		prefix = "armored";
+		prefix = "juggernaut";
 	}
 	else if(randTest < ragingThreshold){
 		prefix = "raging";
 	}
 	else if(randTest < armoredThreshold){
-		suffix = "juggernaut";
+		suffix = "armored";
 	}
 	
 	
