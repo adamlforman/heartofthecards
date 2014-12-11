@@ -227,3 +227,7 @@ function die() {						// Death function
 function getBlock(){
 	return isBlocking;
 }
+
+function setInvulnerable(timer : float){
+	invulnerable = timer;
+}

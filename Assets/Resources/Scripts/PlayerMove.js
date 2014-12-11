@@ -50,8 +50,8 @@ function init() {
 		baseSpeedBackward = 2.75;
 	}
 	if(gameObject.GetComponent(PlayerSpellbook).getType() == "Triangle"){
-		baseSpeedForward = 4.5;
-		baseSpeedBackward = 2.5;
+		baseSpeedForward = 5.5;
+		baseSpeedBackward = 3.5;
 	}
 
 }
@@ -181,6 +181,7 @@ function FixedUpdate (){
 	if (dodge > 0 && dodgeCooldown <= 0 && dodgeTimer <= 0 && cantMove <= 0 && !stunned) {
 		dodgeCooldown = 3;
 		dodgeTimer = 0.2;
+		gameObject.GetComponent(PlayerStatus).setInvulnerable(0.2);
 		if (Mathf.Abs(moveY) > 0.1 || Mathf.Abs(moveX) > 0.1) {
 			dodgePos = Vector3(moveX, moveY, 0);
 			dodgePos = dodgePos.normalized;
