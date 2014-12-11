@@ -43,7 +43,7 @@ var normalSpell : String;
 var specialSpell : String;
 var badSpell : String;
 
-private var audioS: AudioSource; 
+//private var audioS: AudioSource; 
 
 function Awake () {
 	var levelLoader = new GameObject();
@@ -65,10 +65,10 @@ function Start () {
 	background.renderer.material.shader = Shader.Find ("Diffuse");	
 	background.transform.localScale = Vector3(13.8,10,1);					// Tell the renderer that our textures have transparency. 
 	
-    audioS = gameObject.AddComponent(AudioSource);
-    audioS.clip = Resources.Load("Sounds/shopmusic");
- 	audioS.Play();
-    audioS.loop = true;
+    //audioS = gameObject.AddComponent(AudioSource);
+    //audioS.clip = Resources.Load("Sounds/shopmusic");
+ 	//audioS.Play();
+    //audioS.loop = true;
     
 	normalSpell = "/4";
 	specialSpell = "/1";
@@ -414,18 +414,18 @@ function OnGUI() {
 		}
 	}*/
 	else if (GUI.Button(Rect(Screen.width/3,Screen.height/1.2,Screen.width*0.30,Screen.height*0.10),"Go to Deck Building!")) {
-		audioS.loop = false;
-        audioS.Stop();
+		//audioS.loop = false;
+        //audioS.Stop();
         GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel();
 	}
 	else if (GUI.Button(Rect(Screen.width/8,Screen.height/1.2,Screen.width*0.10,Screen.height*0.10),"<---")) {
-		audioS.loop = false;
-        audioS.Stop();
+		//audioS.loop = false;
+        //audioS.Stop();
         GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("shop");
 	}
 	else if (GUI.Button(Rect(Screen.width*6/8,Screen.height/1.2,Screen.width*0.10,Screen.height*0.10),"--->")) {
-		audioS.loop = false;
-        audioS.Stop();
+		//audioS.loop = false;
+        //audioS.Stop();
         GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadLevel("shop3");
 	}
 }

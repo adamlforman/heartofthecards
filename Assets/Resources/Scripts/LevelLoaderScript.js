@@ -9,8 +9,13 @@ public var armored : float;
 
 public var curHealth : float;
 
+private var playingShop : boolean;
+private var playingBoss : boolean;
+
 var floorCounter : int;
 var bossCounter : int;
+
+private var audioS: AudioSource; 
 
 function init() {
 	hyper = 0;
@@ -25,6 +30,9 @@ function init() {
 	
 	nextLevel = Application.loadedLevelName;
 	iterateLevel();
+	
+	audioS = gameObject.AddComponent(AudioSource);
+
 }
 
 function loadLevel(level : String) {
@@ -48,7 +56,26 @@ function loadNextLevel() {
 	loadNextLevel(null);
 }
 
-function loadNextLevel(arg : String) {
+function loadNextLevel(arg : String) {	
+	if (nextLevel != "procedural" && !audioS.isPlaying) {
+		if (nextLevel != "Bob" && nextLevel != "Fire" && nextLevel != "Joe") {	
+    		audioS.clip = Resources.Load("Sounds/adamshopmusic");
+    		playingShop = true;
+
+		}
+		else {
+    		audioS.clip = Resources.Load("Sounds/adambossmusic");
+    		playingBoss = true;
+		}
+		audioS.Play();
+    	audioS.loop = true;
+	}
+	if (nextLevel == "procedural" || (playingBoss && (nextLevel == "levelSelect" || nextLevel == "shop"))) {
+		audioS.loop = false;
+		audioS.Stop();
+		playingShop = false;
+		playingBoss = false;
+	}
 	if (arg != null) {
 		lastArg = arg;
 	}
