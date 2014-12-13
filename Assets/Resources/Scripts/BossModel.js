@@ -6,9 +6,6 @@ function init(o : GameObject, texture : String) {
 	
 	transform.parent = owner.transform;
 	transform.localPosition = Vector3(0,0,0);
-	if (texture == "Joe" && !transform.parent.gameObject.GetComponent(JoeController).ranged) {
-		texture = "Enemy Warrior";
-	}
 	renderer.material.mainTexture = Resources.Load("Textures/"+texture,Texture2D);
 	renderer.material.color = Color(1,1,1);
 	if (texture == "Fire") {

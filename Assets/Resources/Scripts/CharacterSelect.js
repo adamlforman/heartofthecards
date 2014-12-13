@@ -53,6 +53,4 @@ function OnGUI() {
 	if(GUI.Button (Rect (Screen.width*0.6, Screen.height*0.3, Screen.width*0.3, Screen.height*0.4), triangle)) {
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextLevel("Triangle");
 	}
-	GUI.Box (Rect (Screen.width*0.1, Screen.height*0.3, Screen.width*0.3, Screen.height*0.4), "Warrior");
-	GUI.Box (Rect (Screen.width*0.6, Screen.height*0.3, Screen.width*0.3, Screen.height*0.4), "Archer");
 }
