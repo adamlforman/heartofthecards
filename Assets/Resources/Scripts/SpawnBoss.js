@@ -99,10 +99,10 @@ function spawnBoss(x : int, y : int, type : String) {
 	rigidModel.fixedAngle = true;
 	
 	
-	model.init(bossObject, type);
 	bossSpellbookScript.init(type);
 	bossMoveScript.init(player,bossSpellbookScript);
 	bossStatusScript.init(exampleMesh,type,bossSpellbookScript);
+	model.init(bossObject, type);
 	
 	bossModel.SetActive(true);
 	

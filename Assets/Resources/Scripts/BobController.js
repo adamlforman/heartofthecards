@@ -122,7 +122,7 @@ function OnTriggerEnter2D(other : Collider2D) {
 			if (other.gameObject.GetComponent(PlayerStatus)) {
 				if(!(other.GetComponent(PlayerStatus).getBlock())){
 					other.gameObject.GetComponent(PlayerStatus).takeDamage(20,false);
-					other.GetComponent(PlayerMove).knockback(2,transform.position);
+					other.GetComponent(PlayerMove).knockback(4,transform.position);
 					knockedAlready = true;
 				}
 			}
@@ -206,7 +206,7 @@ function triggerStuff() {
 				if(!(target.GetComponent(PlayerStatus).getBlock())){
 					target.gameObject.GetComponent(PlayerStatus).takeDamage(20,false);
 					if (!knockedAlready) {
-						target.GetComponent(PlayerMove).knockback(2,transform.position);
+						target.GetComponent(PlayerMove).knockback(4,transform.position);
 						knockedAlready = true;
 					}
 				}
@@ -229,7 +229,7 @@ function triggerStuff() {
 			}
 			if(!(target.GetComponent(PlayerStatus).getBlock())){
 				if (!knockedAlready) {
-					target.GetComponent(PlayerMove).knockback(2,transform.position);
+					target.GetComponent(PlayerMove).knockback(4,transform.position);
 					knockedAlready = true;
 				}
 			}

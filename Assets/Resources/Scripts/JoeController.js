@@ -4,7 +4,7 @@ var spellbook : EnemySpellbook;
 
 var baseSpeed : float;
 
-var ranged : boolean;
+public var ranged : boolean;
 
 var strafeSwitch : float;
 var movingLeft : boolean;
