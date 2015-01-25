@@ -68,7 +68,7 @@ function OnGUI() {
 	}
 	GUI.Box( Rect(Screen.width*0.08, Screen.height*0.575, Screen.width*0.84, Screen.height*0.2),"");
 	GUI.Label (Rect(Screen.width*0.1, Screen.height*0.6, Screen.width*0.8, Screen.height*0.3), GUI.tooltip);
-	
+	/*
 	if(GUI.Button (Rect (Screen.width*0.1, Screen.height*0.7, Screen.width*0.2, Screen.height*0.1), "Bob")) {
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).bossCounter = 0;
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextBoss();
@@ -80,5 +80,5 @@ function OnGUI() {
 	if(GUI.Button (Rect (Screen.width*0.7, Screen.height*0.7, Screen.width*0.2, Screen.height*0.1), "Joe")) {
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).bossCounter = 2;
 		GameObject.Find("Level Loader").GetComponent(LevelLoaderScript).loadNextBoss();
-	}
+	}*/
 }
