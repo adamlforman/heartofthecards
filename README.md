@@ -1,4 +1,4 @@
 heartofthecards
 ===============
 
-FUCK YOU AND YUR CONVENTIONS
+Shape Escape - a Unity Game
