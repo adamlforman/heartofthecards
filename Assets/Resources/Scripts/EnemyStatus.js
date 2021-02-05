@@ -79,7 +79,7 @@ function init (quadMesh : Mesh, inType : String, spellbook : EnemySpellbook, pre
 	
 	healthBar = GameObject.CreatePrimitive(PrimitiveType.Quad);		// Enemies have healthbars
 	healthBar.transform.parent = transform;							// We're going to override the position updates, but this makes the hierarchy not look terrifying
-	healthBar.renderer.material.color = Color(0.8,0,0);				// enemy health bars are red
+	healthBar.GetComponent.<Renderer>().material.color = Color(0.8,0,0);				// enemy health bars are red
 	healthBar.transform.localPosition = Vector2(0,0.7);				// and are slightly above their characters' heads
 	healthBar.name = "Health Bar";
 	
@@ -232,9 +232,9 @@ function damageText(damage : int){
 	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
 	damageObject.AddComponent(MeshRenderer); //Add a renderer for textures
 	var textureName = "Textures/"+damage; //Get the texture name with texture folder
-	damageObject.renderer.material.mainTexture = Resources.Load(textureName, Texture2D); //Set the texture.  Must be in Resources folder.
-	damageObject.renderer.material.color = Color(1,0,0); //Set the color (easy way to tint things).
-	damageObject.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+	damageObject.GetComponent.<Renderer>().material.mainTexture = Resources.Load(textureName, Texture2D); //Set the texture.  Must be in Resources folder.
+	damageObject.GetComponent.<Renderer>().material.color = Color(1,0,0); //Set the color (easy way to tint things).
+	damageObject.GetComponent.<Renderer>().material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
 	
 	Destroy(damageObject, 1);
 
@@ -269,9 +269,9 @@ function die() {						// How to die: a manual
 	meshFilter.mesh = exampleMesh; //Give the mesh filter a quadmesh
 	moneyObject.AddComponent(MeshRenderer); //Add a renderer for textures
 	var textureName = "Textures/money50"; //Get the texture name with texture folder
-	moneyObject.renderer.material.mainTexture = Resources.Load(textureName, Texture2D); //Set the texture.  Must be in Resources folder.
-	moneyObject.renderer.material.color = Color(1,1,1); //Set the color (easy way to tint things).
-	moneyObject.renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+	moneyObject.GetComponent.<Renderer>().material.mainTexture = Resources.Load(textureName, Texture2D); //Set the texture.  Must be in Resources folder.
+	moneyObject.GetComponent.<Renderer>().material.color = Color(1,1,1); //Set the color (easy way to tint things).
+	moneyObject.GetComponent.<Renderer>().material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
 	GameObject.Destroy(gameObject);		// Stop existing. the end.
 	Destroy(moneyObject, .5);
 }

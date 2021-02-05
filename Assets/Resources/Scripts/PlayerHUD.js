@@ -59,7 +59,7 @@ function init(cam : Camera, player : GameObject) {
 	healthbarBgOb.transform.parent = cam.transform;															// Makes child of cam
 	healthbarBgOb.transform.localPosition = Vector3(-cam.orthographicSize, cam.orthographicSize*0.9,10);	// Position in top center
 	healthbarBgOb.transform.localScale = Vector3(4.2,0.7,1);
-	healthbarBgOb.renderer.material.color = Color(0,0,0);
+	healthbarBgOb.GetComponent.<Renderer>().material.color = Color(0,0,0);
 	healthbarBgOb.name = "Health Bar background";															// names still good
 	
 	healthTextOb = new GameObject();									// health text object
@@ -67,10 +67,10 @@ function init(cam : Camera, player : GameObject) {
 	healthTextOb.transform.parent = cam.transform;
 	healthTextOb.transform.localPosition = Vector3(0, cam.orthographicSize*0.95,10);				// positioned directly over healthbar (window position)
 	healthTextOb.AddComponent(GUIText);									// add GUIText
-	healthTextOb.guiText.anchor = TextAnchor.MiddleCenter;				// which is centered
-	healthTextOb.guiText.fontSize = 24;									// legibly large
-	healthTextOb.guiText.fontStyle = FontStyle.Bold;					// bold
-	healthTextOb.guiText.font = Resources.Load("Arial",Font);			// and has a font
+	healthTextOb.GetComponent.<GUIText>().anchor = TextAnchor.MiddleCenter;				// which is centered
+	healthTextOb.GetComponent.<GUIText>().fontSize = 24;									// legibly large
+	healthTextOb.GetComponent.<GUIText>().fontStyle = FontStyle.Bold;					// bold
+	healthTextOb.GetComponent.<GUIText>().font = Resources.Load("Arial",Font);			// and has a font
 	
 	
 	slot1Texture = "Textures/" + PlayerSpellbook.slot1;		//Copies slot 1 from spellbook.
@@ -99,9 +99,9 @@ function init(cam : Camera, player : GameObject) {
 	slot1Glow.transform.parent = slot1Ob.transform;														//Parent the border to the slot.
 	slot1Glow.transform.localPosition = Vector3(0, 0, 1);												//Center it on its parent
 	slot1Glow.transform.localScale = Vector3(1.5, 1.5, 1);												//Scale it up to be bigger than parent
-	slot1Glow.renderer.material.mainTexture = Resources.Load("Textures/BACK", Texture2D);				// Set the texture.  Must be in Resources folder.
-	slot1Glow.renderer.material.color = Color(0,0,0);													// Set the color to black.
-	slot1Glow.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
+	slot1Glow.GetComponent.<Renderer>().material.mainTexture = Resources.Load("Textures/BACK", Texture2D);				// Set the texture.  Must be in Resources folder.
+	slot1Glow.GetComponent.<Renderer>().material.color = Color(0,0,0);													// Set the color to black.
+	slot1Glow.GetComponent.<Renderer>().material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 	
 	//Makes Slot 1 Timer Background
 	slot1Timer = new GameObject();										//Create the first game object's border
@@ -111,9 +111,9 @@ function init(cam : Camera, player : GameObject) {
 	slot1Timer.transform.parent = slot1Ob.transform;														//Parent the border to the slot.
 	slot1Timer.transform.localPosition = Vector3(0.5, -0.5, -1);												//Center it on its parent
 	slot1Timer.transform.localScale = Vector3(0.5, 0.5, 1);												//Scale it up to be bigger than parent
-	slot1Timer.renderer.material.mainTexture = Resources.Load("Textures/BLACK", Texture2D);				// Set the texture.  Must be in Resources folder.
-	slot1Timer.renderer.material.color = Color(0,0,0);													// Set the color to black.
-	slot1Timer.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
+	slot1Timer.GetComponent.<Renderer>().material.mainTexture = Resources.Load("Textures/BLACK", Texture2D);				// Set the texture.  Must be in Resources folder.
+	slot1Timer.GetComponent.<Renderer>().material.color = Color(0,0,0);													// Set the color to black.
+	slot1Timer.GetComponent.<Renderer>().material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 	
 	//Makes Slot 2
 	slot2Ob = new GameObject();												//Create the first game object
@@ -134,9 +134,9 @@ function init(cam : Camera, player : GameObject) {
 	slot2Glow.transform.parent = slot2Ob.transform;														//Parent the border to the slot.
 	slot2Glow.transform.localPosition = Vector3(0, 0, 1);												//Center it on its parent
 	slot2Glow.transform.localScale = Vector3(1.5, 1.5, 1);												//Scale it up to be bigger than parent
-	slot2Glow.renderer.material.mainTexture = Resources.Load("Textures/BACK", Texture2D);				// Set the texture.  Must be in Resources folder.
-	slot2Glow.renderer.material.color = Color(0,0,0);													// Set the color to black.
-	slot2Glow.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
+	slot2Glow.GetComponent.<Renderer>().material.mainTexture = Resources.Load("Textures/BACK", Texture2D);				// Set the texture.  Must be in Resources folder.
+	slot2Glow.GetComponent.<Renderer>().material.color = Color(0,0,0);													// Set the color to black.
+	slot2Glow.GetComponent.<Renderer>().material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 	
 	//Makes Slot 2 Timer Background
 	slot2Timer = new GameObject();	
@@ -146,9 +146,9 @@ function init(cam : Camera, player : GameObject) {
 	slot2Timer.transform.parent = slot2Ob.transform;														//Parent the border to the slot.
 	slot2Timer.transform.localPosition = Vector3(0.5, -0.5, -1);												//Center it on its parent
 	slot2Timer.transform.localScale = Vector3(0.5, 0.5, 1);												//Scale it up to be bigger than parent
-	slot2Timer.renderer.material.mainTexture = Resources.Load("Textures/BLACK", Texture2D);				// Set the texture.  Must be in Resources folder.
-	slot2Timer.renderer.material.color = Color(0,0,0);													// Set the color to black.
-	slot2Timer.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
+	slot2Timer.GetComponent.<Renderer>().material.mainTexture = Resources.Load("Textures/BLACK", Texture2D);				// Set the texture.  Must be in Resources folder.
+	slot2Timer.GetComponent.<Renderer>().material.color = Color(0,0,0);													// Set the color to black.
+	slot2Timer.GetComponent.<Renderer>().material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 	
 	//Makes Slot 3
 	slot3Ob = new GameObject();													//Create the first game object
@@ -169,9 +169,9 @@ function init(cam : Camera, player : GameObject) {
 	slot3Glow.transform.parent = slot3Ob.transform;														//Parent the border to the slot.
 	slot3Glow.transform.localPosition = Vector3(0, 0, 1);												//Center it on its parent
 	slot3Glow.transform.localScale = Vector3(1.5, 1.5, 1);												//Scale it up to be bigger than parent
-	slot3Glow.renderer.material.mainTexture = Resources.Load("Textures/BACK", Texture2D);				// Set the texture.  Must be in Resources folder.
-	slot3Glow.renderer.material.color = Color(0,0,0);													// Set the color to black.
-	slot3Glow.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
+	slot3Glow.GetComponent.<Renderer>().material.mainTexture = Resources.Load("Textures/BACK", Texture2D);				// Set the texture.  Must be in Resources folder.
+	slot3Glow.GetComponent.<Renderer>().material.color = Color(0,0,0);													// Set the color to black.
+	slot3Glow.GetComponent.<Renderer>().material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 	
 	//Makes Slot 2 Timer Background
 	slot3Timer = new GameObject();												//Create the first game object's border
@@ -181,9 +181,9 @@ function init(cam : Camera, player : GameObject) {
 	slot3Timer.transform.parent = slot3Ob.transform;														//Parent the border to the slot.
 	slot3Timer.transform.localPosition = Vector3(0.5, -0.5, -1);												//Center it on its parent
 	slot3Timer.transform.localScale = Vector3(0.5, 0.5, 1);												//Scale it up to be bigger than parent
-	slot3Timer.renderer.material.mainTexture = Resources.Load("Textures/BLACK", Texture2D);				// Set the texture.  Must be in Resources folder.
-	slot3Timer.renderer.material.color = Color(0,0,0);													// Set the color to black.
-	slot3Timer.renderer.material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
+	slot3Timer.GetComponent.<Renderer>().material.mainTexture = Resources.Load("Textures/BLACK", Texture2D);				// Set the texture.  Must be in Resources folder.
+	slot3Timer.GetComponent.<Renderer>().material.color = Color(0,0,0);													// Set the color to black.
+	slot3Timer.GetComponent.<Renderer>().material.shader = Shader.Find ("Transparent/Diffuse");							// Tell the renderer that our textures have transparency.
 
 	//Makes Key
 	keyOb = new GameObject();													//Create the first game object
@@ -241,49 +241,49 @@ function Update () {
 	}
 	// high health bars are green
 	if (healthPercent > 0.5) {
-		healthbarOb.renderer.material.color = Color(0,.8,0);
+		healthbarOb.GetComponent.<Renderer>().material.color = Color(0,.8,0);
 	}
 	// medium is yellow
 	else if (healthPercent > 0.2) {
-		healthbarOb.renderer.material.color = Color(.8,.8,0);
+		healthbarOb.GetComponent.<Renderer>().material.color = Color(.8,.8,0);
 	}
 	// low is red
 	else {
-		healthbarOb.renderer.material.color = Color(.8,0,0);
+		healthbarOb.GetComponent.<Renderer>().material.color = Color(.8,0,0);
 	}
 	healthbarOb.transform.localScale = Vector3(healthPercent*4f, 0.5,1);														// Shrink the healthbar with lost health
 	healthbarOb.transform.localPosition = Vector3(-(1-healthPercent)*2, cam.orthographicSize*0.9, 10);	// And reposition it so it appears to be shrinking straight left
 	healthbarBgOb.transform.localPosition = Vector3(0, cam.orthographicSize*0.9, 11);											// Make sure the background tracks the camera
 	healthTextOb.transform.localPosition = Vector3(0, cam.orthographicSize*0.95,9);
-	healthTextOb.guiText.text = curHealth + " / " + maxHealth;			// update health text
+	healthTextOb.GetComponent.<GUIText>().text = curHealth + " / " + maxHealth;			// update health text
 	
 	if(PlayerSpellbook.slot1Timer>0){									
-		slot1Glow.renderer.material.color = Color(0.42, 0.79, 0.89);		//Set the border to glow light blue
+		slot1Glow.GetComponent.<Renderer>().material.color = Color(0.42, 0.79, 0.89);		//Set the border to glow light blue
 	}
 	if(PlayerSpellbook.slot1Timer<= 0){									
-		slot1Glow.renderer.material.color = Color(0, 0, 0);					//Set it back to white
+		slot1Glow.GetComponent.<Renderer>().material.color = Color(0, 0, 0);					//Set it back to white
 	}
 	
 	if(PlayerSpellbook.slot2Timer>0){									
-		slot2Glow.renderer.material.color = Color(0.42, 0.79, 0.89);		//Set the border to glow light blue
+		slot2Glow.GetComponent.<Renderer>().material.color = Color(0.42, 0.79, 0.89);		//Set the border to glow light blue
 	}
 	if(PlayerSpellbook.slot2Timer<= 0){									
-		slot2Glow.renderer.material.color = Color(0, 0, 0);					//Set it back to white
+		slot2Glow.GetComponent.<Renderer>().material.color = Color(0, 0, 0);					//Set it back to white
 	}
 	
 	if(PlayerSpellbook.slot3Timer>0){									
-		slot3Glow.renderer.material.color = Color(0.42, 0.79, 0.89);		//Set the border to glow light blue
+		slot3Glow.GetComponent.<Renderer>().material.color = Color(0.42, 0.79, 0.89);		//Set the border to glow light blue
 	}
 	if(PlayerSpellbook.slot3Timer<= 0){									
-		slot3Glow.renderer.material.color = Color(0, 0, 0);						//Set it back to white
+		slot3Glow.GetComponent.<Renderer>().material.color = Color(0, 0, 0);						//Set it back to white
 	}
 }
 
 //Loads the inputed texture name onto the model.
 function loadTexture(textureName : String, model : GameObject){
-	model.renderer.material.mainTexture = Resources.Load(textureName, Texture2D);				// Set the texture.  Must be in Resources folder.
-	model.renderer.material.color = Color(1,1,1);												// Set the color (easy way to tint things).
-	model.renderer.material.shader = Shader.Find ("Transparent/Diffuse");						// Tell the renderer that our textures have transparency.
+	model.GetComponent.<Renderer>().material.mainTexture = Resources.Load(textureName, Texture2D);				// Set the texture.  Must be in Resources folder.
+	model.GetComponent.<Renderer>().material.color = Color(1,1,1);												// Set the color (easy way to tint things).
+	model.GetComponent.<Renderer>().material.shader = Shader.Find ("Transparent/Diffuse");						// Tell the renderer that our textures have transparency.
 }
 
 //Creates a blue box the appear behind the given object.

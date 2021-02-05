@@ -85,7 +85,7 @@ function init (circCol : CircleCollider2D, quadMesh : Mesh, inType : String, spe
 	
 	theCollider = circCol;
 	size = theCollider.radius;
-	center = theCollider.center;
+	center = theCollider.offset;
 }
 
 function setValues (type : String) {		// ENEMY STATS BY CLASS

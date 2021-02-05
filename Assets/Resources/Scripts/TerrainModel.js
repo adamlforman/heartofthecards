@@ -13,13 +13,13 @@ function init(o : TerrainScript, t : String) {
 	
 	
 	textureName = "Textures/"+terrainType; //Get the texture name with texture folder
-	renderer.material.mainTexture = Resources.Load(textureName, Texture2D); //Set the texture.  Must be in Resources folder.
-	renderer.material.color = Color(1,1,1); //Set the color (easy way to tint things).
-	renderer.material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
+	GetComponent.<Renderer>().material.mainTexture = Resources.Load(textureName, Texture2D); //Set the texture.  Must be in Resources folder.
+	GetComponent.<Renderer>().material.color = Color(1,1,1); //Set the color (easy way to tint things).
+	GetComponent.<Renderer>().material.shader = Shader.Find ("Transparent/Diffuse"); //Tell the renderer that our textures have transparency. 
 }
 
 function setColor(newColor : Color) {
-	renderer.material.color = newColor;
+	GetComponent.<Renderer>().material.color = newColor;
 }
 
 

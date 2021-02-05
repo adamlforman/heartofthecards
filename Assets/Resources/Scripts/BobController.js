@@ -218,7 +218,7 @@ function triggerStuff() {
 		shooting = true;
 	}
 	if (puffTimer <= 0 && puffing) {
-		gameObject.GetComponentInChildren(BossModel).renderer.material.color = Color(1,0.5,0.5);
+		gameObject.GetComponentInChildren(BossModel).GetComponent.<Renderer>().material.color = Color(1,0.5,0.5);
 		puffing = false;
 		goalSize = biggerSize;
 		megaPuff = true;
@@ -241,7 +241,7 @@ function triggerStuff() {
 		tiredTimer = 4;
 		goalSize = baseSize;
 		knockedAlready = false;
-		gameObject.GetComponentInChildren(BossModel).renderer.material.color = Color(1,1,1);
+		gameObject.GetComponentInChildren(BossModel).GetComponent.<Renderer>().material.color = Color(1,1,1);
 	}
 	if (tiredTimer <= 0 && tired) {
 		tired = false;

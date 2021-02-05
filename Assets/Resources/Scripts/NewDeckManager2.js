@@ -76,8 +76,8 @@ function Awake () {
 function Start () {
 
 	var background = new GameObject().CreatePrimitive(PrimitiveType.Quad);
-	background.renderer.material.mainTexture = Resources.Load("Textures/shop",Texture2D); //Set the texture.  Must be in Resources folder
-	background.renderer.material.shader = Shader.Find ("Diffuse");	
+	background.GetComponent.<Renderer>().material.mainTexture = Resources.Load("Textures/shop",Texture2D); //Set the texture.  Must be in Resources folder
+	background.GetComponent.<Renderer>().material.shader = Shader.Find ("Diffuse");	
 	background.transform.localScale = Vector3(13.8,10,1);					// Tell the renderer that our textures have transparency. 
 	
 	normalSpell = "/4";

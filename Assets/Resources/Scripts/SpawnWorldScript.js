@@ -155,7 +155,7 @@ function spawnEnemy(x: float, y: float, name: String, type: String) { //I DON'T 
 	enemyStatusScript.init(exampleMesh,type,enemySpellbookScript, prefix, suffix);
 	//enemyStatusScript.transform.parent = enemiesParent.transform; //Gives it a parent in hierarchy pane
 	
-	enemyModel.renderer.material.color = Color(1,0,0);		//Make the enemy red.
+	enemyModel.GetComponent.<Renderer>().material.color = Color(1,0,0);		//Make the enemy red.
 	enemyModel.SetActive(true);								//Turn on the object.
 	
 	

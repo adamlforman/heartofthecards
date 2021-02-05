@@ -9,8 +9,8 @@ function init(o : GameObject) {
 	transform.localRotation = Quaternion.identity;
 	transform.localScale = Vector3(1,1,1);		// Scale the object to the parent
 	
-	renderer.material.color = Color(1,1,1);												// Set the color (easy way to tint things).
-	renderer.material.shader = Shader.Find ("Transparent/Diffuse");						// Tell the renderer that our textures have transparency.
+	GetComponent.<Renderer>().material.color = Color(1,1,1);												// Set the color (easy way to tint things).
+	GetComponent.<Renderer>().material.shader = Shader.Find ("Transparent/Diffuse");						// Tell the renderer that our textures have transparency.
 	
 	if(owner.name == "Explosion"){
 		textureName = "Textures/EXPLOSION";
@@ -20,7 +20,7 @@ function init(o : GameObject) {
 	}
 	else if(owner.name == "Enemy Shot"){
 		textureName = "Textures/ARCHER";					//Set the name of the texture path
-		renderer.material.color = Color(1,0,0);												// Set the color (easy way to tint things).
+		GetComponent.<Renderer>().material.color = Color(1,0,0);												// Set the color (easy way to tint things).
 	}
 	else if(owner.name == "Sword"){
 		textureName = "Textures/SWORD";					//Set the name of the texture path
@@ -30,7 +30,7 @@ function init(o : GameObject) {
 	}
 	else if(owner.name == "Enemy Fist"){
 		textureName = "Textures/Fist";					//Set the name of the texture path
-		renderer.material.color = Color(1,0,0);												// Set the color (easy way to tint things).
+		GetComponent.<Renderer>().material.color = Color(1,0,0);												// Set the color (easy way to tint things).
 
 	}
 	else if(owner.name == "Enemy Comet"){
@@ -44,7 +44,7 @@ function init(o : GameObject) {
 	}
 	else if(owner.name == "Enemy Magma") {
 		textureName = "Textures/Comet";
-		renderer.material.color = Color(0.8,0.1,0.1);
+		GetComponent.<Renderer>().material.color = Color(0.8,0.1,0.1);
 	}
 	else if (owner.name == "Enemy Web Shot") {
 		textureName = "Textures/WEB";
@@ -52,22 +52,22 @@ function init(o : GameObject) {
 	else {
 		Debug.Log("Invalid Spell Model Owner name: " + owner.name);
 	}
-	renderer.material.mainTexture = Resources.Load(textureName, Texture2D);				// Set the texture.  Must be in Resources folder.
+	GetComponent.<Renderer>().material.mainTexture = Resources.Load(textureName, Texture2D);				// Set the texture.  Must be in Resources folder.
 }
 
 function Update () {
 	var getColor : float;
 	if (owner.name == "Enemy Comet") {
 		getColor = owner.GetComponent(EnemySpell).delayTimer;
-		renderer.material.color = Color(1-getColor,0,0);
+		GetComponent.<Renderer>().material.color = Color(1-getColor,0,0);
 	}
 	else if (owner.name == "Comet") {
 		getColor = owner.GetComponent(PlayerSpell).delayTimer;
-		renderer.material.color = Color(0,0,1-getColor);
+		GetComponent.<Renderer>().material.color = Color(0,0,1-getColor);
 	}
 	else if (owner.name == "Enemy Lava") {
 		getColor = owner.GetComponent(Temporary).life;
-		renderer.material.color = Color(getColor/20,0,0);
+		GetComponent.<Renderer>().material.color = Color(getColor/20,0,0);
 	}	
 }
 

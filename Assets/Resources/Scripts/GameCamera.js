@@ -11,7 +11,7 @@ var maxY : float = 1000;
 function init(p : GameObject, minX : float, minY : float, maxX : float, maxY : float) {
 	target = p.transform;
 	transform.position = Vector3(target.position.x, target.position.y, -14);
-	camera.orthographicSize = 5;
+	GetComponent.<Camera>().orthographicSize = 5;
 	
 	this.minX = minX;
 	this.minY = minY;
@@ -22,18 +22,18 @@ function init(p : GameObject, minX : float, minY : float, maxX : float, maxY : f
 
 function Update() {
     if(target) {
-        var point : Vector3 = camera.WorldToViewportPoint(target.position);
-        var delta : Vector3 = target.position - camera.ViewportToWorldPoint(Vector3(0.5, 0.5, point.z));
+        var point : Vector3 = GetComponent.<Camera>().WorldToViewportPoint(target.position);
+        var delta : Vector3 = target.position - GetComponent.<Camera>().ViewportToWorldPoint(Vector3(0.5, 0.5, point.z));
         var destination : Vector3 = transform.position + delta;
 
-        if (destination.x - camera.orthographicSize*camera.aspect < minX)
-        	destination.x = minX + camera.orthographicSize*camera.aspect;
-        if (destination.y - camera.orthographicSize < minY)
-        	destination.y = minY + camera.orthographicSize;
-        if (destination.x + camera.orthographicSize*camera.aspect > maxX)
-        	destination.x = maxX - camera.orthographicSize*camera.aspect;
-        if (destination.y + camera.orthographicSize > maxY)
-        	destination.y = maxY - camera.orthographicSize;
+        if (destination.x - GetComponent.<Camera>().orthographicSize*GetComponent.<Camera>().aspect < minX)
+        	destination.x = minX + GetComponent.<Camera>().orthographicSize*GetComponent.<Camera>().aspect;
+        if (destination.y - GetComponent.<Camera>().orthographicSize < minY)
+        	destination.y = minY + GetComponent.<Camera>().orthographicSize;
+        if (destination.x + GetComponent.<Camera>().orthographicSize*GetComponent.<Camera>().aspect > maxX)
+        	destination.x = maxX - GetComponent.<Camera>().orthographicSize*GetComponent.<Camera>().aspect;
+        if (destination.y + GetComponent.<Camera>().orthographicSize > maxY)
+        	destination.y = maxY - GetComponent.<Camera>().orthographicSize;
 
         transform.position = Vector3.SmoothDamp(transform.position, destination, 
                                                 velocity, dampTime);
@@ -43,7 +43,7 @@ function Update() {
 function setTarget(p : GameObject) {
 	target = p.transform;
 	transform.position = Vector3(target.position.x, target.position.y, -14);
-	camera.orthographicSize = 5;
+	GetComponent.<Camera>().orthographicSize = 5;
 }
 
 function setBounds(minX : float, maxX: float, minY : float, maxY : float) {
@@ -54,5 +54,5 @@ function setBounds(minX : float, maxX: float, minY : float, maxY : float) {
 }
 
 function setZoom(newZoom : float) {
-	camera.orthographicSize = newZoom;
+	GetComponent.<Camera>().orthographicSize = newZoom;
 }
